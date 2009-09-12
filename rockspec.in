@@ -1,0 +1,27 @@
+package = 'lua-TestMore'
+version = '@version@-@rev@'
+source = {
+    url = 'http://cloud.github.com/downloads/fperrad/lua-TestMore/lua-testmore-@version@.tar.gz',
+    md5 = '@md5@',
+    dir = 'lua-TestMore-@version@',
+}
+description = {
+    summary = "an Unit Testing Framework",
+    detailed = [[
+        lua-TestMore is a port of the Perl5 module Test::More.
+    ]],
+    homepage = 'http://testmore.luaforge.net/',
+    maintainer = 'Francois Perrad',
+    license = 'MIT/X11'
+}
+dependencies = {
+    'lua >= 5.1',
+}
+build = {
+    type = 'builtin',
+    modules = {
+        ['Test.Builder']        = 'src/Test/Builder.lua',
+        ['Test.More']           = 'src/Test/More.lua',
+    },
+    copy_directories = { 'doc', 'test', 'test_lua51' },
+}
