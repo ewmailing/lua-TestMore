@@ -55,14 +55,12 @@ like(os.date('%H:%M:%S'), '^%d%d:%d%d:%d%d', "function date")
 is(os.difftime(1234, 1200), 34, "function difftime")
 is(os.difftime(1234), 1234)
 
-cmd = [[perl -e "print qq{hello from Perl\n}; exit(2)"]]
-r = os.execute(cmd)
-is(r, 2, "function execute")
-
 r = os.execute()
 is(r, 1, "function execute")
 
---[[ os.exit ]]
+cmd = [[lua -e "print 'hello from external Lua'; os.exit(2)"]]
+r = os.execute(cmd)
+is(r, 2, "function execute & exit")
 
 is(os.getenv('__IMPROBABLE__'), nil, "function getenv")
 
