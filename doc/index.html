@@ -60,7 +60,12 @@
 <a href="http://search.cpan.org/~mschwern/Test-Simple/">Test::More</a>.</p>
 
 <p>It uses the Test Anything Protocol as output,
-this allows a compatibility with the Perl QA ecosystem.</p>
+this allows a compatibility with the Perl QA ecosystem.<br />
+For example, the basic CLI
+<a href="http://search.cpan.org/~andya/Test-Harness/bin/prove">prove</a>,
+or <a href="http://smolder.plusthree.com/app">Smolder</a>
+a Web-based Continuous Integration Smoke Server.
+</p>
 
 <p>It's an extensible framework.</p>
 
@@ -98,6 +103,18 @@ luarocks install lua-testmore
 There are no building stage, lua-TestMore is a pure Lua module.</p>
 
 <h2><a name="testsuite"></a>The Lua Test Suite</h2>
+
+<p>This suite is usable against :
+  <ul>
+    <li>the standard <a href="http://www.lua.org/">lua</a>,</li>
+    <li><a href="http://luajit.org/">LuaJIT</a>,</li>
+    <li><a href="http://code.google.com/p/llvm-lua/">llvm-lua</a>,</li>
+    <li>...</li>
+  </ul>
+</p>
+
+<p>It gives this <a href="">coverage</a>
+with Lua 5.1.4.</p>
 
 <h2><a name="license"></a>Copyright and License</h2>
 
