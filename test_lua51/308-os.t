@@ -64,7 +64,8 @@ is(r, 2, "function execute & exit")
 
 is(os.getenv('__IMPROBABLE__'), nil, "function getenv")
 
-type_ok(os.getenv('TMP'), 'string', "function getenv")
+user = os.getenv('LOGNAME') or os.getenv('USERNAME')
+type_ok(user, 'string', "function getenv")
 
 local f = io.open('file.rm', 'w')
 f:write("file to remove")
