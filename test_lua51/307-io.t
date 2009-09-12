@@ -57,7 +57,9 @@ is(f, nil, "function open")
 is(msg, "file.no: No such file or directory")
 
 os.remove('file.txt')
-os.execute([[perl -e "open my $X, q{>}, q{file.txt}; binmode $X, q{:raw}; print {$X} qq{file with text\n}; close $X;"]])
+f = io.open('file.txt', 'w')
+f:write("file with text\n")
+f:close()
 f = io.open('file.txt')
 like(f, '^file %(0?[Xx]?%x+%)$', "function open")
 
@@ -187,7 +189,8 @@ error_like(function () f:seek('bad', 0) end,
            "method seek (invalid)")
 
 f = io.open('file.txt')
-is(f:seek("end", 0), 15, "method seek")
+s = f:seek('end', 0) -- 16 on Windows (\n\r)
+ok(s == 15 or s == 16, "method seek")
 f:close()
 
 f = io.open('file.txt')
