@@ -1,9 +1,11 @@
 
+LUA = /usr/bin/lua
+
 export LUA_PATH=;;../src/?.lua
 
 harness:
-	@prove *.t
+	@prove --exec=$(LUA) *.t
 
 sanity:
-	@prove 0*.t
+	@prove --exec=$(LUA) 0*.t
 

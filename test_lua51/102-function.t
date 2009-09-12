@@ -1,4 +1,4 @@
-#! lua
+#! /usr/bin/lua
 --
 -- lua-TestMore : <http://testmore.luaforge.net/>
 --
