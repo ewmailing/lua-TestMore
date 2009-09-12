@@ -1,0 +1,29 @@
+
+lua-TestMore : an Unit Testing Framework
+========================================
+
+Introduction
+------------
+
+lua-TestMore is a port of the Perl5 module Test::More.
+
+It uses the Test Anything Protocol as output,
+that allows a compatibility with the Perl QA ecosystem.
+
+It's an extensible framework.
+
+It supplies a Test Suite for Lua itself.
+
+Links
+-----
+
+The homepage is at http://testmore.luaforge.net/,
+and the sources are hosted at http://github.com/fperrad/lua-TestMore/.
+
+Copyright and License
+---------------------
+
+Copyright (c) 2009 Francois Perrad
+
+This library is licensed under the terms of the MIT/X11 license, like Lua itself.
+
