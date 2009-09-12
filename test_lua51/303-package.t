@@ -29,26 +29,17 @@ L<http://www.lua.org/manual/5.1/manual.html#5.3>.
 
 require 'Test.More'
 
-plan(21)
+plan(29)
 
-t = {}
-for k in pairs(package.loaded) do
-    table.insert(t, k)
-end
-table.sort(t)
-eq_array(t, {
-        'Test.Builder',
-        'Test.More',
-        '_G',
-        'coroutine',
-        'debug',
-        'io',
-        'math',
-        'os',
-        'package',
-        'string',
-        'table',
-}, "table package.loaded")
+ok(package.loaded._G, "table package.loaded")
+ok(package.loaded.coroutine)
+ok(package.loaded.debug)
+ok(package.loaded.io)
+ok(package.loaded.math)
+ok(package.loaded.os)
+ok(package.loaded.package)
+ok(package.loaded.string)
+ok(package.loaded.table)
 
 type_ok(package.path, 'string')
 
