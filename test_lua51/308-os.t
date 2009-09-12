@@ -60,7 +60,7 @@ is(r, 1, "function execute")
 
 cmd = [[lua -e "print 'hello from external Lua'; os.exit(2)"]]
 r = os.execute(cmd)
-is(r, 2, "function execute & exit")
+ok(r == 2 or r == 512, "function execute & exit")
 
 is(os.getenv('__IMPROBABLE__'), nil, "function getenv")
 
