@@ -36,7 +36,7 @@ plan(40)
 like(tostring(math.pi), '^3%.14', "variable pi")
 
 str = tostring(math.huge)
-ok(str == 'Inf' or str == '1.#INF', "variable huge")
+ok(str == 'inf' or str == '1.#INF', "variable huge")
 
 is(math.abs(-12.34), 12.34, "function abs")
 is(math.abs(12.34), 12.34)
