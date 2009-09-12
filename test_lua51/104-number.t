@@ -42,13 +42,13 @@ is(3.14 * 1, 3.14, "3.14 * 1")
 
 is(-7 / 0.5, -14, "-7 / 0.5")
 
-todo "platform specific"
-is(1 / 0, 'Inf', "1 / 0")
+str = tostring(1 / 0)
+ok(str == 'Inf' or str == '1.#INF', "1 / 0")
 
 is(-25 % 3, 2, "-25 % 3")
 
-todo "platform specific"
-is(1 % 0, 'NaN', "1 % 0")
+str = tostring(1 % 0)
+ok(str == 'NaN' or str == '-1.#IND', "1 % 0")
 
 error_like(function () return 10 + true end,
            "^[^:]+:%d+: attempt to perform arithmetic on a boolean value",
