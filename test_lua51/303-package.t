@@ -1,0 +1,193 @@
+#! lua
+--
+-- lua-TestMore : <http://testmore.luaforge.net/>
+--
+-- Copyright (C) 2009, Perrad Francois
+--
+-- This code is licensed under the terms of the MIT/X11 license,
+-- like Lua itself.
+--
+
+--[[
+
+=head1 Lua Package Library
+
+=head2 Synopsis
+
+    % prove 303-package.t
+
+=head2 Description
+
+Tests Lua Package Library
+
+See "Lua 5.1 Reference Manual", section 5.3 "Modules",
+L<http://www.lua.org/manual/5.1/manual.html#5.3>.
+
+=cut
+
+--]]
+
+require 'Test.More'
+
+plan(21)
+
+t = {}
+for k in pairs(package.loaded) do
+    table.insert(t, k)
+end
+table.sort(t)
+eq_array(t, {
+        'Test.Builder',
+        'Test.More',
+        '_G',
+        'coroutine',
+        'debug',
+        'io',
+        'math',
+        'os',
+        'package',
+        'string',
+        'table',
+}, "table package.loaded")
+
+type_ok(package.path, 'string')
+
+type_ok(package.preload, 'table', "table package.preload")
+is(# package.preload, 0)
+
+m = {}
+package.seeall(m)
+m.pass("function package.seeall")
+
+local m = require 'Test.More'
+m.pass("function require")
+
+f = io.open('complex.lua', 'w')
+f:write [[
+complex = {}
+
+function complex.new (r, i) return {r=r, i=i} end
+
+--defines a constant 'i'
+complex.i = complex.new(0, 1)
+
+function complex.add (c1, c2)
+    return complex.new(c1.r + c2.r, c1.i + c2.i)
+end
+
+function complex.sub (c1, c2)
+    return complex.new(c1.r - c2.r, c1.i - c2.i)
+end
+
+function complex.mul (c1, c2)
+    return complex.new(c1.r*c2.r - c1.i*c2.i,
+                       c1.r*c2.i + c1.i*c2.r)
+end
+
+local function inv (c)
+    local n = c.r^2 + c.i^2
+    return complex.new(c.r/n, -c.i/n)
+end
+
+function complex.div (c1, c2)
+    return complex.mul(c1, inv(c2))
+end
+
+return complex
+]]
+f:close()
+m = require 'complex'
+is(m, complex, "function require")
+is(complex.i.r, 0)
+is(complex.i.i, 1)
+os.remove('complex.lua') -- clean up
+
+error_like(function () require('no_module') end,
+           "^[^:]+:%d+: module 'no_module' not found:",
+           "function require (no module)")
+
+f = io.open('foo.lua', 'w')
+f:write [[?syntax error?]]
+f:close()
+error_like(function () require('foo') end,
+           "^error loading module 'foo' from file '%.[/\\]foo%.lua':",
+           "function require (syntax error)")
+os.remove('foo.lua') -- clean up
+
+foo = {}
+foo.bar = 1234
+function foo_loader ()
+    return foo
+end
+package.preload.foo = foo_loader
+m = require 'foo'
+assert(m == foo)
+is(m.bar, 1234, "function require & package.preload")
+
+f = io.open('bar.lua', 'w')
+f:write [[
+    print("    in bar.lua", ...)
+    a = ...
+]]
+f:close()
+a = nil
+require 'bar'
+is(a, 'bar', "function require (arg)")
+os.remove('bar.lua') -- clean up
+
+f = io.open('cplx.lua', 'w')
+f:write [[
+-- print('cplx.lua', ...)
+-- module(...)
+module('cplx')
+
+function new (r, i) return {r=r, i=i} end
+
+--defines a constant 'i'
+i = new(0, 1)
+
+function add (c1, c2)
+    return new(c1.r + c2.r, c1.i + c2.i)
+end
+
+function sub (c1, c2)
+    return new(c1.r - c2.r, c1.i - c2.i)
+end
+
+function mul (c1, c2)
+    return new(c1.r*c2.r - c1.i*c2.i,
+               c1.r*c2.i + c1.i*c2.r)
+end
+
+local function inv (c)
+    local n = c.r^2 + c.i^2
+    return new(c.r/n, -c.i/n)
+end
+
+function div (c1, c2)
+    return mul(c1, inv(c2))
+end
+]]
+f:close()
+require 'cplx'
+is(complex.i.r, 0, "function require & module")
+is(complex.i.i, 1)
+os.remove('cplx.lua') -- clean up
+
+is(mod, nil, "function module & seeall")
+module('mod', package.seeall)
+type_ok(mod, 'table')
+is(mod, package.loaded.mod)
+
+is(modz, nil, "function module")
+local _G = _G
+module('modz')
+_G.type_ok(_G.modz, 'table')
+_G.is(_G.modz, _G.package.loaded.modz)
+
+-- Local Variables:
+--   mode: lua
+--   lua-indent-level: 4
+--   fill-column: 100
+-- End:
+-- vim: ft=lua expandtab shiftwidth=4:
