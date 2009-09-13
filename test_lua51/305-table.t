@@ -31,7 +31,7 @@ See "Programming in Lua", section 19 "The Table Library".
 
 require 'Test.More'
 
-plan(36)
+plan(40)
 
 t = {'a','b','c','d','e'}
 is(table.concat(t), 'abcde', "function concat")
@@ -72,6 +72,30 @@ table.insert(t, 7, 'e')
 is(t[7], 'e')
 table.insert(t, -9, 'f')
 is(t[-9], 'f')
+
+error_like(function () table.insert(t, 2, 'g', 'h')  end,
+           "^[^:]+:%d+: wrong number of arguments to 'insert'",
+           "function insert (too many arg)")
+
+t = {a=10, b=100}
+output = {}
+table.foreach(t, function (k, v) output[k] = v end)
+eq_array(output, t, "function foreach (hash)")
+
+t = {'a','b','c'}
+output = {}
+table.foreach(t, function (k, v)
+    table.insert(output, k)
+    table.insert(output, v)
+end)
+eq_array(output, {1, 'a', 2, 'b', 3, 'c'}, "function foreach (array)")
+
+output = {}
+table.foreachi(t, function (i, v)
+    table.insert(output, i)
+    table.insert(output, v)
+end)
+eq_array(output, {1, 'a', 2, 'b', 3, 'c'}, "function foreachi")
 
 t = {}
 is(table.maxn(t), 0, "function maxn")
