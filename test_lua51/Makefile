@@ -1,7 +1,7 @@
 
 LUAJIT = /usr/local/bin/luajit
 LLVM_LUA = /usr/local/bin/llvm-lua
-LUA = /usr/bin/lua
+LUA = lua
 LUA_COVER = ../doc/lua-5.1.4/src/lua
 
 export LUA_PATH=;;../src/?.lua
