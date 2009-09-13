@@ -59,8 +59,11 @@ r = os.execute()
 is(r, 1, "function execute")
 
 cmd = [[lua -e "print 'hello from external Lua'; os.exit(2)"]]
-r = os.execute(cmd)
-ok(r == 2 or r == 512, "function execute & exit")
+if platform.osname == 'MSWin32' then
+    is(os.execute(cmd), 2, "function execute & exit")
+else
+    is(os.execute(cmd), 512, "function execute & exit")
+end
 
 is(os.getenv('__IMPROBABLE__'), nil, "function getenv")
 
