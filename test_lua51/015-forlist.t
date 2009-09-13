@@ -44,7 +44,7 @@ for i, v in ipairs(t) do
     r = true
 end
 if r then
-    print("nok 7 - for ipairs (hash)")
+    print("not ok 7 - for ipairs (hash)")
 else
     print("ok 7 - for ipairs (hash)")
 end
@@ -58,7 +58,7 @@ for k in pairs(t) do
     if k == 'a' or k == 'b' then
         print("ok " .. 10+i .. " - for pairs (hash)")
     else
-        print("nok " .. 10+i .. " - " .. k)
+        print("not ok " .. 10+i .. " - " .. k)
     end
     i = i + 1
 end
@@ -73,7 +73,7 @@ end
 if i == 2 then
     print("ok 15 - break")
 else
-    print("nok 15 - " .. i)
+    print("not ok 15 - " .. i)
 end
 
 local a = {[1]="ok 16 - for & upval", [2]="ok 17 - for & upval", [3]="ok 18 - for & upval"}

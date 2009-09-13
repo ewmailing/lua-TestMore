@@ -37,7 +37,7 @@ end
 if i == 1 then
     print("ok 1 - while empty")
 else
-    print("nok 1 - " .. i)
+    print("not ok 1 - " .. i)
 end
 
 a = {"ok 2 - while ", "ok 3", "ok 4"}
@@ -57,7 +57,7 @@ end
 if i == 3 then
     print("ok 7 - break")
 else
-    print("nok 7 - " .. i)
+    print("not ok 7 - " .. i)
 end
 
 x = 3
@@ -69,7 +69,7 @@ end
 if i == 4 then
     print("ok 11")
 else
-    print("nok 11 - " .. i)
+    print("not ok 11 - " .. i)
 end
 
 -- Local Variables:

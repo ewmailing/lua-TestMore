@@ -69,7 +69,7 @@ for i = 5, 3 do
     v = true
 end
 if v then
-    print("nok 26 - for 5, 3")
+    print("not ok 26 - for 5, 3")
 else
     print("ok 26 - for 5, 3")
 end
@@ -79,7 +79,7 @@ for i = 5, 7, -1 do
     v = true
 end
 if v then
-    print("nok 27 - for 5, 7, -1")
+    print("not ok 27 - for 5, 7, -1")
 else
     print("ok 27 - for 5, 7, -1")
 end
@@ -90,7 +90,7 @@ for i = 5, 7, 0 do
     break -- avoid infinite loop with LuaJIT
 end
 if v then
-    print("nok 28 - for 5, 7, 0")
+    print("not ok 28 - for 5, 7, 0")
 else
     print("ok 28 - for 5, 7, 0")
 end
@@ -104,7 +104,7 @@ end
 if v == 3 then
     print("ok 31 - break")
 else
-    print("nok 31 - " .. v)
+    print("not ok 31 - " .. v)
 end
 
 local function first() return 1 end
@@ -121,7 +121,7 @@ end
 if(a[5]() == 5) then
     print("ok 36 - for & upval")
 else
-    print("nok 36 - for & upval")
+    print("not ok 36 - for & upval")
 end
 
 -- Local Variables:

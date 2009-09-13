@@ -40,7 +40,7 @@ until not a[i]
 if i == 4 then
     print("ok 4")
 else
-    print("nok 4 - " .. i)
+    print("not ok 4 - " .. i)
 end
 
 a = {"ok 5 - with break", "ok 6", 'stop', 'more'}
@@ -53,7 +53,7 @@ until not a[i]
 if a[i] == 'stop' then
     print("ok 7 - break")
 else
-    print("nok 7 - " .. a[i])
+    print("not ok 7 - " .. a[i])
 end
 
 -- Local Variables:

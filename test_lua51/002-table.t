@@ -34,29 +34,29 @@ print(a[i+1])
 if #a == 3 then
     print("ok 4 - len")
 else
-    print("nok 4")
+    print("not ok 4")
 end
 if a[7] == nil then
     print("ok 5")
 else
-    print("nok 5")
+    print("not ok 5")
 end
 
 t = {a=10, b=100}
 if t['a'] == 10 then
     print("ok 6")
 else
-    print("nok 6")
+    print("not ok 6")
 end
 if t.b == 100 then
     print("ok 7")
 else
-    print("nok 7")
+    print("not ok 7")
 end
 if t.z == nil then
     print("ok 8")
 else
-    print("nok 8")
+    print("not ok 8")
 end
 
 -- Local Variables:
