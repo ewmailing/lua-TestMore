@@ -31,7 +31,7 @@ See "Programming in Lua", section 18 "The Mathematical Library".
 
 require 'Test.More'
 
-plan(40)
+plan(43)
 
 like(tostring(math.pi), '^3%.14', "variable pi")
 
@@ -53,6 +53,8 @@ is(math.ceil(12.34), 13, "function ceil")
 is(math.ceil(-12.34), -12)
 
 is(math.cos(0), 1, "function cos")
+
+is(math.cosh(0), 1, "function cosh")
 
 is(math.deg(math.pi), 180, "function deg")
 
@@ -112,9 +114,13 @@ is(a, b, "function randomseed")
 
 is(math.sin(math.pi/2), 1, "function sin")
 
+like(math.sinh(1), '^1%.175', "function sinh")
+
 like(math.sqrt(2), '^1%.414', "function sqrt")
 
 like(math.tan(math.pi/3), '^1%.732', "function tan")
+
+like(math.tanh(1), '^0%.761', "function sinh")
 
 -- Local Variables:
 --   mode: lua
