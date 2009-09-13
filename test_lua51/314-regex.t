@@ -60,33 +60,92 @@ local test_files = {
 }
 
 local todo_info = {
-    [143] = "fp",
 }
 
 local function split (line)
-    local pattern, target, result, desc = line:match '^([^\t]*)\t+([^\t]*)\t+([^\t]*)\t+([^\t]*)'
+    local pattern, target, result, desc = '', '', '', ''
+    local idx = 1
+    local c = line:sub(idx, idx)
+    while (c ~= '' and c ~= "\t") do
+        if (c == '"') then
+            pattern = pattern .. "\\\""
+        else
+            pattern = pattern .. c
+        end
+        idx = idx + 1
+        c = line:sub(idx, idx)
+    end
     if pattern == "''" then
         pattern = ''
-    else
-        pattern = pattern:gsub('"', "\\\"")
+    end
+    while (c ~= '' and c == "\t") do
+        idx = idx + 1
+        c = line:sub(idx, idx)
+    end
+    while (c ~= '' and c ~= "\t") do
+        if (c == '"') then
+            target = target .. "\\\""
+        else
+            target = target .. c
+        end
+        idx = idx + 1
+        c = line:sub(idx, idx)
     end
     if target == "''" then
         target = ''
-    else
-        target = target:gsub('"', "\\\"")
+    end
+    while (c ~= '' and c == "\t") do
+        idx = idx + 1
+        c = line:sub(idx, idx)
+    end
+    while (c ~= '' and c ~= "\t") do
+        if c == "\\" then
+            idx = idx + 1
+            c = line:sub(idx, idx)
+            if     c == 'f' then
+                result = result .. "\f"
+            elseif c == 'n' then
+                result = result .. "\n"
+            elseif c == 'r' then
+                result = result .. "\r"
+            elseif c == 't' then
+                result = result .. "\t"
+            elseif c == '0' then
+                idx = idx + 1
+                c = line:sub(idx, idx)
+                if     c == '1' then
+                    result = result .. "\01"
+                elseif c == '2' then
+                    result = result .. "\02"
+                elseif c == '3' then
+                    result = result .. "\03"
+                elseif c == '4' then
+                    result = result .. "\04"
+                else
+                    result = result .. "\0" .. c
+                end
+            elseif c == "\t" then
+                result = result .. "\\"
+            else
+                result = result .. "\\" .. c
+            end
+        else
+            result = result .. c
+        end
+        idx = idx + 1
+        c = line:sub(idx, idx)
     end
     if result == "''" then
         result = ''
-    else
-        result = result:gsub("\\f", "\f")
-        result = result:gsub("\\r", "\r")
-        result = result:gsub("\\n", "\n")
-        result = result:gsub("\\t", "\t")
-        result = result:gsub("\\01", "\01")
-        result = result:gsub("\\02", "\02")
-        result = result:gsub("\\03", "\03")
-        result = result:gsub("\\04", "\04")
---        result = result:gsub("\\0", "\0")
+    end
+    while (c ~= '' and c == "\t") do
+        idx = idx + 1
+        c = line:sub(idx, idx)
+    end
+    while (c ~= '' and c ~= "\t") do
+        desc = desc .. c
+        idx = idx + 1
+        c = line:sub(idx, idx)
     end
     return pattern, target, result, desc
 end
@@ -103,7 +162,6 @@ for _, filename in ipairs(test_files) do
                 break
             end
             local pattern, target, result, desc = split(line)
---            print(pattern, target, result, desc)
             test_number = test_number + 1
             if todo_info[test_number] then
                 todo(todo_info[test_number])
@@ -116,7 +174,6 @@ for _, filename in ipairs(test_files) do
                         return table.concat(t, "\t")
                     end
             ]]
---            print(code)
             if result:sub(1, 1) == '/' then
                 local pattern = result:sub(2, result:len() - 1)
                 error_like(loadstring(code), pattern, desc)

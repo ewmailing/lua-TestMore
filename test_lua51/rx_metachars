@@ -93,7 +93,7 @@ a%x+f			ab3Def		ab3Def		hexadecimal
 a%X+f			abcdef		nil		not hexadecimal
 a%X+f			axy;Zf		axy;Zf		not hexadecimal
 a%z+f			abcdef		nil		zero
-a%z+f			a\0f		a		zero
+a%z+f			a\0f		a\0f		zero
 a%Z+f			abcdef		abcdef		not zero
 a%Z+f			abc\0ef		nil		not zero
 a%b()f			a(bcde)f	a(bcde)f	balanced
