@@ -59,7 +59,7 @@ r = os.execute()
 is(r, 1, "function execute")
 
 cmd = [[lua -e "print 'hello from external Lua'; os.exit(2)"]]
-if platform.osname == 'MSWin32' then
+if platform and platform.osname == 'MSWin32' then
     is(os.execute(cmd), 2, "function execute & exit")
 else
     is(os.execute(cmd), 512, "function execute & exit")
@@ -111,7 +111,7 @@ like(os.time({
     isdst = 0,
 }), '^946%d+$', "function time")
 
-if platform.intsize == 8 then
+if platform and platform.intsize == 8 then
     todo("pb on 64bit platforms")
     -- os.time returns nil when C mktime returns < 0
     -- this test needs a out of range value on any platform

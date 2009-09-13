@@ -189,7 +189,7 @@ error_like(function () f:seek('bad', 0) end,
            "method seek (invalid)")
 
 f = io.open('file.txt')
-if platform.osname == 'MSWin32' then
+if platform and platform.osname == 'MSWin32' then
     is(f:seek('end', 0), 16, "method seek")
 else
     is(f:seek('end', 0), 15, "method seek")
