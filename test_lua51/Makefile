@@ -2,6 +2,7 @@
 LUAJIT = /usr/local/bin/luajit
 LLVM_LUA = /usr/local/bin/llvm-lua
 LUA = /usr/bin/lua
+LUA_COVER = ../doc/lua-5.1.4/src/lua
 
 export LUA_PATH=;;../src/?.lua
 
@@ -16,4 +17,7 @@ luajit:
 
 llvm-lua:
 	@prove --exec=$(LLVM_LUA) *.t
+
+cover:
+	@prove --exec=$(LUA_COVER) *.t
 
