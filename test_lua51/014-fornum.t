@@ -87,6 +87,7 @@ end
 v = false
 for i = 5, 7, 0 do
     v = true
+    break -- avoid infinite loop with LuaJIT
 end
 if v then
     print("nok 28 - for 5, 7, 0")
