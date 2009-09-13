@@ -189,8 +189,11 @@ error_like(function () f:seek('bad', 0) end,
            "method seek (invalid)")
 
 f = io.open('file.txt')
-s = f:seek('end', 0) -- 16 on Windows (\n\r)
-ok(s == 15 or s == 16, "method seek")
+if platform.osname == 'MSWin32' then
+    is(f:seek('end', 0), 16, "method seek")
+else
+    is(f:seek('end', 0), 15, "method seek")
+end
 f:close()
 
 f = io.open('file.txt')

@@ -42,13 +42,19 @@ is(3.14 * 1, 3.14, "3.14 * 1")
 
 is(-7 / 0.5, -14, "-7 / 0.5")
 
-str = tostring(1 / 0)
-ok(str == 'inf' or str == '1.#INF', "1 / 0")
+if platform.osname == 'MSWin32' then
+    is(tostring(1 / 0), '1.#INF', "1 / 0")
+else
+    is(tostring(1 / 0), 'inf', "1 / 0")
+end
 
 is(-25 % 3, 2, "-25 % 3")
 
-str = tostring(1 % 0)
-ok(str == 'nan' or str == '-1.#IND', "1 % 0")
+if platform.osname == 'MSWin32' then
+    is(tostring(1 % 0), '-1.#IND', "1 % 0")
+else
+    is(tostring(1 % 0), 'nan', "1 % 0")
+end
 
 error_like(function () return 10 + true end,
            "^[^:]+:%d+: attempt to perform arithmetic on a boolean value",
