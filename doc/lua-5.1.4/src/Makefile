@@ -61,7 +61,7 @@ gcov::	$(ALL_GCOV)
 lcov: gcov
 	lcov --capture -d . -o lua.info
 	rm -rf ../../cover_lua514
-	genhtml -o ../../cover_lua514 -t "Lua 5.1.4" --legend --prefix /home/user/checkout/lua-TestMore/doc/lua-5.1.4 lua.info
+	genhtml -o ../../cover_lua514 -t "Lua 5.1.4" --no-function-coverage --legend --prefix /home/user/checkout/lua-TestMore/doc/lua-5.1.4 lua.info
 
 $(LUA_A): $(CORE_O) $(LIB_O)
 	$(AR) $@ $?
