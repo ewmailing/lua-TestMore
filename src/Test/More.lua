@@ -16,8 +16,16 @@ module 'Test.More'
 
 local tb = require 'Test.Builder'
 
-function plan (num)
-    tb.plan(num)
+function plan (arg)
+    tb.plan(arg)
+end
+
+function skip_all (reason)
+    tb.skip_all(reason)
+end
+
+function BAIL_OUT (reason)
+    tb.BAIL_OUT(reason)
 end
 
 function ok (cond, desc)
