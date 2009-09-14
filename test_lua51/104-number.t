@@ -176,11 +176,11 @@ error_like(function () return 1 >= '0' end,
            "^[^:]+:%d+: attempt to compare %w+ with %w+",
            "1 >= '0'")
 
-is(tostring(1000000000), '1000000000', "1000000000")
+is(tostring(1000000000), '1000000000', "number 1000000000")
 
-is(tostring(1e9), '1000000000', "1e9")
+is(tostring(1e9), '1000000000', "number 1e9")
 
-is(tostring(1.0e+9), '1000000000', "1.0e+9")
+is(tostring(1.0e+9), '1000000000', "number 1.0e+9")
 
 error_like(function () a= 3.14; b = a[1]; end,
            "^[^:]+:%d+: attempt to index",
