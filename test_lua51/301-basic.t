@@ -57,7 +57,7 @@ is(collectgarbage('restart'), 0)
 is(collectgarbage('collect'), 0)
 is(collectgarbage(), 0)
 
-like(collectgarbage('count'), '^%d+%.?%d*$', "function collectgarbage 'count'")
+type_ok(collectgarbage('count'), 'number', "function collectgarbage 'count'")
 
 error_like(function () collectgarbage('unknown') end,
            "^[^:]+:%d+: bad argument #1 to 'collectgarbage' %(invalid option 'unknown'%)",

@@ -55,9 +55,9 @@ like(math.atan2(1, 2), '^0%.463', "function atan2")
 is(math.ceil(12.34), 13, "function ceil")
 is(math.ceil(-12.34), -12)
 
-is(math.cos(0), 1, "function cos")
+like(math.cos(0), '^1$', "function cos")
 
-is(math.cosh(0), 1, "function cosh")
+like(math.cosh(0), '^1$', "function cosh")
 
 is(math.deg(math.pi), 180, "function deg")
 
@@ -115,7 +115,7 @@ math.randomseed(12)
 b = math.random()
 is(a, b, "function randomseed")
 
-is(math.sin(math.pi/2), 1, "function sin")
+like(math.sin(math.pi/2), '^1$', "function sin")
 
 like(math.sinh(1), '^1%.175', "function sinh")
 
