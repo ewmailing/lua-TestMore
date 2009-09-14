@@ -61,6 +61,6 @@ else { \
 }
 
 smolder: env
-	@prove --archive test_lua51.tar.gz --exec=$(LUA) *.t
-#	perl -e "$(upload_pl)"
+	-@prove --archive test_lua51.tar.gz --exec=$(LUA) *.t
+	perl -e "$(upload_pl)"
 

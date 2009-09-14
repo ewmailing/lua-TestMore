@@ -1,6 +1,6 @@
 
-LUAJIT = /usr/local/bin/luajit
-LLVM_LUA = /usr/local/bin/llvm-lua
+LUAJIT = luajit
+LLVM_LUA = llvm-lua
 LUA = lua
 LUA_COVER = ../doc/lua-5.1.4/src/lua
 
@@ -64,5 +64,5 @@ else { \
 }
 
 smolder:
-	@prove --archive test_lua51.tar.gz --exec=$(LUA) *.t
-#	perl -e '$(upload_pl)'
+	-@prove --archive test_lua51.tar.gz --exec=$(LUA) *.t
+	perl -e '$(upload_pl)'
