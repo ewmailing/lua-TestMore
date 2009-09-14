@@ -218,10 +218,6 @@ function note (msg)
     tb.note(msg)
 end
 
-function explain (msg)
-    tb.explain(msg)
-end
-
 function skip (reason, count)
     tb.skip(reason, count)
 end
