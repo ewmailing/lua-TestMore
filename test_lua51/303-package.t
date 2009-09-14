@@ -50,7 +50,7 @@ m = {}
 package.seeall(m)
 m.pass("function package.seeall")
 
-local m = require 'Test.Builder'
+local m = require 'Test.More'
 m.ok(true, "function require")
 
 f = io.open('complex.lua', 'w')
