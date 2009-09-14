@@ -62,9 +62,10 @@
 <p>It uses the
 <a href="http://search.cpan.org/~petdance/TAP/TAP.pm">Test Anything Protocol</a>
 as output, that allows a compatibility with the Perl QA ecosystem.<br />
-For example, the basic CLI
-<a href="http://search.cpan.org/~andya/Test-Harness/bin/prove">prove</a>,
-or <a href="http://smolder.plusthree.com/app">Smolder</a>
+For example,
+<a href="http://search.cpan.org/~andya/Test-Harness/bin/prove">prove</a>
+a basic CLI,
+or <a href="http://search.cpan.org/~wonko/Smolder/">Smolder</a>
 a Web-based Continuous Integration Smoke Server.
 </p>
 
@@ -105,7 +106,7 @@ There are no building stage, lua-TestMore is a pure Lua module.</p>
 
 <h2><a name="testsuite"></a>The Lua Test Suite</h2>
 
-<p>This suite is usable against :
+<p>This suite is usable with :
   <ul>
     <li>the standard <a href="http://www.lua.org/">lua</a>,</li>
     <li><a href="http://luajit.org/">LuaJIT</a>,</li>
@@ -116,6 +117,17 @@ There are no building stage, lua-TestMore is a pure Lua module.</p>
 
 <p>It gives this <a href="cover_lua514/src/index.html">coverage</a>
 with Lua 5.1.4.</p>
+
+<p>Contribute by sending the result from your platform :
+
+<pre class="example">
+cd test_lua51
+make smolder
+</pre>
+
+<p>They are stored
+<a href="http://smolder.plusthree.com/app/public_projects/smoke_reports/12">here</a>
+by Smolder.</p>
 
 <h2><a name="license"></a>Copyright and License</h2>
 
