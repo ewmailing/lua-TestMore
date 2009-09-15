@@ -81,9 +81,15 @@ local b = {}
 for i, v in pairs(a) do
     b[i] = function () return v end
 end
-print(b[1]())
-print(b[2]())
-print(b[3]())
+if arg[-1] == 'parrot-lua' then
+    print("ok 16 # skip upvalues")
+    print("ok 17 # skip upvalues")
+    print("ok 18 # skip upvalues")
+else
+    print(b[1]())
+    print(b[2]())
+    print(b[3]())
+end
 
 -- Local Variables:
 --   mode: lua
