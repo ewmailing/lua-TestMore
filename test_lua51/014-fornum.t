@@ -118,7 +118,7 @@ local a = {}
 for i = 1, 10 do
     a[i] = function () return i end
 end
-if(a[5]() == 5) then
+if a[5]() == 5 then
     print("ok 36 - for & upval")
 else
     print("not ok 36 - for & upval")
