@@ -107,7 +107,7 @@
 <pre class="example">
 require 'Test.More'
 
-plan(7)
+plan(8)
 
 ok(true, "true")
 ok(1, "1 is true")
@@ -116,8 +116,10 @@ nok(nil, "nil is false")
 
 is(1 + 1, 2, "addition")
 
-like("with aaa", "a", "pattern")
-unlike("with aaa", "b", "pattern")
+like("with aaa", 'a', "pattern")
+unlike("with aaa", 'b', "pattern")
+
+error_like([[error "MSG"]], '^[^:]+:%d+: MSG', "error")
 </pre>
 
 </div> <!-- id="content" -->
