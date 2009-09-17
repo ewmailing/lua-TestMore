@@ -127,12 +127,12 @@ end
 
 function skip (reason, count)
     count = count or 1
+    local name = "# skip"
+    if reason then
+        name = name .. " " .. reason
+    end
     for i = 1, count do
-        local out = "ok " .. curr_test .. " # skip"
-        if reason then
-            out = out .. " " .. reason
-        end
-        _print(out)
+        ok(false, name)
     end
 end
 
