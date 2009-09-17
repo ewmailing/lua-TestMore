@@ -28,44 +28,44 @@ function BAIL_OUT (reason)
     tb.BAIL_OUT(reason)
 end
 
-function ok (cond, desc)
-    tb.ok(cond, desc)
+function ok (test, name)
+    tb.ok(test, name)
 end
 
-function nok (cond, desc)
-    tb.ok(not cond, desc)
+function nok (test, name)
+    tb.ok(not test, name)
 end
 
-function is (got, expected, desc)
+function is (got, expected, name)
     local pass = got == expected
-    tb.ok(pass, desc)
+    tb.ok(pass, name)
     if not pass then
         tb.diag("         got: " .. tostring(got)
            .. "\n    expected: " .. tostring(expected))
     end
 end
 
-function isnt (got, expected, desc)
+function isnt (got, expected, name)
     local pass = got ~= expected
-    tb.ok(pass, desc)
+    tb.ok(pass, name)
     if not pass then
         tb.diag("         got: " .. tostring(got)
            .. "\n    expected: anything else")
     end
 end
 
-function like (got, pattern, desc)
+function like (got, pattern, name)
     local pass = tostring(got):match(pattern)
-    tb.ok(pass, desc)
+    tb.ok(pass, name)
     if not pass then
         tb.diag("                  " .. tostring(got)
            .. "\n    doesn't match '" .. tostring(pattern) .. "'")
     end
 end
 
-function unlike (got, pattern, desc)
+function unlike (got, pattern, name)
     local pass = not tostring(got):match(pattern)
-    tb.ok(pass, desc)
+    tb.ok(pass, name)
     if not pass then
         tb.diag("                  " .. tostring(got)
            .. "\n    matches '" .. tostring(pattern) .. "'")
@@ -81,9 +81,9 @@ local cmp = {
     ['~='] = function (a, b) return a ~= b end,
 }
 
-function cmp_ok (this, op, that, desc)
+function cmp_ok (this, op, that, name)
     local pass = cmp[op](this, that)
-    tb.ok(pass, desc)
+    tb.ok(pass, name)
     if not pass then
         tb.diag("    " .. tostring(this)
            .. "\n        " .. op
@@ -91,21 +91,21 @@ function cmp_ok (this, op, that, desc)
     end
 end
 
-function type_ok (val, t, desc)
+function type_ok (val, t, name)
     if type(val) == t then
-        tb.ok(true, desc)
+        tb.ok(true, name)
     else
-        tb.ok(false, desc)
+        tb.ok(false, name)
         tb.diag("    " .. tostring(val) .. " isn't a '" .. t .."' it's '" .. type(val) .. "'")
     end
 end
 
-function pass (desc)
-    tb.ok(true, desc)
+function pass (name)
+    tb.ok(true, name)
 end
 
-function fail (desc)
-    tb.ok(false, desc)
+function fail (name)
+    tb.ok(false, name)
 end
 
 function require_ok (mod)
@@ -116,11 +116,11 @@ function require_ok (mod)
     end
 end
 
-function eq_array (got, expected, desc)
+function eq_array (got, expected, name)
     for i, v in ipairs(expected) do
         local val = got[i]
         if val ~= v then
-            tb.ok(false, desc)
+            tb.ok(false, name)
             tb.diag("    at index: " .. tostring(i)
                .. "\n         got: " .. tostring(val)
                .. "\n    expected: " .. tostring(v))
@@ -129,14 +129,14 @@ function eq_array (got, expected, desc)
     end
     local extra = #got - #expected
     if extra ~= 0 then
-        tb.ok(false, desc)
+        tb.ok(false, name)
         tb.diag("    " .. tostring(extra) .. " unexpected item(s)")
     else
-        tb.ok(true, desc)
+        tb.ok(true, name)
     end
 end
 
-function is_deeply (got, expected, desc)
+function is_deeply (got, expected, name)
     local msg
 
     local function deep_eq (t1, t2)
@@ -165,41 +165,41 @@ function is_deeply (got, expected, desc)
     end -- deep_eq
 
     local pass = deep_eq(got, expected)
-    tb.ok(pass, desc)
+    tb.ok(pass, name)
     if not pass then
         tb.diag("    " .. msg)
     end
 end
 
-function error_is (code, expected, desc)
+function error_is (code, expected, name)
     if type(code) == 'string' then
         code = loadstring(code)
     end
     local r, msg = pcall(code)
     if r then
-        tb.ok(false, desc)
+        tb.ok(false, name)
         tb.diag("    unexpected success"
            .. "\n    expected: " .. tostring(expected))
     else
-        is(msg, expected, desc)
+        is(msg, expected, name)
     end
 end
 
-function error_like (code, pattern, desc)
+function error_like (code, pattern, name)
     if type(code) == 'string' then
         code = loadstring(code)
     end
     local r, msg = pcall(code)
     if r then
-        tb.ok(false, desc)
+        tb.ok(false, name)
         tb.diag("    unexpected success"
            .. "\n    expected: " .. tostring(pattern))
     else
-        like(msg, pattern, desc)
+        like(msg, pattern, name)
     end
 end
 
-function lives_ok (code, desc)
+function lives_ok (code, name)
     if type(code) == 'string' then
         code = loadstring(code)
     end
