@@ -113,7 +113,7 @@ f:write("some text")
 f:close()
 
 io.write() -- not tested
-io.write('text', 12, "\n") -- not tested : text12
+io.write('# text', 12, "\n") -- not tested :  # text12
 
 r, msg = io.stderr:close()
 is(r, nil, "method close (std)")
