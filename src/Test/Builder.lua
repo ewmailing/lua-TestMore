@@ -105,7 +105,7 @@ function ok (test, name)
     end
     out = out .. "ok " .. curr_test .. " - " .. name
     if todo_reason and in_todo() then
-        out = out .. " # TODO #" .. todo_reason
+        out = out .. " # TODO # " .. todo_reason
     end
     _print(out)
 end
