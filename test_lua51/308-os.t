@@ -58,8 +58,10 @@ is(os.difftime(1234), 1234)
 r = os.execute()
 is(r, 1, "function execute")
 
-cmd = [[lua -e "print 'hello from external Lua'; os.exit(2)"]]
-if platform and platform.osname == 'MSWin32' then
+cmd = [[lua -e "print '# hello from external Lua'; os.exit(2)"]]
+if arg[-1] == 'parrot-lua' then
+    is(os.execute(cmd), 2, "function execute & exit")
+elseif platform and platform.osname == 'MSWin32' then
     is(os.execute(cmd), 2, "function execute & exit")
 else
     is(os.execute(cmd), 512, "function execute & exit")
