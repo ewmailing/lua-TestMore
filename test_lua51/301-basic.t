@@ -221,7 +221,7 @@ r = pcall(assert)
 is(r, false)
 
 r, msg = pcall(assert)
-like(msg, "^bad argument #1 to '[^']' %(value expected%)", "function pcall (incomplete)")
+like(msg, "^bad argument #1 to '[^']+' %(value expected%)", "function pcall (incomplete)")
 
 t = {}
 a = t
