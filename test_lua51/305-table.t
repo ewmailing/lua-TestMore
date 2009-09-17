@@ -45,12 +45,12 @@ is(table.concat(t,','), 'a,b,3,d,e', "function concat (number)")
 
 t = {'a','b','c','d','e'}
 error_like(function () table.concat(t, ',', 2, 7) end,
-           "^[^:]+:%d+: invalid value %(nil%) at index 6 in table for 'concat'",
+           "invalid value %(nil%) at index 6 in table for 'concat'",
            "function concat (out of range)")
 
 t = {'a','b',true,'d','e'}
 error_like(function () table.concat(t, ',') end,
-           "^[^:]+:%d+: invalid value %(boolean%) at index 3 in table for 'concat'",
+           "invalid value %(boolean%) at index 3 in table for 'concat'",
            "function concat (non-string)")
 
 is(table.getn{10,2,4}, 3, "function getn")
@@ -73,8 +73,9 @@ is(t[7], 'e')
 table.insert(t, -9, 'f')
 is(t[-9], 'f')
 
+todo("XXX insert")
 error_like(function () table.insert(t, 2, 'g', 'h')  end,
-           "^[^:]+:%d+: wrong number of arguments to 'insert'",
+           "wrong number of arguments to 'insert'",
            "function insert (too many arg)")
 
 t = {a=10, b=100}
@@ -127,7 +128,7 @@ is(table.concat(t, ','), 'b,d')
 
 a = {}
 error_like(function () table.setn(a, 10000) end,
-           "^[^:]+:%d+: 'setn' is obsolete",
+           "'setn' is obsolete",
            "function setn")
 
 lines = {
@@ -190,41 +191,54 @@ function permutations (a)
            end
 end
 
-local t = {}
-output = {}
-for _, v in ipairs{'a', 'b', 'c', 'd', 'e', 'f', 'g'} do
-    table.insert(t, v)
-    local ref = table.concat(t, ' ')
-    table.insert(output, ref)
-    local n = 0
-    for p in permutations(t) do
-        local c = {}
-        for i, v in ipairs(p) do
-            c[i] = v
+if arg[-1] == 'parrot-lua' then
+    skip("sort (all permutations)")
+else
+    local t = {}
+    output = {}
+    for _, v in ipairs{'a', 'b', 'c', 'd', 'e', 'f', 'g'} do
+        table.insert(t, v)
+        local ref = table.concat(t, ' ')
+        table.insert(output, ref)
+        local n = 0
+        for p in permutations(t) do
+            local c = {}
+            for i, v in ipairs(p) do
+                c[i] = v
+            end
+            table.sort(c)
+            assert(ref == table.concat(c, ' '), table.concat(p, ' '))
+            n = n + 1
         end
-        table.sort(c)
-        assert(ref == table.concat(c, ' '), table.concat(p, ' '))
-        n = n + 1
+        table.insert(output, n)
     end
-    table.insert(output, n)
+
+    eq_array(output, {
+        'a', 1,
+        'a b', 2,
+        'a b c', 6,
+        'a b c d', 24,
+        'a b c d e', 120,
+        'a b c d e f', 720,
+        'a b c d e f g', 5040,
+    }, "function sort (all permutations)")
 end
 
-eq_array(output, {
-    'a', 1,
-    'a b', 2,
-    'a b c', 6,
-    'a b c d', 24,
-    'a b c d e', 120,
-    'a b c d e f', 720,
-    'a b c d e f g', 5040,
-}, "function sort (all permutations)")
-
-error_like(function ()
-    local t = { 1 }
-    table.sort( { t, t, t, t, }, function (a, b) return a[1] == b[1] end )
-           end,
-           "^[^:]+:%d+: attempt to index local 'a' %(a nil value%)",
-           "function sort (bad func)")
+if arg[-1] == 'parrot-lua' then
+    error_like(function ()
+                    local t = { 1 }
+                    table.sort( { t, t, t, t, }, function (a, b) return a[1] == b[1] end )
+               end,
+               "invalid order function for sorting",
+               "function sort (bad func)")
+else
+    error_like(function ()
+                    local t = { 1 }
+                    table.sort( { t, t, t, t, }, function (a, b) return a[1] == b[1] end )
+               end,
+               "attempt to index local 'a' %(a nil value%)",
+               "function sort (bad func)")
+end
 -- see bug : http://www.lua.org/bugs.html#5.1.3
 
 -- Local Variables:

@@ -127,7 +127,7 @@ is(os.time({
 }), nil, "function time -> nil")
 
 error_like(function () os.time{} end,
-           "^[^:]+:%d+: field 'day' missing in date table",
+           "field 'day' missing in date table",
            "function time (missing field)")
 
 fname = os.tmpname()

@@ -74,6 +74,7 @@ end
 
 is(a[1](), 21, "ten closures")
 is(a[1](), 22)
+todo("each execution of a local statement defines new local variables")
 is(a[2](), 21)
 
 

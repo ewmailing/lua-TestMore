@@ -44,13 +44,17 @@ is('0' == 0, false, "relational op")
 is(2 < 15, true)
 is('2' < '15', false)
 
-error_like(function () return 2 < '15' end,
-           "compare",
-           "relational op")
+if arg[-1] == 'parrot-lua' then
+    skip("exception from C", 2)
+else
+    error_like(function () return 2 < '15' end,
+               "compare",
+               "relational op")
 
-error_like(function () return '2' < 15 end,
-           "compare",
-           "relational op")
+    error_like(function () return '2' < 15 end,
+               "compare",
+               "relational op")
+end
 
 is(4 and 5, 5, "logical op")
 is(nil and 13, nil)
@@ -88,9 +92,13 @@ is(10 .. 20, '1020')
 is(tostring(10), '10')
 is(10 .. '', '10')
 
-error_like(function () return 'hello' + 1 end,
-           "perform arithmetic",
-           "no coercion")
+if arg[-1] == 'parrot-lua' then
+    skip("exception from C", 1)
+else
+    error_like(function () return 'hello' + 1 end,
+               "perform arithmetic",
+               "no coercion")
+end
 
 -- Local Variables:
 --   mode: lua

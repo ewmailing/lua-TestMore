@@ -29,7 +29,7 @@ plan(54)
 is(-1, -(1), "-1")
 
 error_like(function () return #1 end,
-           "^[^:]+:%d+: attempt to get length of a number value",
+           "attempt to get length of a number value",
            "#1")
 
 is(not 1, false, "not 1")
@@ -42,7 +42,9 @@ is(3.14 * 1, 3.14, "3.14 * 1")
 
 is(-7 / 0.5, -14, "-7 / 0.5")
 
-if platform and platform.osname == 'MSWin32' then
+if arg[-1] == 'parrot-lua' then
+    is(tostring(1 / 0), 'Inf', "1 / 0")
+elseif platform and platform.osname == 'MSWin32' then
     is(tostring(1 / 0), '1.#INF', "1 / 0")
 else
     is(tostring(1 / 0), 'inf', "1 / 0")
@@ -50,59 +52,65 @@ end
 
 is(-25 % 3, 2, "-25 % 3")
 
-if platform and platform.osname == 'MSWin32' then
+if arg[-1] == 'parrot-lua' then
+    is(tostring(1 % 0), 'NaN', "1 % 0")
+elseif platform and platform.osname == 'MSWin32' then
     is(tostring(1 % 0), '-1.#IND', "1 % 0")
 else
     is(tostring(1 % 0), 'nan', "1 % 0")
 end
 
-error_like(function () return 10 + true end,
-           "^[^:]+:%d+: attempt to perform arithmetic on a boolean value",
-           "10 + true")
+if arg[-1] == 'parrot-lua' then
+    skip("exception from C", 12)
+else
+    error_like(function () return 10 + true end,
+               "attempt to perform arithmetic on a boolean value",
+               "10 + true")
 
-error_like(function () return 2 - nil end,
-           "^[^:]+:%d+: attempt to perform arithmetic on a nil value",
-           "2 - nil")
+    error_like(function () return 2 - nil end,
+               "attempt to perform arithmetic on a nil value",
+               "2 - nil")
 
-error_like(function () return 3.14 * false end,
-           "^[^:]+:%d+: attempt to perform arithmetic on a boolean value",
-           "3.14 * false")
+    error_like(function () return 3.14 * false end,
+               "attempt to perform arithmetic on a boolean value",
+               "3.14 * false")
 
-error_like(function () return -7 / {} end,
-           "^[^:]+:%d+: attempt to perform arithmetic on a table value",
-           "-7 / {}")
+    error_like(function () return -7 / {} end,
+               "attempt to perform arithmetic on a table value",
+               "-7 / {}")
 
-error_like(function () return 3 ^ true end,
-           "^[^:]+:%d+: attempt to perform arithmetic on a boolean value",
-           "3 ^ true")
+    error_like(function () return 3 ^ true end,
+               "attempt to perform arithmetic on a boolean value",
+               "3 ^ true")
 
-error_like(function () return -25 % false end,
-           "^[^:]+:%d+: attempt to perform arithmetic on a boolean value",
-           "-25 % false")
+    error_like(function () return -25 % false end,
+               "attempt to perform arithmetic on a boolean value",
+               "-25 % false")
 
-error_like(function () return 10 + 'text' end,
-           "^[^:]+:%d+: attempt to perform arithmetic on a string value",
-           "10 + 'text'")
+    error_like(function () return 10 + 'text' end,
+               "attempt to perform arithmetic on a string value",
+               "10 + 'text'")
 
-error_like(function () return 2 - 'text' end,
-           "^[^:]+:%d+: attempt to perform arithmetic on a string value",
-           "2 - 'text'")
+    error_like(function () return 2 - 'text' end,
+               "attempt to perform arithmetic on a string value",
+               "2 - 'text'")
 
-error_like(function () return 3.14 * 'text' end,
-           "^[^:]+:%d+: attempt to perform arithmetic on a string value",
-           "3.14 * 'text'")
+    error_like(function () return 3.14 * 'text' end,
+               "attempt to perform arithmetic on a string value",
+               "3.14 * 'text'")
 
-error_like(function () return -7 / 'text' end,
-           "^[^:]+:%d+: attempt to perform arithmetic on a string value",
-           "-7 / 'text'")
+    error_like(function () return -7 / 'text' end,
+               "attempt to perform arithmetic on a string value",
+               "-7 / 'text'")
 
-error_like(function () return 25 % 'text' end,
-           "^[^:]+:%d+: attempt to perform arithmetic on a string value",
-           "25 % 'text'")
+    error_like(function () return 25 % 'text' end,
+               "attempt to perform arithmetic on a string value",
+               "25 % 'text'")
 
-error_like(function () return 3 ^ 'text' end,
-           "^[^:]+:%d+: attempt to perform arithmetic on a string value",
-           "3 ^ 'text'")
+    error_like(function () return 3 ^ 'text' end,
+               "attempt to perform arithmetic on a string value",
+               "3 ^ 'text'")
+end
 
 is(10 + '2', 12, "10 + '2'")
 
@@ -120,9 +128,13 @@ is(1 .. 'end', '1end', "1 .. 'end'")
 
 is(1 .. 2, '12', "1 .. 2")
 
-error_like(function () return 1 .. true end,
-           "^[^:]+:%d+: attempt to concatenate a %w+ value",
-           "1 .. true")
+if arg[-1] == 'parrot-lua' then
+    skip("exception from C", 1)
+else
+    error_like(function () return 1 .. true end,
+               "attempt to concatenate a %w+ value",
+               "1 .. true")
+end
 
 is(1.0 == 1, true, "1.0 == 1")
 
@@ -144,37 +156,41 @@ is(1 > 0, true, "1 > 0")
 
 is(1 >= 0, true, "1 >= 0")
 
-error_like(function () return 1 < false end,
-           "^[^:]+:%d+: attempt to compare %w+ with %w+",
-           "1 < false")
+if arg[-1] == 'parrot-lua' then
+    skip("exception from C", 8)
+else
+    error_like(function () return 1 < false end,
+               "attempt to compare %w+ with %w+",
+               "1 < false")
 
-error_like(function () return 1 <= nil end,
-           "^[^:]+:%d+: attempt to compare %w+ with %w+",
-           "1 <= nil")
+    error_like(function () return 1 <= nil end,
+               "attempt to compare %w+ with %w+",
+               "1 <= nil")
 
-error_like(function () return 1 > true end,
-           "^[^:]+:%d+: attempt to compare %w+ with %w+",
-           "1 > true")
+    error_like(function () return 1 > true end,
+               "attempt to compare %w+ with %w+",
+               "1 > true")
 
-error_like(function () return 1 >= {} end,
-           "^[^:]+:%d+: attempt to compare %w+ with %w+",
-           "1 >= {}")
+    error_like(function () return 1 >= {} end,
+               "attempt to compare %w+ with %w+",
+               "1 >= {}")
 
-error_like(function () return 1 < '0' end,
-           "^[^:]+:%d+: attempt to compare %w+ with %w+",
-           "1 < '0'")
+    error_like(function () return 1 < '0' end,
+               "attempt to compare %w+ with %w+",
+               "1 < '0'")
 
-error_like(function () return 1 <= '0' end,
-           "^[^:]+:%d+: attempt to compare %w+ with %w+",
-           "1 <= '0'")
+    error_like(function () return 1 <= '0' end,
+               "attempt to compare %w+ with %w+",
+               "1 <= '0'")
 
-error_like(function () return 1 > '0' end,
-           "^[^:]+:%d+: attempt to compare %w+ with %w+",
-           "1 > '0'")
+    error_like(function () return 1 > '0' end,
+               "attempt to compare %w+ with %w+",
+               "1 > '0'")
 
-error_like(function () return 1 >= '0' end,
-           "^[^:]+:%d+: attempt to compare %w+ with %w+",
-           "1 >= '0'")
+    error_like(function () return 1 >= '0' end,
+               "attempt to compare %w+ with %w+",
+               "1 >= '0'")
+end
 
 is(tostring(1000000000), '1000000000', "number 1000000000")
 
@@ -183,11 +199,11 @@ is(tostring(1e9), '1000000000', "number 1e9")
 is(tostring(1.0e+9), '1000000000', "number 1.0e+9")
 
 error_like(function () a= 3.14; b = a[1]; end,
-           "^[^:]+:%d+: attempt to index",
+           "attempt to index",
            "index")
 
 error_like(function () a = 3.14; a[1] = 1; end,
-           "^[^:]+:%d+: attempt to index",
+           "attempt to index",
            "index")
 
 -- Local Variables:

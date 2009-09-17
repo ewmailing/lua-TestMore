@@ -35,7 +35,9 @@ plan(43)
 
 like(tostring(math.pi), '^3%.14', "variable pi")
 
-if platform and platform.osname == 'MSWin32' then
+if arg[-1] == 'parrot-lua' then
+    is(tostring(math.huge), 'Inf', "variable huge")
+elseif platform and platform.osname == 'MSWin32' then
     is(tostring(math.huge), '1.#INF', "variable huge")
 else
     is(tostring(math.huge), 'inf', "variable huge")
@@ -57,7 +59,11 @@ is(math.ceil(-12.34), -12)
 
 like(math.cos(0), '^1$', "function cos")
 
-like(math.cosh(0), '^1$', "function cosh")
+if arg[-1] == 'parrot-lua' then
+    skip("cosh")
+else
+    like(math.cosh(0), '^1$', "function cosh")
+end
 
 is(math.deg(math.pi), 180, "function deg")
 
@@ -78,7 +84,7 @@ like(math.log(47), '^3%.85', "function log")
 like(math.log10(47), '^1%.672', "function log10")
 
 error_like(function () math.max() end,
-           "^[^:]+:%d+: bad argument #1 to 'max' %(number expected, got no value%)",
+           "bad argument #1 to 'max' %(number expected, got no value%)",
            "function max 0")
 
 is(math.max(1), 1, "function max")
@@ -86,7 +92,7 @@ is(math.max(1, 2), 2)
 is(math.max(1, 2, 3, -4), 3)
 
 error_like(function () math.min() end,
-           "^[^:]+:%d+: bad argument #1 to 'min' %(number expected, got no value%)",
+           "bad argument #1 to 'min' %(number expected, got no value%)",
            "function min 0")
 
 is(math.min(1), 1, "function min")
@@ -106,7 +112,7 @@ like(math.random(9), '^%d$', "function random 1 arg")
 like(math.random(10, 19), '^1%d$', "function random 2 arg")
 
 error_like(function () math.random(1, 2, 3) end,
-           "^[^:]+:%d+: wrong number of arguments",
+           "wrong number of arguments",
            "function random too many arg")
 
 math.randomseed(12)
@@ -117,13 +123,21 @@ is(a, b, "function randomseed")
 
 like(math.sin(math.pi/2), '^1$', "function sin")
 
-like(math.sinh(1), '^1%.175', "function sinh")
+if arg[-1] == 'parrot-lua' then
+    skip("sinh")
+else
+    like(math.sinh(1), '^1%.175', "function sinh")
+end
 
 like(math.sqrt(2), '^1%.414', "function sqrt")
 
 like(math.tan(math.pi/3), '^1%.732', "function tan")
 
-like(math.tanh(1), '^0%.761', "function sinh")
+if arg[-1] == 'parrot-lua' then
+    skip("tanh")
+else
+    like(math.tanh(1), '^0%.761', "function sinh")
+end
 
 -- Local Variables:
 --   mode: lua

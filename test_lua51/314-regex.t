@@ -60,6 +60,7 @@ local test_files = {
 }
 
 local todo_info = {
+    [143] = "embedded zero",
 }
 
 local function split (line)
@@ -158,7 +159,7 @@ for _, filename in ipairs(test_files) do
         break
     else
         for line in f:lines() do
-            if line:len() == 0 then
+            if line:len() < 5 then -- XXX parrot
                 break
             end
             local pattern, target, result, desc = split(line)
@@ -174,11 +175,15 @@ for _, filename in ipairs(test_files) do
                         return table.concat(t, "\t")
                     end
             ]]
+            local compiled, msg = loadstring(code)
+            if not compiled then
+                error("can't compile : " .. code .. "\n" .. msg)
+            end
             if result:sub(1, 1) == '/' then
                 local pattern = result:sub(2, result:len() - 1)
-                error_like(loadstring(code), pattern, desc)
+                error_like(compiled, pattern, desc)
             else
-                is(loadstring(code)(), result, desc)
+                is(compiled(), result, desc)
             end
         end
         f:close()

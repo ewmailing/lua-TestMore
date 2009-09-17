@@ -66,12 +66,12 @@ like(f, '^file %(0?[Xx]?%x+%)$', "function open")
 is(io.close(f), true, "function close")
 
 error_like(function () io.close(f) end,
-           "^[^:]+:%d+: attempt to use a closed file",
+           "attempt to use a closed file",
            "function close (closed)")
 
 todo("XXX")
 error_like(function () io.flush(f) end,
-           "^[^:]+:%d+: attempt to use a closed file",
+           "attempt to use a closed file",
            "function flush (closed)")
 
 is(io.type("not a file"), nil, "function type")
@@ -113,11 +113,15 @@ f:write("some text")
 f:close()
 
 io.write() -- not tested
-io.write('text', 12, "\n") -- not tested : text12
+io.write('# text', 12, "\n") -- not tested : # text12
 
-r, msg = io.stderr:close()
-is(r, nil, "method close (std)")
-is(msg, "cannot close standard file")
+if arg[-1] == 'parrot-lua' then
+    skip("method close (std)", 2)
+else
+    r, msg = io.stderr:close()
+    is(r, nil, "method close (std)")
+    is(msg, "cannot close standard file")
+end
 
 f = io.open('file.txt')
 is(f:close(), true, "method close")
@@ -125,11 +129,11 @@ is(f:close(), true, "method close")
 is(io.stderr:flush(), true, "method flush")
 
 error_like(function () f:flush() end,
-           "^[^:]+:%d+: attempt to use a closed file",
+           "attempt to use a closed file",
            "method flush (closed)")
 
 error_like(function () f:read() end,
-           "^[^:]+:%d+: attempt to use a closed file",
+           "attempt to use a closed file",
            "method read (closed)")
 
 f = io.open('file.txt')
@@ -142,7 +146,7 @@ f:close()
 
 f = io.open('file.txt')
 error_like(function () f:read('*z') end,
-           "^[^:]+:%d+: bad argument #1 to 'read' %(invalid %w+%)",
+           "bad argument #1 to 'read' %(invalid %w+%)",
            "method read (invalid)")
 f:close()
 
@@ -180,16 +184,18 @@ f:close()
 is(io.type(f), 'closed file')
 
 error_like(function () f:seek('end', 0) end,
-           "^[^:]+:%d+: attempt to use a closed file",
+           "attempt to use a closed file",
            "method seek (closed)")
 
 f = io.open('file.txt')
 error_like(function () f:seek('bad', 0) end,
-           "^[^:]+:%d+: bad argument #1 to 'seek' %(invalid option 'bad'%)",
+           "bad argument #1 to 'seek' %(invalid option 'bad'%)",
            "method seek (invalid)")
 
 f = io.open('file.txt')
-if platform and platform.osname == 'MSWin32' then
+if arg[-1] == 'parrot-lua' then
+    is(f:seek('end', 0), 15, "method seek")
+elseif platform and platform.osname == 'MSWin32' then
     is(f:seek('end', 0), 16, "method seek")
 else
     is(f:seek('end', 0), 15, "method seek")
@@ -209,7 +215,7 @@ os.remove('file.txt') -- clean up
 f = io.open('file.out', 'w')
 f:close()
 error_like(function () f:write('end') end,
-           "^[^:]+:%d+: attempt to use a closed file",
+           "attempt to use a closed file",
            "method write (closed)")
 
 f = io.open('file.out', 'w')

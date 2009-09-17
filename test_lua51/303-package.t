@@ -51,7 +51,11 @@ package.seeall(m)
 m.pass("function package.seeall")
 
 local m = require 'Test.More'
-m.ok(true, "function require")
+if arg[-1] == 'parrot-lua' then
+    skip("function require")
+else
+    m.ok(true, "function require")
+end
 
 f = io.open('complex.lua', 'w')
 f:write [[
@@ -87,14 +91,18 @@ end
 return complex
 ]]
 f:close()
-m = require 'complex'
-is(m, complex, "function require")
-is(complex.i.r, 0)
-is(complex.i.i, 1)
+if arg[-1] == 'parrot-lua' then
+    skip("function require", 3)
+else
+    m = require 'complex'
+    is(m, complex, "function require")
+    is(complex.i.r, 0)
+    is(complex.i.i, 1)
+end
 os.remove('complex.lua') -- clean up
 
 error_like(function () require('no_module') end,
-           "^[^:]+:%d+: module 'no_module' not found:",
+           "module 'no_module' not found:",
            "function require (no module)")
 
 f = io.open('foo.lua', 'w')
@@ -160,9 +168,13 @@ function div (c1, c2)
 end
 ]]
 f:close()
-require 'cplx'
-is(complex.i.r, 0, "function require & module")
-is(complex.i.i, 1)
+if arg[-1] == 'parrot-lua' then
+    skip("function require & module", 2)
+else
+    require 'cplx'
+    is(complex.i.r, 0, "function require & module")
+    is(complex.i.i, 1)
+end
 os.remove('cplx.lua') -- clean up
 
 is(mod, nil, "function module & seeall")

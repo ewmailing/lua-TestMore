@@ -93,7 +93,7 @@ is(table.concat(tt[1],','), 'A,b,c')
 --[[ ]]
 a = {}
 error_like(function () a() end,
-           "^[^:]+:%d+: attempt to call")
+           "attempt to call")
 
 --[[ ]]
 local tt

@@ -76,33 +76,36 @@ is(string.format("%02d/%02d/%04d", d, m, y), "05/11/1990")
 tag, title = "h1", "a title"
 is(string.format("<%s>%s</%s>", tag, title, tag), "<h1>a title</h1>")
 
-is(string.format('%q', 'a string with "quotes" and \n new line'), [["a string with \"quotes\" and \
- new line"]], "function format %q")
+todo("XXX format %q")
+is(string.format('%q', 'a string with "quotes" and \n new line'),
+   [["a string with \"quotes\" and \
+ new line"]],
+   "function format %q")
 
 is(string.format("%s %s", 1, 2, 3), '1 2', "function format (too many arg)")
 
 error_like(function () string.format("%s %s", 1) end,
-           "^[^:]+:%d+: bad argument #3 to 'format' %(string expected, got no value%)",
+           "bad argument #3 to 'format' %(string expected, got no value%)",
            "function format (too few arg)")
 
 error_like(function () string.format('%d', 'toto') end,
-           "^[^:]+:%d+: bad argument #2 to 'format' %(number expected, got string%)",
+           "bad argument #2 to 'format' %(number expected, got string%)",
            "function format (bad arg)")
 
 error_like(function () string.format('%k', 'toto') end,
-           "^[^:]+:%d+: invalid option '%%k' to 'format'",
+           "invalid option '%%k' to 'format'",
            "function format (invalid option)")
 
 error_like(function () string.format('%------s', 'toto') end,
-           "^[^:]+:%d+: invalid format %(repeated flags%)",
+           "invalid format %(repeated flags%)",
            "function format (invalid format)")
 
 error_like(function () string.format('pi = %.123f', math.pi) end,
-           "^[^:]+:%d+: invalid format %(width or precision too long%)",
+           "invalid format %(width or precision too long%)",
            "function format (invalid format)")
 
 error_like(function () string.format('% 123s', 'toto') end,
-           "^[^:]+:%d+: invalid format %(width or precision too long%)",
+           "invalid format %(width or precision too long%)",
            "function format (invalid format)")
 
 s = "hello"
@@ -174,11 +177,11 @@ end
 like(expand("print = $print; a = $a"), "^print = function: [0]?[Xx]?%x+; a = nil")
 
 error_like(function () string.gsub("hello world", '(%w+)', '%2 %2') end,
-           "^[^:]+:%d+: invalid capture index",
+           "invalid capture index",
            "function gsub (invalid index)")
 
 error_like(function () string.gsub("hello world", '(%w+)', true) end,
-           "^[^:]+:%d+: bad argument #3 to 'gsub' %(string/function/table expected%)",
+           "bad argument #3 to 'gsub' %(string/function/table expected%)",
            "function gsub (bad type)")
 
 error_like(function ()
@@ -189,7 +192,7 @@ error_like(function ()
     name = 'Lua'; status= true
     expand("$name is $status, isn't it?")
            end,
-           "^[^:]+:%d+: invalid replacement value %(a boolean%)",
+           "invalid replacement value %(a boolean%)",
            "function gsub (invalid value)")
 
 is(string.len(''), 0, "function len")

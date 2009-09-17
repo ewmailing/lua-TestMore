@@ -70,7 +70,7 @@ type_ok(debug.getfenv(a), 'table')
 is(debug.getfenv(a), t)
 
 error_like(function () t = {}; debug.setfenv(t, t) end,
-           "^[^:]+:%d+: 'setfenv' cannot change environment of given object",
+           "'setfenv' cannot change environment of given object",
            "function setfenv (forbidden)")
 
 t = {}
