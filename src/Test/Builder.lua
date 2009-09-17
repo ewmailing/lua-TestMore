@@ -132,7 +132,7 @@ function skip (reason, count)
         name = name .. " " .. reason
     end
     for i = 1, count do
-        ok(false, name)
+        ok(true, name)
     end
 end
 
