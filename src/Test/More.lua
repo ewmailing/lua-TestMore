@@ -174,7 +174,14 @@ end
 
 function error_is (code, expected, name)
     if type(code) == 'string' then
-        code = loadstring(code)
+        local msg
+        code, msg = loadstring(code)
+        if not code then
+            tb.ok(false, name)
+            tb.diag("    can't compile code :"
+               .. "\n    " .. msg)
+            return
+        end
     end
     local r, msg = pcall(code)
     if r then
@@ -188,7 +195,14 @@ end
 
 function error_like (code, pattern, name)
     if type(code) == 'string' then
-        code = loadstring(code)
+        local msg
+        code, msg = loadstring(code)
+        if not code then
+            tb.ok(false, name)
+            tb.diag("    can't compile code :"
+               .. "\n    " .. msg)
+            return
+        end
     end
     local r, msg = pcall(code)
     if r then
@@ -202,7 +216,14 @@ end
 
 function lives_ok (code, name)
     if type(code) == 'string' then
-        code = loadstring(code)
+        local msg
+        code, msg = loadstring(code)
+        if not code then
+            tb.ok(false, name)
+            tb.diag("    can't compile code :"
+               .. "\n    " .. msg)
+            return
+        end
     end
     local r, msg = pcall(code)
     tb.ok(r)
