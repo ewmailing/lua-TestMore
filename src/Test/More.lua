@@ -14,6 +14,7 @@ local os = os
 local ipairs = ipairs
 local pcall = pcall
 local print = print
+local require = require
 local tostring = tostring
 local type = type
 
@@ -89,6 +90,15 @@ function fail (name)
     ok(false, name)
 end
 
+function require_ok (mod)
+    local r, msg = pcall(require, mod)
+    ok(r, "require '" .. mod .. "'")
+    if not r then
+        diag("    " .. msg)
+    end
+    return r
+end
+
 function eq_array (got, expected, name)
     for i, v in ipairs(expected) do
         local val = got[i]
@@ -133,6 +143,10 @@ function skip (reason, count)
     for i = 1, count do
         ok(true, name)
     end
+end
+
+function skip_rest (reason)
+    skip(reason, expected_tests - curr_test)
 end
 
 function todo (reason, count)
