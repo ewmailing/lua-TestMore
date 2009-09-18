@@ -114,6 +114,7 @@ function require_ok (mod)
     if not r then
         tb.diag("    " .. msg)
     end
+    return r
 end
 
 function eq_array (got, expected, name)
@@ -220,6 +221,14 @@ end
 
 function skip (reason, count)
     tb.skip(reason, count)
+end
+
+function todo_skip (reason)
+    tb.todo_skip(reason)
+end
+
+function skip_rest (reason)
+    tb.skip_rest(reason)
 end
 
 function todo (reason, count)

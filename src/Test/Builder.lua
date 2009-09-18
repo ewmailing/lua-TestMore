@@ -136,6 +136,18 @@ function skip (reason, count)
     end
 end
 
+function todo_skip (reason)
+    local name = "# TODO & SKIP"
+    if reason then
+        name = name .. " " .. reason
+    end
+    ok(false, name)
+end
+
+function skip_rest (reason)
+    skip(reason, expected_tests - curr_test)
+end
+
 local function diag_file ()
     if in_todo() then
         return todo_output()
