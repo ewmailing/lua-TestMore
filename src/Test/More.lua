@@ -155,9 +155,11 @@ function todo (reason, count)
     todo_reason = reason
 end
 
-_G.Test = { More = { ok = ok } }
+local ok = ok
 
 module 'Test.More'
+
+ok = ok
 
 --
 -- Copyright (c) 2009 Francois Perrad
