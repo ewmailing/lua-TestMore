@@ -88,11 +88,11 @@
 
 <h4><code>is_deeply( got, expected [, name] )</code></h4>
 
-<h4><code>error_is( code, expected [, name] )</code></h4>
+<h4><code>error_is( code [, params_array], expected [, name] )</code></h4>
 
-<h4><code>error_like( code, pattern [, name] )</code></h4>
+<h4><code>error_like( code [, params_array], pattern [, name] )</code></h4>
 
-<h4><code>lives_ok( code [, name] )</code></h4>
+<h4><code>lives_ok( code [, params_array] [, name] )</code></h4>
 
 <h4><code>diag( msg )</code></h4>
 
@@ -111,7 +111,7 @@
 <pre class="example">
 require 'Test.More'
 
-plan(8)
+plan(9)
 
 ok(true, "true")
 ok(1, "1 is true")
@@ -120,10 +120,11 @@ nok(nil, "nil is false")
 
 is(1 + 1, 2, "addition")
 
-like("with aaa", 'a', "pattern")
-unlike("with aaa", 'b', "pattern")
+like("with aaa", 'a', "pattern matches")
+unlike("with aaa", 'b', "pattern doesn't match")
 
-error_like([[error "MSG"]], '^[^:]+:%d+: MSG', "error")
+error_like([[error 'MSG']], '^[^:]+:%d+: MSG', "loadstring error")
+error_is(error, { 'MSG' }, 'MSG', "function error with param")
 </pre>
 
 </div> <!-- id="content" -->

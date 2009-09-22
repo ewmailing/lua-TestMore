@@ -11,6 +11,7 @@ local pcall = pcall
 local require = require
 local tostring = tostring
 local type = type
+local unpack = unpack
 
 module 'Test.More'
 
@@ -172,7 +173,7 @@ function is_deeply (got, expected, name)
     end
 end
 
-function error_is (code, expected, name)
+function error_is (code, arg2, arg3, arg4)
     if type(code) == 'string' then
         local msg
         code, msg = loadstring(code)
@@ -183,7 +184,17 @@ function error_is (code, expected, name)
             return
         end
     end
-    local r, msg = pcall(code)
+    local params, expected, name
+    if type(arg2) == 'table' then
+        params = arg2
+        expected = arg3
+        name = arg4
+    else
+        params = {}
+        expected = arg2
+        name = arg3
+    end
+    local r, msg = pcall(code, unpack(params))
     if r then
         tb.ok(false, name)
         tb.diag("    unexpected success"
@@ -193,7 +204,7 @@ function error_is (code, expected, name)
     end
 end
 
-function error_like (code, pattern, name)
+function error_like (code, arg2, arg3, arg4)
     if type(code) == 'string' then
         local msg
         code, msg = loadstring(code)
@@ -204,7 +215,17 @@ function error_like (code, pattern, name)
             return
         end
     end
-    local r, msg = pcall(code)
+    local params, pattern, name
+    if type(arg2) == 'table' then
+        params = arg2
+        pattern = arg3
+        name = arg4
+    else
+        params = {}
+        pattern = arg2
+        name = arg3
+    end
+    local r, msg = pcall(code, unpack(params))
     if r then
         tb.ok(false, name)
         tb.diag("    unexpected success"
@@ -214,7 +235,7 @@ function error_like (code, pattern, name)
     end
 end
 
-function lives_ok (code, name)
+function lives_ok (code, arg2, arg3)
     if type(code) == 'string' then
         local msg
         code, msg = loadstring(code)
@@ -225,8 +246,16 @@ function lives_ok (code, name)
             return
         end
     end
-    local r, msg = pcall(code)
-    tb.ok(r)
+    local params, name
+    if type(arg2) == 'table' then
+        params = arg2
+        name = arg3
+    else
+        params = {}
+        name = arg2
+    end
+    local r, msg = pcall(code, unpack(params))
+    tb.ok(r, name)
     if not r then
         tb.diag("    " .. msg)
     end
