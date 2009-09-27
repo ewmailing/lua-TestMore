@@ -76,7 +76,6 @@ is(string.format("%02d/%02d/%04d", d, m, y), "05/11/1990")
 tag, title = "h1", "a title"
 is(string.format("<%s>%s</%s>", tag, title, tag), "<h1>a title</h1>")
 
-todo("XXX format %q")
 is(string.format('%q', 'a string with "quotes" and \n new line'),
    [["a string with \"quotes\" and \
  new line"]],
