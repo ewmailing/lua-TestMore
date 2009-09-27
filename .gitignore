@@ -5,3 +5,5 @@ MANIFEST
 *.bak
 
 cover_lua514
+
+src/Test/*.pbc
