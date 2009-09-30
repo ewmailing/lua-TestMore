@@ -125,7 +125,7 @@ is(m.bar, 1234, "function require & package.preload")
 
 f = io.open('bar.lua', 'w')
 f:write [[
-    print("    in bar.lua", ...)
+    print("#    in bar.lua", ...)
     a = ...
 ]]
 f:close()

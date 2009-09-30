@@ -155,11 +155,11 @@ function todo (reason, count)
     todo_reason = reason
 end
 
-local ok = ok
+local _ok = ok
 
 module 'Test.More'
 
-ok = ok
+ok = _ok
 
 --
 -- Copyright (c) 2009 Francois Perrad
