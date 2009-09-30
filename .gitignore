@@ -6,4 +6,4 @@ MANIFEST
 
 cover_lua514
 
-src/Test/*.pbc
+*.pbc
