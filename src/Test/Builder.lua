@@ -3,29 +3,22 @@
 -- lua-TestMore : <http://testmore.luaforge.net/>
 --
 
-local _G = _G
 local io = io
 local os = os
 local error = error
 local ipairs = ipairs
 local print = print
+local setmetatable = setmetatable
 local tostring = tostring
 local type = type
 
 module 'Test.Builder'
 
-local curr_test = 0
-local expected_tests = 0
-local todo_upto = 0
-local todo_reason
-local have_plan = false
+local testout = io and io.stdout
+local testerr = io and (io.stderr or io.stdout)
 
-local out_file = io and io.stdout
-local fail_file = io and (io.stderr or io.stdout)
-local todo_file = io and io.stdout
-
-local function _print (...)
-    local f = output()
+local function _print (self, ...)
+    local f = self:output()
     if f then
         f:write(..., "\n")
     else
@@ -40,60 +33,106 @@ local function print_comment (f, ...)
             msg = msg .. tostring(v)
         end
         msg = msg:gsub("\n", "\n# ")
+        msg = msg:gsub("\n# \n", "\n#\n")
+        msg = msg:gsub("\n# $", '')
         f:write("# ", msg, "\n")
     else
         print("# ", ...)
     end
 end
 
-function reset ()
-    curr_test = 0
-    expected_tests = 0
-    todo_upto = 0
-    have_plan = false
+function create (self)
+    o = {}
+    setmetatable(o, self)
+    self.__index = self
+    o:reset()
+    o:reset_outputs()
+    return o
 end
 
-function plan (arg)
-    if have_plan then
+local test
+function new (self)
+    test = test or self:create()
+    return test
+end
+
+function reset (self)
+    self.curr_test = 0
+    self.expected_tests = 0
+    self.todo_upto = -1
+    self.todo_reason = nil
+    self.have_plan = false
+    self.no_plan = false
+    self.have_output_plan = false
+end
+
+local function _output_plan (self, max, directive, reason)
+    local out = "1.." .. max
+    if directive then
+        out = out .. " # " .. directive
+    end
+    if reason then
+        out = out .. " " .. reason
+    end
+    _print(self, out)
+    self.have_output_plan = true
+end
+
+function plan (self, arg)
+    if self.have_plan then
         error("You tried to plan twice")
     end
     if type(arg) == 'string' and arg == 'no_plan' then
-        have_plan = true
+        self.have_plan = true
+        self.no_plan = true
         return true
     elseif type(arg) ~= 'number' then
         error("Need a number of tests")
     elseif arg <= 0 then
-        error("Number of tests must be a positive integer.  You gave it '" .. arg .."'")
+        error("Number of tests must be a positive integer.  You gave it '" .. arg .."'.")
     else
-        expected_tests = arg
-        have_plan = true
-        _print("1.." .. arg)
+        self.expected_tests = arg
+        self.have_plan = true
+        _output_plan(self, arg)
         return arg
     end
 end
 
-function skip_all (reason)
-    if have_plan then
+function done_testing (self, num_tests)
+    num_tests = num_tests or self.curr_test
+    if not self.have_output_plan then
+        _output_plan(self, num_tests)
+    end
+end
+
+function _ending (self)
+    if self.no_ending then
+        return
+    end
+    if self.no_plan then
+        _output_plan(self, self.curr_test)
+        self.expected_tests = self.curr_test
+    end
+end
+
+function skip_all (self, reason)
+    if self.have_plan then
         error("You tried to plan twice")
     end
-    out = "1..0"
-    if reason then
-        out = out .. " # Skip " .. reason
-    end
-    _print(out)
+    _output_plan(self, 0, 'SKIP', reason)
     os.exit(0)
 end
 
-local function in_todo ()
-    return todo_upto >= curr_test
+local function in_todo (self)
+    return self.todo_upto >= self.curr_test
 end
 
-function ok (test, name)
+function ok (self, test, name)
     name = name or ''
-    if not have_plan then
+    if not self.have_plan then
         error("You tried to run a test without a plan")
     end
-    curr_test = curr_test + 1
+    self.curr_test = self.curr_test + 1
     name = tostring(name)
     if name:match('^[%d%s]+$') then
         diag("    You named your test '" .. name .."'.  You shouldn't use numbers for your test names."
@@ -103,86 +142,102 @@ function ok (test, name)
     if not test then
         out = "not "
     end
-    out = out .. "ok " .. curr_test .. " - " .. name
-    if todo_reason and in_todo() then
-        out = out .. " # TODO # " .. todo_reason
+    out = out .. "ok " .. self.curr_test
+    if name ~= '' then
+        out = out .. " - " .. name
     end
-    _print(out)
+    if self.todo_reason and in_todo(self) then
+        out = out .. " # TODO # " .. self.todo_reason
+    end
+    _print(self, out)
 end
 
-function BAIL_OUT (reason)
+function BAIL_OUT (self, reason)
     local out = "Bail out!"
     if reason then
         out = out .. "  " .. reason
     end
-    _print(out)
+    _print(self, out)
     os.exit(255)
 end
 
-function todo (reason, count)
-    count = count or 1
-    todo_upto = curr_test + count
-    todo_reason = reason
+function current_test (self, num)
+    if num then
+        self.curr_test = num
+    end
+    return self.curr_test
 end
 
-function skip (reason, count)
+function todo (self, reason, count)
+    count = count or 1
+    self.todo_upto = self.curr_test + count
+    self.todo_reason = reason
+end
+
+function skip (self, reason, count)
     count = count or 1
     local name = "# skip"
     if reason then
         name = name .. " " .. reason
     end
     for i = 1, count do
-        ok(true, name)
+        self:ok(true, name)
     end
 end
 
-function todo_skip (reason)
+function todo_skip (self, reason)
     local name = "# TODO & SKIP"
     if reason then
         name = name .. " " .. reason
     end
-    ok(false, name)
+    self:ok(false, name)
 end
 
-function skip_rest (reason)
-    skip(reason, expected_tests - curr_test)
+function skip_rest (self, reason)
+    self:skip(reason, self.expected_tests - self.curr_test)
 end
 
-local function diag_file ()
-    if in_todo() then
-        return todo_output()
+local function diag_file (self)
+    if in_todo(self) then
+        return self:todo_output()
     else
-        return failure_output()
+        return self:failure_output()
     end
 end
 
-function diag (...)
-    print_comment(diag_file(), ...)
+function diag (self, ...)
+    print_comment(diag_file(self), ...)
 end
 
-function note (...)
-    print_comment(output(), ...)
+function note (self, ...)
+    print_comment(self:output(), ...)
 end
 
-function output (f)
+function output (self, f)
     if f then
-        out_file = f
+        self.out_file = f
     end
-    return out_file
+    return self.out_file
 end
 
-function failure_output (f)
+function failure_output (self, f)
     if f then
-        fail_file = f
+        self.fail_file = f
     end
-    return fail_file
+    return self.fail_file
 end
 
-function todo_output (f)
+function todo_output (self, f)
     if f then
-        todo_file = f
+        self.todo_file = f
     end
-    return todo_file
+    return self.todo_file
+end
+
+function reset_outputs (self)
+    self:output(testout)
+    self:failure_output(testerr)
+    self:todo_output(testout)
 end
 
 --

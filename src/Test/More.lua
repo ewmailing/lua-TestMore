@@ -13,62 +13,67 @@ local tostring = tostring
 local type = type
 local unpack = unpack
 
+require 'Test.Builder'
+local tb = Test.Builder:new()
+
 module 'Test.More'
 
-local tb = require 'Test.Builder'
-
 function plan (arg)
-    tb.plan(arg)
+    tb:plan(arg)
+end
+
+function done_testing (num_tests)
+    tb:done_testing(num_tests)
 end
 
 function skip_all (reason)
-    tb.skip_all(reason)
+    tb:skip_all(reason)
 end
 
 function BAIL_OUT (reason)
-    tb.BAIL_OUT(reason)
+    tb:BAIL_OUT(reason)
 end
 
 function ok (test, name)
-    tb.ok(test, name)
+    tb:ok(test, name)
 end
 
 function nok (test, name)
-    tb.ok(not test, name)
+    tb:ok(not test, name)
 end
 
 function is (got, expected, name)
     local pass = got == expected
-    tb.ok(pass, name)
+    tb:ok(pass, name)
     if not pass then
-        tb.diag("         got: " .. tostring(got)
+        tb:diag("         got: " .. tostring(got)
            .. "\n    expected: " .. tostring(expected))
     end
 end
 
 function isnt (got, expected, name)
     local pass = got ~= expected
-    tb.ok(pass, name)
+    tb:ok(pass, name)
     if not pass then
-        tb.diag("         got: " .. tostring(got)
+        tb:diag("         got: " .. tostring(got)
            .. "\n    expected: anything else")
     end
 end
 
 function like (got, pattern, name)
     local pass = tostring(got):match(pattern)
-    tb.ok(pass, name)
+    tb:ok(pass, name)
     if not pass then
-        tb.diag("                  " .. tostring(got)
+        tb:diag("                  " .. tostring(got)
            .. "\n    doesn't match '" .. tostring(pattern) .. "'")
     end
 end
 
 function unlike (got, pattern, name)
     local pass = not tostring(got):match(pattern)
-    tb.ok(pass, name)
+    tb:ok(pass, name)
     if not pass then
-        tb.diag("                  " .. tostring(got)
+        tb:diag("                  " .. tostring(got)
            .. "\n    matches '" .. tostring(pattern) .. "'")
     end
 end
@@ -84,9 +89,9 @@ local cmp = {
 
 function cmp_ok (this, op, that, name)
     local pass = cmp[op](this, that)
-    tb.ok(pass, name)
+    tb:ok(pass, name)
     if not pass then
-        tb.diag("    " .. tostring(this)
+        tb:diag("    " .. tostring(this)
            .. "\n        " .. op
            .. "\n    " .. tostring(that))
     end
@@ -94,26 +99,26 @@ end
 
 function type_ok (val, t, name)
     if type(val) == t then
-        tb.ok(true, name)
+        tb:ok(true, name)
     else
-        tb.ok(false, name)
-        tb.diag("    " .. tostring(val) .. " isn't a '" .. t .."' it's '" .. type(val) .. "'")
+        tb:ok(false, name)
+        tb:diag("    " .. tostring(val) .. " isn't a '" .. t .."' it's '" .. type(val) .. "'")
     end
 end
 
 function pass (name)
-    tb.ok(true, name)
+    tb:ok(true, name)
 end
 
 function fail (name)
-    tb.ok(false, name)
+    tb:ok(false, name)
 end
 
 function require_ok (mod)
     local r, msg = pcall(require, mod)
-    tb.ok(r, "require '" .. mod .. "'")
+    tb:ok(r, "require '" .. mod .. "'")
     if not r then
-        tb.diag("    " .. msg)
+        tb:diag("    " .. msg)
     end
     return r
 end
@@ -122,8 +127,8 @@ function eq_array (got, expected, name)
     for i, v in ipairs(expected) do
         local val = got[i]
         if val ~= v then
-            tb.ok(false, name)
-            tb.diag("    at index: " .. tostring(i)
+            tb:ok(false, name)
+            tb:diag("    at index: " .. tostring(i)
                .. "\n         got: " .. tostring(val)
                .. "\n    expected: " .. tostring(v))
             return
@@ -131,10 +136,10 @@ function eq_array (got, expected, name)
     end
     local extra = #got - #expected
     if extra ~= 0 then
-        tb.ok(false, name)
-        tb.diag("    " .. tostring(extra) .. " unexpected item(s)")
+        tb:ok(false, name)
+        tb:diag("    " .. tostring(extra) .. " unexpected item(s)")
     else
-        tb.ok(true, name)
+        tb:ok(true, name)
     end
 end
 
@@ -167,9 +172,9 @@ function is_deeply (got, expected, name)
     end -- deep_eq
 
     local pass = deep_eq(got, expected)
-    tb.ok(pass, name)
+    tb:ok(pass, name)
     if not pass then
-        tb.diag("    " .. msg)
+        tb:diag("    " .. msg)
     end
 end
 
@@ -178,8 +183,8 @@ function error_is (code, arg2, arg3, arg4)
         local msg
         code, msg = loadstring(code)
         if not code then
-            tb.ok(false, name)
-            tb.diag("    can't compile code :"
+            tb:ok(false, name)
+            tb:diag("    can't compile code :"
                .. "\n    " .. msg)
             return
         end
@@ -196,8 +201,8 @@ function error_is (code, arg2, arg3, arg4)
     end
     local r, msg = pcall(code, unpack(params))
     if r then
-        tb.ok(false, name)
-        tb.diag("    unexpected success"
+        tb:ok(false, name)
+        tb:diag("    unexpected success"
            .. "\n    expected: " .. tostring(expected))
     else
         is(msg, expected, name)
@@ -209,8 +214,8 @@ function error_like (code, arg2, arg3, arg4)
         local msg
         code, msg = loadstring(code)
         if not code then
-            tb.ok(false, name)
-            tb.diag("    can't compile code :"
+            tb:ok(false, name)
+            tb:diag("    can't compile code :"
                .. "\n    " .. msg)
             return
         end
@@ -227,8 +232,8 @@ function error_like (code, arg2, arg3, arg4)
     end
     local r, msg = pcall(code, unpack(params))
     if r then
-        tb.ok(false, name)
-        tb.diag("    unexpected success"
+        tb:ok(false, name)
+        tb:diag("    unexpected success"
            .. "\n    expected: " .. tostring(pattern))
     else
         like(msg, pattern, name)
@@ -240,8 +245,8 @@ function lives_ok (code, arg2, arg3)
         local msg
         code, msg = loadstring(code)
         if not code then
-            tb.ok(false, name)
-            tb.diag("    can't compile code :"
+            tb:ok(false, name)
+            tb:diag("    can't compile code :"
                .. "\n    " .. msg)
             return
         end
@@ -255,41 +260,38 @@ function lives_ok (code, arg2, arg3)
         name = arg2
     end
     local r, msg = pcall(code, unpack(params))
-    tb.ok(r, name)
+    tb:ok(r, name)
     if not r then
-        tb.diag("    " .. msg)
+        tb:diag("    " .. msg)
     end
 end
 
 function diag (msg)
-    tb.diag(msg)
+    tb:diag(msg)
 end
 
 function note (msg)
-    tb.note(msg)
+    tb:note(msg)
 end
 
 function skip (reason, count)
-    tb.skip(reason, count)
+    tb:skip(reason, count)
 end
 
 function todo_skip (reason)
-    tb.todo_skip(reason)
+    tb:todo_skip(reason)
 end
 
 function skip_rest (reason)
-    tb.skip_rest(reason)
+    tb:skip_rest(reason)
 end
 
 function todo (reason, count)
-    tb.todo(reason, count)
+    tb:todo(reason, count)
 end
 
-for k, v in pairs(_G.Test.More) do
-    if k:sub(1, 1) ~= '_' then
-        -- injection
-        _G[k] = v
-    end
+for k, v in pairs(_G.Test.More) do  -- injection
+    _G[k] = v
 end
 
 _VERSION = "0.0.0"
