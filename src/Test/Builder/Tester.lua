@@ -11,6 +11,7 @@ local ipairs = ipairs
 local module = module
 local pairs = pairs
 local setmetatable = setmetatable
+local type = type
 
 local tb = require 'Test.Builder':new()
 
@@ -138,7 +139,15 @@ function test_diag (...)
     end
 end
 
-function test_test (mess)
+function test_test (args)
+    local mess
+    if type(args) == 'table' then
+        mess = args[1]
+    else
+        mess = args
+        args = {}
+    end
+
     if not testing then
         error "Not testing.  You must declare output with a test function first."
     end
@@ -153,7 +162,8 @@ function test_test (mess)
     testing = false
 
     -- check the output we've stashed
-    local pass = out:check() and err:check()
+    local pass = (args.skip_out or out:check())
+             and (args.skip_err or err:check())
     tb:ok(pass, mess)
     if not pass then
         -- print out the diagnostic information about why this
