@@ -12,6 +12,7 @@ my @files = qw{MANIFEST}; \
 while (<>) { \
     chomp; \
     next if m{^\.}; \
+    next if m{/\.}; \
     next if m{^rockspec/}; \
     push @files, $$_; \
 } \
