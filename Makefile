@@ -61,7 +61,7 @@ rockspec: $(TARBALL)
 
 export LUA_PATH=;;./src/?.lua
 test:
-	prove test/*.t
+	prove --exec=lua test/*.t
 
 clean:
 	rm -f MANIFEST *.bak
