@@ -61,20 +61,30 @@ function isnt (got, expected, name)
 end
 
 function like (got, pattern, name)
+    if type(pattern) ~= 'string' then
+        tb:ok(false, name)
+        tb:diag("pattern isn't a string : " .. tostring(pattern))
+        return
+    end
     local pass = tostring(got):match(pattern)
     tb:ok(pass, name)
     if not pass then
-        tb:diag("                  " .. tostring(got)
+        tb:diag("                  '" .. tostring(got) .. "'"
            .. "\n    doesn't match '" .. tostring(pattern) .. "'")
     end
 end
 
 function unlike (got, pattern, name)
+    if type(pattern) ~= 'string' then
+        tb:ok(false, name)
+        tb:diag("pattern isn't a string : " .. tostring(pattern))
+        return
+    end
     local pass = not tostring(got):match(pattern)
     tb:ok(pass, name)
     if not pass then
-        tb:diag("                  " .. tostring(got)
-           .. "\n    matches '" .. tostring(pattern) .. "'")
+        tb:diag("                  '" .. tostring(got) .. "'"
+           .. "\n          matches '" .. tostring(pattern) .. "'")
     end
 end
 
@@ -88,7 +98,13 @@ local cmp = {
 }
 
 function cmp_ok (this, op, that, name)
-    local pass = cmp[op](this, that)
+    local f = cmp[op]
+    if not f then
+        tb:ok(false, name)
+        tb:diag("unknown operator : " .. tostring(op))
+        return
+    end
+    local pass = f(this, that)
     tb:ok(pass, name)
     if not pass then
         tb:diag("    " .. tostring(this)
@@ -98,11 +114,16 @@ function cmp_ok (this, op, that, name)
 end
 
 function type_ok (val, t, name)
+    if type(t) ~= 'string' then
+        tb:ok(false, name)
+        tb:diag("type isn't a string : " .. tostring(pattern))
+        return
+    end
     if type(val) == t then
         tb:ok(true, name)
     else
         tb:ok(false, name)
-        tb:diag("    " .. tostring(val) .. " isn't a '" .. t .."' it's '" .. type(val) .. "'")
+        tb:diag("    " .. tostring(val) .. " isn't a '" .. t .."' it's a '" .. type(val) .. "'")
     end
 end
 
@@ -179,16 +200,6 @@ function is_deeply (got, expected, name)
 end
 
 function error_is (code, arg2, arg3, arg4)
-    if type(code) == 'string' then
-        local msg
-        code, msg = loadstring(code)
-        if not code then
-            tb:ok(false, name)
-            tb:diag("    can't compile code :"
-               .. "\n    " .. msg)
-            return
-        end
-    end
     local params, expected, name
     if type(arg2) == 'table' then
         params = arg2
@@ -198,6 +209,16 @@ function error_is (code, arg2, arg3, arg4)
         params = {}
         expected = arg2
         name = arg3
+    end
+    if type(code) == 'string' then
+        local msg
+        code, msg = loadstring(code)
+        if not code then
+            tb:ok(false, name)
+            tb:diag("    can't compile code :"
+               .. "\n    " .. msg)
+            return
+        end
     end
     local r, msg = pcall(code, unpack(params))
     if r then
@@ -210,16 +231,6 @@ function error_is (code, arg2, arg3, arg4)
 end
 
 function error_like (code, arg2, arg3, arg4)
-    if type(code) == 'string' then
-        local msg
-        code, msg = loadstring(code)
-        if not code then
-            tb:ok(false, name)
-            tb:diag("    can't compile code :"
-               .. "\n    " .. msg)
-            return
-        end
-    end
     local params, pattern, name
     if type(arg2) == 'table' then
         params = arg2
@@ -229,6 +240,16 @@ function error_like (code, arg2, arg3, arg4)
         params = {}
         pattern = arg2
         name = arg3
+    end
+    if type(code) == 'string' then
+        local msg
+        code, msg = loadstring(code)
+        if not code then
+            tb:ok(false, name)
+            tb:diag("    can't compile code :"
+               .. "\n    " .. msg)
+            return
+        end
     end
     local r, msg = pcall(code, unpack(params))
     if r then
@@ -241,6 +262,14 @@ function error_like (code, arg2, arg3, arg4)
 end
 
 function lives_ok (code, arg2, arg3)
+    local params, name
+    if type(arg2) == 'table' then
+        params = arg2
+        name = arg3
+    else
+        params = {}
+        name = arg2
+    end
     if type(code) == 'string' then
         local msg
         code, msg = loadstring(code)
@@ -250,14 +279,6 @@ function lives_ok (code, arg2, arg3)
                .. "\n    " .. msg)
             return
         end
-    end
-    local params, name
-    if type(arg2) == 'table' then
-        params = arg2
-        name = arg3
-    else
-        params = {}
-        name = arg2
     end
     local r, msg = pcall(code, unpack(params))
     tb:ok(r, name)
