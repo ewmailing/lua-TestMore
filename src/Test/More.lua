@@ -31,20 +31,22 @@ end
 function skip_all (reason)
     out = "1..0"
     if reason then
-        out = out .. " # Skip " .. reason
+        out = out .. " # SKIP " .. reason
     end
     print(out)
     os.exit(0)
 end
 
 function ok (test, name)
-    name = name or ''
     curr_test = curr_test + 1
     local out = ''
     if not test then
         out = "not "
     end
-    out = out .. "ok " .. curr_test .. " - " .. name
+    out = out .. "ok " .. curr_test
+    if name then
+        out = out .. " - " .. name
+    end
     if todo_reason and todo_upto >= curr_test then
         out = out .. " # TODO # " .. todo_reason
     end
