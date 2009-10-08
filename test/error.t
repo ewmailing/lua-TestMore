@@ -1,4 +1,4 @@
-#! lua
+#! /usr/bin/lua
 
 require 'Test.More'
 require 'Test.Builder.Tester'

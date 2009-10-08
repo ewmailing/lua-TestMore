@@ -1,4 +1,4 @@
-#! lua
+#! /usr/bin/lua
 
 require 'Test.More'
 plan(3)
