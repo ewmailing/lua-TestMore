@@ -59,11 +59,7 @@ is(math.ceil(-12.34), -12)
 
 like(math.cos(0), '^1$', "function cos")
 
-if arg[-1] == 'parrot-lua' then
-    skip("cosh")
-else
-    like(math.cosh(0), '^1$', "function cosh")
-end
+like(math.cosh(0), '^1$', "function cosh")
 
 is(math.deg(math.pi), 180, "function deg")
 
@@ -123,21 +119,13 @@ is(a, b, "function randomseed")
 
 like(math.sin(math.pi/2), '^1$', "function sin")
 
-if arg[-1] == 'parrot-lua' then
-    skip("sinh")
-else
-    like(math.sinh(1), '^1%.175', "function sinh")
-end
+like(math.sinh(1), '^1%.175', "function sinh")
 
 like(math.sqrt(2), '^1%.414', "function sqrt")
 
 like(math.tan(math.pi/3), '^1%.732', "function tan")
 
-if arg[-1] == 'parrot-lua' then
-    skip("tanh")
-else
-    like(math.tanh(1), '^0%.761', "function sinh")
-end
+like(math.tanh(1), '^0%.761', "function sinh")
 
 -- Local Variables:
 --   mode: lua
