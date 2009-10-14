@@ -137,7 +137,7 @@ end
 
 function require_ok (mod)
     local r, msg = pcall(require, mod)
-    tb:ok(r, "require '" .. mod .. "'")
+    tb:ok(r, "require '" .. tostring(mod) .. "'")
     if not r then
         tb:diag("    " .. msg)
     end
@@ -145,6 +145,15 @@ function require_ok (mod)
 end
 
 function eq_array (got, expected, name)
+    if type(got) ~= 'table' then
+        tb:ok(false, name)
+        tb:diag("got value isn't a table : " .. tostring(got))
+        return
+    elseif type(expected) ~= 'table' then
+        tb:ok(false, name)
+        tb:diag("expected value isn't a table : " .. tostring(expected))
+        return
+    end
     for i, v in ipairs(expected) do
         local val = got[i]
         if val ~= v then
@@ -165,6 +174,15 @@ function eq_array (got, expected, name)
 end
 
 function is_deeply (got, expected, name)
+    if type(got) ~= 'table' then
+        tb:ok(false, name)
+        tb:diag("got value isn't a table : " .. tostring(got))
+        return
+    elseif type(expected) ~= 'table' then
+        tb:ok(false, name)
+        tb:diag("expected value isn't a table : " .. tostring(expected))
+        return
+    end
     local msg
 
     local function deep_eq (t1, t2)

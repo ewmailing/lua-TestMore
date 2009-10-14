@@ -2,7 +2,7 @@
 
 require 'Test.More'
 require 'Test.Builder.Tester'
-plan(4)
+plan(6)
 
 
 test_out "ok 1 - require 'Test.More'"
@@ -17,5 +17,13 @@ test_diag "    module 'MyApp' not found:"  -- not checked
 test_diag "\tno field package.preload['MyApp']"
 ret = require_ok "MyApp"
 test_test{ "fail require_ok", skip_err = true }
+is( ret, false, "return false" )
+
+
+test_out "not ok 1 - require 'false'"
+--test_fail(2)
+test_diag "    bad argument #1 to '?' (string expected, got boolean)"
+ret = require_ok(false)
+test_test "fail require_ok (bad)"
 is( ret, false, "return false" )
 

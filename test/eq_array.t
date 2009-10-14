@@ -2,7 +2,7 @@
 
 require 'Test.More'
 require 'Test.Builder.Tester'
-plan(4)
+plan(6)
 
 
 test_out "ok 1 - arrays are equal"
@@ -34,3 +34,16 @@ test_diag "    expected: 3"
 eq_array( {1, 2 }, {1, 2, 3}, "missing item" )
 test_test "fail eq_array (missing)"
 
+
+test_out "not ok 1 - got is'nt a table"
+--test_fail(2)
+test_diag "got value isn't a table : nil"
+eq_array( nil, {1, 2, 3}, "got is'nt a table" )
+test_test "fail eq_array (bad)"
+
+
+test_out "not ok 1 - expected is'nt a table"
+--test_fail(2)
+test_diag "expected value isn't a table : nil"
+eq_array( {1, 2, 3}, nil, "expected is'nt a table" )
+test_test "fail eq_array (bad)"
