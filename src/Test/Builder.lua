@@ -128,8 +128,9 @@ local function in_todo (self)
     return self.todo_upto >= self.curr_test
 end
 
-function ok (self, test, name)
+function ok (self, test, name, level)
     name = name or ''
+    level = level or 0
     if not self.have_plan then
         error("You tried to run a test without a plan")
     end
@@ -157,7 +158,7 @@ function ok (self, test, name)
             msg = msg .. " (TODO)"
         end
         if debug then
-            local info = debug.getinfo(3)
+            local info = debug.getinfo(3 + level)
             local file = info.short_src
             local line = info.currentline
             self:diag("    " .. msg .. " test (" .. file .. " at line " .. line .. ")")
@@ -205,7 +206,7 @@ function todo_skip (self, reason)
     if reason then
         name = name .. " " .. reason
     end
-    self:ok(false, name)
+    self:ok(false, name, 1)
 end
 
 function skip_rest (self, reason)
