@@ -22,8 +22,8 @@ is( ret, false, "return false" )
 
 test_out "not ok 1 - require 'false'"
 --test_fail(2)
-test_diag "    bad argument #1 to '?' (string expected, got boolean)"
+test_diag "    bad argument #1 to '?' (string expected, got boolean)" -- not checked
 ret = require_ok(false)
-test_test "fail require_ok (bad)"
+test_test{ "fail require_ok (bad)", skip_err = true }
 is( ret, false, "return false" )
 
