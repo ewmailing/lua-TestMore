@@ -3,6 +3,7 @@
 -- lua-TestMore : <http://testmore.luaforge.net/>
 --
 
+local debug = debug
 local io = io
 local os = os
 local error = error
@@ -150,6 +151,20 @@ function ok (self, test, name)
         out = out .. " # TODO # " .. self.todo_reason
     end
     _print(self, out)
+    if not test then
+        local msg = "Failed"
+        if in_todo(self) then
+            msg = msg .. " (TODO)"
+        end
+        if debug then
+            local info = debug.getinfo(3)
+            local file = info.short_src
+            local line = info.currentline
+            self:diag("    " .. msg .. " test (" .. file .. " at line " .. line .. ")")
+        else
+            self:diag("    " .. msg .. " test")
+        end
+    end
 end
 
 function BAIL_OUT (self, reason)
