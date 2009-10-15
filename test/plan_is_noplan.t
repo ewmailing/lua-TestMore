@@ -7,7 +7,7 @@ local tb = require 'Test.Builder.NoOutput':create()
 tb:plan 'no_plan'
 
 tb:ok( true, 'foo' )
-tb:_ending()
+tb:done_testing()
 
 is( tb:read'out', [[
 ok 1 - foo

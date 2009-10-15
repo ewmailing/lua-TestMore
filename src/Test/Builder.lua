@@ -10,6 +10,7 @@ local error = error
 local ipairs = ipairs
 local print = print
 local setmetatable = setmetatable
+local tonumber = tonumber
 local tostring = tostring
 local type = type
 
@@ -59,7 +60,9 @@ end
 
 function reset (self)
     self.curr_test = 0
+    self._done_testing = false
     self.expected_tests = 0
+    self.is_passing = true
     self.todo_upto = -1
     self.todo_reason = nil
     self.have_plan = false
@@ -101,19 +104,39 @@ end
 
 function done_testing (self, num_tests)
     num_tests = num_tests or self.curr_test
+    if self._done_testing then
+        tb:ok(false, "done_testing() was already called")
+        return
+    end
+    self._done_testing = true
+    if self.expected_tests > 0 and num_tests ~= self.expected_tests then
+        self:ok(false, "planned to run " .. self.expected_tests
+                    .. " but done_testing() expects " .. num_tests)
+    else
+        self.expected_tests = num_tests
+    end
     if not self.have_output_plan then
         _output_plan(self, num_tests)
     end
+    self.have_plan = true
+    -- The wrong number of tests were run
+    if self.expected_tests ~= self.curr_test then
+        self.is_passing = false
+    end
+    -- No tests were run
+    if self.curr_test == 0 then
+        self.is_passing = false
+    end
 end
 
-function _ending (self)
-    if self.no_ending then
-        return
+function has_plan (self)
+    if self.expected_tests > 0 then
+        return self.expected_tests
     end
     if self.no_plan then
-        _output_plan(self, self.curr_test)
-        self.expected_tests = self.curr_test
+        return 'no_plan'
     end
+    return nil
 end
 
 function skip_all (self, reason)
@@ -126,6 +149,16 @@ end
 
 local function in_todo (self)
     return self.todo_upto >= self.curr_test
+end
+
+local function _check_is_passing_plan (self)
+    local plan = self:has_plan()
+    if not plan or not tonumber(plan) then
+        return
+    end
+    if plan < self.curr_test then
+        self.is_passing = false
+    end
 end
 
 function ok (self, test, name, level)
@@ -166,6 +199,10 @@ function ok (self, test, name, level)
             self:diag("    " .. msg .. " test")
         end
     end
+    if not test and not in_todo(self) then
+        self.is_passing = false
+    end
+    _check_is_passing_plan(self)
 end
 
 function BAIL_OUT (self, reason)
