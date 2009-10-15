@@ -1,7 +1,9 @@
 Revision history for lua-TestMore
 
 0.2.0
+	add a diagnostic with file & line number
 	complete is_deeply()
+	fix some portability issues
 
 0.1.0  Thu Oct  8 12:30:00 2009
 	First release
