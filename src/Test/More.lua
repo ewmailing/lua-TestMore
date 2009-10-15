@@ -183,37 +183,47 @@ function is_deeply (got, expected, name)
         tb:diag("expected value isn't a table : " .. tostring(expected))
         return
     end
-    local msg
+    local msg1
+    local msg2
 
-    local function deep_eq (t1, t2)
-        for k, v in pairs(t2) do
-            local val = t1[k]
-            if type(v) == 'table' then
-                local r = deep_eq(val, v)
+    local function deep_eq (t1, t2, key_path)
+        if t1 == t2 then
+            return true
+        end
+        for k, v2 in pairs(t2) do
+            local v1 = t1[k]
+            if type(v1) == 'table' and type(v2) == 'table' then
+                local r = deep_eq(v1, v2, key_path .. "." .. tostring(k))
                 if not r then
                     return false
                 end
             else
-                if val ~= v then
-                    msg = "diff"
+                if v1 ~= v2 then
+                    key_path = key_path .. "." .. tostring(k)
+                    msg1 = "     got" .. key_path .. ": " .. tostring(v1)
+                    msg2 = "expected" .. key_path .. ": " .. tostring(v2)
                     return false
                 end
             end
         end
-        for k, _ in pairs(t1) do
-            local val = t2[k]
-            if val == nil then
-                msg = "unexpected key"
+        for k in pairs(t1) do
+            local v2 = t2[k]
+            if v2 == nil then
+                key_path = key_path .. "." .. tostring(k)
+                msg1 = "     got" .. key_path .. ": " .. tostring(t1[k])
+                msg2 = "expected" .. key_path .. ": " .. tostring(v2)
                 return false
             end
         end
         return true
     end -- deep_eq
 
-    local pass = deep_eq(got, expected)
+    local pass = deep_eq(got, expected, '')
     tb:ok(pass, name)
     if not pass then
-        tb:diag("    " .. msg)
+        tb:diag("    Tables begin differing at:")
+        tb:diag("    " .. msg1)
+        tb:diag("    " .. msg2)
     end
 end
 
