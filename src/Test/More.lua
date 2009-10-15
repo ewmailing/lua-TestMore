@@ -66,11 +66,12 @@ function like (got, pattern, name)
         tb:diag("pattern isn't a string : " .. tostring(pattern))
         return
     end
-    local pass = tostring(got):match(pattern)
+    got = tostring(got)
+    local pass = got:match(pattern)
     tb:ok(pass, name)
     if not pass then
-        tb:diag("                  '" .. tostring(got) .. "'"
-           .. "\n    doesn't match '" .. tostring(pattern) .. "'")
+        tb:diag("                  '" .. got .. "'"
+           .. "\n    doesn't match '" .. pattern .. "'")
     end
 end
 
@@ -80,11 +81,12 @@ function unlike (got, pattern, name)
         tb:diag("pattern isn't a string : " .. tostring(pattern))
         return
     end
-    local pass = not tostring(got):match(pattern)
+    got = tostring(got)
+    local pass = not got:match(pattern)
     tb:ok(pass, name)
     if not pass then
-        tb:diag("                  '" .. tostring(got) .. "'"
-           .. "\n          matches '" .. tostring(pattern) .. "'")
+        tb:diag("                  '" .. got .. "'"
+           .. "\n          matches '" .. pattern .. "'")
     end
 end
 
@@ -254,7 +256,12 @@ function error_is (code, arg2, arg3, arg4)
         tb:diag("    unexpected success"
            .. "\n    expected: " .. tostring(expected))
     else
-        is(msg, expected, name)
+        local pass = msg == expected
+        tb:ok(pass, name)
+        if not pass then
+            tb:diag("         got: " .. msg
+               .. "\n    expected: " .. tostring(expected))
+        end
     end
 end
 
@@ -285,7 +292,17 @@ function error_like (code, arg2, arg3, arg4)
         tb:diag("    unexpected success"
            .. "\n    expected: " .. tostring(pattern))
     else
-        like(msg, pattern, name)
+        if type(pattern) ~= 'string' then
+            tb:ok(false, name)
+            tb:diag("pattern isn't a string : " .. tostring(pattern))
+            return
+        end
+        local pass = msg:match(pattern)
+        tb:ok(pass, name)
+        if not pass then
+            tb:diag("                  '" .. msg .. "'"
+               .. "\n    doesn't match '" .. pattern .. "'")
+        end
     end
 end
 
