@@ -11,7 +11,7 @@ test_test "ok ok"
 
 
 test_out "not ok 1 - foo"
---test_fail(1)
+test_fail(1)
 ok( false, "foo" )
 test_test "fail ok"
 
@@ -22,7 +22,7 @@ test_test "ok nok"
 
 
 test_out "not ok 1 - foo"
---test_fail(1)
+test_fail(1)
 nok( true, "foo" )
 test_test "fail nok"
 
@@ -33,7 +33,7 @@ test_test "pass"
 
 
 test_out "not ok 1 - foo"
---test_fail(1)
+test_fail(1)
 fail "foo"
 test_test "fail"
 

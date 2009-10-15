@@ -15,7 +15,7 @@ test_test "ok is_deeply (hash)"
 
 
 test_out "not ok 1 - key b differents"
---test_fail(4)
+test_fail(4)
 test_diag "    Tables begin differing at:"
 test_diag "         got.b: 2"
 test_diag "    expected.b: -4"
@@ -24,7 +24,7 @@ test_test "fail is_deeply"
 
 
 test_out "not ok 1 - extra key"
---test_fail(4)
+test_fail(4)
 test_diag "    Tables begin differing at:"
 test_diag "         got.d: nil"
 test_diag "    expected.d: extra"
@@ -33,7 +33,7 @@ test_test "fail is_deeply (extra)"
 
 
 test_out "not ok 1 - missing key"
---test_fail(4)
+test_fail(4)
 test_diag "    Tables begin differing at:"
 test_diag "         got.b: 2"
 test_diag "    expected.b: nil"
@@ -42,14 +42,14 @@ test_test "fail is_deeply (missing)"
 
 
 test_out "not ok 1 - got is'nt a table"
---test_fail(2)
+test_fail(2)
 test_diag "got value isn't a table : nil"
 eq_array( nil, t, "got is'nt a table" )
 test_test "fail is_deeply (bad)"
 
 
 test_out "not ok 1 - expected is'nt a table"
---test_fail(2)
+test_fail(2)
 test_diag "expected value isn't a table : nil"
 eq_array( t, nil, "expected is'nt a table" )
 test_test "fail is_deeply (bad)"
@@ -66,7 +66,7 @@ t = {
     },
 }
 test_out "not ok 1 - key d.2 differents"
---test_fail(4)
+test_fail(4)
 test_diag "    Tables begin differing at:"
 test_diag "         got.d.2: y"
 test_diag "    expected.d.2: w"

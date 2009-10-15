@@ -11,7 +11,7 @@ test_test "ok is"
 
 
 test_out "not ok 1 - is foo bar"
---test_fail(3)
+test_fail(3)
 test_diag "         got: foo"
 test_diag "    expected: bar"
 is( "foo", "bar", "is foo bar" )
@@ -24,7 +24,7 @@ test_test "ok isnt"
 
 
 test_out "not ok 1 - isn't foo foo"
---test_fail(3)
+test_fail(3)
 test_diag "         got: foo"
 test_diag "    expected: anything else"
 isnt( "foo", "foo", "isn't foo foo" )

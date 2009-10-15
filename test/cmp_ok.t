@@ -11,7 +11,7 @@ test_test "ok cmp_ok"
 
 
 test_out "not ok 1 - 1 > 2"
---test_fail(4)
+test_fail(4)
 test_diag "    1"
 test_diag "        >"
 test_diag "    2"
@@ -20,7 +20,7 @@ test_test "fail cmp_ok"
 
 
 test_out "not ok 1 - 1 <=> 2"
---test_fail(2)
+test_fail(2)
 test_diag "unknown operator : <=>"
 cmp_ok( 1, '<=>', 2, "1 <=> 2" )
 test_test "unknown operator"
