@@ -136,7 +136,7 @@ function ok (self, test, name)
     self.curr_test = self.curr_test + 1
     name = tostring(name)
     if name:match('^[%d%s]+$') then
-        diag("    You named your test '" .. name .."'.  You shouldn't use numbers for your test names."
+        self:diag("    You named your test '" .. name .."'.  You shouldn't use numbers for your test names."
         .. "\n    Very confusing.")
     end
     local out = ''
