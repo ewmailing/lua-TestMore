@@ -2,11 +2,13 @@
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>lua-TestMore</title>
+  <title>Module Test.More</title>
     <link rel="stylesheet" href="http://www.keplerproject.org/doc.css" type="text/css"/>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta http-equiv="Author" content="Fran&ccedil;ois Perrad"/>
   <meta http-equiv="Language" content="en"/>
+  <meta http-equiv="Description" content="Module Test.More"/>
+  <meta http-equiv="Keywords" content="lua, test, more, plan, done_testing, skip_all, BAIL_OUT, ok, nok, is, isnt, like, unlike, cmp_ok, type_ok, pass, fail, require_ok, eq_array, is_deeply, error_is, error_like, lives_ok, diag, note, skip, todo_skip, skip_rest, todo"/>
 </head>
 
 <body>
@@ -26,7 +28,7 @@
 <div id="main">
 
 <div id="navigation">
-<h1>TestMore</h1>
+<h1>Test.More</h1>
   <ul>
     <li><a href="index.html">Home</a>
       <ul>
@@ -276,6 +278,7 @@ ok 4 - four
 
 <pre class="example">
 $ cat 99example.t
+#!/usr/bin/lua
 require 'Test.More'
 
 plan(9)
