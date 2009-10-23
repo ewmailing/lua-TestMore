@@ -26,7 +26,7 @@ Tests complex
 
 require 'Test.More'
 
-plan(31)
+plan(37)
 
 if not require_ok 'complex' then
     skip_rest "no lib"
@@ -56,9 +56,20 @@ error_like(function () complex.real('str') end,
            "bad argument #1 to 'real' %(number expected, got string%)",
            "complex bad cast")
 
-
 z = complex.new(3, 4)
-is( tostring(-z), '-3-4i', "complex __unm" )
+ok( z == z , "complex __eq (same)" )
+
+ok( z == complex.new(3, 4), "complex __eq" )
+
+is( -z, complex.new(-3, -4), "complex __unm" )
+
+is( z + 1, complex.new(4, 4), "complex __add" )
+
+is( z - complex.I, complex.new(3, 3), "complex __sub" )
+
+is( z * 2, complex.new(6, 8), "complex __mul" )
+
+is( z / 2, complex.new(1.5, 2), "complex __div" )
 
 is( z:abs(), 5, "function abs" )
 
