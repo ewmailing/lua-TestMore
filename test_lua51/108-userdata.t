@@ -38,37 +38,33 @@ error_like(function () return #u end,
 
 is(not u, false, "not u")
 
-if arg[-1] == 'parrot-lua' then
-    skip("exception from C", 7)
-else
-    error_like(function () return u + 10 end,
-               "attempt to perform arithmetic on",
-               "u + 10")
+error_like(function () return u + 10 end,
+           "attempt to perform arithmetic on",
+           "u + 10")
 
-    error_like(function () return u - 2 end,
-               "attempt to perform arithmetic on",
-               "u - 2")
+error_like(function () return u - 2 end,
+           "attempt to perform arithmetic on",
+           "u - 2")
 
-    error_like(function () return u * 3.14 end,
-               "attempt to perform arithmetic on",
-               "u * 3.14")
+error_like(function () return u * 3.14 end,
+           "attempt to perform arithmetic on",
+           "u * 3.14")
 
-    error_like(function () return u / 7 end,
-               "attempt to perform arithmetic on",
-               "u / 7")
+error_like(function () return u / 7 end,
+           "attempt to perform arithmetic on",
+           "u / 7")
 
-    error_like(function () return u % 4 end,
-               "attempt to perform arithmetic on",
-               "u % 4")
+error_like(function () return u % 4 end,
+           "attempt to perform arithmetic on",
+           "u % 4")
 
-    error_like(function () return u ^ 3 end,
-               "attempt to perform arithmetic on",
-               "u ^ 3")
+error_like(function () return u ^ 3 end,
+           "attempt to perform arithmetic on",
+           "u ^ 3")
 
-    error_like(function () return u .. 'end' end,
-               "attempt to concatenate",
-               "u .. 'end'")
-end
+error_like(function () return u .. 'end' end,
+           "attempt to concatenate",
+           "u .. 'end'")
 
 is(u == u, true, "u == u")
 
@@ -79,41 +75,37 @@ is(u == 1, false, "u == 1")
 
 is(u ~= 1, true, "u ~= 1")
 
-if arg[-1] == 'parrot-lua' then
-    skip("exception from C", 8)
-else
-    error_like(function () return u < v end,
-               "attempt to compare two userdata values",
-               "u < v")
+error_like(function () return u < v end,
+           "attempt to compare two userdata values",
+           "u < v")
 
-    error_like(function () return u <= v end,
-               "attempt to compare two userdata values",
-               "u <= v")
+error_like(function () return u <= v end,
+           "attempt to compare two userdata values",
+           "u <= v")
 
-    error_like(function () return u > v end,
-               "attempt to compare two userdata values",
-               "u > v")
+error_like(function () return u > v end,
+           "attempt to compare two userdata values",
+           "u > v")
 
-    error_like(function () return u >= v end,
-               "attempt to compare two userdata values",
-               "u >= v")
+error_like(function () return u >= v end,
+           "attempt to compare two userdata values",
+           "u >= v")
 
-    error_like(function () return u < 0 end,
-               "attempt to compare %w+ with %w+",
-               "u < 0")
+error_like(function () return u < 0 end,
+           "attempt to compare %w+ with %w+",
+           "u < 0")
 
-    error_like(function () return u <= 0 end,
-               "attempt to compare %w+ with %w+",
-               "u <= 0")
+error_like(function () return u <= 0 end,
+           "attempt to compare %w+ with %w+",
+           "u <= 0")
 
-    error_like(function () return u > 0 end,
-               "attempt to compare %w+ with %w+",
-               "u > 0")
+error_like(function () return u > 0 end,
+           "attempt to compare %w+ with %w+",
+           "u > 0")
 
-    error_like(function () return u > 0 end,
-               "attempt to compare %w+ with %w+",
-               "u >= 0")
-end
+error_like(function () return u > 0 end,
+           "attempt to compare %w+ with %w+",
+           "u >= 0")
 
 is(u[1], nil, "index")
 

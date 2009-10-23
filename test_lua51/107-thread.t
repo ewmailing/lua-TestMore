@@ -38,37 +38,33 @@ error_like(function () return #co end,
 
 is(not co, false, "not co")
 
-if arg[-1] == 'parrot-lua' then
-    skip("exception from C", 7)
-else
-    error_like(function () return co + 10 end,
-               "attempt to perform arithmetic on",
-               "co + 10")
+error_like(function () return co + 10 end,
+           "attempt to perform arithmetic on",
+           "co + 10")
 
-    error_like(function () return co - 2 end,
-               "attempt to perform arithmetic on",
-               "co - 2")
+error_like(function () return co - 2 end,
+           "attempt to perform arithmetic on",
+           "co - 2")
 
-    error_like(function () return co * 3.14 end,
-               "attempt to perform arithmetic on",
-               "co * 3.14")
+error_like(function () return co * 3.14 end,
+           "attempt to perform arithmetic on",
+           "co * 3.14")
 
-    error_like(function () return co / 7 end,
-               "attempt to perform arithmetic on",
-               "co / 7")
+error_like(function () return co / 7 end,
+           "attempt to perform arithmetic on",
+           "co / 7")
 
-    error_like(function () return co % 4 end,
-               "attempt to perform arithmetic on",
-               "co % 4")
+error_like(function () return co % 4 end,
+           "attempt to perform arithmetic on",
+           "co % 4")
 
-    error_like(function () return co ^ 3 end,
-               "attempt to perform arithmetic on",
-               "co ^ 3")
+error_like(function () return co ^ 3 end,
+           "attempt to perform arithmetic on",
+           "co ^ 3")
 
-    error_like(function () return co .. 'end' end,
-               "attempt to concatenate",
-               "co .. 'end'")
-end
+error_like(function () return co .. 'end' end,
+           "attempt to concatenate",
+           "co .. 'end'")
 
 is(co == co, true, "co == co")
 
@@ -80,41 +76,37 @@ is(co == 1, false, "co == 1")
 
 is(co ~= 1, true, "co ~= 1")
 
-if arg[-1] == 'parrot-lua' then
-    skip("exception from C", 8)
-else
-    error_like(function () return co1 < co2 end,
-               "attempt to compare two thread values",
-               "co1 < co2")
+error_like(function () return co1 < co2 end,
+           "attempt to compare two thread values",
+           "co1 < co2")
 
-    error_like(function () return co1 <= co2 end,
-               "attempt to compare two thread values",
-               "co1 <= co2")
+error_like(function () return co1 <= co2 end,
+           "attempt to compare two thread values",
+           "co1 <= co2")
 
-    error_like(function () return co1 > co2 end,
-               "attempt to compare two thread values",
-               "co1 > co2")
+error_like(function () return co1 > co2 end,
+           "attempt to compare two thread values",
+           "co1 > co2")
 
-    error_like(function () return co1 >= co2 end,
-               "attempt to compare two thread values",
-               "co1 >= co2")
+error_like(function () return co1 >= co2 end,
+           "attempt to compare two thread values",
+           "co1 >= co2")
 
-    error_like(function () return co < 0 end,
-               "attempt to compare %w+ with %w+",
-               "co < 0")
+error_like(function () return co < 0 end,
+           "attempt to compare %w+ with %w+",
+           "co < 0")
 
-    error_like(function () return co <= 0 end,
-               "attempt to compare %w+ with %w+",
-               "co <= 0")
+error_like(function () return co <= 0 end,
+           "attempt to compare %w+ with %w+",
+           "co <= 0")
 
-    error_like(function () return co > 0 end,
-               "attempt to compare %w+ with %w+",
-               "co > 0")
+error_like(function () return co > 0 end,
+           "attempt to compare %w+ with %w+",
+           "co > 0")
 
-    error_like(function () return co > 0 end,
-               "attempt to compare %w+ with %w+",
-               "co >= 0")
-end
+error_like(function () return co > 0 end,
+           "attempt to compare %w+ with %w+",
+           "co >= 0")
 
 error_like(function () a = co[1] end,
            "attempt to index",

@@ -36,37 +36,33 @@ error_like(function () return #nil end,
 
 is(not nil, true, "not nil")
 
-if arg[-1] == 'parrot-lua' then
-    skip("exception from C", 7)
-else
-    error_like(function () return nil + 10 end,
-               "attempt to perform arithmetic on a nil value",
-               "nil + 10")
+error_like(function () return nil + 10 end,
+           "attempt to perform arithmetic on a nil value",
+           "nil + 10")
 
-    error_like(function () return nil - 2 end,
-               "attempt to perform arithmetic on a nil value",
-               "nil - 2")
+error_like(function () return nil - 2 end,
+           "attempt to perform arithmetic on a nil value",
+           "nil - 2")
 
-    error_like(function () return nil * 3.14 end,
-               "attempt to perform arithmetic on a nil value",
-               "nil * 3.14")
+error_like(function () return nil * 3.14 end,
+           "attempt to perform arithmetic on a nil value",
+           "nil * 3.14")
 
-    error_like(function () return nil / -7 end,
-               "attempt to perform arithmetic on a nil value",
-               "nil / -7")
+error_like(function () return nil / -7 end,
+           "attempt to perform arithmetic on a nil value",
+           "nil / -7")
 
-    error_like(function () return nil % 4 end,
-               "attempt to perform arithmetic on a nil value",
-               "nil % 4")
+error_like(function () return nil % 4 end,
+           "attempt to perform arithmetic on a nil value",
+           "nil % 4")
 
-    error_like(function () return nil ^ 3 end,
-               "attempt to perform arithmetic on a nil value",
-               "nil ^ 3")
+error_like(function () return nil ^ 3 end,
+           "attempt to perform arithmetic on a nil value",
+           "nil ^ 3")
 
-    error_like(function () return nil .. 'end' end,
-               "attempt to concatenate a nil value",
-               "nil .. 'end'")
-end
+error_like(function () return nil .. 'end' end,
+           "attempt to concatenate a nil value",
+           "nil .. 'end'")
 
 is(nil == nil, true, "nil == nil")
 
@@ -76,41 +72,37 @@ is(nil == 1, false, "nil == 1")
 
 is(nil ~= 1, true, "nil ~= 1")
 
-if arg[-1] == 'parrot-lua' then
-    skip("exception from C", 8)
-else
-    error_like(function () return nil < nil end,
-               "attempt to compare two nil values",
-               "nil < nil")
+error_like(function () return nil < nil end,
+           "attempt to compare two nil values",
+           "nil < nil")
 
-    error_like(function () return nil <= nil end,
-               "attempt to compare two nil values",
-               "nil <= nil")
+error_like(function () return nil <= nil end,
+           "attempt to compare two nil values",
+           "nil <= nil")
 
-    error_like(function () return nil > nil end,
-               "attempt to compare two nil values",
-               "nil > nil")
+error_like(function () return nil > nil end,
+           "attempt to compare two nil values",
+           "nil > nil")
 
-    error_like(function () return nil > nil end,
-               "attempt to compare two nil values",
-               "nil >= nil")
+error_like(function () return nil > nil end,
+           "attempt to compare two nil values",
+           "nil >= nil")
 
-    error_like(function () return nil < 0 end,
-               "attempt to compare %w+ with %w+",
-               "nil < 0")
+error_like(function () return nil < 0 end,
+           "attempt to compare %w+ with %w+",
+           "nil < 0")
 
-    error_like(function () return nil <= 0 end,
-               "attempt to compare %w+ with %w+",
-               "nil <= 0")
+error_like(function () return nil <= 0 end,
+           "attempt to compare %w+ with %w+",
+           "nil <= 0")
 
-    error_like(function () return nil > 0 end,
-               "attempt to compare %w+ with %w+",
-               "nil > 0")
+error_like(function () return nil > 0 end,
+           "attempt to compare %w+ with %w+",
+           "nil > 0")
 
-    error_like(function () return nil >= 0 end,
-               "attempt to compare %w+ with %w+",
-               "nil >= 0")
-end
+error_like(function () return nil >= 0 end,
+           "attempt to compare %w+ with %w+",
+           "nil >= 0")
 
 error_like(function () a = nil; b = a[1]; end,
            "attempt to index",

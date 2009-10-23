@@ -46,58 +46,54 @@ is(not f, false, "not f")
 
 is(not print, false)
 
-if arg[-1] == 'parrot-lua' then
-    skip("exception from C", 14)
-else
-    error_like(function () return f + 10 end,
-               "attempt to perform arithmetic on",
-               "f + 10")
+error_like(function () return f + 10 end,
+           "attempt to perform arithmetic on",
+           "f + 10")
 
-    error_like(function () f = print; return f + 10 end,
-               "attempt to perform arithmetic on")
+error_like(function () f = print; return f + 10 end,
+           "attempt to perform arithmetic on")
 
-    error_like(function () return f - 2 end,
-               "attempt to perform arithmetic on",
-               "f - 2")
+error_like(function () return f - 2 end,
+           "attempt to perform arithmetic on",
+           "f - 2")
 
-    error_like(function () f = print; return f - 2 end,
-               "attempt to perform arithmetic on")
+error_like(function () f = print; return f - 2 end,
+           "attempt to perform arithmetic on")
 
-    error_like(function () return f * 3.14 end,
-               "attempt to perform arithmetic on",
-               "f * 3.14")
+error_like(function () return f * 3.14 end,
+           "attempt to perform arithmetic on",
+           "f * 3.14")
 
-    error_like(function () f = print; return f * 3.14 end,
-               "attempt to perform arithmetic on")
+error_like(function () f = print; return f * 3.14 end,
+           "attempt to perform arithmetic on")
 
-    error_like(function () return f / -7 end,
-               "attempt to perform arithmetic on",
-               "f / -7")
+error_like(function () return f / -7 end,
+           "attempt to perform arithmetic on",
+           "f / -7")
 
-    error_like(function () f = print; return f / -7 end,
-               "attempt to perform arithmetic on")
+error_like(function () f = print; return f / -7 end,
+           "attempt to perform arithmetic on")
 
-    error_like(function () return f % 4 end,
-               "attempt to perform arithmetic on",
-               "f % 4")
+error_like(function () return f % 4 end,
+           "attempt to perform arithmetic on",
+           "f % 4")
 
-    error_like(function () f = print; return f % 4 end,
-               "attempt to perform arithmetic on")
+error_like(function () f = print; return f % 4 end,
+           "attempt to perform arithmetic on")
 
-    error_like(function () return f ^ 3 end,
-               "attempt to perform arithmetic on",
-               "f ^ 3")
+error_like(function () return f ^ 3 end,
+           "attempt to perform arithmetic on",
+           "f ^ 3")
 
-    error_like(function () f = print; return f ^ 3 end,
-               "attempt to perform arithmetic on")
+error_like(function () f = print; return f ^ 3 end,
+           "attempt to perform arithmetic on")
 
-    error_like(function () return f .. 'end' end,
-               "attempt to concatenate",
-               "f .. 'end'")
+error_like(function () return f .. 'end' end,
+           "attempt to concatenate",
+           "f .. 'end'")
 
-    error_like(function () f = print; return f .. 'end' end,
-               "attempt to concatenate")
-end
+error_like(function () f = print; return f .. 'end' end,
+           "attempt to concatenate")
 
 g = f
 is(f == g, true, "f == f")
@@ -121,65 +117,61 @@ is(f ~= 1, true, "f ~= 1")
 
 is(print ~= 1, true)
 
-if arg[-1] == 'parrot-lua' then
-    skip("exception from C", 16)
-else
-    error_like(function () return f < g end,
-               "attempt to compare two function values",
-               "f < g")
+error_like(function () return f < g end,
+           "attempt to compare two function values",
+           "f < g")
 
-    error_like(function () f = print; g = type; return f < g end,
-               "attempt to compare two function values")
+error_like(function () f = print; g = type; return f < g end,
+           "attempt to compare two function values")
 
-    error_like(function () return f <= g end,
-               "attempt to compare two function values",
-               "f <= g")
+error_like(function () return f <= g end,
+           "attempt to compare two function values",
+           "f <= g")
 
-    error_like(function () f = print; g = type; return f <= g end,
-               "attempt to compare two function values")
+error_like(function () f = print; g = type; return f <= g end,
+           "attempt to compare two function values")
 
-    error_like(function () return f > g end,
-               "attempt to compare two function values",
-               "f > g")
+error_like(function () return f > g end,
+           "attempt to compare two function values",
+           "f > g")
 
-    error_like(function () f = print; g = type; return f > g end,
-               "attempt to compare two function values")
+error_like(function () f = print; g = type; return f > g end,
+           "attempt to compare two function values")
 
-    error_like(function () return f >= g end,
-               "attempt to compare two function values",
-               "f >= g")
+error_like(function () return f >= g end,
+           "attempt to compare two function values",
+           "f >= g")
 
-    error_like(function () f = print; g = type; return f >= g end,
-               "attempt to compare two function values")
+error_like(function () f = print; g = type; return f >= g end,
+           "attempt to compare two function values")
 
-    error_like(function () return f < 0 end,
-               "attempt to compare %w+ with %w+",
-               "f < 0")
+error_like(function () return f < 0 end,
+           "attempt to compare %w+ with %w+",
+           "f < 0")
 
-    error_like(function () f = print; return f < 0 end,
-               "attempt to compare %w+ with %w+")
+error_like(function () f = print; return f < 0 end,
+           "attempt to compare %w+ with %w+")
 
-    error_like(function () return f <= 0 end,
-               "attempt to compare %w+ with %w+",
-               "f <= 0")
+error_like(function () return f <= 0 end,
+           "attempt to compare %w+ with %w+",
+           "f <= 0")
 
-    error_like(function () f = print; return f <= 0 end,
-               "attempt to compare %w+ with %w+")
+error_like(function () f = print; return f <= 0 end,
+           "attempt to compare %w+ with %w+")
 
-    error_like(function () return f > 0 end,
-               "attempt to compare %w+ with %w+",
-               "f > 0")
+error_like(function () return f > 0 end,
+           "attempt to compare %w+ with %w+",
+           "f > 0")
 
-    error_like(function () f = print; return f > 0 end,
-               "attempt to compare %w+ with %w+")
+error_like(function () f = print; return f > 0 end,
+           "attempt to compare %w+ with %w+")
 
-    error_like(function () return f > 0 end,
-               "attempt to compare %w+ with %w+",
-               "f >= 0")
+error_like(function () return f > 0 end,
+           "attempt to compare %w+ with %w+",
+           "f >= 0")
 
-    error_like(function () f = print; return f >= 0 end,
-               "attempt to compare %w+ with %w+")
-end
+error_like(function () f = print; return f >= 0 end,
+           "attempt to compare %w+ with %w+")
 
 error_like(function () a = f; b = a[1]; end,
            "attempt to index",

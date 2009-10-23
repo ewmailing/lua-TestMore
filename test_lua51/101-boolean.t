@@ -36,37 +36,33 @@ error_like(function () return #true end,
 
 is(not false, true, "not false")
 
-if arg[-1] == 'parrot-lua' then
-    skip("exception from C", 7)
-else
-    error_like(function () return true + 10 end,
-               "attempt to perform arithmetic on a boolean value",
-               "true + 10")
+error_like(function () return true + 10 end,
+           "attempt to perform arithmetic on a boolean value",
+           "true + 10")
 
-    error_like(function () return true - 2 end,
-               "attempt to perform arithmetic on a boolean value",
-               "true - 2")
+error_like(function () return true - 2 end,
+           "attempt to perform arithmetic on a boolean value",
+           "true - 2")
 
-    error_like(function () return true * 3.14 end,
-               "attempt to perform arithmetic on a boolean value",
-               "true * 3.14")
+error_like(function () return true * 3.14 end,
+           "attempt to perform arithmetic on a boolean value",
+           "true * 3.14")
 
-    error_like(function () return true / -7 end,
-               "attempt to perform arithmetic on a boolean value",
-               "true / -7")
+error_like(function () return true / -7 end,
+           "attempt to perform arithmetic on a boolean value",
+           "true / -7")
 
-    error_like(function () return true % 4 end,
-               "attempt to perform arithmetic on a boolean value",
-               "true % 4")
+error_like(function () return true % 4 end,
+           "attempt to perform arithmetic on a boolean value",
+           "true % 4")
 
-    error_like(function () return true ^ 3 end,
-               "attempt to perform arithmetic on a boolean value",
-               "true ^ 3")
+error_like(function () return true ^ 3 end,
+           "attempt to perform arithmetic on a boolean value",
+           "true ^ 3")
 
-    error_like(function () return true .. 'end' end,
-               "attempt to concatenate a boolean value",
-               "true .. 'end'")
-end
+error_like(function () return true .. 'end' end,
+           "attempt to concatenate a boolean value",
+           "true .. 'end'")
 
 is(true == true, true, "true == true")
 
@@ -76,41 +72,37 @@ is(true == 1, false, "true == 1")
 
 is(true ~= 1, true, "true ~= 1")
 
-if arg[-1] == 'parrot-lua' then
-    skip("exception from C", 8)
-else
-    error_like(function () return true < false end,
-               "attempt to compare two boolean values",
-               "true < false")
+error_like(function () return true < false end,
+           "attempt to compare two boolean values",
+           "true < false")
 
-    error_like(function () return true <= false end,
-               "attempt to compare two boolean values",
-               "true <= false")
+error_like(function () return true <= false end,
+           "attempt to compare two boolean values",
+           "true <= false")
 
-    error_like(function () return true > false end,
-               "attempt to compare two boolean values",
-               "true > false")
+error_like(function () return true > false end,
+           "attempt to compare two boolean values",
+           "true > false")
 
-    error_like(function () return true >= false end,
-               "attempt to compare two boolean values",
-               "true >= false")
+error_like(function () return true >= false end,
+           "attempt to compare two boolean values",
+           "true >= false")
 
-    error_like(function () return true < 0 end,
-               "attempt to compare %w+ with %w+",
-               "true < 0")
+error_like(function () return true < 0 end,
+           "attempt to compare %w+ with %w+",
+           "true < 0")
 
-    error_like(function () return true <= 0 end,
-               "attempt to compare %w+ with %w+",
-               "true <= 0")
+error_like(function () return true <= 0 end,
+           "attempt to compare %w+ with %w+",
+           "true <= 0")
 
-    error_like(function () return true > 0 end,
-               "attempt to compare %w+ with %w+",
-               "true > 0")
+error_like(function () return true > 0 end,
+           "attempt to compare %w+ with %w+",
+           "true > 0")
 
-    error_like(function () return true >= 0 end,
-               "attempt to compare %w+ with %w+",
-               "true >= 0")
-end
+error_like(function () return true >= 0 end,
+           "attempt to compare %w+ with %w+",
+           "true >= 0")
 
 error_like(function () a = true; b = a[1]; end,
            "attempt to index",
