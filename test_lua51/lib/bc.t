@@ -63,40 +63,28 @@ n = bc.add(12, 34)
 type_ok( n, 'userdata', "bc.add ()" )
 is(tostring(n), '46' )
 
-if arg[-1] == 'parrot-lua' then
-    skip("broken", 2)
-else
-    a = bc.number(12)
-    n = a + 34
-    type_ok( n, 'userdata', "bc.__add" )
-    is(tostring(n), '46' )
-end
+a = bc.number(12)
+n = a + 34
+type_ok( n, 'userdata', "bc.__add" )
+is(tostring(n), '46' )
 
 n = bc.sub(12, 34)
 type_ok( n, 'userdata', "bc.sub ()" )
 is(tostring(n), '-22' )
 
-if arg[-1] == 'parrot-lua' then
-    skip("broken", 2)
-else
-    a = bc.number(12)
-    n = a - 34
-    type_ok( n, 'userdata', "bc.__sub" )
-    is(tostring(n), '-22' )
-end
+a = bc.number(12)
+n = a - 34
+type_ok( n, 'userdata', "bc.__sub" )
+is(tostring(n), '-22' )
 
 n = bc.mul(2, 3)
 type_ok( n, 'userdata', "bc.mul ()" )
 is(tostring(n), '6' )
 
-if arg[-1] == 'parrot-lua' then
-    skip("broken", 2)
-else
-    a = bc.number(2)
-    n = a * 3
-    type_ok( n, 'userdata', "bc.__mul" )
-    is(tostring(n), '-22' )
-end
+a = bc.number(2)
+n = a * 3
+type_ok( n, 'userdata', "bc.__mul" )
+is(tostring(n), '6' )
 
 n = bc.div(12, 3)
 type_ok( n, 'userdata', "bc.div ()" )
@@ -105,16 +93,11 @@ is(tostring(n), '4' )
 n = bc.div(12, 0)
 is( n, nil, "bc.div (by zero)")
 
-if arg[-1] == 'parrot-lua' then
-    skip("broken", 2)
-else
-    a = bc.number(12)
-    n = a / 3
-    type_ok( n, 'userdata', "bc.__div" )
-    is(tostring(n), '4' )
-end
+a = bc.number(12)
+n = a / 3
+type_ok( n, 'userdata', "bc.__div" )
+is(tostring(n), '4' )
 
-todo( "XXX", 2 )
 n = bc.mod(13, 3)
 type_ok( n, 'userdata', "bc.mod ()" )
 is(tostring(n), '1' )
@@ -122,27 +105,19 @@ is(tostring(n), '1' )
 n = bc.mod(13, 0)
 is( n, nil, "bc.mod (by zero)")
 
-if arg[-1] == 'parrot-lua' then
-    skip("broken", 2)
-else
-    a = bc.number(13)
-    n = a % 3
-    type_ok( n, 'userdata', "bc.__mod" )
-    is(tostring(n), '1' )
-end
+a = bc.number(13)
+n = a % 3
+type_ok( n, 'userdata', "bc.__mod" )
+is(tostring(n), '1' )
 
 n = bc.pow(2, 3)
 type_ok( n, 'userdata', "bc.pow ()" )
 is(tostring(n), '8' )
 
-if arg[-1] == 'parrot-lua' then
-    skip("broken", 2)
-else
-    a = bc.number(2)
-    n = a ^ 3
-    type_ok( n, 'userdata', "bc.__pow" )
-    is(tostring(n), '8' )
-end
+a = bc.number(2)
+n = a ^ 3
+type_ok( n, 'userdata', "bc.__pow" )
+is(tostring(n), '8' )
 
 todo( "sqrt not implemented with BigNum", 2 )
 n = bc.sqrt(4)
@@ -167,18 +142,14 @@ is( bc.compare(12, 34), -1, "bc.compare ()" )
 is( bc.compare(12, 12), 0)
 is( bc.compare(34, 12), 1)
 
-if arg[-1] == 'parrot-lua' then
-    skip("broken", 5)
-else
-    a = bc.number(12)
-    is( a == bc.number(10), false, "bc.__eq" )
-    is( a == bc.number(12), true )
+a = bc.number(12)
+is( a == bc.number(10), false, "bc.__eq" )
+is( a == bc.number(12), true )
 
-    a = bc.number(12)
-    is( a < bc.number(10), false, "bc.__lt" )
-    is( a < bc.number(12), false )
-    is( a < bc.number(14), true )
-end
+a = bc.number(12)
+is( a < bc.number(10), false, "bc.__lt" )
+is( a < bc.number(12), false )
+is( a < bc.number(14), true )
 
 -- Local Variables:
 --   mode: lua
