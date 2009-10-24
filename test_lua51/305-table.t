@@ -73,7 +73,6 @@ is(t[7], 'e')
 table.insert(t, -9, 'f')
 is(t[-9], 'f')
 
-todo("XXX insert")
 error_like(function () table.insert(t, 2, 'g', 'h')  end,
            "wrong number of arguments to 'insert'",
            "function insert (too many arg)")
