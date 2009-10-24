@@ -191,38 +191,34 @@ function permutations (a)
            end
 end
 
-if arg[-1] == 'parrot-lua' then
-    skip("sort (all permutations)")
-else
-    local t = {}
-    output = {}
-    for _, v in ipairs{'a', 'b', 'c', 'd', 'e', 'f', 'g'} do
-        table.insert(t, v)
-        local ref = table.concat(t, ' ')
-        table.insert(output, ref)
-        local n = 0
-        for p in permutations(t) do
-            local c = {}
-            for i, v in ipairs(p) do
-                c[i] = v
-            end
-            table.sort(c)
-            assert(ref == table.concat(c, ' '), table.concat(p, ' '))
-            n = n + 1
+local t = {}
+output = {}
+for _, v in ipairs{'a', 'b', 'c', 'd', 'e', 'f', 'g'} do
+    table.insert(t, v)
+    local ref = table.concat(t, ' ')
+    table.insert(output, ref)
+    local n = 0
+    for p in permutations(t) do
+        local c = {}
+        for i, v in ipairs(p) do
+            c[i] = v
         end
-        table.insert(output, n)
+        table.sort(c)
+        assert(ref == table.concat(c, ' '), table.concat(p, ' '))
+        n = n + 1
     end
-
-    eq_array(output, {
-        'a', 1,
-        'a b', 2,
-        'a b c', 6,
-        'a b c d', 24,
-        'a b c d e', 120,
-        'a b c d e f', 720,
-        'a b c d e f g', 5040,
-    }, "function sort (all permutations)")
+    table.insert(output, n)
 end
+
+eq_array(output, {
+    'a', 1,
+    'a b', 2,
+    'a b c', 6,
+    'a b c d', 24,
+    'a b c d e', 120,
+    'a b c d e f', 720,
+    'a b c d e f g', 5040,
+}, "function sort (all permutations)")
 
 if arg[-1] == 'parrot-lua' then
     error_like(function ()

@@ -196,14 +196,10 @@ end
 
 NamedAccount = createClass(Account, Named)
 
-if arg[-1] == 'parrot-lua' then
-    skip("broken multiple inheritance", 2)
-else
-    account = NamedAccount:new{name = "Paul"}
-    is(account:getname(), 'Paul', "multiple inheritance")
-    account:deposit(100.00)
-    is(account.balance, 100)
-end
+account = NamedAccount:new{name = "Paul"}
+is(account:getname(), 'Paul', "multiple inheritance")
+account:deposit(100.00)
+is(account.balance, 100)
 
 --[[ multiple inheritance (patched) ]]
 -- look up for 'k' in list of tables 'plist'
