@@ -109,15 +109,11 @@ end
 c1 = Cplx.new(1, 3)
 c2 = Cplx.new(2, -1)
 
-if arg[-1] == 'parrot-lua' then
-    skip("broken", 5)
-else
-    is(tostring(c1 + c2), '(3,2)', "cplx __add")
-    is(tostring(c1 + 3), '(4,3)')
-    is(tostring(-2 + c1), '(-1,3)')
-    is(tostring(c1 + '3'), '(4,3)')
-    is(tostring('-2' + c1), '(-1,3)')
-end
+is(tostring(c1 + c2), '(3,2)', "cplx __add")
+is(tostring(c1 + 3), '(4,3)')
+is(tostring(-2 + c1), '(-1,3)')
+is(tostring(c1 + '3'), '(4,3)')
+is(tostring('-2' + c1), '(-1,3)')
 
 function Cplx.mt.__sub (a, b)
     if type(a) ~= 'table' then
@@ -130,15 +126,11 @@ function Cplx.mt.__sub (a, b)
     return r
 end
 
-if arg[-1] == 'parrot-lua' then
-    skip("broken", 5)
-else
-    is(tostring(c1 - c2), '(-1,4)', "cplx __sub")
-    is(tostring(c1 - 3), '(-2,3)')
-    is(tostring(-2 - c1), '(-3,-3)')
-    is(tostring(c1 - '3'), '(-2,3)')
-    is(tostring('-2' - c1), '(-3,-3)')
-end
+is(tostring(c1 - c2), '(-1,4)', "cplx __sub")
+is(tostring(c1 - 3), '(-2,3)')
+is(tostring(-2 - c1), '(-3,-3)')
+is(tostring(c1 - '3'), '(-2,3)')
+is(tostring('-2' - c1), '(-3,-3)')
 
 function Cplx.mt.__mul (a, b)
     if type(a) ~= 'table' then
@@ -152,15 +144,11 @@ function Cplx.mt.__mul (a, b)
     return r
 end
 
-if arg[-1] == 'parrot-lua' then
-    skip("broken", 5)
-else
-    is(tostring(c1 * c2), '(5,5)', "cplx __mul")
-    is(tostring(c1 * 3), '(3,9)')
-    is(tostring(-2 * c1), '(-2,-6)')
-    is(tostring(c1 * '3'), '(3,9)')
-    is(tostring('-2' * c1), '(-2,-6)')
-end
+is(tostring(c1 * c2), '(5,5)', "cplx __mul")
+is(tostring(c1 * 3), '(3,9)')
+is(tostring(-2 * c1), '(-2,-6)')
+is(tostring(c1 * '3'), '(3,9)')
+is(tostring('-2' * c1), '(-2,-6)')
 
 function Cplx.mt.__div (a, b)
     if type(a) ~= 'table' then
@@ -179,15 +167,11 @@ end
 c1 = Cplx.new(2, 6)
 c2 = Cplx.new(2, 0)
 
-if arg[-1] == 'parrot-lua' then
-    skip("broken", 5)
-else
-    is(tostring(c1 / c2), '(1,3)', "cplx __div")
-    is(tostring(c1 / 2), '(1,3)')
-    is(tostring(-4 / c2), '(-2,0)')
-    is(tostring(c1 / '2'), '(1,3)')
-    is(tostring('-4' / c2), '(-2,0)')
-end
+is(tostring(c1 / c2), '(1,3)', "cplx __div")
+is(tostring(c1 / 2), '(1,3)')
+is(tostring(-4 / c2), '(-2,0)')
+is(tostring(c1 / '2'), '(1,3)')
+is(tostring('-4' / c2), '(-2,0)')
 
 function Cplx.mt.__unm (a)
     if type(a) ~= 'table' then
@@ -198,11 +182,7 @@ function Cplx.mt.__unm (a)
 end
 
 c1 = Cplx.new(1, 3)
-if arg[-1] == 'parrot-lua' then
-    skip("broken", 1)
-else
-    is(tostring(- c1), '(-1,-3)', "cplx __unm")
-end
+is(tostring(- c1), '(-1,-3)', "cplx __unm")
 
 function Cplx.mt.__eq (a, b)
     if type(a) ~= 'table' then
@@ -218,14 +198,10 @@ c1 = Cplx.new(2, 0)
 c2 = Cplx.new(1, 3)
 c3 = Cplx.new(2, 0)
 
-if arg[-1] == 'parrot-lua' then
-    skip("broken", 4)
-else
-    is(c1 ~= c2, true, "cplx __eq")
-    is(c1 == c3, true)
-    is(c1 == 2, false)
-    is(Cplx.mt.__eq(c1, 2), true)
-end
+is(c1 ~= c2, true, "cplx __eq")
+is(c1 == c3, true)
+is(c1 == 2, false)
+is(Cplx.mt.__eq(c1, 2), true)
 
 function Cplx.mt.__lt (a, b)
     if type(a) ~= 'table' then
@@ -239,13 +215,9 @@ function Cplx.mt.__lt (a, b)
     return ra < rb
 end
 
-if arg[-1] == 'parrot-lua' then
-    skip("broken", 3)
-else
-    is(c1 < c2, true, "cplx __lt")
-    is(c1 < c3, false)
-    is(c1 <= c3, true)
-end
+is(c1 < c2, true, "cplx __lt")
+is(c1 < c3, false)
+is(c1 <= c3, true)
 
 function Cplx.mt.__le (a, b)
     if type(a) ~= 'table' then
@@ -259,13 +231,9 @@ function Cplx.mt.__le (a, b)
     return ra <= rb
 end
 
-if arg[-1] == 'parrot-lua' then
-    skip("broken", 3)
-else
-    is(c1 < c2, true, "cplx __lt __le")
-    is(c1 < c3, false)
-    is(c1 <= c3, true)
-end
+is(c1 < c2, true, "cplx __lt __le")
+is(c1 < c3, false)
+is(c1 <= c3, true)
 
 function Cplx.mt.__call (obj)
     a = "Cplx.__call " .. tostring(obj)
@@ -275,28 +243,23 @@ end
 c1 = Cplx.new(2, 0)
 a = nil
 r = c1()
-if arg[-1] == 'parrot-lua' then
-    skip("broken", 2)
-else
-    is(r, true, "cplx __call (without args)")
-    is(a, "Cplx.__call (2,0)")
-end
+todo( "return value" )
+is(r, true, "cplx __call (without args)")
+is(a, "Cplx.__call (2,0)")
 
 function Cplx.mt.__call (obj, ...)
     a = "Cplx.__call " .. tostring(obj) .. ", " .. table.concat(arg, ", ")
     return true
 end
 
-if arg[-1] == 'parrot-lua' then
-    skip("broken", 6)
-else
-    is(c1(), true, "cplx __call (with args)")
-    is(a, "Cplx.__call (2,0), ")
-    is(c1('a'), true)
-    is(a, "Cplx.__call (2,0), a")
-    is(c1('a', 'b', 'c'), true)
-    is(a, "Cplx.__call (2,0), a, b, c")
-end
+todo( "return value" )
+is(c1(), true, "cplx __call (with args)")
+is(a, "Cplx.__call (2,0), ")
+todo( "parameters", 4 )
+is(c1('a'), true)
+is(a, "Cplx.__call (2,0), a")
+is(c1('a', 'b', 'c'), true)
+is(a, "Cplx.__call (2,0), a, b, c")
 
 --[[ Window ]]
 
