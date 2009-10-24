@@ -76,14 +76,20 @@ else
     print("not ok 15 - " .. i)
 end
 
-local a = {[1]="ok 16 - for & upval", [2]="ok 17 - for & upval", [3]="ok 18 - for & upval"}
+local a = {"ok 16 - for & upval", "ok 17 - for & upval", "ok 18 - for & upval"}
 local b = {}
-for i, v in pairs(a) do
+for i, v in ipairs(a) do
     b[i] = function () return v end
 end
-print(b[1]())
-print(b[2]())
-print(b[3]())
+for i, v in ipairs(a) do
+    local r = b[i]()
+    if r == a[i] then
+        print(r)
+    else
+        print("not " .. a[i])
+        print("#", r)
+    end
+end
 
 -- Local Variables:
 --   mode: lua
