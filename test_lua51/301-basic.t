@@ -370,14 +370,9 @@ is(tostring(false), 'false')
 like(tostring({}), '^table: 0?[Xx]?%x+$')
 like(tostring(print), '^function: 0?[Xx]?%x+$')
 
-if arg[-1] == 'parrot-lua' then
---    skip("tostring (no arg)") XXX
-    pass("skip # tostring (no arg)")
-else
-    error_like(function () tostring() end,
-               "bad argument #1 to 'tostring' %(value expected%)",
-               "function tostring (no arg)")
-end
+error_like(function () tostring() end,
+           "bad argument #1 to 'tostring' %(value expected%)",
+           "function tostring (no arg)")
 
 eq_array({unpack({})}, {}, "function unpack")
 eq_array({unpack({'a'})}, {'a'})
