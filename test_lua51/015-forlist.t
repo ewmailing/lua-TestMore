@@ -76,19 +76,19 @@ else
     print("not ok 15 - " .. i)
 end
 
-local a = {[1]="ok 16 - for & upval", [2]="ok 17 - for & upval", [3]="ok 18 - for & upval"}
+local a = {"ok 16 - for & upval", "ok 17 - for & upval", "ok 18 - for & upval"}
 local b = {}
-for i, v in pairs(a) do
+for i, v in ipairs(a) do
     b[i] = function () return v end
 end
-if arg[-1] == 'parrot-lua' then
-    print("ok 16 # skip upvalues")
-    print("ok 17 # skip upvalues")
-    print("ok 18 # skip upvalues")
-else
-    print(b[1]())
-    print(b[2]())
-    print(b[3]())
+local todo = "# TODO # upvalues"
+for i, v in ipairs(a) do
+    local r = b[i]()
+    if r == a[i] then
+        print(r, todo)
+    else
+        print("not " .. a[i], todo)
+    end
 end
 
 -- Local Variables:

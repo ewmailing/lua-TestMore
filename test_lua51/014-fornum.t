@@ -114,18 +114,17 @@ for i = first(), limit(), step() do
     print("ok " .. (i+63)/2 .. " - with functions")
 end
 
-if arg[-1] == 'parrot-lua' then
-    print("ok 36 # skip upvalues")
+local a = {}
+for i = 1, 10 do
+    a[i] = function () return i end
+end
+local v = a[5]()
+local todo = "# TODO # upvalues"
+if v == 5 then
+    print("ok 36 - for & upval", todo)
 else
-    local a = {}
-    for i = 1, 10 do
-        a[i] = function () return i end
-    end
-    if a[5]() == 5 then
-        print("ok 36 - for & upval")
-    else
-        print("not ok 36 - for & upval")
-    end
+    print("not ok 36 - for & upval", todo)
+    print("#", v)
 end
 
 -- Local Variables:
