@@ -24,6 +24,9 @@
 
 require 'Test.More'
 
+local prog = arg[-1]
+local lua_on_parrot = prog:find'parrot' or prog:find'pbc' or prog:find'pir'
+
 plan(54)
 
 is(-1, -(1), "-1")
@@ -42,7 +45,7 @@ is(3.14 * 1, 3.14, "3.14 * 1")
 
 is(-7 / 0.5, -14, "-7 / 0.5")
 
-if arg[-1] == 'parrot-lua' then
+if lua_on_parrot then
     is(tostring(1 / 0), 'Inf', "1 / 0")
 elseif platform and platform.osname == 'MSWin32' then
     is(tostring(1 / 0), '1.#INF', "1 / 0")
@@ -52,7 +55,7 @@ end
 
 is(-25 % 3, 2, "-25 % 3")
 
-if arg[-1] == 'parrot-lua' then
+if lua_on_parrot then
     is(tostring(1 % 0), 'NaN', "1 % 0")
 elseif platform and platform.osname == 'MSWin32' then
     is(tostring(1 % 0), '-1.#IND', "1 % 0")

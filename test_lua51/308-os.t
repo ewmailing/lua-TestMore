@@ -31,6 +31,9 @@ See "Programming in Lua", section 22 "The Operating System Library".
 
 require 'Test.More'
 
+local prog = arg[-1]
+local lua_on_parrot = prog:find'parrot' or prog:find'pbc' or prog:find'pir'
+
 plan(35)
 
 clk = os.clock()
@@ -59,7 +62,7 @@ r = os.execute()
 is(r, 1, "function execute")
 
 cmd = [[perl -e "print qq{# hello from Perl\n}; exit(2)"]]
-if arg[-1] == 'parrot-lua' then
+if lua_on_parrot then
     is(os.execute(cmd), 2, "function execute & exit")
 elseif platform and platform.osname == 'MSWin32' then
     is(os.execute(cmd), 2, "function execute & exit")

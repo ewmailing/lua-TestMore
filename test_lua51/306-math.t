@@ -31,11 +31,14 @@ See "Programming in Lua", section 18 "The Mathematical Library".
 
 require 'Test.More'
 
+local prog = arg[-1]
+local lua_on_parrot = prog:find'parrot' or prog:find'pbc' or prog:find'pir'
+
 plan(43)
 
 like(tostring(math.pi), '^3%.14', "variable pi")
 
-if arg[-1] == 'parrot-lua' then
+if lua_on_parrot then
     is(tostring(math.huge), 'Inf', "variable huge")
 elseif platform and platform.osname == 'MSWin32' then
     is(tostring(math.huge), '1.#INF', "variable huge")

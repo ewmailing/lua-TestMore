@@ -29,6 +29,9 @@ L<http://www.lua.org/manual/5.1/manual.html#5.3>.
 
 require 'Test.More'
 
+local prog = arg[-1]
+local lua_on_parrot = prog:find'parrot' or prog:find'pbc' or prog:find'pir'
+
 plan(29)
 
 ok(package.loaded._G, "table package.loaded")
@@ -51,7 +54,7 @@ package.seeall(m)
 m.pass("function package.seeall")
 
 local m = require 'Test.More'
-if arg[-1] == 'parrot-lua' then
+if lua_on_parrot then
     skip("function require")
 else
     m.ok(true, "function require")
@@ -91,7 +94,7 @@ end
 return complex
 ]]
 f:close()
-if arg[-1] == 'parrot-lua' then
+if lua_on_parrot then
     skip("function require", 3)
 else
     m = require 'complex'
@@ -168,7 +171,7 @@ function div (c1, c2)
 end
 ]]
 f:close()
-if arg[-1] == 'parrot-lua' then
+if lua_on_parrot then
     skip("function require & module", 2)
 else
     require 'cplx'

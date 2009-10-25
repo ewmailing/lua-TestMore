@@ -31,6 +31,9 @@ See "Programming in Lua", section 19 "The Table Library".
 
 require 'Test.More'
 
+local prog = arg[-1]
+local lua_on_parrot = prog:find'parrot' or prog:find'pbc' or prog:find'pir'
+
 plan(40)
 
 t = {'a','b','c','d','e'}
@@ -219,7 +222,7 @@ eq_array(output, {
     'a b c d e f g', 5040,
 }, "function sort (all permutations)")
 
-if arg[-1] == 'parrot-lua' then
+if lua_on_parrot then
     error_like(function ()
                     local t = { 1 }
                     table.sort( { t, t, t, t, }, function (a, b) return a[1] == b[1] end )
