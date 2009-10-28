@@ -32,7 +32,7 @@ require 'Test.More'
 local prog = arg[-1]
 local lua_on_parrot = prog:find'parrot' or prog:find'pbc' or prog:find'pir'
 
-plan(29)
+plan(33)
 
 ok(package.loaded._G, "table package.loaded")
 ok(package.loaded.coroutine)
@@ -59,6 +59,11 @@ if lua_on_parrot then
 else
     m.ok(true, "function require")
 end
+todo("function require")
+is(m, Test.More)
+is(Test.More._M, Test.More, "_M")
+is(Test.More._NAME, 'Test.More', "_NAME")
+is(Test.More._PACKAGE, 'Test.', "_PACKAGE")
 
 f = io.open('complex.lua', 'w')
 f:write [[
@@ -175,8 +180,8 @@ if lua_on_parrot then
     skip("function require & module", 2)
 else
     require 'cplx'
-    is(complex.i.r, 0, "function require & module")
-    is(complex.i.i, 1)
+    is(cplx.i.r, 0, "function require & module")
+    is(cplx.i.i, 1)
 end
 os.remove('cplx.lua') -- clean up
 
