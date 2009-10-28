@@ -118,13 +118,9 @@ f:close()
 io.write() -- not tested
 io.write('# text', 12, "\n") -- not tested : # text12
 
-if lua_on_parrot then
-    skip("method close (std)", 2)
-else
---    r, msg = io.stderr:close() -- cannot compile
-    is(r, nil, "method close (std)")
-    is(msg, "cannot close standard file")
-end
+r, msg = io.stderr:close()
+is(r, nil, "method close (std)")
+is(msg, "cannot close standard file")
 
 f = io.open('file.txt')
 is(f:close(), true, "method close")
