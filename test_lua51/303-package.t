@@ -29,7 +29,7 @@ L<http://www.lua.org/manual/5.1/manual.html#5.3>.
 
 require 'Test.More'
 
-plan(29)
+plan(33)
 
 ok(package.loaded._G, "table package.loaded")
 ok(package.loaded.coroutine)
@@ -52,6 +52,10 @@ m.pass("function package.seeall")
 
 local m = require 'Test.More'
 m.ok(true, "function require")
+is(m, Test.More)
+is(Test.More._M, Test.More, "_M")
+is(Test.More._NAME, 'Test.More', "_NAME")
+is(Test.More._PACKAGE, 'Test.', "_PACKAGE")
 
 f = io.open('complex.lua', 'w')
 f:write [[
@@ -161,8 +165,8 @@ end
 ]]
 f:close()
 require 'cplx'
-is(complex.i.r, 0, "function require & module")
-is(complex.i.i, 1)
+is(cplx.i.r, 0, "function require & module")
+is(cplx.i.i, 1)
 os.remove('cplx.lua') -- clean up
 
 is(mod, nil, "function module & seeall")
