@@ -54,12 +54,7 @@ package.seeall(m)
 m.pass("function package.seeall")
 
 local m = require 'Test.More'
-if lua_on_parrot then
-    skip("function require")
-else
-    m.ok(true, "function require")
-end
-todo("function require")
+m.ok(true, "function require")
 is(m, Test.More)
 is(Test.More._M, Test.More, "_M")
 is(Test.More._NAME, 'Test.More', "_NAME")
