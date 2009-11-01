@@ -381,7 +381,14 @@ eq_array({(unpack({'a','b','c'}))}, {'a'})
 eq_array({unpack({'a','b','c','d','e'},2,4)}, {'b','c','d'})
 eq_array({unpack({'a','b','c'},2,4)}, {'b','c'})
 
-is(xpcall(assert, nil), false, "function xpcall")
+if arg[-1] == 'luajit' then
+    error_like(function () xpcall(assert, nil) end,
+               "bad argument #2 to 'xpcall' %(function expected, got nil%)",
+               "function xpcall")
+    diag("LuaJIT intentional.")
+else
+    is(xpcall(assert, nil), false, "function xpcall")
+end
 
 function backtrace ()
     return 'not a back trace'
