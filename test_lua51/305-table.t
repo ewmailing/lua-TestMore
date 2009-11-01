@@ -125,10 +125,14 @@ a = table.remove(t,7)
 is(a, nil)
 is(table.concat(t, ','), 'b,d')
 
-a = {}
-error_like(function () table.setn(a, 10000) end,
-           "^[^:]+:%d+: 'setn' is obsolete",
-           "function setn")
+if table.setn == nil then
+    skip("setn is deprecated", 1)
+else
+    a = {}
+    error_like(function () table.setn(a, 10000) end,
+               "^[^:]+:%d+: 'setn' is obsolete",
+               "function setn")
+end
 
 lines = {
     luaH_set = 10,
