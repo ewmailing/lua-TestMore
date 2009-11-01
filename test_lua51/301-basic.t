@@ -368,7 +368,7 @@ is(tostring(nil), 'nil')
 is(tostring(true), 'true')
 is(tostring(false), 'false')
 like(tostring({}), '^table: 0?[Xx]?%x+$')
-like(tostring(print), '^function: 0?[Xx]?%x+$')
+like(tostring(print), '^function: 0?[Xx]?[fast]*#?%x+$')
 
 error_like(function () tostring() end,
            "^[^:]+:%d+: bad argument #1 to 'tostring' %(value expected%)",
