@@ -105,6 +105,9 @@ like(math.random(9), '^%d$', "function random 1 arg")
 
 like(math.random(10, 19), '^1%d$', "function random 2 arg")
 
+if arg[-1] == 'luajit' then
+    todo("LuaJIT intentional. Don't care about extra arguments.")
+end
 error_like(function () math.random(1, 2, 3) end,
            "^[^:]+:%d+: wrong number of arguments",
            "function random too many arg")
