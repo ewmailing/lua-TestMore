@@ -72,7 +72,7 @@ t.mt = {}
 setmetatable(t, t.mt)
 t.mt.__tostring = "not a function"
 error_like(function () tostring(t) end,
-           "^attempt to call a string value",
+           "attempt to call",
            "__tostring invalid")
 
 --[[ Cplx ]]
@@ -247,7 +247,7 @@ is(r, true, "cplx __call (without args)")
 is(a, "Cplx.__call (2,0)")
 
 function Cplx.mt.__call (obj, ...)
-    a = "Cplx.__call " .. tostring(obj) .. ", " .. table.concat(arg, ", ")
+    a = "Cplx.__call " .. tostring(obj) .. ", " .. table.concat({...}, ", ")
     return true
 end
 
