@@ -103,7 +103,7 @@ type_ok(getfenv(print), 'table')
 is(getfenv(print), _G)
 
 error_like(function () getfenv(-3) end,
-           "bad argument #1 to 'getfenv' %(level must be non%-negative%)",
+           "bad argument #1 to 'getfenv' %(.-level.-%)",
            "function getfenv (negative)")
 
 error_like(function () getfenv(12) end,
@@ -304,7 +304,7 @@ is(f2(), 3)
 setfenv(1, save) -- restore
 
 error_like(function () setfenv(-3, {}) end,
-           "bad argument #1 to 'setfenv' %(level must be non%-negative%)",
+           "bad argument #1 to 'setfenv' %(.-level.-%)",
            "function setfenv (negative)")
 
 error_like(function () setfenv(12, {}) end,
