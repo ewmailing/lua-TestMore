@@ -34,7 +34,7 @@ require 'Test.More'
 local prog = arg[-1]
 local lua_on_parrot = prog:find'parrot' or prog:find'pbc' or prog:find'pir'
 
-plan(62)
+plan(61)
 
 is(getfenv(io.lines), _G, "environment")
 local env = debug.getfenv(io.lines)
@@ -71,11 +71,6 @@ is(io.close(f), true, "function close")
 error_like(function () io.close(f) end,
            "attempt to use a closed file",
            "function close (closed)")
-
-todo("XXX")
-error_like(function () io.flush(f) end,
-           "attempt to use a closed file",
-           "function flush (closed)")
 
 is(io.type("not a file"), nil, "function type")
 f = io.open('file.txt')
