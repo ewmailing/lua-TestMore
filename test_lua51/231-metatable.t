@@ -243,7 +243,6 @@ end
 c1 = Cplx.new(2, 0)
 a = nil
 r = c1()
-todo( "return value" )
 is(r, true, "cplx __call (without args)")
 is(a, "Cplx.__call (2,0)")
 
@@ -252,10 +251,8 @@ function Cplx.mt.__call (obj, ...)
     return true
 end
 
-todo( "return value" )
 is(c1(), true, "cplx __call (with args)")
 is(a, "Cplx.__call (2,0), ")
-todo( "parameters", 4 )
 is(c1('a'), true)
 is(a, "Cplx.__call (2,0), a")
 is(c1('a', 'b', 'c'), true)
