@@ -151,8 +151,9 @@ local function split (line)
 end
 
 local test_number = 0
+local dirname = arg[0]:sub(1, arg[0]:find'314' -1)
 for _, filename in ipairs(test_files) do
-    local f, msg = io.open(filename, 'r')
+    local f, msg = io.open(dirname .. filename, 'r')
     if f == nil then
         diag(msg)
         break
