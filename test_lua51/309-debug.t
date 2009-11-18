@@ -31,7 +31,7 @@ See "Programming in Lua", section 23 "The Debug Library".
 
 require 'Test.More'
 
-plan(25)
+plan(31)
 
 is(debug.getfenv(3.14), nil, "function getfenv")
 local function f () end
@@ -43,6 +43,20 @@ is(debug.getfenv(print), _G)
 a = coroutine.create(function () return 1 end)
 type_ok(debug.getfenv(a), 'table', "function getfenv (thread)")
 is(debug.getfenv(a), _G)
+
+info = debug.getinfo(is)
+type_ok(info, 'table', "function getinfo (function)")
+is(info.func, is, " .func")
+
+info = debug.getinfo(1)
+type_ok(info, 'table', "function getinfo (level)")
+like(info.func, "^function: [0]?[Xx]?%x+", " .func")
+
+is(debug.getinfo(12), nil, "function getinfo (too depth)")
+
+error_like(function () debug.getinfo('bad') end,
+           "bad argument #1 to 'getinfo' %(function or level expected%)",
+           "function getinfo (bad arg)")
 
 t = {}
 is(debug.getmetatable(t), nil, "function getmetatable")
