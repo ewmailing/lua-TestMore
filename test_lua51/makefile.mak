@@ -22,7 +22,7 @@ llvm-lua: env
 
 env:
 	@set LUA_PATH=;;../src/?.lua
-	@set LUA_INIT=platform = { osname=[[$(OSNAME)]], intsize=$(INTSIZE) }
+	@set LUA_INIT=platform = { lua=[[$(LUA)]], osname=[[$(OSNAME)]], intsize=$(INTSIZE) }
 
 upload_pl = \
 use strict; \

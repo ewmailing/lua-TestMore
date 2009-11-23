@@ -10,7 +10,7 @@ ARCHNAME = $(shell perl -MConfig -e "print Config->{archname}")
 INTSIZE = $(shell perl -MConfig -e "print Config->{intsize}")
 
 export LUA_PATH=;;../src/?.lua
-export LUA_INIT=platform = { osname=[[$(OSNAME)]], intsize=$(INTSIZE) }
+export LUA_INIT=platform = { lua=[[$(LUA)]], osname=[[$(OSNAME)]], intsize=$(INTSIZE) }
 
 harness:
 	@prove --exec=$(LUA) *.t
