@@ -29,7 +29,7 @@ See "Programming in Lua", section 3 "Expressions".
 
 require 'Test.More'
 
-plan(38)
+plan(39)
 
 x = math.pi
 is(x - x%0.01, 3.14, "modulo")
@@ -91,6 +91,17 @@ is(10 .. '', '10')
 error_like(function () return 'hello' + 1 end,
            "perform arithmetic",
            "no coercion")
+
+error_like(function ()
+                local function first() return 1 end
+                local function limit() return end
+                local function step()  return 2 end
+                for i = first(), limit(), step() do
+                    print(i)
+                end
+           end,
+           "^[^:]+:%d+: 'for' limit must be a number",
+           "for tonumber")
 
 -- Local Variables:
 --   mode: lua
