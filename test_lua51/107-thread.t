@@ -70,7 +70,7 @@ is(co == co, true, "co == co")
 
 co1 = coroutine.create(function () return 1 end)
 co2 = coroutine.create(function () return 2 end)
-is(co1 ~= co2, true, "co1 == co2")
+is(co1 ~= co2, true, "co1 ~= co2")
 
 is(co == 1, false, "co == 1")
 
