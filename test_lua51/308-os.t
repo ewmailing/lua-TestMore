@@ -33,8 +33,9 @@ require 'Test.More'
 
 local prog = arg[-1]
 local lua_on_parrot = prog:find'parrot' or prog:find'pbc' or prog:find'pir'
+local lua = (platform and platform.lua) or prog
 
-plan(35)
+plan(37)
 
 clk = os.clock()
 type_ok(clk, 'number', "function clock")
@@ -61,7 +62,7 @@ is(os.difftime(1234), 1234)
 r = os.execute()
 is(r, 1, "function execute")
 
-cmd = [[perl -e "print qq{# hello from Perl\n}; exit(2)"]]
+cmd = lua .. [[ -e "print '# hello from external Lua'; os.exit(2)"]]
 if lua_on_parrot then
     is(os.execute(cmd), 2, "function execute & exit")
 elseif platform and platform.osname == 'MSWin32' then
@@ -69,6 +70,12 @@ elseif platform and platform.osname == 'MSWin32' then
 else
     is(os.execute(cmd), 512, "function execute & exit")
 end
+
+cmd = lua .. [[ -e "print 'reached'; os.exit(); print 'not reached';"]]
+f = io.popen(cmd)
+is(f:read'*l', 'reached', "function exit")
+is(f:read'*l', nil)
+f:close()
 
 is(os.getenv('__IMPROBABLE__'), nil, "function getenv")
 
