@@ -31,7 +31,9 @@ See "Programming in Lua", section 22 "The Operating System Library".
 
 require 'Test.More'
 
-plan(35)
+plan(37)
+
+local lua = (platform and platform.lua) or arg[-1]
 
 clk = os.clock()
 type_ok(clk, 'number', "function clock")
@@ -58,12 +60,18 @@ is(os.difftime(1234), 1234)
 r = os.execute()
 is(r, 1, "function execute")
 
-cmd = [[lua -e "print 'hello from external Lua'; os.exit(2)"]]
+cmd = lua .. [[ -e "print '# hello from external Lua'; os.exit(2)"]]
 if platform and platform.osname == 'MSWin32' then
     is(os.execute(cmd), 2, "function execute & exit")
 else
     is(os.execute(cmd), 512, "function execute & exit")
 end
+
+cmd = lua .. [[ -e "print 'reached'; os.exit(); print 'not reached';"]]
+f = io.popen(cmd)
+is(f:read'*l', 'reached', "function exit")
+is(f:read'*l', nil)
+f:close()
 
 is(os.getenv('__IMPROBABLE__'), nil, "function getenv")
 
