@@ -29,7 +29,7 @@ require 'Test.More'
 
 local lua = (platform and platform.lua) or arg[-1]
 
-plan(6)
+plan(8)
 
 f = io.open('hello.lua', 'w')
 f:write([[
@@ -69,6 +69,15 @@ f:close()
 
 os.remove('hello.lua') -- clean up
 
+cmd = lua .. [[ -lTest.More -e "print(type(Test.More.ok))"]]
+f = io.popen(cmd)
+is(f:read'*l', 'function', "-lTest.More")
+f:close()
+
+cmd = lua .. [[ -l Test.More -e "print(type(Test.More.ok))"]]
+f = io.popen(cmd)
+is(f:read'*l', 'function', "-l Test.More")
+f:close()
 
 -- Local Variables:
 --   mode: lua
