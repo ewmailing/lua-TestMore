@@ -1,5 +1,6 @@
 
-VERSION := $(shell cd src && lua -e "require [[Test.More]]; print(Test.More._VERSION)")
+LUA     := lua
+VERSION := $(shell cd src && $(LUA) -e "require [[Test.More]]; print(Test.More._VERSION)")
 TARBALL := lua-testmore-$(VERSION).tar.gz
 ifndef REV
   REV   := 1
@@ -61,7 +62,7 @@ rockspec: $(TARBALL)
 
 export LUA_PATH=;;./src/?.lua
 test:
-	prove --exec=lua test/*.t
+	prove --exec=$(LUA) test/*.t
 
 html:
 	xmllint --noout --valid doc/*.html

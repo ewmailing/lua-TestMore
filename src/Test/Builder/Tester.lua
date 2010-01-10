@@ -4,8 +4,8 @@
 --
 
 local _G = _G
-local debug = debug
-local table = table
+local debug = require 'debug'
+local table = require 'table'
 local error = error
 local ipairs = ipairs
 local module = module

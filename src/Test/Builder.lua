@@ -3,9 +3,9 @@
 -- lua-TestMore : <http://testmore.luaforge.net/>
 --
 
-local debug = debug
-local io = io
-local os = os
+local debug = require 'debug'
+local io = require 'io'
+local os = require 'os'
 local error = error
 local ipairs = ipairs
 local print = print

@@ -11,7 +11,7 @@ local pcall = pcall
 local require = require
 local tostring = tostring
 local type = type
-local unpack = unpack
+local unpack = unpack or table.unpack
 
 require 'Test.Builder'
 local tb = Test.Builder:new()
