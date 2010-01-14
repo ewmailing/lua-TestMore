@@ -69,7 +69,7 @@ f:close()
 
 cmd = lua .. [[ -e "?syntax error?" 2>&1]]
 f = io.popen(cmd)
-like(f:read'*l', "^lua", "-e bad")
+like(f:read'*l', "lua", "-e bad")
 f:close()
 
 cmd = lua .. [[ -v 2>&1]]
@@ -85,7 +85,7 @@ f:close()
 
 cmd = lua .. [[ -u 2>&1]]
 f = io.popen(cmd)
-like(f:read'*l', '^usage: lua', "unknown option")
+like(f:read'*l', '^usage: ', "unknown option")
 f:close()
 
 cmd = lua .. [[ -lTest.More -e "print(type(Test.More.ok))"]]
@@ -100,7 +100,7 @@ f:close()
 
 cmd = lua .. [[ -l no_lib hello.lua 2>&1]]
 f = io.popen(cmd)
-is(f:read'*l', "lua: module 'no_lib' not found:", "-l no lib")
+like(f:read'*l', "^[^:]+: module 'no_lib' not found:", "-l no lib")
 f:close()
 
 os.remove('hello.lua') -- clean up
