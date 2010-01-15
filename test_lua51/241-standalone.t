@@ -100,7 +100,7 @@ f:close()
 
 cmd = lua .. [[ -l no_lib hello.lua 2>&1]]
 f = io.popen(cmd)
-like(f:read'*l', "^[^:]+: module 'no_lib' not found:", "-l no lib")
+like(f:read'*l', "module 'no_lib' not found:", "-l no lib")
 f:close()
 
 os.remove('hello.lua') -- clean up
