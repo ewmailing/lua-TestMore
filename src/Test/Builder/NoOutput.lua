@@ -3,7 +3,7 @@
 -- lua-TestMore : <http://testmore.luaforge.net/>
 --
 
-local io =io
+local io = require 'io'
 local pairs = pairs
 local require = require
 

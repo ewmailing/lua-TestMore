@@ -11,7 +11,7 @@ local pcall = pcall
 local require = require
 local tostring = tostring
 local type = type
-local unpack = unpack or table.unpack
+local unpack = unpack or require 'table'.unpack
 
 require 'Test.Builder'
 local tb = Test.Builder:new()
@@ -362,7 +362,7 @@ end
 
 _VERSION = "0.2.0"
 _DESCRIPTION = "lua-TestMore : an Unit Testing Framework"
-_COPYRIGHT = "Copyright (c) 2009 Francois Perrad"
+_COPYRIGHT = "Copyright (c) 2009-2010 Francois Perrad"
 --
 -- This library is licensed under the terms of the MIT/X11 license,
 -- like Lua itself.
