@@ -42,14 +42,18 @@ f = io.popen(cmd)
 is(f:read'*l', 'Hello World', "file")
 f:close()
 
-os.execute "luac -o hello.luac hello.lua"
+if arg[-1] == 'luajit' then
+    skip("luajit: cannot load Lua bytecode", 1)
+else
+    os.execute "luac -o hello.luac hello.lua"
 
-cmd = lua .. " hello.luac"
-f = io.popen(cmd)
-is(f:read'*l', 'Hello World', "bytecode")
-f:close()
+    cmd = lua .. " hello.luac"
+    f = io.popen(cmd)
+    is(f:read'*l', 'Hello World', "bytecode")
+    f:close()
 
-os.remove('hello.luac') -- clean up
+    os.remove('hello.luac') -- clean up
+end
 
 cmd = lua .. " < hello.lua"
 f = io.popen(cmd)
@@ -74,12 +78,12 @@ f:close()
 
 cmd = lua .. [[ -v 2>&1]]
 f = io.popen(cmd)
-like(f:read'*l', '^Lua 5.1', "-v")
+like(f:read'*l', '^Lua', "-v")
 f:close()
 
 cmd = lua .. [[ -v hello.lua 2>&1]]
 f = io.popen(cmd)
-like(f:read'*l', '^Lua 5.1', "-v & script")
+like(f:read'*l', '^Lua', "-v & script")
 is(f:read'*l', 'Hello World')
 f:close()
 
