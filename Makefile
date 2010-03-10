@@ -60,7 +60,15 @@ rockspec: $(TARBALL)
 
 export LUA_PATH=;;./src/?.lua
 test:
-	prove test/*.t
+	prove --exec=$(LUA) test/*.t
+
+coverage:
+	rm -f luacov.stats.out luacov.report.out
+	prove --exec="$(LUA) -lluacov" test/*.t
+	luacov
+
+html:
+	xmllint --noout --valid doc/*.html
 
 clean:
 	rm -f MANIFEST *.bak
