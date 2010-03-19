@@ -92,7 +92,7 @@ function plan (self, arg)
         return true
     elseif type(arg) ~= 'number' then
         error("Need a number of tests")
-    elseif arg <= 0 then
+    elseif arg < 0 then
         error("Number of tests must be a positive integer.  You gave it '" .. arg .."'.")
     else
         self.expected_tests = arg
