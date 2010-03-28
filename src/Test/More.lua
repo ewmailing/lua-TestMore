@@ -360,7 +360,7 @@ for k, v in pairs(_G.Test.More) do  -- injection
     _G[k] = v
 end
 
-_VERSION = "0.2.0"
+_VERSION = "0.2.1"
 _DESCRIPTION = "lua-TestMore : an Unit Testing Framework"
 _COPYRIGHT = "Copyright (c) 2009-2010 Francois Perrad"
 --

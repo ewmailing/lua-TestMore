@@ -1,5 +1,9 @@
 Revision history for lua-TestMore
 
+0.2.1  Sun Mar 28 11:30:00 2010
+	fix compatibility with Lua 5.2
+	make install
+
 0.2.0  Fri Oct 16 14:30:00 2009
 	add a diagnostic with file & line number
 	complete is_deeply()
