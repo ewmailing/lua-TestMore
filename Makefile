@@ -6,6 +6,23 @@ ifndef REV
   REV   := 1
 endif
 
+ifndef DESTDIR
+  DESTDIR := /usr/local
+endif
+BINDIR  := $(DESTDIR)/bin
+LIBDIR  := $(DESTDIR)/share/lua/5.1
+
+install:
+	mkdir -p $(LIBDIR)/Test/Builder
+	cp src/Test/More.lua            $(LIBDIR)/Test
+	cp src/Test/Builder.lua         $(LIBDIR)/Test
+	cp src/Test/Builder/Tester.lua  $(LIBDIR)/Test/Builder
+
+uninstall:
+	rm -f $(LIBDIR)/Test/More.lua
+	rm -f $(LIBDIR)/Test/Builder.lua
+	rm -f $(LIBDIR)/Test/Builder/Tester.lua
+
 manifest_pl := \
 use strict; \
 use warnings; \
@@ -60,14 +77,15 @@ dist: $(TARBALL)
 rockspec: $(TARBALL)
 	perl -e '$(rockspec_pl)' rockspec.in > rockspec/lua-testmore-$(VERSION)-$(REV).rockspec
 
-export LUA_PATH=;;./src/?.lua
+check: test
+
 test:
-	prove --exec=$(LUA) test/*.t
+	cd src && prove --exec=$(LUA) ../test/*.t
 
 coverage:
-	rm -f luacov.stats.out luacov.report.out
-	prove --exec="$(LUA) -lluacov" test/*.t
-	luacov
+	rm -f src/luacov.stats.out src/luacov.report.out
+	cd src && prove --exec="$(LUA) -lluacov" ../test/*.t
+	cd src && luacov
 
 html:
 	xmllint --noout --valid doc/*.html
