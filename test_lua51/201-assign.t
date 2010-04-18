@@ -68,7 +68,7 @@ is(b, 2)
 is(c, nil)
 is(d, nil)
 
-function f() print('f') end
+function f() print('# f') end
 a = 2
 a, b, c = f(), 3
 is(a, nil, "padding with function")
