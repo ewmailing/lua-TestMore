@@ -98,7 +98,7 @@ io.close(f)
 
 f = io.popen([[perl -pe "s/e/a/"]], 'w')
 is(io.type(f), 'file', "popen (write)")
-f:write("hello\n") -- not tested : hallo
+f:write("# hello\n") -- not tested : hallo
 f:close()
 
 for line in io.lines('file.txt') do
