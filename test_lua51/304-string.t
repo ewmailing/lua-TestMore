@@ -31,7 +31,7 @@ See "Programming in Lua", section 20 "The String Library".
 
 require 'Test.More'
 
-plan(96)
+plan(97)
 
 is(string.byte('ABC'), 65, "function byte")
 is(string.byte('ABC', 2), 66)
@@ -80,6 +80,8 @@ is(string.format('%q', 'a string with "quotes" and \n new line'), [["a string wi
  new line"]], "function format %q")
 
 is(string.format("%s %s", 1, 2, 3), '1 2', "function format (too many arg)")
+
+is(string.format("%% %s %%", 'percent'), '% percent %', "function format (%%)")
 
 error_like(function () string.format("%s %s", 1) end,
            "^[^:]+:%d+: bad argument #3 to 'format' %(string expected, got no value%)",
