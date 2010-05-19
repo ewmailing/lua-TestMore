@@ -7,7 +7,6 @@ local _G = _G
 local debug = require 'debug'
 local table = require 'table'
 local error = error
-local ipairs = ipairs
 local module = module
 local pairs = pairs
 local setmetatable = setmetatable
@@ -28,8 +27,9 @@ function new (self, _type)
 end
 
 function write (self, ...)
-    for _, v in ipairs{...} do
-        self.got = self.got .. v
+    local arg = {...}
+    for i = 1, #arg do
+        self.got = self.got .. arg[i]
     end
 end
 
@@ -39,8 +39,9 @@ function reset (self)
 end
 
 function expect (self, ...)
-    for _, v in ipairs{...} do
-        table.insert(self.wanted, v)
+    local arg = {...}
+    for i = 1, #arg do
+        table.insert(self.wanted, arg[i])
     end
 end
 
@@ -131,11 +132,12 @@ function test_fail (offset)
 end
 
 function test_diag (...)
+    local arg = {...}
     if not testing then
         _start_testing()
     end
-    for _,v in ipairs{...} do
-        err:expect("# " .. v)
+    for i = 1, #arg do
+        err:expect("# " .. arg[i])
     end
 end
 

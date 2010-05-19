@@ -4,7 +4,6 @@
 --
 
 local _G = _G
-local ipairs = ipairs
 local loadstring = loadstring
 local pairs = pairs
 local pcall = pcall
@@ -156,7 +155,8 @@ function eq_array (got, expected, name)
         tb:diag("expected value isn't a table : " .. tostring(expected))
         return
     end
-    for i, v in ipairs(expected) do
+    for i = 1, #expected do
+        local v = expected[i]
         local val = got[i]
         if val ~= v then
             tb:ok(false, name)
