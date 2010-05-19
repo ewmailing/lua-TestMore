@@ -11,7 +11,6 @@
 
 local _G = _G
 local os = os
-local ipairs = ipairs
 local pcall = pcall
 local print = print
 local require = require
@@ -102,7 +101,8 @@ function require_ok (mod)
 end
 
 function eq_array (got, expected, name)
-    for i, v in ipairs(expected) do
+    for i = 1, #expected do
+        local v = expected[i]
         local val = got[i]
         if val ~= v then
             ok(false, name)
