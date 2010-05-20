@@ -27,10 +27,7 @@ function new (self, _type)
 end
 
 function write (self, ...)
-    local arg = {...}
-    for i = 1, #arg do
-        self.got = self.got .. arg[i]
-    end
+    self.got = self.got .. table.concat({...})
 end
 
 function reset (self)

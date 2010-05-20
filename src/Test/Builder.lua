@@ -6,7 +6,9 @@
 local debug = require 'debug'
 local io = require 'io'
 local os = require 'os'
+local table = require 'table'
 local error = error
+local pairs = pairs
 local print = print
 local setmetatable = setmetatable
 local tonumber = tonumber
@@ -29,11 +31,11 @@ end
 
 local function print_comment (f, ...)
     if f then
-        local msg = ''
         local arg = {...}
-        for i = 1, #arg do
-            msg = msg .. tostring(arg[i])
+        for k, v in pairs(arg) do
+            arg[k] = tostring(v)
         end
+        local msg = table.concat(arg)
         msg = msg:gsub("\n", "\n# ")
         msg = msg:gsub("\n# \n", "\n#\n")
         msg = msg:gsub("\n# $", '')
