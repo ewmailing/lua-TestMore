@@ -3,5 +3,6 @@ MANIFEST
 *.tar
 *.tar.gz
 *.bak
+*.out
 
 cover_lua514
