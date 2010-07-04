@@ -1,0 +1,333 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module Test.More</title>
+    <link rel="stylesheet" href="http://www.keplerproject.org/doc.css" type="text/css"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Author" content="Fran&ccedil;ois Perrad"/>
+  <meta http-equiv="Language" content="en"/>
+  <meta http-equiv="Description" content="Module Test.More"/>
+  <meta http-equiv="Keywords" content="lua, tap, test, more, plan, done_testing, skip_all, BAIL_OUT, ok, nok, is, isnt, like, unlike, cmp_ok, type_ok, pass, fail, require_ok, eq_array, is_deeply, error_is, error_like, lives_ok, diag, note, skip, todo_skip, skip_rest, todo"/>
+</head>
+
+<body>
+
+<div id="container">
+
+<div id="product">
+  <div id="product_logo">
+    <a href="http://www.lua.org">
+      <img alt="Lua" src="http://www.andreas-rozek.de/Lua/Lua-Logo_128x128.png"/>
+    </a>
+  </div>
+  <div id="product_name"><big><strong>lua-TestMore</strong></big></div>
+  <div id="product_description">an Unit Testing Framework</div>
+</div> <!-- id="product" -->
+
+<div id="main">
+
+<div id="navigation">
+<h1>Test.More</h1>
+  <ul>
+    <li><a href="index.html">Home</a>
+      <ul>
+        <li><a href="index.html#overview">Overview</a></li>
+        <li><a href="index.html#status">Status</a></li>
+        <li><a href="index.html#documentation">Documentation</a></li>
+        <li><a href="index.html#download">Download</a></li>
+        <li><a href="index.html#installation">Installation</a></li>
+        <li><a href="index.html#testsuite">Lua Test Suite</a></li>
+        <li><a href="index.html#license">License</a></li>
+      </ul>
+    </li>
+    <li><strong>The module <code>Test.More</code></strong>
+      <ul>
+        <li><a href="testmore.html#reference">Reference</a></li>
+        <li><a href="testmore.html#examples">Examples</a></li>
+      </ul>
+    </li>
+    <li><a href="http://luaforge.net/projects/testmore/">Project</a>
+      <ul>
+        <li><a href="http://github.com/fperrad/lua-TestMore/">Git</a></li>
+        <li><script type="text/javascript" src="http://www.ohloh.net/p/438114/widgets/project_thin_badge.js"></script></li>
+      </ul>
+    </li>
+  </ul>
+</div> <!-- id="navigation" -->
+
+<div id="content">
+
+<h2><a name="reference"></a>References</h2>
+
+<h4><code>plan( arg )</code></h4>
+
+<pre class="example">
+plan(2)
+
+pass "one"
+pass "two"
+</pre>
+
+gives
+
+<pre class="example">
+1..2
+ok 1 - one
+ok 2 - two
+</pre>
+
+<h4><code>done_testing( num_tests )</code></h4>
+
+<pre class="example">
+plan 'no_plan'
+
+pass "one"
+pass "two"
+done_testing()
+</pre>
+
+<p>gives</p>
+
+<pre class="example">
+ok 1 - one
+ok 2 - two
+1..2
+</pre>
+
+<h4><code>skip_all( reason )</code></h4>
+
+<pre class="example">
+if everything_looks_good then
+    plan(7)
+else
+    skip_all "looks bad"
+end
+</pre>
+
+<p>gives</p>
+
+<pre class="example">
+1..0 # SKIP looks bad
+</pre>
+
+<h4><code>BAIL_OUT( reason )</code></h4>
+
+<pre class="example">
+plan(7)
+
+if not require_ok 'MyApp' then
+    BAIL_OUT "no MyApp"
+end
+</pre>
+
+<p>gives</p>
+
+<pre class="example">
+1..7
+not ok 1 - require 'MyApp'
+#     module 'MyApp' not found:
+#       no field package.preload['MyApp']
+#       no file '.\MyApp.lua'
+#       ...
+Bail out!  no MyApp
+</pre>
+
+<p>and breaks the execution of <code>prove</code></p>
+
+<h4><code>ok( test [, name] )</code></h4>
+
+<h4><code>nok( test [, name] )</code></h4>
+
+<h4><code>is( got, expected [, name] )</code></h4>
+
+<h4><code>isnt( got, expected [, name] )</code></h4>
+
+<h4><code>like( got, pattern [, name] )</code></h4>
+
+<h4><code>unlike( got, pattern [, name] )</code></h4>
+
+<h4><code>cmp_ok( this, op, that [, name] )</code></h4>
+
+<h4><code>type_ok( val, t [, name] )</code></h4>
+
+<h4><code>pass( name )</code></h4>
+
+<h4><code>fail( name )</code></h4>
+
+<h4><code>require_ok( mod )</code></h4>
+
+<h4><code>eq_array( got, expected [, name] )</code></h4>
+
+<h4><code>is_deeply( got, expected [, name] )</code></h4>
+
+<h4><code>error_is( code [, params_array], expected [, name] )</code></h4>
+
+<h4><code>error_like( code [, params_array], pattern [, name] )</code></h4>
+
+<h4><code>lives_ok( code [, params_array] [, name] )</code></h4>
+
+<h4><code>diag( msg )</code></h4>
+
+<h4><code>note( msg )</code></h4>
+
+<h4><code>skip( reason [, count] )</code></h4>
+
+<pre class="example">
+plan(4)
+
+pass "one"
+
+if true then
+    skip("here, segfault", 2)
+else
+    fail "two"
+    fail "three"
+end
+
+pass "four"
+</pre>
+
+<p>gives</p>
+
+<pre class="example">
+1..4
+ok 1 - one
+ok 2 - # skip here, segfault
+ok 3 - # skip here, segfault
+ok 4 - four
+</pre>
+
+<h4><code>todo_skip( reason )</code></h4>
+
+<pre class="example">
+plan(3)
+
+pass "one"
+
+if true then
+    todo_skip "here, segfault"
+else
+    fail "two"
+end
+
+pass "three"
+</pre>
+
+<p>gives</p>
+
+<pre class="example">
+1..3
+ok 1 - one
+not ok 2 - # TODO &amp; SKIP here, segfault
+ok 3 - three
+</pre>
+
+<h4><code>skip_rest( reason )</code></h4>
+
+<pre class="example">
+plan(3)
+
+if not require_ok 'MyApp' then
+    skip_rest "no MyApp"
+    os.exit()
+end
+
+pass "two"
+pass "three"
+</pre>
+
+<p>gives</p>
+
+<pre class="example">
+1..3
+not ok 1 - require 'MyApp'
+#     module 'MyApp' not found:
+#       no field package.preload['MyApp']
+#       no file '.\MyApp.lua'
+#       ...
+ok 2 - # skip no MyApp
+ok 3 - # skip no MyApp
+</pre>
+
+<h4><code>todo( reason [, count] )</code></h4>
+
+<pre class="example">
+plan(4)
+
+pass "one"
+
+todo( "not yet implemented", 2 )
+fail "two"
+fail "three"
+
+pass "four"
+</pre>
+
+<p>gives</p>
+
+<pre class="example">
+1..4
+ok 1 - one
+not ok 2 - two # TODO # not yet implemented
+not ok 3 - three # TODO # not yet implemented
+ok 4 - four
+</pre>
+
+<h2><a name="examples"></a>Examples</h2>
+
+<pre class="example">
+$ cat 99example.t
+#!/usr/bin/lua
+require 'Test.More'
+
+plan(9)
+
+ok(true, "true")
+ok(1, "1 is true")
+nok(false, "false")
+nok(nil, "nil is false")
+
+is(1 + 1, 2, "addition")
+
+like("with aaa", 'a', "pattern matches")
+unlike("with aaa", 'b', "pattern doesn't match")
+
+error_like([[error 'MSG']], '^[^:]+:%d+: MSG', "loadstring error")
+error_is(error, { 'MSG' }, 'MSG', "function error with param")
+</pre>
+
+<pre class="example">
+$ lua 99example.t
+1..9
+ok 1 - true
+ok 2 - 1 is true
+ok 3 - false
+ok 4 - nil is false
+ok 5 - addition
+ok 6 - pattern matches
+ok 7 - pattern doesn't match
+ok 8 - loadstring error
+ok 9 - function error with param
+</pre>
+
+<pre class="example">
+$ prove 99example.t
+99example.t .. ok
+All tests successful.
+Files=1, Tests=9,  0 wallclock secs ( 0.05 usr +  0.20 sys =  0.25 CPU)
+Result: PASS
+</pre>
+
+
+</div> <!-- id="content" -->
+
+</div> <!-- id="main" -->
+
+<div id="about">
+</div> <!-- id="about" -->
+
+</div> <!-- id="container" -->
+
+</body>
+</html>

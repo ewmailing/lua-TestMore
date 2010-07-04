@@ -1,80 +1,169 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
-	<title>fperrad/lua-TestMore @ GitHub</title>
-	
-	<style type="text/css">
-		body {
-  		margin-top: 1.0em;
-  		background-color: #c35ad4;
-		  font-family: "Helvetica,Arial,FreeSans";
-  		color: #000000;
-    }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-		h1 { font-size: 3.8em; color: #3ca52b; margin-bottom: 3px; }
-		h1 .small { font-size: 0.4em; }
-		h1 a { text-decoration: none }
-		h2 { font-size: 1.5em; color: #3ca52b; }
-    h3 { text-align: center; color: #3ca52b; }
-    a { color: #3ca52b; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-		pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
-	</style>
-	
+  <title>lua-TestMore - Homepage</title>
+    <link rel="stylesheet" href="http://www.keplerproject.org/doc.css" type="text/css"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Author" content="Fran&ccedil;ois Perrad"/>
+  <meta http-equiv="Language" content="en"/>
+  <meta http-equiv="Description" content="Homepage of lua-TestMore"/>
+  <meta http-equiv="Keywords" content="lua, tap, testmore, testing"/>
 </head>
 
 <body>
-  <a href="http://github.com/fperrad/lua-TestMore"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
 
-  <div id="container">
+<div id="container">
 
-    <div class="download">
-      <a href="http://github.com/fperrad/lua-TestMore/zipball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/fperrad/lua-TestMore/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
-    </div>
-
-    <h1><a href="http://github.com/fperrad/lua-TestMore">lua-TestMore</a>
-      <span class="small">by <a href="http://github.com/fperrad">fperrad</a></span></h1>
-
-    <div class="description">
-      an Unit Testing Framework
-    </div>
-
-    <h2>Authors</h2>
-<p>Francois Perrad (francois.perrad@gadz.org)<br/><br/>      </p>
-<h2>Contact</h2>
-<p>François Perrad (francois.perrad@gadz.org)<br/>      </p>
-
-
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="http://github.com/fperrad/lua-TestMore/zipball/master">zip</a> or
-      <a href="http://github.com/fperrad/lua-TestMore/tarball/master">tar</a> formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/fperrad/lua-TestMore</pre>
-    </p>
-
-    <div class="footer">
-      get the source code on GitHub : <a href="http://github.com/fperrad/lua-TestMore">fperrad/lua-TestMore</a>
-    </div>
-
+<div id="product">
+  <div id="product_logo">
+    <a href="http://www.lua.org">
+      <img alt="Lua" src="http://www.andreas-rozek.de/Lua/Lua-Logo_128x128.png"/>
+    </a>
   </div>
+  <div id="product_name"><big><strong>lua-TestMore</strong></big></div>
+  <div id="product_description">an Unit Testing Framework</div>
+</div> <!-- id="product" -->
 
-  
+<div id="main">
+
+<div id="navigation">
+<h1>lua-TestMore</h1>
+  <ul>
+    <li><strong>Home</strong>
+      <ul>
+        <li><a href="index.html#overview">Overview</a></li>
+        <li><a href="index.html#status">Status</a></li>
+        <li><a href="index.html#documentation">Documentation</a></li>
+        <li><a href="index.html#download">Download</a></li>
+        <li><a href="index.html#installation">Installation</a></li>
+        <li><a href="index.html#testsuite">Lua Test Suite</a></li>
+        <li><a href="index.html#license">License</a></li>
+      </ul>
+    </li>
+    <li><a href="testmore.html">The module <code>Test.More</code></a>
+      <ul>
+        <li><a href="testmore.html#reference">Reference</a></li>
+        <li><a href="testmore.html#examples">Examples</a></li>
+      </ul>
+    </li>
+    <li><a href="http://luaforge.net/projects/testmore/">Project</a>
+      <ul>
+        <li><a href="http://github.com/fperrad/lua-TestMore/">Git</a></li>
+        <li><script type="text/javascript" src="http://www.ohloh.net/p/438114/widgets/project_thin_badge.js"></script></li>
+      </ul>
+    </li>
+  </ul>
+</div> <!-- id="navigation" -->
+
+<div id="content">
+
+<h2><a name="overview"></a>Overview</h2>
+
+<p>lua-TestMore is a port of the Perl5 module
+<a href="http://search.cpan.org/~mschwern/Test-Simple/">Test::More</a>.</p>
+
+<p>It uses the
+<a href="http://search.cpan.org/~petdance/TAP/TAP.pm">Test Anything Protocol</a>
+as output, that allows a compatibility with the Perl QA ecosystem.<br />
+For example,
+<a href="http://search.cpan.org/~andya/Test-Harness/bin/prove">prove</a>
+a basic CLI,
+or <a href="http://search.cpan.org/~wonko/Smolder/">Smolder</a>
+a Web-based Continuous Integration Smoke Server.
+</p>
+
+<p>It's an extensible framework.</p>
+
+<p>It allows a simple and efficient way to write tests (without OO style).</p>
+
+<p>Some tests could be marked as <strong>TODO</strong>
+or <strong>skipped</strong>.</p>
+
+<p>Errors could be fully checked with <code>error_like()</code>.</p>
+
+<p>It supplies a Test Suite for Lua itself.</p>
+
+<h2><a name="status"></a>Status</h2>
+
+<p>lua-TestMore is in beta stage.</p>
+
+<p>It's developed for Lua 5.1.</p>
+
+<h2><a name="documentation"></a>Documentation</h2>
+
+<p>TODO : a manual</p>
+
+<h4>Bibliography :</h4>
+
+<p>Ian Langworth, chromatic, "Perl Testing" O'Reilly, 2005</p>
+
+<h2><a name="download"></a>Download</h2>
+
+<p>lua-TestMore source can be downloaded from
+<a href="http://github.com/fperrad/lua-TestMore/downloads/">GitHub</a> or
+<a href="http://luaforge.net/projects/testmore/files/">Lua Forge</a>.</p>
+
+<h2><a name="installation"></a>Installation</h2>
+
+<p>The easiest way to install lua-TestMore is to use LuaRocks:</p>
+
+<pre class="example">
+luarocks install lua-testmore
+</pre>
+
+<p>If you prefer to install manually, just copy the files from /src.
+There are no building stage, lua-TestMore is a pure Lua module.</p>
+
+<h2><a name="testsuite"></a>The Lua Test Suite</h2>
+
+<p>This suite is usable with :</p>
+<ul>
+  <li>the standard <a href="http://www.lua.org/">lua</a>,</li>
+  <li><a href="http://luajit.org/">LuaJIT</a>,</li>
+  <li><a href="http://code.google.com/p/llvm-lua/">llvm-lua</a>,</li>
+  <li>...</li>
+</ul>
+
+<p>It gives this <a href="cover_lua514/src/index.html">coverage</a>
+with Lua 5.1.4.</p>
+
+<p>Contribute by sending the result from your platform :</p>
+
+<pre class="example">
+cd test_lua51
+make smolder
+</pre>
+
+<p>They are stored
+<a href="http://smolder.plusthree.com/app/public_projects/smoke_reports/12">here</a>
+by Smolder.</p>
+
+<h2><a name="license"></a>Copyright and License</h2>
+
+<p>Copyright &copy; 2009 Fran&ccedil;ois Perrad
+<a href="http://www.ohloh.net/accounts/4780?ref=Rank">
+  <img alt="ohloh profile for Fran&ccedil;ois Perrad"
+       height="24" width="32" style="border-width:0"
+       src="http://www.ohloh.net/accounts/4780/widgets/account_rank.gif"/>
+</a>
+<a href="http://www.linkedin.com/in/fperrad">
+  <img alt="View Fran&ccedil;ois Perrad's profile on LinkedIn"
+       width="80" height="15" style="border-width:0"
+       src="http://www.linkedin.com/img/webpromo/btn_liprofile_blue_80x15.gif"/>
+</a>
+</p>
+
+<p>This library is licensed under the terms of the MIT/X11 license, like Lua itself.</p>
+
+</div> <!-- id="content" -->
+
+</div> <!-- id="main" -->
+
+<div id="about">
+</div> <!-- id="about" -->
+
+</div> <!-- id="container" -->
+
 </body>
 </html>
