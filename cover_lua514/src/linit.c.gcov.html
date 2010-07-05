@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>LCOV - Lua 5.1.4 - src/linit.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+        <tr>
+          <td width="5%"></td>
+          <td width="10%" class="headerItem">Current view:</td>
+          <td width="35%" class="headerValue"><a href="../index.html">directory</a> - <a href="index.html">src</a> - linit.c</td>
+          <td width="10%"></td>
+          <td width="10%" class="headerCovTableHead">Found</td>
+          <td width="10%" class="headerCovTableHead">Hit</td>
+          <td width="15%" class="headerCovTableHead">Coverage</td>
+          <td width="5%"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="headerItem">Test:</td>
+          <td class="headerValue">Lua 5.1.4</td>
+          <td class="headerItem">Lines:</td>
+          <td class="headerCovTableEntry">7</td>
+          <td class="headerCovTableEntry">7</td>
+          <td class="headerCovTableEntryHi">100.0 %</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="headerItem">Date:</td>
+          <td class="headerValue">2010-07-04</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="headerItem">Colors:</td>
+          <td class="headerValueLeg" colspan=5>
+            <span class="coverLegendNoCov">not hit</span>
+            <span class="coverLegendCov">hit</span>
+          </td>
+        </tr>
+                <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td><pre class="source">
+<span class="lineNum">       1 </span>                : /*
+<span class="lineNum">       2 </span>                : ** $Id: linit.c,v 1.14.1.1 2007/12/27 13:02:25 roberto Exp $
+<span class="lineNum">       3 </span>                : ** Initialization of libraries for lua.c
+<span class="lineNum">       4 </span>                : ** See Copyright Notice in lua.h
+<span class="lineNum">       5 </span>                : */
+<span class="lineNum">       6 </span>                : 
+<span class="lineNum">       7 </span>                : 
+<span class="lineNum">       8 </span>                : #define linit_c
+<span class="lineNum">       9 </span>                : #define LUA_LIB
+<span class="lineNum">      10 </span>                : 
+<span class="lineNum">      11 </span>                : #include &quot;lua.h&quot;
+<span class="lineNum">      12 </span>                : 
+<span class="lineNum">      13 </span>                : #include &quot;lualib.h&quot;
+<span class="lineNum">      14 </span>                : #include &quot;lauxlib.h&quot;
+<span class="lineNum">      15 </span>                : 
+<span class="lineNum">      16 </span>                : 
+<span class="lineNum">      17 </span>                : static const luaL_Reg lualibs[] = {
+<span class="lineNum">      18 </span>                :   {&quot;&quot;, luaopen_base},
+<span class="lineNum">      19 </span>                :   {LUA_LOADLIBNAME, luaopen_package},
+<span class="lineNum">      20 </span>                :   {LUA_TABLIBNAME, luaopen_table},
+<span class="lineNum">      21 </span>                :   {LUA_IOLIBNAME, luaopen_io},
+<span class="lineNum">      22 </span>                :   {LUA_OSLIBNAME, luaopen_os},
+<span class="lineNum">      23 </span>                :   {LUA_STRLIBNAME, luaopen_string},
+<span class="lineNum">      24 </span>                :   {LUA_MATHLIBNAME, luaopen_math},
+<span class="lineNum">      25 </span>                :   {LUA_DBLIBNAME, luaopen_debug},
+<span class="lineNum">      26 </span>                :   {NULL, NULL}
+<span class="lineNum">      27 </span>                : };
+<span class="lineNum">      28 </span>                : 
+<span class="lineNum">      29 </span>                : 
+<span class="lineNum">      30 </span><span class="lineCov">             38 : LUALIB_API void luaL_openlibs (lua_State *L) {</span>
+<span class="lineNum">      31 </span><span class="lineCov">             38 :   const luaL_Reg *lib = lualibs;</span>
+<span class="lineNum">      32 </span><span class="lineCov">            342 :   for (; lib-&gt;func; lib++) {</span>
+<span class="lineNum">      33 </span><span class="lineCov">            304 :     lua_pushcfunction(L, lib-&gt;func);</span>
+<span class="lineNum">      34 </span><span class="lineCov">            304 :     lua_pushstring(L, lib-&gt;name);</span>
+<span class="lineNum">      35 </span><span class="lineCov">            304 :     lua_call(L, 1, 0);</span>
+<span class="lineNum">      36 </span>                :   }
+<span class="lineNum">      37 </span><span class="lineCov">             38 : }</span>
+<span class="lineNum">      38 </span>                : 
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+  <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.7</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>
