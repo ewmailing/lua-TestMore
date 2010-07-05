@@ -31,9 +31,24 @@ while (<>) { \
     chomp; \
     next if m{^\.}; \
     next if m{/\.}; \
+    next if m{^doc}; \
     next if m{^rockspec/}; \
     push @files, $$_; \
 } \
+print join qq{\n}, sort @files;
+
+add_doc_pl := \
+use strict; \
+use warnings; \
+my @files; \
+while (<>) { \
+    chomp; \
+    next if m{^\.}; \
+    next if m{^cover}; \
+    next if m{^lua}; \
+    push @files, q{doc/} . $$_; \
+} \
+print qq{\n}; \
 print join qq{\n}, sort @files;
 
 rockspec_pl := \
@@ -65,6 +80,7 @@ tag:
 
 MANIFEST:
 	git ls-files | perl -e '$(manifest_pl)' > MANIFEST
+	cd doc && git ls-files | perl -e '$(add_doc_pl)' >> ../MANIFEST
 
 $(TARBALL): MANIFEST
 	[ -d lua-TestMore-$(VERSION) ] || ln -s . lua-TestMore-$(VERSION)
