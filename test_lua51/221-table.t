@@ -1,6 +1,6 @@
 #! /usr/bin/lua
 --
--- lua-TestMore : <http://testmore.luaforge.net/>
+-- lua-TestMore : <http://fperrad.github.com/lua-TestMore/>
 --
 -- Copyright (C) 2009, Perrad Francois
 --

@@ -10,7 +10,7 @@ description = {
     detailed = [[
         lua-TestMore is a port of the Perl5 module Test::More.
     ]],
-    homepage = 'http://testmore.luaforge.net/',
+    homepage = 'http://fperrad.github.com/lua-TestMore/',
     maintainer = 'Francois Perrad',
     license = 'MIT/X11'
 }
