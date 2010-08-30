@@ -31,6 +31,7 @@ while (<>) { \
     chomp; \
     next if m{^\.}; \
     next if m{/\.}; \
+    next if m{^doc/\.}; \
     next if m{^doc/cover}; \
     next if m{^doc/google}; \
     next if m{^doc/lua}; \
