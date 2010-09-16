@@ -33,8 +33,8 @@ use warnings; \
 use LWP::UserAgent; \
 my $$ua = LWP::UserAgent->new(); \
 $$ua->env_proxy(); \
-my $$server = q{http://smolder.plusthree.com}; \
-my $$project_id = 12; \
+my $$server = q{http://smolder.parrot.org}; \
+my $$project_id = 7; \
 my $$url = $$server . q{/app/projects/process_add_report/} . $$project_id; \
 my $$response = $$ua->post( \
     $$url, \
@@ -44,6 +44,8 @@ my $$response = $$ua->post( \
         platform     => q{$(OSNAME)}, \
         tags         => q{$(OSNAME), $(ARCHNAME), $(LUA), $(LUA_VERSION)}, \
         comments     => q{$(LUA)}, \
+        username     => q{parrot-autobot}, \
+        password     => q{qa_rocks}, \
         project_id   => $$project_id, \
         report_file  => [q{test_lua51.tar.gz}], \
         ] \
