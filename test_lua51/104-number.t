@@ -53,7 +53,7 @@ is(-25 % 3, 2, "-25 % 3")
 if platform and platform.osname == 'MSWin32' then
     is(tostring(1 % 0), '-1.#IND', "1 % 0")
 else
-    is(tostring(1 % 0), 'nan', "1 % 0")
+    like(tostring(1 % 0), '^-?nan$', "1 % 0")
 end
 
 error_like(function () return 10 + true end,
