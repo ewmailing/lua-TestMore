@@ -31,7 +31,7 @@ dependencies = {
     'lua >= 5.1',
 }
 build = {
-    type = 'builtin',
+    type = 'none',
     modules = {
         ['Test.Builder']        = 'src/Test/Builder.lua',
         ['Test.Builder.Tester'] = 'src/Test/Builder/Tester.lua',
