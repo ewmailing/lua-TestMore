@@ -1,5 +1,8 @@
 Revision history for lua-TestMore
 
+0.2.3
+	fix compatibility with Lua 5.2.0 work5
+
 0.2.2  Sat May 22 11:30:00 2010
 	fix compatibility with Lua 5.2.0 work3
 

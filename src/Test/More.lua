@@ -3,45 +3,45 @@
 -- lua-TestMore : <http://fperrad.github.com/lua-TestMore/>
 --
 
-local _G = _G
 local loadstring = loadstring
 local pairs = pairs
 local pcall = pcall
 local require = require
 local tostring = tostring
 local type = type
-local unpack = unpack or require 'table'.unpack
+local unpack = require 'table'.unpack or unpack
+local _G = _G
 
-require 'Test.Builder'
-local tb = Test.Builder:new()
+local tb = require 'Test.Builder':new()
 
-module 'Test.More'
+_ENV = nil
+local m = {}
 
-function plan (arg)
+function m.plan (arg)
     tb:plan(arg)
 end
 
-function done_testing (num_tests)
+function m.done_testing (num_tests)
     tb:done_testing(num_tests)
 end
 
-function skip_all (reason)
+function m.skip_all (reason)
     tb:skip_all(reason)
 end
 
-function BAIL_OUT (reason)
+function m.BAIL_OUT (reason)
     tb:BAIL_OUT(reason)
 end
 
-function ok (test, name)
+function m.ok (test, name)
     tb:ok(test, name)
 end
 
-function nok (test, name)
+function m.nok (test, name)
     tb:ok(not test, name)
 end
 
-function is (got, expected, name)
+function m.is (got, expected, name)
     local pass = got == expected
     tb:ok(pass, name)
     if not pass then
@@ -50,7 +50,7 @@ function is (got, expected, name)
     end
 end
 
-function isnt (got, expected, name)
+function m.isnt (got, expected, name)
     local pass = got ~= expected
     tb:ok(pass, name)
     if not pass then
@@ -59,7 +59,7 @@ function isnt (got, expected, name)
     end
 end
 
-function like (got, pattern, name)
+function m.like (got, pattern, name)
     if type(pattern) ~= 'string' then
         tb:ok(false, name)
         tb:diag("pattern isn't a string : " .. tostring(pattern))
@@ -74,7 +74,7 @@ function like (got, pattern, name)
     end
 end
 
-function unlike (got, pattern, name)
+function m.unlike (got, pattern, name)
     if type(pattern) ~= 'string' then
         tb:ok(false, name)
         tb:diag("pattern isn't a string : " .. tostring(pattern))
@@ -98,7 +98,7 @@ local cmp = {
     ['~='] = function (a, b) return a ~= b end,
 }
 
-function cmp_ok (this, op, that, name)
+function m.cmp_ok (this, op, that, name)
     local f = cmp[op]
     if not f then
         tb:ok(false, name)
@@ -114,10 +114,10 @@ function cmp_ok (this, op, that, name)
     end
 end
 
-function type_ok (val, t, name)
+function m.type_ok (val, t, name)
     if type(t) ~= 'string' then
         tb:ok(false, name)
-        tb:diag("type isn't a string : " .. tostring(pattern))
+        tb:diag("type isn't a string : " .. tostring(t))
         return
     end
     if type(val) == t then
@@ -128,15 +128,15 @@ function type_ok (val, t, name)
     end
 end
 
-function pass (name)
+function m.pass (name)
     tb:ok(true, name)
 end
 
-function fail (name)
+function m.fail (name)
     tb:ok(false, name)
 end
 
-function require_ok (mod)
+function m.require_ok (mod)
     local r, msg = pcall(require, mod)
     tb:ok(r, "require '" .. tostring(mod) .. "'")
     if not r then
@@ -145,7 +145,7 @@ function require_ok (mod)
     return r
 end
 
-function eq_array (got, expected, name)
+function m.eq_array (got, expected, name)
     if type(got) ~= 'table' then
         tb:ok(false, name)
         tb:diag("got value isn't a table : " .. tostring(got))
@@ -175,7 +175,7 @@ function eq_array (got, expected, name)
     end
 end
 
-function is_deeply (got, expected, name)
+function m.is_deeply (got, expected, name)
     if type(got) ~= 'table' then
         tb:ok(false, name)
         tb:diag("got value isn't a table : " .. tostring(got))
@@ -229,7 +229,7 @@ function is_deeply (got, expected, name)
     end
 end
 
-function error_is (code, arg2, arg3, arg4)
+function m.error_is (code, arg2, arg3, arg4)
     local params, expected, name
     if type(arg2) == 'table' then
         params = arg2
@@ -265,7 +265,7 @@ function error_is (code, arg2, arg3, arg4)
     end
 end
 
-function error_like (code, arg2, arg3, arg4)
+function m.error_like (code, arg2, arg3, arg4)
     local params, pattern, name
     if type(arg2) == 'table' then
         params = arg2
@@ -306,7 +306,7 @@ function error_like (code, arg2, arg3, arg4)
     end
 end
 
-function lives_ok (code, arg2, arg3)
+function m.lives_ok (code, arg2, arg3)
     local params, name
     if type(arg2) == 'table' then
         params = arg2
@@ -332,37 +332,40 @@ function lives_ok (code, arg2, arg3)
     end
 end
 
-function diag (msg)
+function m.diag (msg)
     tb:diag(msg)
 end
 
-function note (msg)
+function m.note (msg)
     tb:note(msg)
 end
 
-function skip (reason, count)
+function m.skip (reason, count)
     tb:skip(reason, count)
 end
 
-function todo_skip (reason)
+function m.todo_skip (reason)
     tb:todo_skip(reason)
 end
 
-function skip_rest (reason)
+function m.skip_rest (reason)
     tb:skip_rest(reason)
 end
 
-function todo (reason, count)
+function m.todo (reason, count)
     tb:todo(reason, count)
 end
 
-for k, v in pairs(_G.Test.More) do  -- injection
+for k, v in pairs(m) do  -- injection
     _G[k] = v
 end
+_G.Test = _G.Test or {}
+_G.Test.More = m
 
-_VERSION = "0.2.2"
-_DESCRIPTION = "lua-TestMore : an Unit Testing Framework"
-_COPYRIGHT = "Copyright (c) 2009-2010 Francois Perrad"
+m._VERSION = "0.2.2"
+m._DESCRIPTION = "lua-TestMore : an Unit Testing Framework"
+m._COPYRIGHT = "Copyright (c) 2009-2010 Francois Perrad"
+return m
 --
 -- This library is licensed under the terms of the MIT/X11 license,
 -- like Lua itself.

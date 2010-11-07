@@ -7,9 +7,10 @@ local io = require 'io'
 local pairs = pairs
 local require = require
 
-module 'Test.Builder.NoOutput'  -- useful for testing Test.Builder
+_ENV = nil
+local m = {}
 
-function create (self)
+function m:create ()
     local tb = require 'Test.Builder':create()
     tb:output(io.tmpfile())
     tb:failure_output(io.tmpfile())
@@ -17,21 +18,21 @@ function create (self)
 
     function tb:read (stream)
         if     stream == 'out' then
-            f = self:output()
+            local f = self:output()
             f:seek 'set'
             local out = f:read '*a'
             f:close()
             self:output(io.tmpfile())
             return out
         elseif stream == 'err' then
-            f = self:failure_output()
+            local f = self:failure_output()
             f:seek 'set'
             local out = f:read '*a'
             f:close()
             self:failure_output(io.tmpfile())
             return out
         elseif stream == 'todo' then
-            f = self:todo_output()
+            local f = self:todo_output()
             f:seek 'set'
             local out = f:read '*a'
             f:close()
@@ -50,8 +51,9 @@ function create (self)
     return tb
 end
 
+return m
 --
--- Copyright (c) 2009 Francois Perrad
+-- Copyright (c) 2009-2010 Francois Perrad
 --
 -- This library is licensed under the terms of the MIT/X11 license,
 -- like Lua itself.

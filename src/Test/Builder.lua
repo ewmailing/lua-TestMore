@@ -15,7 +15,8 @@ local tonumber = tonumber
 local tostring = tostring
 local type = type
 
-module 'Test.Builder'
+_ENV = nil
+local m = {}
 
 local testout = io and io.stdout
 local testerr = io and (io.stderr or io.stdout)
@@ -45,8 +46,8 @@ local function print_comment (f, ...)
     end
 end
 
-function create (self)
-    o = {}
+function m:create ()
+    local o = {}
     setmetatable(o, self)
     self.__index = self
     o:reset()
@@ -55,12 +56,12 @@ function create (self)
 end
 
 local test
-function new (self)
+function m:new ()
     test = test or self:create()
     return test
 end
 
-function reset (self)
+function m:reset ()
     self.curr_test = 0
     self._done_testing = false
     self.expected_tests = 0
@@ -84,7 +85,7 @@ local function _output_plan (self, max, directive, reason)
     self.have_output_plan = true
 end
 
-function plan (self, arg)
+function m:plan (arg)
     if self.have_plan then
         error("You tried to plan twice")
     end
@@ -104,7 +105,7 @@ function plan (self, arg)
     end
 end
 
-function done_testing (self, num_tests)
+function m:done_testing (num_tests)
     num_tests = num_tests or self.curr_test
     if self._done_testing then
         tb:ok(false, "done_testing() was already called")
@@ -131,7 +132,7 @@ function done_testing (self, num_tests)
     end
 end
 
-function has_plan (self)
+function m:has_plan ()
     if self.expected_tests > 0 then
         return self.expected_tests
     end
@@ -141,7 +142,7 @@ function has_plan (self)
     return nil
 end
 
-function skip_all (self, reason)
+function m:skip_all (reason)
     if self.have_plan then
         error("You tried to plan twice")
     end
@@ -163,7 +164,7 @@ local function _check_is_passing_plan (self)
     end
 end
 
-function ok (self, test, name, level)
+function m:ok (test, name, level)
     name = name or ''
     level = level or 0
     if not self.have_plan then
@@ -207,7 +208,7 @@ function ok (self, test, name, level)
     _check_is_passing_plan(self)
 end
 
-function BAIL_OUT (self, reason)
+function m:BAIL_OUT (reason)
     local out = "Bail out!"
     if reason then
         out = out .. "  " .. reason
@@ -216,20 +217,20 @@ function BAIL_OUT (self, reason)
     os.exit(255)
 end
 
-function current_test (self, num)
+function m:current_test (num)
     if num then
         self.curr_test = num
     end
     return self.curr_test
 end
 
-function todo (self, reason, count)
+function m:todo (reason, count)
     count = count or 1
     self.todo_upto = self.curr_test + count
     self.todo_reason = reason
 end
 
-function skip (self, reason, count)
+function m:skip (reason, count)
     count = count or 1
     local name = "# skip"
     if reason then
@@ -240,7 +241,7 @@ function skip (self, reason, count)
     end
 end
 
-function todo_skip (self, reason)
+function m:todo_skip (reason)
     local name = "# TODO & SKIP"
     if reason then
         name = name .. " " .. reason
@@ -248,7 +249,7 @@ function todo_skip (self, reason)
     self:ok(false, name, 1)
 end
 
-function skip_rest (self, reason)
+function m:skip_rest (reason)
     self:skip(reason, self.expected_tests - self.curr_test)
 end
 
@@ -260,43 +261,44 @@ local function diag_file (self)
     end
 end
 
-function diag (self, ...)
+function m:diag (...)
     print_comment(diag_file(self), ...)
 end
 
-function note (self, ...)
+function m:note (...)
     print_comment(self:output(), ...)
 end
 
-function output (self, f)
+function m:output (f)
     if f then
         self.out_file = f
     end
     return self.out_file
 end
 
-function failure_output (self, f)
+function m:failure_output (f)
     if f then
         self.fail_file = f
     end
     return self.fail_file
 end
 
-function todo_output (self, f)
+function m:todo_output (f)
     if f then
         self.todo_file = f
     end
     return self.todo_file
 end
 
-function reset_outputs (self)
+function m:reset_outputs ()
     self:output(testout)
     self:failure_output(testerr)
     self:todo_output(testout)
 end
 
+return m
 --
--- Copyright (c) 2009 Francois Perrad
+-- Copyright (c) 2009-2010 Francois Perrad
 --
 -- This library is licensed under the terms of the MIT/X11 license,
 -- like Lua itself.

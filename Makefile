@@ -1,6 +1,6 @@
 
 LUA     := lua
-VERSION := $(shell cd src && $(LUA) -e "require [[Test.More]]; print(Test.More._VERSION)")
+VERSION := $(shell cd src && $(LUA) -e "m = require [[Test.More]]; print(m._VERSION)")
 TARBALL := lua-testmore-$(VERSION).tar.gz
 ifndef REV
   REV   := 1
@@ -13,15 +13,17 @@ BINDIR  := $(DESTDIR)/bin
 LIBDIR  := $(DESTDIR)/share/lua/5.1
 
 install:
-	mkdir -p $(LIBDIR)/Test/Builder
-	cp src/Test/More.lua            $(LIBDIR)/Test
-	cp src/Test/Builder.lua         $(LIBDIR)/Test
-	cp src/Test/Builder/Tester.lua  $(LIBDIR)/Test/Builder
+	mkdir -p $(LIBDIR)/Test/Builder/Tester
+	cp src/Test/More.lua                    $(LIBDIR)/Test
+	cp src/Test/Builder.lua                 $(LIBDIR)/Test
+	cp src/Test/Builder/Tester.lua          $(LIBDIR)/Test/Builder
+	cp src/Test/Builder/Tester/File.lua     $(LIBDIR)/Test/Builder/Tester
 
 uninstall:
 	rm -f $(LIBDIR)/Test/More.lua
 	rm -f $(LIBDIR)/Test/Builder.lua
 	rm -f $(LIBDIR)/Test/Builder/Tester.lua
+	rm -f $(LIBDIR)/Test/Builder/Tester/File.lua
 
 manifest_pl := \
 use strict; \

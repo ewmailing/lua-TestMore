@@ -3,69 +3,19 @@
 -- lua-TestMore : <http://fperrad.github.com/lua-TestMore/>
 --
 
-local _G = _G
-local debug = require 'debug'
-local table = require 'table'
 local error = error
-local module = module
 local pairs = pairs
 local setmetatable = setmetatable
 local type = type
+local _G = _G
+local debug = require 'debug'
 
-local tb = require 'Test.Builder':new()
+local tb  = require 'Test.Builder':new()
+local out = require 'Test.Builder.Tester.File':new 'out'
+local err = require 'Test.Builder.Tester.File':new 'err'
 
-module 'Test.Builder.Tester.File'
-
-function new (self, _type)
-    o = {
-        type = _type
-    }
-    setmetatable(o, self)
-    self.__index = self
-    o:reset()
-    return o
-end
-
-function write (self, ...)
-    self.got = self.got .. table.concat({...})
-end
-
-function reset (self)
-    self.got = ''
-    self.wanted = {}
-end
-
-function expect (self, ...)
-    local arg = {...}
-    for i = 1, #arg do
-        table.insert(self.wanted, arg[i])
-    end
-end
-
-function check (self)
-    local got = self.got
-    local wanted = table.concat(self.wanted, "\n")
-    if wanted ~= '' then
-        wanted = wanted .. "\n"
-    end
-    return got == wanted
-end
-
-function complaint (self)
-    local type = self.type
-    local got = self.got
-    local wanted = table.concat(self.wanted, "\n")
-    if wanted ~= '' then
-        wanted = wanted .. "\n"
-    end
-    return type .. " is:"
-     .. "\n" .. got
-     .. "\nnot:"
-     .. "\n" .. wanted
-     .. "\nhas expected"
-end
-
-module 'Test.Builder.Tester'
+_ENV = nil
+local m = {}
 
 -- for remembering that we're testing and where we're testing at
 local testing = false
@@ -75,9 +25,6 @@ local testing_num
 local original_output_handle
 local original_failure_handle
 local original_todo_handle
-
-local out = _G.Test.Builder.Tester.File:new 'out'
-local err = _G.Test.Builder.Tester.File:new 'err'
 
 local function _start_testing ()
     -- remember what the handles were set to
@@ -103,21 +50,21 @@ local function _start_testing ()
     tb.no_ending = true
 end
 
-function test_out (...)
+function m.test_out (...)
     if not testing then
         _start_testing()
     end
     out:expect(...)
 end
 
-function test_err (...)
+function m.test_err (...)
     if not testing then
         _start_testing()
     end
     err:expect(...)
 end
 
-function test_fail (offset)
+function m.test_fail (offset)
     offset = offset or 0
     if not testing then
         _start_testing()
@@ -128,7 +75,7 @@ function test_fail (offset)
     err:expect("#     Failed test (" .. prog .. " at line " .. line .. ")")
 end
 
-function test_diag (...)
+function m.test_diag (...)
     local arg = {...}
     if not testing then
         _start_testing()
@@ -138,7 +85,7 @@ function test_diag (...)
     end
 end
 
-function test_test (args)
+function m.test_test (args)
     local mess
     if type(args) == 'table' then
         mess = args[1]
@@ -176,13 +123,15 @@ function test_test (args)
     end
 end
 
-function line_num ()
+function m.line_num ()
     return debug.getinfo(2).currentline
 end
 
-for k, v in pairs(_G.Test.Builder.Tester) do  -- injection
+for k, v in pairs(m) do  -- injection
     _G[k] = v
 end
+
+return m
 
 --
 -- Copyright (c) 2009 Francois Perrad

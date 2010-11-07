@@ -33,9 +33,10 @@ dependencies = {
 build = {
     type = 'none',
     modules = {
-        ['Test.Builder']        = 'src/Test/Builder.lua',
-        ['Test.Builder.Tester'] = 'src/Test/Builder/Tester.lua',
-        ['Test.More']           = 'src/Test/More.lua',
+        ['Test.Builder']             = 'src/Test/Builder.lua',
+        ['Test.Builder.Tester']      = 'src/Test/Builder/Tester.lua',
+        ['Test.Builder.Tester.File'] = 'src/Test/Builder/Tester/File.lua',
+        ['Test.More']                = 'src/Test/More.lua',
     },
     copy_directories = { 'doc', 'test', 'test_lua51' },
 }
