@@ -4,5 +4,6 @@ MANIFEST
 *.tar.gz
 *.bak
 *.out
+README.html
 
 cover_lua514
