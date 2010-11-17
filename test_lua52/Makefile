@@ -1,5 +1,5 @@
 
-#LUAJIT = luajit
+LUAJIT = luajit
 LUA = ../../lua-5.2.0-alpha/src/lua
 LUA_COVER = ../../gh-pages/lua-TestMore/lua-5.2.0-alpha/src/lua
 
@@ -20,8 +20,8 @@ harness:
 sanity:
 	prove --exec=$(LUA) 0*.t
 
-#luajit:
-#	prove --exec=$(LUAJIT) *.t
+luajit:
+	prove --exec=$(LUAJIT) *.t
 
 coverage:
 	prove --exec=$(LUA_COVER) *.t
