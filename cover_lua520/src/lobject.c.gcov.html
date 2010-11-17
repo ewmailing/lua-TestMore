@@ -1,0 +1,332 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>LCOV - Lua 5.2.0 alpha - src/lobject.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - lobject.c</td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">Lua 5.2.0 alpha</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">95</td>
+            <td class="headerCovTableEntry">107</td>
+            <td class="headerCovTableEntryMed">88.8 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2010-11-17</td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">55</td>
+            <td class="headerCovTableEntry">70</td>
+            <td class="headerCovTableEntryMed">78.6 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+            | Branches:
+            <span class="coverLegendCov">+</span> taken
+            <span class="coverLegendNoCov">-</span> not taken
+            <span class="coverLegendNoCov">#</span> not executed
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<span class="lineNum">       1 </span>                :            : /*
+<span class="lineNum">       2 </span>                :            : ** $Id: lobject.c,v 2.43 2010/10/29 15:54:55 roberto Exp $
+<span class="lineNum">       3 </span>                :            : ** Some generic functions over Lua objects
+<span class="lineNum">       4 </span>                :            : ** See Copyright Notice in lua.h
+<span class="lineNum">       5 </span>                :            : */
+<span class="lineNum">       6 </span>                :            : 
+<span class="lineNum">       7 </span>                :            : #include &lt;stdarg.h&gt;
+<span class="lineNum">       8 </span>                :            : #include &lt;stdio.h&gt;
+<span class="lineNum">       9 </span>                :            : #include &lt;stdlib.h&gt;
+<span class="lineNum">      10 </span>                :            : #include &lt;string.h&gt;
+<span class="lineNum">      11 </span>                :            : 
+<span class="lineNum">      12 </span>                :            : #define lobject_c
+<span class="lineNum">      13 </span>                :            : #define LUA_CORE
+<span class="lineNum">      14 </span>                :            : 
+<span class="lineNum">      15 </span>                :            : #include &quot;lua.h&quot;
+<span class="lineNum">      16 </span>                :            : 
+<span class="lineNum">      17 </span>                :            : #include &quot;lctype.h&quot;
+<span class="lineNum">      18 </span>                :            : #include &quot;ldebug.h&quot;
+<span class="lineNum">      19 </span>                :            : #include &quot;ldo.h&quot;
+<span class="lineNum">      20 </span>                :            : #include &quot;lmem.h&quot;
+<span class="lineNum">      21 </span>                :            : #include &quot;lobject.h&quot;
+<span class="lineNum">      22 </span>                :            : #include &quot;lstate.h&quot;
+<span class="lineNum">      23 </span>                :            : #include &quot;lstring.h&quot;
+<span class="lineNum">      24 </span>                :            : #include &quot;lvm.h&quot;
+<span class="lineNum">      25 </span>                :            : 
+<span class="lineNum">      26 </span>                :            : 
+<span class="lineNum">      27 </span>                :            : 
+<span class="lineNum">      28 </span>                :            : LUAI_DDEF const TValue luaO_nilobject_ = {NILCONSTANT};
+<span class="lineNum">      29 </span>                :            : 
+<span class="lineNum">      30 </span>                :            : 
+<span class="lineNum">      31 </span>                :            : /*
+<span class="lineNum">      32 </span>                :            : ** converts an integer to a &quot;floating point byte&quot;, represented as
+<span class="lineNum">      33 </span>                :            : ** (eeeeexxx), where the real value is (1xxx) * 2^(eeeee - 1) if
+<span class="lineNum">      34 </span>                :            : ** eeeee != 0 and (xxx) otherwise.
+<span class="lineNum">      35 </span>                :            : */
+<span class="lineNum">      36 </span>                :<span class="lineCov">       1620 : int luaO_int2fb (lu_int32 x) {</span>
+<span class="lineNum">      37 </span>                :<span class="lineCov">       1620 :   int e = 0;  /* exponent */</span>
+<span class="lineNum">      38 </span>        [<span class="branchCov" title="Branch 0 was taken 1617 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">       1620 :   if (x &lt; 8) return x;</span>
+<span class="lineNum">      39 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          3 :   while (x &gt;= 0x10) {</span>
+<span class="lineNum">      40 </span>                :<span class="lineNoCov">          0 :     x = (x+1) &gt;&gt; 1;</span>
+<span class="lineNum">      41 </span>                :<span class="lineNoCov">          0 :     e++;</span>
+<span class="lineNum">      42 </span>                :            :   }
+<span class="lineNum">      43 </span>                :<span class="lineCov">       1620 :   return ((e+1) &lt;&lt; 3) | (cast_int(x) - 8);</span>
+<span class="lineNum">      44 </span>                :            : }
+<span class="lineNum">      45 </span>                :            : 
+<span class="lineNum">      46 </span>                :            : 
+<span class="lineNum">      47 </span>                :            : /* converts back */
+<span class="lineNum">      48 </span>                :<span class="lineCov">        486 : int luaO_fb2int (int x) {</span>
+<span class="lineNum">      49 </span>                :<span class="lineCov">        486 :   int e = (x &gt;&gt; 3) &amp; 0x1f;</span>
+<span class="lineNum">      50 </span>        [<span class="branchCov" title="Branch 0 was taken 483 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">        486 :   if (e == 0) return x;</span>
+<span class="lineNum">      51 </span>                :<span class="lineCov">        486 :   else return ((x &amp; 7) + 8) &lt;&lt; (e - 1);</span>
+<span class="lineNum">      52 </span>                :            : }
+<span class="lineNum">      53 </span>                :            : 
+<span class="lineNum">      54 </span>                :            : 
+<span class="lineNum">      55 </span>                :<span class="lineCov">      39256 : int luaO_ceillog2 (unsigned int x) {</span>
+<span class="lineNum">      56 </span>                :            :   static const lu_byte log_2[256] = {
+<span class="lineNum">      57 </span>                :            :     0,1,2,2,3,3,3,3,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+<span class="lineNum">      58 </span>                :            :     6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,
+<span class="lineNum">      59 </span>                :            :     7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,
+<span class="lineNum">      60 </span>                :            :     7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,
+<span class="lineNum">      61 </span>                :            :     8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,
+<span class="lineNum">      62 </span>                :            :     8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,
+<span class="lineNum">      63 </span>                :            :     8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,
+<span class="lineNum">      64 </span>                :            :     8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8
+<span class="lineNum">      65 </span>                :            :   };
+<span class="lineNum">      66 </span>                :<span class="lineCov">      39256 :   int l = 0;</span>
+<span class="lineNum">      67 </span>                :<span class="lineCov">      39256 :   x--;</span>
+<span class="lineNum">      68 </span>        [<span class="branchCov" title="Branch 0 was taken 27 times"> + </span><span class="branchCov" title="Branch 1 was taken 39256 times"> + </span>]:<span class="lineCov">      39283 :   while (x &gt;= 256) { l += 8; x &gt;&gt;= 8; }</span>
+<span class="lineNum">      69 </span>                :<span class="lineCov">      39256 :   return l + log_2[x];</span>
+<span class="lineNum">      70 </span>                :            : }
+<span class="lineNum">      71 </span>                :            : 
+<span class="lineNum">      72 </span>                :            : 
+<span class="lineNum">      73 </span>                :<span class="lineCov">      13941 : int luaO_rawequalObj (const TValue *t1, const TValue *t2) {</span>
+<span class="lineNum">      74 </span>        [<span class="branchCov" title="Branch 0 was taken 1402 times"> + </span><span class="branchCov" title="Branch 1 was taken 12539 times"> + </span>]:<span class="lineCov">      13941 :   if (ttype(t1) != ttype(t2)) return 0;</span>
+<span class="lineNum">      75 </span>[<span class="branchCov" title="Branch 0 was taken 17 times"> + </span><span class="branchCov" title="Branch 1 was taken 1009 times"> + </span><span class="branchCov" title="Branch 2 was taken 452 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 9105 times"> + </span>:<span class="lineCov">      12539 :   else switch (ttype(t1)) {</span>
+<span class="lineNum">         </span>         <span class="branchCov" title="Branch 5 was taken 303 times"> + </span><span class="branchCov" title="Branch 6 was taken 1653 times"> + </span>]
+<span class="lineNum">      76 </span>                :            :     case LUA_TNIL:
+<span class="lineNum">      77 </span>                :<span class="lineCov">         17 :       return 1;</span>
+<span class="lineNum">      78 </span>                :            :     case LUA_TNUMBER:
+<span class="lineNum">      79 </span>                :<span class="lineCov">       1009 :       return luai_numeq(nvalue(t1), nvalue(t2));</span>
+<span class="lineNum">      80 </span>                :            :     case LUA_TBOOLEAN:
+<span class="lineNum">      81 </span>                :<span class="lineCov">        452 :       return bvalue(t1) == bvalue(t2);  /* boolean true must be 1 !! */</span>
+<span class="lineNum">      82 </span>                :            :     case LUA_TLIGHTUSERDATA:
+<span class="lineNum">      83 </span>                :<span class="lineNoCov">          0 :       return pvalue(t1) == pvalue(t2);</span>
+<span class="lineNum">      84 </span>                :            :     case LUA_TSTRING:
+<span class="lineNum">      85 </span>                :<span class="lineCov">       9105 :       return rawtsvalue(t1) == rawtsvalue(t2);</span>
+<span class="lineNum">      86 </span>                :            :     case LUA_TLCF:
+<span class="lineNum">      87 </span>                :<span class="lineCov">        303 :       return fvalue(t1) == fvalue(t2);</span>
+<span class="lineNum">      88 </span>                :            :     default:
+<span class="lineNum">      89 </span>                :            :       lua_assert(iscollectable(t1));
+<span class="lineNum">      90 </span>                :<span class="lineCov">      13941 :       return gcvalue(t1) == gcvalue(t2);</span>
+<span class="lineNum">      91 </span>                :            :   }
+<span class="lineNum">      92 </span>                :            : }
+<span class="lineNum">      93 </span>                :            : 
+<span class="lineNum">      94 </span>                :            : 
+<span class="lineNum">      95 </span>                :<span class="lineCov">         28 : lua_Number luaO_arith (int op, lua_Number v1, lua_Number v2) {</span>
+<span class="lineNum">      96 </span>[<span class="branchCov" title="Branch 0 was taken 6 times"> + </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span><span class="branchCov" title="Branch 2 was taken 6 times"> + </span><span class="branchCov" title="Branch 3 was taken 4 times"> + </span><span class="branchCov" title="Branch 4 was taken 4 times"> + </span>:<span class="lineCov">         28 :   switch (op) {</span>
+<span class="lineNum">         </span>      <span class="branchCov" title="Branch 5 was taken 3 times"> + </span><span class="branchCov" title="Branch 6 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]
+<span class="lineNum">      97 </span>                :<span class="lineCov">          6 :     case LUA_OPADD: return luai_numadd(NULL, v1, v2);</span>
+<span class="lineNum">      98 </span>                :<span class="lineCov">          4 :     case LUA_OPSUB: return luai_numsub(NULL, v1, v2);</span>
+<span class="lineNum">      99 </span>                :<span class="lineCov">          6 :     case LUA_OPMUL: return luai_nummul(NULL, v1, v2);</span>
+<span class="lineNum">     100 </span>                :<span class="lineCov">          4 :     case LUA_OPDIV: return luai_numdiv(NULL, v1, v2);</span>
+<span class="lineNum">     101 </span>                :<span class="lineCov">          4 :     case LUA_OPMOD: return luai_nummod(NULL, v1, v2);</span>
+<span class="lineNum">     102 </span>                :<span class="lineCov">          3 :     case LUA_OPPOW: return luai_numpow(NULL, v1, v2);</span>
+<span class="lineNum">     103 </span>                :<span class="lineCov">          1 :     case LUA_OPUNM: return luai_numunm(NULL, v1);</span>
+<span class="lineNum">     104 </span>                :<span class="lineCov">         28 :     default: lua_assert(0); return 0;</span>
+<span class="lineNum">     105 </span>                :            :   }
+<span class="lineNum">     106 </span>                :            : }
+<span class="lineNum">     107 </span>                :            : 
+<span class="lineNum">     108 </span>                :            : 
+<span class="lineNum">     109 </span>                :            : static int checkend (const char *s, const char *endptr) {
+<span class="lineNum">     110 </span>  [<span class="branchCov" title="Branch 0 was taken 19 times"> + </span><span class="branchCov" title="Branch 1 was taken 2249 times"> + </span><span class="branchCov" title="Branch 2 was taken 19 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">       2288 :   if (endptr == s) return 0;  /* no characters converted */</span>
+<span class="lineNum">     111 </span>[<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchCov" title="Branch 1 was taken 2249 times"> + </span>][<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">       2254 :   while (lisspace(cast(unsigned char, *endptr))) endptr++;</span>
+<span class="lineNum">     112 </span>                :<span class="lineCov">       2250 :   return (*endptr == '\0');  /* OK if no trailing characters */</span>
+<span class="lineNum">     113 </span>                :            : }
+<span class="lineNum">     114 </span>                :            : 
+<span class="lineNum">     115 </span>                :            : 
+<span class="lineNum">     116 </span>                :<span class="lineCov">       2268 : int luaO_str2d (const char *s, lua_Number *result) {</span>
+<span class="lineNum">     117 </span>                :            :   char *endptr;
+<span class="lineNum">     118 </span>                :<span class="lineCov">       2268 :   *result = lua_str2number(s, &amp;endptr);</span>
+<span class="lineNum">     119 </span>        [<span class="branchCov" title="Branch 0 was taken 2248 times"> + </span><span class="branchCov" title="Branch 1 was taken 20 times"> + </span>]:<span class="lineCov">       2268 :   if (checkend(s, endptr)) return 1;  /* conversion OK? */</span>
+<span class="lineNum">     120 </span>                :<span class="lineCov">         20 :   *result = cast_num(strtoul(s, &amp;endptr, 0)); /* try hexadecimal */</span>
+<span class="lineNum">     121 </span>                :<span class="lineCov">       2268 :   return checkend(s, endptr);</span>
+<span class="lineNum">     122 </span>                :            : }
+<span class="lineNum">     123 </span>                :            : 
+<span class="lineNum">     124 </span>                :            : 
+<span class="lineNum">     125 </span>                :            : 
+<span class="lineNum">     126 </span>                :<span class="lineCov">       1882 : static void pushstr (lua_State *L, const char *str, size_t l) {</span>
+<span class="lineNum">     127 </span>                :<span class="lineCov">       1882 :   setsvalue2s(L, L-&gt;top, luaS_newlstr(L, str, l));</span>
+<span class="lineNum">     128 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1882 times"> + </span>]:<span class="lineCov">       1882 :   incr_top(L);</span>
+<span class="lineNum">     129 </span>                :<span class="lineCov">       1882 : }</span>
+<span class="lineNum">     130 </span>                :            : 
+<span class="lineNum">     131 </span>                :            : 
+<span class="lineNum">     132 </span>                :            : /* this function handles only `%d', `%c', %f, %p, and `%s' formats */
+<span class="lineNum">     133 </span>                :<span class="lineCov">        708 : const char *luaO_pushvfstring (lua_State *L, const char *fmt, va_list argp) {</span>
+<span class="lineNum">     134 </span>                :<span class="lineCov">        708 :   int n = 0;</span>
+<span class="lineNum">     135 </span>                :            :   for (;;) {
+<span class="lineNum">     136 </span>                :<span class="lineCov">       2131 :     const char *e = strchr(fmt, '%');</span>
+<span class="lineNum">     137 </span>        [<span class="branchCov" title="Branch 0 was taken 1423 times"> + </span><span class="branchCov" title="Branch 1 was taken 708 times"> + </span>]:<span class="lineCov">       2131 :     if (e == NULL) break;</span>
+<span class="lineNum">     138 </span>                :<span class="lineCov">       1423 :     setsvalue2s(L, L-&gt;top, luaS_newlstr(L, fmt, e-fmt));</span>
+<span class="lineNum">     139 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1423 times"> + </span>]:<span class="lineCov">       1423 :     incr_top(L);</span>
+<span class="lineNum">     140 </span>[<span class="branchCov" title="Branch 0 was taken 1156 times"> + </span><span class="branchCov" title="Branch 1 was taken 5 times"> + </span><span class="branchCov" title="Branch 2 was taken 249 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 11 times"> + </span>:<span class="lineCov">       1423 :     switch (*(e+1)) {</span>
+<span class="lineNum">         </span>         <span class="branchCov" title="Branch 5 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]
+<span class="lineNum">     141 </span>                :            :       case 's': {
+<span class="lineNum">     142 </span>                :<span class="lineCov">       1156 :         const char *s = va_arg(argp, char *);</span>
+<span class="lineNum">     143 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1156 times"> + </span>]:<span class="lineCov">       1156 :         if (s == NULL) s = &quot;(null)&quot;;</span>
+<span class="lineNum">     144 </span>                :<span class="lineCov">       1156 :         pushstr(L, s, strlen(s));</span>
+<span class="lineNum">     145 </span>                :<span class="lineCov">       1156 :         break;</span>
+<span class="lineNum">     146 </span>                :            :       }
+<span class="lineNum">     147 </span>                :            :       case 'c': {
+<span class="lineNum">     148 </span>                :            :         char buff;
+<span class="lineNum">     149 </span>                :<span class="lineCov">          5 :         buff = cast(char, va_arg(argp, int));</span>
+<span class="lineNum">     150 </span>                :<span class="lineCov">          5 :         pushstr(L, &amp;buff, 1);</span>
+<span class="lineNum">     151 </span>                :<span class="lineCov">          5 :         break;</span>
+<span class="lineNum">     152 </span>                :            :       }
+<span class="lineNum">     153 </span>                :            :       case 'd': {
+<span class="lineNum">     154 </span>                :<span class="lineCov">        249 :         setnvalue(L-&gt;top, cast_num(va_arg(argp, int)));</span>
+<span class="lineNum">     155 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 249 times"> + </span>]:<span class="lineCov">        249 :         incr_top(L);</span>
+<span class="lineNum">     156 </span>                :            :         break;
+<span class="lineNum">     157 </span>                :            :       }
+<span class="lineNum">     158 </span>                :            :       case 'f': {
+<span class="lineNum">     159 </span>                :<span class="lineNoCov">          0 :         setnvalue(L-&gt;top, cast_num(va_arg(argp, l_uacNumber)));</span>
+<span class="lineNum">     160 </span>        [<span class="branchNoExec" title="Block containing branch 0 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span>]:<span class="lineNoCov">          0 :         incr_top(L);</span>
+<span class="lineNum">     161 </span>                :            :         break;
+<span class="lineNum">     162 </span>                :            :       }
+<span class="lineNum">     163 </span>                :            :       case 'p': {
+<span class="lineNum">     164 </span>                :            :         char buff[4*sizeof(void *) + 8]; /* should be enough space for a `%p' */
+<span class="lineNum">     165 </span>                :<span class="lineCov">         22 :         int l = sprintf(buff, &quot;%p&quot;, va_arg(argp, void *));</span>
+<span class="lineNum">     166 </span>                :<span class="lineCov">         11 :         pushstr(L, buff, l);</span>
+<span class="lineNum">     167 </span>                :<span class="lineCov">         11 :         break;</span>
+<span class="lineNum">     168 </span>                :            :       }
+<span class="lineNum">     169 </span>                :            :       case '%': {
+<span class="lineNum">     170 </span>                :<span class="lineCov">          2 :         pushstr(L, &quot;%&quot;, 1);</span>
+<span class="lineNum">     171 </span>                :<span class="lineCov">          2 :         break;</span>
+<span class="lineNum">     172 </span>                :            :       }
+<span class="lineNum">     173 </span>                :            :       default: {
+<span class="lineNum">     174 </span>                :<span class="lineNoCov">          0 :         luaG_runerror(L,</span>
+<span class="lineNum">     175 </span>                :            :             &quot;invalid option &quot; LUA_QL(&quot;%%%c&quot;) &quot; to &quot; LUA_QL(&quot;lua_pushfstring&quot;),
+<span class="lineNum">     176 </span>                :<span class="lineNoCov">          0 :             *(e + 1));</span>
+<span class="lineNum">     177 </span>                :            :         break;
+<span class="lineNum">     178 </span>                :            :       }
+<span class="lineNum">     179 </span>                :            :     }
+<span class="lineNum">     180 </span>                :<span class="lineCov">       1423 :     n += 2;</span>
+<span class="lineNum">     181 </span>                :<span class="lineCov">       1423 :     fmt = e+2;</span>
+<span class="lineNum">     182 </span>                :<span class="lineCov">       1423 :   }</span>
+<span class="lineNum">     183 </span>                :<span class="lineCov">        708 :   pushstr(L, fmt, strlen(fmt));</span>
+<span class="lineNum">     184 </span>        [<span class="branchCov" title="Branch 0 was taken 688 times"> + </span><span class="branchCov" title="Branch 1 was taken 20 times"> + </span>]:<span class="lineCov">        708 :   if (n &gt; 0) luaV_concat(L, n + 1);</span>
+<span class="lineNum">     185 </span>                :<span class="lineCov">        708 :   return svalue(L-&gt;top - 1);</span>
+<span class="lineNum">     186 </span>                :            : }
+<span class="lineNum">     187 </span>                :            : 
+<span class="lineNum">     188 </span>                :            : 
+<span class="lineNum">     189 </span>                :<span class="lineCov">        199 : const char *luaO_pushfstring (lua_State *L, const char *fmt, ...) {</span>
+<span class="lineNum">     190 </span>                :            :   const char *msg;
+<span class="lineNum">     191 </span>                :            :   va_list argp;
+<span class="lineNum">     192 </span>                :<span class="lineCov">        199 :   va_start(argp, fmt);</span>
+<span class="lineNum">     193 </span>                :<span class="lineCov">        199 :   msg = luaO_pushvfstring(L, fmt, argp);</span>
+<span class="lineNum">     194 </span>                :<span class="lineCov">        199 :   va_end(argp);</span>
+<span class="lineNum">     195 </span>                :<span class="lineCov">        199 :   return msg;</span>
+<span class="lineNum">     196 </span>                :            : }
+<span class="lineNum">     197 </span>                :            : 
+<span class="lineNum">     198 </span>                :            : 
+<span class="lineNum">     199 </span>                :            : 
+<span class="lineNum">     200 </span>                :            : #define LL(x)   (sizeof(x) - 1)
+<span class="lineNum">     201 </span>                :            : #define RETS    &quot;...&quot;
+<span class="lineNum">     202 </span>                :            : #define PRE     &quot;[string \&quot;&quot;
+<span class="lineNum">     203 </span>                :            : #define POS     &quot;\&quot;]&quot;
+<span class="lineNum">     204 </span>                :            : 
+<span class="lineNum">     205 </span>                :            : #define addstr(a,b,l)   ( memcpy(a,b,l), a += (l) )
+<span class="lineNum">     206 </span>                :            : 
+<span class="lineNum">     207 </span>                :<span class="lineCov">        241 : void luaO_chunkid (char *out, const char *source, size_t bufflen) {</span>
+<span class="lineNum">     208 </span>                :<span class="lineCov">        241 :   size_t l = strlen(source);</span>
+<span class="lineNum">     209 </span>        [<span class="branchCov" title="Branch 0 was taken 7 times"> + </span><span class="branchCov" title="Branch 1 was taken 234 times"> + </span>]:<span class="lineCov">        241 :   if (*source == '=') {  /* 'literal' source */</span>
+<span class="lineNum">     210 </span>        [<span class="branchCov" title="Branch 0 was taken 7 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          7 :     if (l &lt;= bufflen)  /* small enough? */</span>
+<span class="lineNum">     211 </span>                :<span class="lineCov">          7 :       memcpy(out, source + 1, l);</span>
+<span class="lineNum">     212 </span>                :            :     else {  /* truncate it */
+<span class="lineNum">     213 </span>                :<span class="lineNoCov">          0 :       addstr(out, source + 1, bufflen - 1);</span>
+<span class="lineNum">     214 </span>                :<span class="lineNoCov">          0 :       *out = '\0';</span>
+<span class="lineNum">     215 </span>                :            :     }
+<span class="lineNum">     216 </span>                :            :   }
+<span class="lineNum">     217 </span>        [<span class="branchCov" title="Branch 0 was taken 229 times"> + </span><span class="branchCov" title="Branch 1 was taken 5 times"> + </span>]:<span class="lineCov">        234 :   else if (*source == '@') {  /* file name */</span>
+<span class="lineNum">     218 </span>        [<span class="branchCov" title="Branch 0 was taken 229 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        229 :     if (l &lt;= bufflen)  /* small enough? */</span>
+<span class="lineNum">     219 </span>                :<span class="lineCov">        229 :       memcpy(out, source + 1, l);</span>
+<span class="lineNum">     220 </span>                :            :     else {  /* add '...' before rest of name */
+<span class="lineNum">     221 </span>                :<span class="lineNoCov">          0 :       addstr(out, RETS, LL(RETS));</span>
+<span class="lineNum">     222 </span>                :<span class="lineNoCov">          0 :       bufflen -= LL(RETS);</span>
+<span class="lineNum">     223 </span>                :<span class="lineNoCov">          0 :       memcpy(out, source + 1 + l - bufflen, bufflen);</span>
+<span class="lineNum">     224 </span>                :            :     }
+<span class="lineNum">     225 </span>                :            :   }
+<span class="lineNum">     226 </span>                :            :   else {  /* string; format as [string &quot;source&quot;] */
+<span class="lineNum">     227 </span>                :<span class="lineCov">          5 :     const char *nl = strchr(source, '\n');  /* find first new line (if any) */</span>
+<span class="lineNum">     228 </span>                :<span class="lineCov">          5 :     addstr(out, PRE, LL(PRE));  /* add prefix */</span>
+<span class="lineNum">     229 </span>                :<span class="lineCov">          5 :     bufflen -= LL(PRE RETS POS) + 1;  /* save space for prefix+suffix+'\0' */</span>
+<span class="lineNum">     230 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span>]:<span class="lineCov">          5 :     if (l &lt; bufflen &amp;&amp; nl == NULL) {  /* small one-line source? */</span>
+<span class="lineNum">     231 </span>                :<span class="lineCov">          1 :       addstr(out, source, l);  /* keep it */</span>
+<span class="lineNum">     232 </span>                :            :     }
+<span class="lineNum">     233 </span>                :            :     else {
+<span class="lineNum">     234 </span>        [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          4 :       if (nl != NULL) l = nl - source;  /* stop at first newline */</span>
+<span class="lineNum">     235 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          4 :       if (l &gt; bufflen) l = bufflen;</span>
+<span class="lineNum">     236 </span>                :<span class="lineCov">          4 :       addstr(out, source, l);</span>
+<span class="lineNum">     237 </span>                :<span class="lineCov">          4 :       addstr(out, RETS, LL(RETS));</span>
+<span class="lineNum">     238 </span>                :            :     }
+<span class="lineNum">     239 </span>                :            :     memcpy(out, POS, LL(POS) + 1);
+<span class="lineNum">     240 </span>                :            :   }
+<span class="lineNum">     241 </span>                :<span class="lineCov">        241 : }</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.8</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

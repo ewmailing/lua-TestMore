@@ -1,0 +1,684 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>LCOV - Lua 5.2.0 alpha - src/ltable.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - ltable.c</td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">Lua 5.2.0 alpha</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">239</td>
+            <td class="headerCovTableEntry">259</td>
+            <td class="headerCovTableEntryHi">92.3 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2010-11-17</td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">162</td>
+            <td class="headerCovTableEntry">194</td>
+            <td class="headerCovTableEntryMed">83.5 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+            | Branches:
+            <span class="coverLegendCov">+</span> taken
+            <span class="coverLegendNoCov">-</span> not taken
+            <span class="coverLegendNoCov">#</span> not executed
+</td>
+            <td></td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<span class="lineNum">       1 </span>                :            : /*
+<span class="lineNum">       2 </span>                :            : ** $Id: ltable.c,v 2.53 2010/11/11 15:38:43 roberto Exp $
+<span class="lineNum">       3 </span>                :            : ** Lua tables (hash)
+<span class="lineNum">       4 </span>                :            : ** See Copyright Notice in lua.h
+<span class="lineNum">       5 </span>                :            : */
+<span class="lineNum">       6 </span>                :            : 
+<span class="lineNum">       7 </span>                :            : 
+<span class="lineNum">       8 </span>                :            : /*
+<span class="lineNum">       9 </span>                :            : ** Implementation of tables (aka arrays, objects, or hash tables).
+<span class="lineNum">      10 </span>                :            : ** Tables keep its elements in two parts: an array part and a hash part.
+<span class="lineNum">      11 </span>                :            : ** Non-negative integer keys are all candidates to be kept in the array
+<span class="lineNum">      12 </span>                :            : ** part. The actual size of the array is the largest `n' such that at
+<span class="lineNum">      13 </span>                :            : ** least half the slots between 0 and n are in use.
+<span class="lineNum">      14 </span>                :            : ** Hash uses a mix of chained scatter table with Brent's variation.
+<span class="lineNum">      15 </span>                :            : ** A main invariant of these tables is that, if an element is not
+<span class="lineNum">      16 </span>                :            : ** in its main position (i.e. the `original' position that its hash gives
+<span class="lineNum">      17 </span>                :            : ** to it), then the colliding element is in its own main position.
+<span class="lineNum">      18 </span>                :            : ** Hence even when the load factor reaches 100%, performance remains good.
+<span class="lineNum">      19 </span>                :            : */
+<span class="lineNum">      20 </span>                :            : 
+<span class="lineNum">      21 </span>                :            : #include &lt;string.h&gt;
+<span class="lineNum">      22 </span>                :            : 
+<span class="lineNum">      23 </span>                :            : #define ltable_c
+<span class="lineNum">      24 </span>                :            : #define LUA_CORE
+<span class="lineNum">      25 </span>                :            : 
+<span class="lineNum">      26 </span>                :            : #include &quot;lua.h&quot;
+<span class="lineNum">      27 </span>                :            : 
+<span class="lineNum">      28 </span>                :            : #include &quot;ldebug.h&quot;
+<span class="lineNum">      29 </span>                :            : #include &quot;ldo.h&quot;
+<span class="lineNum">      30 </span>                :            : #include &quot;lgc.h&quot;
+<span class="lineNum">      31 </span>                :            : #include &quot;lmem.h&quot;
+<span class="lineNum">      32 </span>                :            : #include &quot;lobject.h&quot;
+<span class="lineNum">      33 </span>                :            : #include &quot;lstate.h&quot;
+<span class="lineNum">      34 </span>                :            : #include &quot;lstring.h&quot;
+<span class="lineNum">      35 </span>                :            : #include &quot;ltable.h&quot;
+<span class="lineNum">      36 </span>                :            : 
+<span class="lineNum">      37 </span>                :            : 
+<span class="lineNum">      38 </span>                :            : /*
+<span class="lineNum">      39 </span>                :            : ** max size of array part is 2^MAXBITS
+<span class="lineNum">      40 </span>                :            : */
+<span class="lineNum">      41 </span>                :            : #if LUAI_BITSINT &gt;= 32
+<span class="lineNum">      42 </span>                :            : #define MAXBITS         30
+<span class="lineNum">      43 </span>                :            : #else
+<span class="lineNum">      44 </span>                :            : #define MAXBITS         (LUAI_BITSINT-2)
+<span class="lineNum">      45 </span>                :            : #endif
+<span class="lineNum">      46 </span>                :            : 
+<span class="lineNum">      47 </span>                :            : #define MAXASIZE        (1 &lt;&lt; MAXBITS)
+<span class="lineNum">      48 </span>                :            : 
+<span class="lineNum">      49 </span>                :            : 
+<span class="lineNum">      50 </span>                :            : #define hashpow2(t,n)      (gnode(t, lmod((n), sizenode(t))))
+<span class="lineNum">      51 </span>                :            : 
+<span class="lineNum">      52 </span>                :            : #define hashstr(t,str)  hashpow2(t, (str)-&gt;tsv.hash)
+<span class="lineNum">      53 </span>                :            : #define hashboolean(t,p)        hashpow2(t, p)
+<span class="lineNum">      54 </span>                :            : 
+<span class="lineNum">      55 </span>                :            : 
+<span class="lineNum">      56 </span>                :            : /*
+<span class="lineNum">      57 </span>                :            : ** for some types, it is better to avoid modulus by power of 2, as
+<span class="lineNum">      58 </span>                :            : ** they tend to have many 2 factors.
+<span class="lineNum">      59 </span>                :            : */
+<span class="lineNum">      60 </span>                :            : #define hashmod(t,n)    (gnode(t, ((n) % ((sizenode(t)-1)|1))))
+<span class="lineNum">      61 </span>                :            : 
+<span class="lineNum">      62 </span>                :            : 
+<span class="lineNum">      63 </span>                :            : #define hashpointer(t,p)        hashmod(t, IntPoint(p))
+<span class="lineNum">      64 </span>                :            : 
+<span class="lineNum">      65 </span>                :            : 
+<span class="lineNum">      66 </span>                :            : /*
+<span class="lineNum">      67 </span>                :            : ** number of ints inside a lua_Number
+<span class="lineNum">      68 </span>                :            : */
+<span class="lineNum">      69 </span>                :            : #define numints         cast_int(sizeof(lua_Number)/sizeof(int))
+<span class="lineNum">      70 </span>                :            : 
+<span class="lineNum">      71 </span>                :            : 
+<span class="lineNum">      72 </span>                :            : 
+<span class="lineNum">      73 </span>                :            : #define dummynode               (&amp;dummynode_)
+<span class="lineNum">      74 </span>                :            : 
+<span class="lineNum">      75 </span>                :            : #define isdummy(n)              ((n) == dummynode)
+<span class="lineNum">      76 </span>                :            : 
+<span class="lineNum">      77 </span>                :            : static const Node dummynode_ = {
+<span class="lineNum">      78 </span>                :            :   {NILCONSTANT},  /* value */
+<span class="lineNum">      79 </span>                :            :   {{NILCONSTANT, NULL}}  /* key */
+<span class="lineNum">      80 </span>                :            : };
+<span class="lineNum">      81 </span>                :            : 
+<span class="lineNum">      82 </span>                :            : 
+<span class="lineNum">      83 </span>                :            : /*
+<span class="lineNum">      84 </span>                :            : ** hash for lua_Numbers
+<span class="lineNum">      85 </span>                :            : */
+<span class="lineNum">      86 </span>                :<span class="lineCov">      51880 : static Node *hashnum (const Table *t, lua_Number n) {</span>
+<span class="lineNum">      87 </span>                :            :   int i;
+<span class="lineNum">      88 </span>                :<span class="lineCov">      51880 :   luai_hashnum(i, n);</span>
+<span class="lineNum">      89 </span>        [<span class="branchCov" title="Branch 0 was taken 671 times"> + </span><span class="branchCov" title="Branch 1 was taken 51209 times"> + </span>]:<span class="lineCov">      51880 :   if (i &lt; 0) {</span>
+<span class="lineNum">      90 </span>                :<span class="lineCov">        671 :      i = -i;  /* must be a positive value */</span>
+<span class="lineNum">      91 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 671 times"> + </span>]:<span class="lineCov">        671 :      if (i &lt; 0) i = 0;  /* handle INT_MIN */</span>
+<span class="lineNum">      92 </span>                :            :   }
+<span class="lineNum">      93 </span>                :<span class="lineCov">      51880 :   return hashmod(t, i);</span>
+<span class="lineNum">      94 </span>                :            : }
+<span class="lineNum">      95 </span>                :            : 
+<span class="lineNum">      96 </span>                :            : 
+<span class="lineNum">      97 </span>                :            : 
+<span class="lineNum">      98 </span>                :            : /*
+<span class="lineNum">      99 </span>                :            : ** returns the `main' position of an element in a table (that is, the index
+<span class="lineNum">     100 </span>                :            : ** of its hash value)
+<span class="lineNum">     101 </span>                :            : */
+<span class="lineNum">     102 </span>                :<span class="lineCov">     187286 : static Node *mainposition (const Table *t, const TValue *key) {</span>
+<span class="lineNum">     103 </span>[<span class="branchCov" title="Branch 0 was taken 25989 times"> + </span><span class="branchCov" title="Branch 1 was taken 159341 times"> + </span><span class="branchCov" title="Branch 2 was taken 1544 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>:<span class="lineCov">     187286 :   switch (ttype(key)) {</span>
+<span class="lineNum">         </span>            <span class="branchCov" title="Branch 5 was taken 412 times"> + </span>]
+<span class="lineNum">     104 </span>                :            :     case LUA_TNUMBER:
+<span class="lineNum">     105 </span>                :<span class="lineCov">      25989 :       return hashnum(t, nvalue(key));</span>
+<span class="lineNum">     106 </span>                :            :     case LUA_TSTRING:
+<span class="lineNum">     107 </span>                :<span class="lineCov">     159341 :       return hashstr(t, rawtsvalue(key));</span>
+<span class="lineNum">     108 </span>                :            :     case LUA_TBOOLEAN:
+<span class="lineNum">     109 </span>                :<span class="lineCov">       1544 :       return hashboolean(t, bvalue(key));</span>
+<span class="lineNum">     110 </span>                :            :     case LUA_TLIGHTUSERDATA:
+<span class="lineNum">     111 </span>                :<span class="lineNoCov">          0 :       return hashpointer(t, pvalue(key));</span>
+<span class="lineNum">     112 </span>                :            :     case LUA_TLCF:
+<span class="lineNum">     113 </span>                :<span class="lineNoCov">          0 :       return hashpointer(t, fvalue(key));</span>
+<span class="lineNum">     114 </span>                :            :     default:
+<span class="lineNum">     115 </span>                :<span class="lineCov">     187286 :       return hashpointer(t, gcvalue(key));</span>
+<span class="lineNum">     116 </span>                :            :   }
+<span class="lineNum">     117 </span>                :            : }
+<span class="lineNum">     118 </span>                :            : 
+<span class="lineNum">     119 </span>                :            : 
+<span class="lineNum">     120 </span>                :            : /*
+<span class="lineNum">     121 </span>                :            : ** returns the index for `key' if `key' is an appropriate key to live in
+<span class="lineNum">     122 </span>                :            : ** the array part of the table, -1 otherwise.
+<span class="lineNum">     123 </span>                :            : */
+<span class="lineNum">     124 </span>                :            : static int arrayindex (const TValue *key) {
+<span class="lineNum">     125 </span>[<span class="branchCov" title="Branch 0 was taken 32 times"> + </span><span class="branchCov" title="Branch 1 was taken 1383 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 763 times"> + </span><span class="branchCov" title="Branch 3 was taken 59654 times"> + </span>]:<span class="lineCov">      99517 :   if (ttisnumber(key)) {</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 4 was taken 24031 times"> + </span><span class="branchCov" title="Branch 5 was taken 13654 times"> + </span>]
+<span class="lineNum">     126 </span>                :<span class="lineCov">      24826 :     lua_Number n = nvalue(key);</span>
+<span class="lineNum">     127 </span>                :            :     int k;
+<span class="lineNum">     128 </span>                :<span class="lineCov">      24826 :     lua_number2int(k, n);</span>
+<span class="lineNum">     129 </span>[<span class="branchCov" title="Branch 0 was taken 32 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 2 was taken 719 times"> + </span><span class="branchCov" title="Branch 3 was taken 44 times"> + </span>]:<span class="lineCov">      24826 :     if (luai_numeq(cast_num(k), n))</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 4 was taken 24023 times"> + </span><span class="branchCov" title="Branch 5 was taken 8 times"> + </span>]
+<span class="lineNum">     130 </span>                :<span class="lineCov">      24774 :       return k;</span>
+<span class="lineNum">     131 </span>                :            :   }
+<span class="lineNum">     132 </span>                :<span class="lineCov">      74743 :   return -1;  /* `key' did not match some condition */</span>
+<span class="lineNum">     133 </span>                :            : }
+<span class="lineNum">     134 </span>                :            : 
+<span class="lineNum">     135 </span>                :            : 
+<span class="lineNum">     136 </span>                :            : /*
+<span class="lineNum">     137 </span>                :            : ** returns the index of a `key' for table traversals. First goes all
+<span class="lineNum">     138 </span>                :            : ** elements in the array part, then elements in the hash part. The
+<span class="lineNum">     139 </span>                :            : ** beginning of a traversal is signaled by -1.
+<span class="lineNum">     140 </span>                :            : */
+<span class="lineNum">     141 </span>                :            : static int findindex (lua_State *L, Table *t, StkId key) {
+<span class="lineNum">     142 </span>                :            :   int i;
+<span class="lineNum">     143 </span>        [<span class="branchCov" title="Branch 0 was taken 80 times"> + </span><span class="branchCov" title="Branch 1 was taken 1415 times"> + </span>]:<span class="lineCov">       1495 :   if (ttisnil(key)) return -1;  /* first iteration */</span>
+<span class="lineNum">     144 </span>                :<span class="lineCov">       1415 :   i = arrayindex(key);</span>
+<span class="lineNum">     145 </span>[<span class="branchCov" title="Branch 0 was taken 28 times"> + </span><span class="branchCov" title="Branch 1 was taken 1387 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 25 times"> + </span><span class="branchCov" title="Branch 3 was taken 3 times"> + </span>]:<span class="lineCov">       1415 :   if (0 &lt; i &amp;&amp; i &lt;= t-&gt;sizearray)  /* is `key' inside array part? */</span>
+<span class="lineNum">     146 </span>                :<span class="lineCov">         25 :     return i-1;  /* yes; that's the index (corrected to C) */</span>
+<span class="lineNum">     147 </span>                :            :   else {
+<span class="lineNum">     148 </span>                :<span class="lineCov">       1390 :     Node *n = mainposition(t, key);</span>
+<span class="lineNum">     149 </span>                :            :     do {  /* check whether `key' is somewhere in the chain */
+<span class="lineNum">     150 </span>                :            :       /* key may be dead already, but it is ok to use it in `next' */
+<span class="lineNum">     151 </span>[<span class="branchCov" title="Branch 1 was taken 563 times"> + </span><span class="branchCov" title="Branch 2 was taken 1389 times"> + </span>][<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 563 times"> + </span>]:<span class="lineCov">       1952 :       if (luaO_rawequalObj(gkey(n), key) ||</span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Block containing branch 5 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 6 was never executed"> # </span>][<span class="branchNoExec" title="Block containing branch 7 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 8 was never executed"> # </span>]
+<span class="lineNum">     152 </span>                :<span class="lineCov">        563 :             (ttype(gkey(n)) == LUA_TDEADKEY &amp;&amp; iscollectable(key) &amp;&amp;</span>
+<span class="lineNum">     153 </span>                :<span class="lineNoCov">          0 :              gcvalue(gkey(n)) == gcvalue(key))) {</span>
+<span class="lineNum">     154 </span>                :<span class="lineCov">       1389 :         i = cast_int(n - gnode(t, 0));  /* key index in hash table */</span>
+<span class="lineNum">     155 </span>                :            :         /* hash elements are numbered after array ones */
+<span class="lineNum">     156 </span>                :<span class="lineCov">       1389 :         return i + t-&gt;sizearray;</span>
+<span class="lineNum">     157 </span>                :            :       }
+<span class="lineNum">     158 </span>                :<span class="lineCov">        563 :       else n = gnext(n);</span>
+<span class="lineNum">     159 </span>        [<span class="branchCov" title="Branch 0 was taken 562 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">        563 :     } while (n);</span>
+<span class="lineNum">     160 </span>                :<span class="lineCov">          1 :     luaG_runerror(L, &quot;invalid key to &quot; LUA_QL(&quot;next&quot;));  /* key not found */</span>
+<span class="lineNum">     161 </span>                :<span class="lineNoCov">          0 :     return 0;  /* to avoid warnings */</span>
+<span class="lineNum">     162 </span>                :            :   }
+<span class="lineNum">     163 </span>                :            : }
+<span class="lineNum">     164 </span>                :            : 
+<span class="lineNum">     165 </span>                :            : 
+<span class="lineNum">     166 </span>                :<span class="lineCov">       1495 : int luaH_next (lua_State *L, Table *t, StkId key) {</span>
+<span class="lineNum">     167 </span>                :<span class="lineCov">       1494 :   int i = findindex(L, t, key);  /* find original element */</span>
+<span class="lineNum">     168 </span>        [<span class="branchCov" title="Branch 0 was taken 24 times"> + </span><span class="branchCov" title="Branch 1 was taken 1470 times"> + </span>]:<span class="lineCov">       1494 :   for (i++; i &lt; t-&gt;sizearray; i++) {  /* try first array part */</span>
+<span class="lineNum">     169 </span>        [<span class="branchCov" title="Branch 0 was taken 24 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         24 :     if (!ttisnil(&amp;t-&gt;array[i])) {  /* a non-nil value? */</span>
+<span class="lineNum">     170 </span>                :<span class="lineCov">         24 :       setnvalue(key, cast_num(i+1));</span>
+<span class="lineNum">     171 </span>                :<span class="lineCov">         24 :       setobj2s(L, key+1, &amp;t-&gt;array[i]);</span>
+<span class="lineNum">     172 </span>                :<span class="lineCov">         24 :       return 1;</span>
+<span class="lineNum">     173 </span>                :            :     }
+<span class="lineNum">     174 </span>                :            :   }
+<span class="lineNum">     175 </span>        [<span class="branchCov" title="Branch 0 was taken 1885 times"> + </span><span class="branchCov" title="Branch 1 was taken 81 times"> + </span>]:<span class="lineCov">       1966 :   for (i -= t-&gt;sizearray; i &lt; sizenode(t); i++) {  /* then hash part */</span>
+<span class="lineNum">     176 </span>        [<span class="branchCov" title="Branch 0 was taken 1389 times"> + </span><span class="branchCov" title="Branch 1 was taken 496 times"> + </span>]:<span class="lineCov">       1885 :     if (!ttisnil(gval(gnode(t, i)))) {  /* a non-nil value? */</span>
+<span class="lineNum">     177 </span>                :<span class="lineCov">       1389 :       setobj2s(L, key, gkey(gnode(t, i)));</span>
+<span class="lineNum">     178 </span>                :<span class="lineCov">       1389 :       setobj2s(L, key+1, gval(gnode(t, i)));</span>
+<span class="lineNum">     179 </span>                :<span class="lineCov">       1389 :       return 1;</span>
+<span class="lineNum">     180 </span>                :            :     }
+<span class="lineNum">     181 </span>                :            :   }
+<span class="lineNum">     182 </span>                :<span class="lineCov">       1494 :   return 0;  /* no more elements */</span>
+<span class="lineNum">     183 </span>                :            : }
+<span class="lineNum">     184 </span>                :            : 
+<span class="lineNum">     185 </span>                :            : 
+<span class="lineNum">     186 </span>                :            : /*
+<span class="lineNum">     187 </span>                :            : ** {=============================================================
+<span class="lineNum">     188 </span>                :            : ** Rehash
+<span class="lineNum">     189 </span>                :            : ** ==============================================================
+<span class="lineNum">     190 </span>                :            : */
+<span class="lineNum">     191 </span>                :            : 
+<span class="lineNum">     192 </span>                :            : 
+<span class="lineNum">     193 </span>                :            : static int computesizes (int nums[], int *narray) {
+<span class="lineNum">     194 </span>                :            :   int i;
+<span class="lineNum">     195 </span>                :            :   int twotoi;  /* 2^i */
+<span class="lineNum">     196 </span>                :<span class="lineCov">      37685 :   int a = 0;  /* number of elements smaller than 2^i */</span>
+<span class="lineNum">     197 </span>                :<span class="lineCov">      37685 :   int na = 0;  /* number of elements to go to array part */</span>
+<span class="lineNum">     198 </span>                :<span class="lineCov">      37685 :   int n = 0;  /* optimal size for array part */</span>
+<span class="lineNum">     199 </span>        [<span class="branchCov" title="Branch 0 was taken 60765 times"> + </span><span class="branchCov" title="Branch 1 was taken 13240 times"> + </span>]:<span class="lineCov">      74005 :   for (i = 0, twotoi = 1; twotoi/2 &lt; *narray; i++, twotoi *= 2) {</span>
+<span class="lineNum">     200 </span>        [<span class="branchCov" title="Branch 0 was taken 60449 times"> + </span><span class="branchCov" title="Branch 1 was taken 316 times"> + </span>]:<span class="lineCov">      60765 :     if (nums[i] &gt; 0) {</span>
+<span class="lineNum">     201 </span>                :<span class="lineCov">      60449 :       a += nums[i];</span>
+<span class="lineNum">     202 </span>        [<span class="branchCov" title="Branch 0 was taken 60398 times"> + </span><span class="branchCov" title="Branch 1 was taken 51 times"> + </span>]:<span class="lineCov">      60449 :       if (a &gt; twotoi/2) {  /* more than half elements present? */</span>
+<span class="lineNum">     203 </span>                :<span class="lineCov">      60398 :         n = twotoi;  /* optimal size (till now) */</span>
+<span class="lineNum">     204 </span>                :<span class="lineCov">      60398 :         na = a;  /* all elements smaller than n will go to array part */</span>
+<span class="lineNum">     205 </span>                :            :       }
+<span class="lineNum">     206 </span>                :            :     }
+<span class="lineNum">     207 </span>        [<span class="branchCov" title="Branch 0 was taken 36320 times"> + </span><span class="branchCov" title="Branch 1 was taken 24445 times"> + </span>]:<span class="lineCov">      60765 :     if (a == *narray) break;  /* all elements already counted */</span>
+<span class="lineNum">     208 </span>                :            :   }
+<span class="lineNum">     209 </span>                :<span class="lineCov">      37685 :   *narray = n;</span>
+<span class="lineNum">     210 </span>                :            :   lua_assert(*narray/2 &lt;= na &amp;&amp; na &lt;= *narray);
+<span class="lineNum">     211 </span>                :<span class="lineCov">      37685 :   return na;</span>
+<span class="lineNum">     212 </span>                :            : }
+<span class="lineNum">     213 </span>                :            : 
+<span class="lineNum">     214 </span>                :            : 
+<span class="lineNum">     215 </span>                :            : static int countint (const TValue *key, int *nums) {
+<span class="lineNum">     216 </span>                :<span class="lineCov">      98102 :   int k = arrayindex(key);</span>
+<span class="lineNum">     217 </span>[<span class="branchCov" title="Branch 0 was taken 608 times"> + </span><span class="branchCov" title="Branch 1 was taken 59809 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 24012 times"> + </span><span class="branchCov" title="Branch 3 was taken 13673 times"> + </span>]:<span class="lineCov">      98102 :   if (0 &lt; k &amp;&amp; k &lt;= MAXASIZE) {  /* is `key' an appropriate array index? */</span>
+<span class="lineNum">     218 </span>                :<span class="lineCov">      24620 :     nums[luaO_ceillog2(k)]++;  /* count as such */</span>
+<span class="lineNum">     219 </span>                :<span class="lineCov">      24620 :     return 1;</span>
+<span class="lineNum">     220 </span>                :            :   }
+<span class="lineNum">     221 </span>                :            :   else
+<span class="lineNum">     222 </span>                :<span class="lineCov">      73482 :     return 0;</span>
+<span class="lineNum">     223 </span>                :            : }
+<span class="lineNum">     224 </span>                :            : 
+<span class="lineNum">     225 </span>                :            : 
+<span class="lineNum">     226 </span>                :            : static int numusearray (const Table *t, int *nums) {
+<span class="lineNum">     227 </span>                :            :   int lg;
+<span class="lineNum">     228 </span>                :            :   int ttlg;  /* 2^lg */
+<span class="lineNum">     229 </span>                :<span class="lineCov">      37685 :   int ause = 0;  /* summation of `nums' */</span>
+<span class="lineNum">     230 </span>                :<span class="lineCov">      37685 :   int i = 1;  /* count to traverse all array keys */</span>
+<span class="lineNum">     231 </span>        [<span class="branchCov" title="Branch 0 was taken 73999 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      73999 :   for (lg=0, ttlg=1; lg&lt;=MAXBITS; lg++, ttlg*=2) {  /* for each slice */</span>
+<span class="lineNum">     232 </span>                :<span class="lineCov">      73999 :     int lc = 0;  /* counter */</span>
+<span class="lineNum">     233 </span>                :<span class="lineCov">      73999 :     int lim = ttlg;</span>
+<span class="lineNum">     234 </span>        [<span class="branchCov" title="Branch 0 was taken 37688 times"> + </span><span class="branchCov" title="Branch 1 was taken 36311 times"> + </span>]:<span class="lineCov">      73999 :     if (lim &gt; t-&gt;sizearray) {</span>
+<span class="lineNum">     235 </span>                :<span class="lineCov">      37688 :       lim = t-&gt;sizearray;  /* adjust upper limit */</span>
+<span class="lineNum">     236 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 37685 times"> + </span>]:<span class="lineCov">      37688 :       if (i &gt; lim)</span>
+<span class="lineNum">     237 </span>                :            :         break;  /* no more elements to count */
+<span class="lineNum">     238 </span>                :            :     }
+<span class="lineNum">     239 </span>                :            :     /* count elements in range (2^(lg-1), 2^lg] */
+<span class="lineNum">     240 </span>        [<span class="branchCov" title="Branch 0 was taken 44267 times"> + </span><span class="branchCov" title="Branch 1 was taken 36314 times"> + </span>]:<span class="lineCov">      80581 :     for (; i &lt;= lim; i++) {</span>
+<span class="lineNum">     241 </span>        [<span class="branchCov" title="Branch 0 was taken 44208 times"> + </span><span class="branchCov" title="Branch 1 was taken 59 times"> + </span>]:<span class="lineCov">      44267 :       if (!ttisnil(&amp;t-&gt;array[i-1]))</span>
+<span class="lineNum">     242 </span>                :<span class="lineCov">      44208 :         lc++;</span>
+<span class="lineNum">     243 </span>                :            :     }
+<span class="lineNum">     244 </span>                :<span class="lineCov">      36314 :     nums[lg] += lc;</span>
+<span class="lineNum">     245 </span>                :<span class="lineCov">      36314 :     ause += lc;</span>
+<span class="lineNum">     246 </span>                :            :   }
+<span class="lineNum">     247 </span>                :<span class="lineCov">      37685 :   return ause;</span>
+<span class="lineNum">     248 </span>                :            : }
+<span class="lineNum">     249 </span>                :            : 
+<span class="lineNum">     250 </span>                :            : 
+<span class="lineNum">     251 </span>                :            : static int numusehash (const Table *t, int *nums, int *pnasize) {
+<span class="lineNum">     252 </span>                :<span class="lineCov">      37685 :   int totaluse = 0;  /* total number of elements */</span>
+<span class="lineNum">     253 </span>                :<span class="lineCov">      37685 :   int ause = 0;  /* summation of `nums' */</span>
+<span class="lineNum">     254 </span>                :<span class="lineCov">      37685 :   int i = sizenode(t);</span>
+<span class="lineNum">     255 </span>        [<span class="branchCov" title="Branch 0 was taken 87114 times"> + </span><span class="branchCov" title="Branch 1 was taken 37685 times"> + </span>]:<span class="lineCov">     124799 :   while (i--) {</span>
+<span class="lineNum">     256 </span>                :<span class="lineCov">      87114 :     Node *n = &amp;t-&gt;node[i];</span>
+<span class="lineNum">     257 </span>        [<span class="branchCov" title="Branch 0 was taken 60417 times"> + </span><span class="branchCov" title="Branch 1 was taken 26697 times"> + </span>]:<span class="lineCov">      87114 :     if (!ttisnil(gval(n))) {</span>
+<span class="lineNum">     258 </span>                :<span class="lineCov">     120834 :       ause += countint(gkey(n), nums);</span>
+<span class="lineNum">     259 </span>                :<span class="lineCov">      60417 :       totaluse++;</span>
+<span class="lineNum">     260 </span>                :            :     }
+<span class="lineNum">     261 </span>                :            :   }
+<span class="lineNum">     262 </span>                :<span class="lineCov">      37685 :   *pnasize += ause;</span>
+<span class="lineNum">     263 </span>                :<span class="lineCov">      37685 :   return totaluse;</span>
+<span class="lineNum">     264 </span>                :            : }
+<span class="lineNum">     265 </span>                :            : 
+<span class="lineNum">     266 </span>                :            : 
+<span class="lineNum">     267 </span>                :            : static void setarrayvector (lua_State *L, Table *t, int size) {
+<span class="lineNum">     268 </span>                :            :   int i;
+<span class="lineNum">     269 </span>        [<span class="branchCov" title="Branch 0 was taken 24463 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      24463 :   luaM_reallocvector(L, t-&gt;array, t-&gt;sizearray, size, TValue);</span>
+<span class="lineNum">     270 </span>        [<span class="branchCov" title="Branch 0 was taken 49719 times"> + </span><span class="branchCov" title="Branch 1 was taken 24463 times"> + </span>]:<span class="lineCov">      74182 :   for (i=t-&gt;sizearray; i&lt;size; i++)</span>
+<span class="lineNum">     271 </span>                :<span class="lineCov">      49719 :      setnilvalue(&amp;t-&gt;array[i]);</span>
+<span class="lineNum">     272 </span>                :<span class="lineCov">      24463 :   t-&gt;sizearray = size;</span>
+<span class="lineNum">     273 </span>                :            : }
+<span class="lineNum">     274 </span>                :            : 
+<span class="lineNum">     275 </span>                :            : 
+<span class="lineNum">     276 </span>                :<span class="lineCov">      49055 : static void setnodevector (lua_State *L, Table *t, int size) {</span>
+<span class="lineNum">     277 </span>                :            :   int lsize;
+<span class="lineNum">     278 </span>        [<span class="branchCov" title="Branch 0 was taken 34419 times"> + </span><span class="branchCov" title="Branch 1 was taken 14636 times"> + </span>]:<span class="lineCov">      49055 :   if (size == 0) {  /* no elements to hash part? */</span>
+<span class="lineNum">     279 </span>                :<span class="lineCov">      34419 :     t-&gt;node = cast(Node *, dummynode);  /* use common `dummynode' */</span>
+<span class="lineNum">     280 </span>                :<span class="lineCov">      34419 :     lsize = 0;</span>
+<span class="lineNum">     281 </span>                :            :   }
+<span class="lineNum">     282 </span>                :            :   else {
+<span class="lineNum">     283 </span>                :            :     int i;
+<span class="lineNum">     284 </span>                :<span class="lineCov">      14636 :     lsize = luaO_ceillog2(size);</span>
+<span class="lineNum">     285 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 14636 times"> + </span>]:<span class="lineCov">      14636 :     if (lsize &gt; MAXBITS)</span>
+<span class="lineNum">     286 </span>                :<span class="lineNoCov">          0 :       luaG_runerror(L, &quot;table overflow&quot;);</span>
+<span class="lineNum">     287 </span>                :<span class="lineCov">      14636 :     size = twoto(lsize);</span>
+<span class="lineNum">     288 </span>        [<span class="branchCov" title="Branch 0 was taken 14636 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      14636 :     t-&gt;node = luaM_newvector(L, size, Node);</span>
+<span class="lineNum">     289 </span>        [<span class="branchCov" title="Branch 0 was taken 126330 times"> + </span><span class="branchCov" title="Branch 1 was taken 14636 times"> + </span>]:<span class="lineCov">     140966 :     for (i=0; i&lt;size; i++) {</span>
+<span class="lineNum">     290 </span>                :<span class="lineCov">     126330 :       Node *n = gnode(t, i);</span>
+<span class="lineNum">     291 </span>                :<span class="lineCov">     126330 :       gnext(n) = NULL;</span>
+<span class="lineNum">     292 </span>                :<span class="lineCov">     126330 :       setnilvalue(gkey(n));</span>
+<span class="lineNum">     293 </span>                :<span class="lineCov">     126330 :       setnilvalue(gval(n));</span>
+<span class="lineNum">     294 </span>                :            :     }
+<span class="lineNum">     295 </span>                :            :   }
+<span class="lineNum">     296 </span>                :<span class="lineCov">      49055 :   t-&gt;lsizenode = cast_byte(lsize);</span>
+<span class="lineNum">     297 </span>                :<span class="lineCov">      49055 :   t-&gt;lastfree = gnode(t, size);  /* all positions are free */</span>
+<span class="lineNum">     298 </span>                :<span class="lineCov">      49055 : }</span>
+<span class="lineNum">     299 </span>                :            : 
+<span class="lineNum">     300 </span>                :            : 
+<span class="lineNum">     301 </span>                :<span class="lineCov">      38779 : void luaH_resize (lua_State *L, Table *t, int nasize, int nhsize) {</span>
+<span class="lineNum">     302 </span>                :            :   int i;
+<span class="lineNum">     303 </span>                :<span class="lineCov">      38779 :   int oldasize = t-&gt;sizearray;</span>
+<span class="lineNum">     304 </span>                :<span class="lineCov">      38779 :   int oldhsize = t-&gt;lsizenode;</span>
+<span class="lineNum">     305 </span>                :<span class="lineCov">      38779 :   Node *nold = t-&gt;node;  /* save old hash ... */</span>
+<span class="lineNum">     306 </span>        [<span class="branchCov" title="Branch 0 was taken 24463 times"> + </span><span class="branchCov" title="Branch 1 was taken 14316 times"> + </span>]:<span class="lineCov">      38779 :   if (nasize &gt; oldasize)  /* array part must grow? */</span>
+<span class="lineNum">     307 </span>                :            :     setarrayvector(L, t, nasize);
+<span class="lineNum">     308 </span>                :            :   /* create new hash part with appropriate size */
+<span class="lineNum">     309 </span>                :<span class="lineCov">      38779 :   setnodevector(L, t, nhsize);</span>
+<span class="lineNum">     310 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 38779 times"> + </span>]:<span class="lineCov">      38779 :   if (nasize &lt; oldasize) {  /* array part must shrink? */</span>
+<span class="lineNum">     311 </span>                :<span class="lineNoCov">          0 :     t-&gt;sizearray = nasize;</span>
+<span class="lineNum">     312 </span>                :            :     /* re-insert elements from vanishing slice */
+<span class="lineNum">     313 </span>        [<span class="branchNoExec" title="Block containing branch 0 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span>]:<span class="lineNoCov">          0 :     for (i=nasize; i&lt;oldasize; i++) {</span>
+<span class="lineNum">     314 </span>        [<span class="branchNoExec" title="Block containing branch 0 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span>]:<span class="lineNoCov">          0 :       if (!ttisnil(&amp;t-&gt;array[i]))</span>
+<span class="lineNum">     315 </span>                :<span class="lineNoCov">          0 :         setobjt2t(L, luaH_setint(L, t, i+1), &amp;t-&gt;array[i]);</span>
+<span class="lineNum">     316 </span>                :            :     }
+<span class="lineNum">     317 </span>                :            :     /* shrink array */
+<span class="lineNum">     318 </span>        [<span class="branchNoExec" title="Block containing branch 0 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span>]:<span class="lineNoCov">          0 :     luaM_reallocvector(L, t-&gt;array, oldasize, nasize, TValue);</span>
+<span class="lineNum">     319 </span>                :            :   }
+<span class="lineNum">     320 </span>                :            :   /* re-insert elements from hash part */
+<span class="lineNum">     321 </span>        [<span class="branchCov" title="Branch 0 was taken 88208 times"> + </span><span class="branchCov" title="Branch 1 was taken 38779 times"> + </span>]:<span class="lineCov">     126987 :   for (i = twoto(oldhsize) - 1; i &gt;= 0; i--) {</span>
+<span class="lineNum">     322 </span>                :<span class="lineCov">      88208 :     Node *old = nold+i;</span>
+<span class="lineNum">     323 </span>        [<span class="branchCov" title="Branch 0 was taken 60417 times"> + </span><span class="branchCov" title="Branch 1 was taken 27791 times"> + </span>]:<span class="lineCov">      88208 :     if (!ttisnil(gval(old)))</span>
+<span class="lineNum">     324 </span>                :<span class="lineCov">      60417 :       setobjt2t(L, luaH_set(L, t, gkey(old)), gval(old));</span>
+<span class="lineNum">     325 </span>                :            :   }
+<span class="lineNum">     326 </span>        [<span class="branchCov" title="Branch 0 was taken 10988 times"> + </span><span class="branchCov" title="Branch 1 was taken 27791 times"> + </span>]:<span class="lineCov">      38779 :   if (!isdummy(nold))</span>
+<span class="lineNum">     327 </span>                :<span class="lineCov">      10988 :     luaM_freearray(L, nold, twoto(oldhsize));  /* free old array */</span>
+<span class="lineNum">     328 </span>                :<span class="lineCov">      38779 : }</span>
+<span class="lineNum">     329 </span>                :            : 
+<span class="lineNum">     330 </span>                :            : 
+<span class="lineNum">     331 </span>                :<span class="lineCov">        198 : void luaH_resizearray (lua_State *L, Table *t, int nasize) {</span>
+<span class="lineNum">     332 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 198 times"> + </span>]:<span class="lineCov">        198 :   int nsize = isdummy(t-&gt;node) ? 0 : sizenode(t);</span>
+<span class="lineNum">     333 </span>                :<span class="lineCov">        198 :   luaH_resize(L, t, nasize, nsize);</span>
+<span class="lineNum">     334 </span>                :<span class="lineCov">        198 : }</span>
+<span class="lineNum">     335 </span>                :            : 
+<span class="lineNum">     336 </span>                :            : 
+<span class="lineNum">     337 </span>                :<span class="lineCov">      37685 : static void rehash (lua_State *L, Table *t, const TValue *ek) {</span>
+<span class="lineNum">     338 </span>                :            :   int nasize, na;
+<span class="lineNum">     339 </span>                :            :   int nums[MAXBITS+1];  /* nums[i] = number of keys between 2^(i-1) and 2^i */
+<span class="lineNum">     340 </span>                :            :   int i;
+<span class="lineNum">     341 </span>                :            :   int totaluse;
+<span class="lineNum">     342 </span>        [<span class="branchCov" title="Branch 0 was taken 1168235 times"> + </span><span class="branchCov" title="Branch 1 was taken 37685 times"> + </span>]:<span class="lineCov">    1205920 :   for (i=0; i&lt;=MAXBITS; i++) nums[i] = 0;  /* reset counts */</span>
+<span class="lineNum">     343 </span>                :<span class="lineCov">      37685 :   nasize = numusearray(t, nums);  /* count keys in array part */</span>
+<span class="lineNum">     344 </span>                :<span class="lineCov">      37685 :   totaluse = nasize;  /* all those keys are integer keys */</span>
+<span class="lineNum">     345 </span>                :<span class="lineCov">      37685 :   totaluse += numusehash(t, nums, &amp;nasize);  /* count keys in hash part */</span>
+<span class="lineNum">     346 </span>                :            :   /* count extra key */
+<span class="lineNum">     347 </span>                :<span class="lineCov">      37685 :   nasize += countint(ek, nums);</span>
+<span class="lineNum">     348 </span>                :<span class="lineCov">      37685 :   totaluse++;</span>
+<span class="lineNum">     349 </span>                :            :   /* compute new size for array part */
+<span class="lineNum">     350 </span>                :<span class="lineCov">      37685 :   na = computesizes(nums, &amp;nasize);</span>
+<span class="lineNum">     351 </span>                :            :   /* resize the table to new computed sizes */
+<span class="lineNum">     352 </span>                :<span class="lineCov">      37685 :   luaH_resize(L, t, nasize, totaluse - na);</span>
+<span class="lineNum">     353 </span>                :<span class="lineCov">      37685 : }</span>
+<span class="lineNum">     354 </span>                :            : 
+<span class="lineNum">     355 </span>                :            : 
+<span class="lineNum">     356 </span>                :            : 
+<span class="lineNum">     357 </span>                :            : /*
+<span class="lineNum">     358 </span>                :            : ** }=============================================================
+<span class="lineNum">     359 </span>                :            : */
+<span class="lineNum">     360 </span>                :            : 
+<span class="lineNum">     361 </span>                :            : 
+<span class="lineNum">     362 </span>                :<span class="lineCov">      10276 : Table *luaH_new (lua_State *L) {</span>
+<span class="lineNum">     363 </span>                :<span class="lineCov">      10276 :   Table *t = &amp;luaC_newobj(L, LUA_TTABLE, sizeof(Table), NULL, 0)-&gt;h;</span>
+<span class="lineNum">     364 </span>                :<span class="lineCov">      10276 :   t-&gt;metatable = NULL;</span>
+<span class="lineNum">     365 </span>                :<span class="lineCov">      10276 :   t-&gt;flags = cast_byte(~0);</span>
+<span class="lineNum">     366 </span>                :<span class="lineCov">      10276 :   t-&gt;array = NULL;</span>
+<span class="lineNum">     367 </span>                :<span class="lineCov">      10276 :   t-&gt;sizearray = 0;</span>
+<span class="lineNum">     368 </span>                :<span class="lineCov">      10276 :   setnodevector(L, t, 0);</span>
+<span class="lineNum">     369 </span>                :<span class="lineCov">      10276 :   return t;</span>
+<span class="lineNum">     370 </span>                :            : }
+<span class="lineNum">     371 </span>                :            : 
+<span class="lineNum">     372 </span>                :            : 
+<span class="lineNum">     373 </span>                :<span class="lineCov">      10276 : void luaH_free (lua_State *L, Table *t) {</span>
+<span class="lineNum">     374 </span>        [<span class="branchCov" title="Branch 0 was taken 3648 times"> + </span><span class="branchCov" title="Branch 1 was taken 6628 times"> + </span>]:<span class="lineCov">      10276 :   if (!isdummy(t-&gt;node))</span>
+<span class="lineNum">     375 </span>                :<span class="lineCov">       3648 :     luaM_freearray(L, t-&gt;node, sizenode(t));</span>
+<span class="lineNum">     376 </span>                :<span class="lineCov">      10276 :   luaM_freearray(L, t-&gt;array, t-&gt;sizearray);</span>
+<span class="lineNum">     377 </span>                :<span class="lineCov">      10276 :   luaM_free(L, t);</span>
+<span class="lineNum">     378 </span>                :<span class="lineCov">      10276 : }</span>
+<span class="lineNum">     379 </span>                :            : 
+<span class="lineNum">     380 </span>                :            : 
+<span class="lineNum">     381 </span>                :            : static Node *getfreepos (Table *t) {
+<span class="lineNum">     382 </span>        [<span class="branchCov" title="Branch 0 was taken 88102 times"> + </span><span class="branchCov" title="Branch 1 was taken 37685 times"> + </span>]:<span class="lineCov">     125787 :   while (t-&gt;lastfree &gt; t-&gt;node) {</span>
+<span class="lineNum">     383 </span>                :<span class="lineCov">      88102 :     t-&gt;lastfree--;</span>
+<span class="lineNum">     384 </span>        [<span class="branchCov" title="Branch 0 was taken 38970 times"> + </span><span class="branchCov" title="Branch 1 was taken 49132 times"> + </span>]:<span class="lineCov">      88102 :     if (ttisnil(gkey(t-&gt;lastfree)))</span>
+<span class="lineNum">     385 </span>                :<span class="lineCov">      38970 :       return t-&gt;lastfree;</span>
+<span class="lineNum">     386 </span>                :            :   }
+<span class="lineNum">     387 </span>                :<span class="lineCov">      37685 :   return NULL;  /* could not find a free place */</span>
+<span class="lineNum">     388 </span>                :            : }
+<span class="lineNum">     389 </span>                :            : 
+<span class="lineNum">     390 </span>                :            : 
+<span class="lineNum">     391 </span>                :            : 
+<span class="lineNum">     392 </span>                :            : /*
+<span class="lineNum">     393 </span>                :            : ** inserts a new key into a hash table; first, check whether key's main
+<span class="lineNum">     394 </span>                :            : ** position is free. If not, check whether colliding node is in its main
+<span class="lineNum">     395 </span>                :            : ** position or not: if it is not, move colliding node to an empty place and
+<span class="lineNum">     396 </span>                :            : ** put new key in its main position; otherwise (colliding node is in its main
+<span class="lineNum">     397 </span>                :            : ** position), new key goes to an empty position.
+<span class="lineNum">     398 </span>                :            : */
+<span class="lineNum">     399 </span>                :<span class="lineCov">     145838 : static TValue *newkey (lua_State *L, Table *t, const TValue *key) {</span>
+<span class="lineNum">     400 </span>                :<span class="lineCov">     145838 :   Node *mp = mainposition(t, key);</span>
+<span class="lineNum">     401 </span>  [<span class="branchCov" title="Branch 0 was taken 95880 times"> + </span><span class="branchCov" title="Branch 1 was taken 49958 times"> + </span><span class="branchCov" title="Branch 2 was taken 26697 times"> + </span><span class="branchCov" title="Branch 3 was taken 69183 times"> + </span>]:<span class="lineCov">     145838 :   if (!ttisnil(gval(mp)) || isdummy(mp)) {  /* main position is taken? */</span>
+<span class="lineNum">     402 </span>                :            :     Node *othern;
+<span class="lineNum">     403 </span>                :<span class="lineCov">      76655 :     Node *n = getfreepos(t);  /* get a free place */</span>
+<span class="lineNum">     404 </span>        [<span class="branchCov" title="Branch 0 was taken 37685 times"> + </span><span class="branchCov" title="Branch 1 was taken 38970 times"> + </span>]:<span class="lineCov">      76655 :     if (n == NULL) {  /* cannot find a free place? */</span>
+<span class="lineNum">     405 </span>                :<span class="lineCov">      37685 :       rehash(L, t, key);  /* grow table */</span>
+<span class="lineNum">     406 </span>                :<span class="lineCov">      37685 :       return luaH_set(L, t, key);  /* re-insert key into grown table */</span>
+<span class="lineNum">     407 </span>                :            :     }
+<span class="lineNum">     408 </span>                :            :     lua_assert(!isdummy(n));
+<span class="lineNum">     409 </span>                :<span class="lineCov">      38970 :     othern = mainposition(t, gkey(mp));</span>
+<span class="lineNum">     410 </span>        [<span class="branchCov" title="Branch 0 was taken 4994 times"> + </span><span class="branchCov" title="Branch 1 was taken 33976 times"> + </span>]:<span class="lineCov">      38970 :     if (othern != mp) {  /* is colliding node out of its main position? */</span>
+<span class="lineNum">     411 </span>                :            :       /* yes; move colliding node into free position */
+<span class="lineNum">     412 </span>        [<span class="branchCov" title="Branch 0 was taken 700 times"> + </span><span class="branchCov" title="Branch 1 was taken 4994 times"> + </span>]:<span class="lineCov">       5694 :       while (gnext(othern) != mp) othern = gnext(othern);  /* find previous */</span>
+<span class="lineNum">     413 </span>                :<span class="lineCov">       4994 :       gnext(othern) = n;  /* redo the chain with `n' in place of `mp' */</span>
+<span class="lineNum">     414 </span>                :<span class="lineCov">       4994 :       *n = *mp;  /* copy colliding node into free pos. (mp-&gt;next also goes) */</span>
+<span class="lineNum">     415 </span>                :<span class="lineCov">       4994 :       gnext(mp) = NULL;  /* now `mp' is free */</span>
+<span class="lineNum">     416 </span>                :<span class="lineCov">       4994 :       setnilvalue(gval(mp));</span>
+<span class="lineNum">     417 </span>                :            :     }
+<span class="lineNum">     418 </span>                :            :     else {  /* colliding node is in its own main position */
+<span class="lineNum">     419 </span>                :            :       /* new node will go into free position */
+<span class="lineNum">     420 </span>                :<span class="lineCov">      33976 :       gnext(n) = gnext(mp);  /* chain new position */</span>
+<span class="lineNum">     421 </span>                :<span class="lineCov">      33976 :       gnext(mp) = n;</span>
+<span class="lineNum">     422 </span>                :<span class="lineCov">      33976 :       mp = n;</span>
+<span class="lineNum">     423 </span>                :            :     }
+<span class="lineNum">     424 </span>                :            :   }
+<span class="lineNum">     425 </span>                :<span class="lineCov">     108153 :   setobj2t(L, gkey(mp), key);</span>
+<span class="lineNum">     426 </span>[<span class="branchCov" title="Branch 0 was taken 106233 times"> + </span><span class="branchCov" title="Branch 1 was taken 1920 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 101917 times"> + </span><span class="branchCov" title="Branch 3 was taken 4316 times"> + </span>]:<span class="lineCov">     108153 :   luaC_barrierback(L, obj2gco(t), key);</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 4 was taken 230 times"> + </span><span class="branchCov" title="Branch 5 was taken 101687 times"> + </span>]
+<span class="lineNum">     427 </span>                :            :   lua_assert(ttisnil(gval(mp)));
+<span class="lineNum">     428 </span>                :<span class="lineCov">     145838 :   return gval(mp);</span>
+<span class="lineNum">     429 </span>                :            : }
+<span class="lineNum">     430 </span>                :            : 
+<span class="lineNum">     431 </span>                :            : 
+<span class="lineNum">     432 </span>                :            : /*
+<span class="lineNum">     433 </span>                :            : ** search function for integers
+<span class="lineNum">     434 </span>                :            : */
+<span class="lineNum">     435 </span>                :<span class="lineCov">     531179 : const TValue *luaH_getint (Table *t, int key) {</span>
+<span class="lineNum">     436 </span>                :            :   /* (1 &lt;= key &amp;&amp; key &lt;= t-&gt;sizearray) */
+<span class="lineNum">     437 </span>        [<span class="branchCov" title="Branch 0 was taken 505288 times"> + </span><span class="branchCov" title="Branch 1 was taken 25891 times"> + </span>]:<span class="lineCov">     531179 :   if (cast(unsigned int, key-1) &lt; cast(unsigned int, t-&gt;sizearray))</span>
+<span class="lineNum">     438 </span>                :<span class="lineCov">     505288 :     return &amp;t-&gt;array[key-1];</span>
+<span class="lineNum">     439 </span>                :            :   else {
+<span class="lineNum">     440 </span>                :<span class="lineCov">      25891 :     lua_Number nk = cast_num(key);</span>
+<span class="lineNum">     441 </span>                :<span class="lineCov">      25891 :     Node *n = hashnum(t, nk);</span>
+<span class="lineNum">     442 </span>                :            :     do {  /* check whether `key' is somewhere in the chain */
+<span class="lineNum">     443 </span>[<span class="branchCov" title="Branch 0 was taken 536 times"> + </span><span class="branchCov" title="Branch 1 was taken 25862 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 349 times"> + </span><span class="branchCov" title="Branch 3 was taken 187 times"> + </span>]:<span class="lineCov">      26398 :       if (ttisnumber(gkey(n)) &amp;&amp; luai_numeq(nvalue(gkey(n)), nk))</span>
+<span class="lineNum">     444 </span>                :<span class="lineCov">        349 :         return gval(n);  /* that's it */</span>
+<span class="lineNum">     445 </span>                :<span class="lineCov">      26049 :       else n = gnext(n);</span>
+<span class="lineNum">     446 </span>        [<span class="branchCov" title="Branch 0 was taken 507 times"> + </span><span class="branchCov" title="Branch 1 was taken 25542 times"> + </span>]:<span class="lineCov">      26049 :     } while (n);</span>
+<span class="lineNum">     447 </span>                :<span class="lineCov">     531179 :     return luaO_nilobject;</span>
+<span class="lineNum">     448 </span>                :            :   }
+<span class="lineNum">     449 </span>                :            : }
+<span class="lineNum">     450 </span>                :            : 
+<span class="lineNum">     451 </span>                :            : 
+<span class="lineNum">     452 </span>                :            : /*
+<span class="lineNum">     453 </span>                :            : ** search function for strings
+<span class="lineNum">     454 </span>                :            : */
+<span class="lineNum">     455 </span>                :<span class="lineCov">      14829 : const TValue *luaH_getstr (Table *t, TString *key) {</span>
+<span class="lineNum">     456 </span>                :<span class="lineCov">     316641 :   Node *n = hashstr(t, key);</span>
+<span class="lineNum">     457 </span>                :            :   do {  /* check whether `key' is somewhere in the chain */
+<span class="lineNum">     458 </span>[<span class="branchCov" title="Branch 0 was taken 14857 times"> + </span><span class="branchCov" title="Branch 1 was taken 16 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 14634 times"> + </span><span class="branchCov" title="Branch 3 was taken 223 times"> + </span>]:<span class="lineCov">     415364 :     if (ttisstring(gkey(n)) &amp;&amp; eqstr(rawtsvalue(gkey(n)), key))</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 4 was taken 236842 times"> + </span><span class="branchCov" title="Branch 5 was taken 69026 times"> + </span>][<span class="branchCov" title="Branch 6 was taken 136038 times"> + </span><span class="branchCov" title="Branch 7 was taken 100804 times"> + </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 8 was taken 84501 times"> + </span><span class="branchCov" title="Branch 9 was taken 10122 times"> + </span>][<span class="branchCov" title="Branch 10 was taken 37973 times"> + </span><span class="branchCov" title="Branch 11 was taken 46528 times"> + </span>]
+<span class="lineNum">     459 </span>                :<span class="lineCov">     188645 :       return gval(n);  /* that's it */</span>
+<span class="lineNum">     460 </span>                :<span class="lineCov">     226719 :     else n = gnext(n);</span>
+<span class="lineNum">     461 </span>[<span class="branchCov" title="Branch 0 was taken 44 times"> + </span><span class="branchCov" title="Branch 1 was taken 195 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 77214 times"> + </span><span class="branchCov" title="Branch 3 was taken 92616 times"> + </span>]:<span class="lineCov">     226719 :   } while (n);</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 4 was taken 21465 times"> + </span><span class="branchCov" title="Branch 5 was taken 35185 times"> + </span>]
+<span class="lineNum">     462 </span>                :<span class="lineCov">     142630 :   return luaO_nilobject;</span>
+<span class="lineNum">     463 </span>                :            : }
+<span class="lineNum">     464 </span>                :            : 
+<span class="lineNum">     465 </span>                :            : 
+<span class="lineNum">     466 </span>                :            : /*
+<span class="lineNum">     467 </span>                :            : ** main search function
+<span class="lineNum">     468 </span>                :            : */
+<span class="lineNum">     469 </span>                :<span class="lineCov">     379590 : const TValue *luaH_get (Table *t, const TValue *key) {</span>
+<span class="lineNum">     470 </span>  [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 228654 times"> + </span><span class="branchCov" title="Branch 2 was taken 149944 times"> + </span><span class="branchCov" title="Branch 3 was taken 990 times"> + </span>]:<span class="lineCov">     379590 :   switch (ttype(key)) {</span>
+<span class="lineNum">     471 </span>                :<span class="lineCov">          2 :     case LUA_TNIL: return luaO_nilobject;</span>
+<span class="lineNum">     472 </span>                :<span class="lineCov">     228654 :     case LUA_TSTRING: return luaH_getstr(t, rawtsvalue(key));</span>
+<span class="lineNum">     473 </span>                :            :     case LUA_TNUMBER: {
+<span class="lineNum">     474 </span>                :            :       int k;
+<span class="lineNum">     475 </span>                :<span class="lineCov">     149944 :       lua_Number n = nvalue(key);</span>
+<span class="lineNum">     476 </span>                :<span class="lineCov">     149944 :       lua_number2int(k, n);</span>
+<span class="lineNum">     477 </span>        [<span class="branchCov" title="Branch 0 was taken 149846 times"> + </span><span class="branchCov" title="Branch 1 was taken 98 times"> + </span>]:<span class="lineCov">     149944 :       if (luai_numeq(cast_num(k), nvalue(key))) /* index is int? */</span>
+<span class="lineNum">     478 </span>                :<span class="lineCov">     149846 :         return luaH_getint(t, k);  /* use specialized version */</span>
+<span class="lineNum">     479 </span>                :            :       /* else go through */
+<span class="lineNum">     480 </span>                :            :     }
+<span class="lineNum">     481 </span>                :            :     default: {
+<span class="lineNum">     482 </span>                :<span class="lineCov">       1088 :       Node *n = mainposition(t, key);</span>
+<span class="lineNum">     483 </span>                :            :       do {  /* check whether `key' is somewhere in the chain */
+<span class="lineNum">     484 </span>        [<span class="branchCov" title="Branch 1 was taken 260 times"> + </span><span class="branchCov" title="Branch 2 was taken 1140 times"> + </span>]:<span class="lineCov">       1400 :         if (luaO_rawequalObj(gkey(n), key))</span>
+<span class="lineNum">     485 </span>                :<span class="lineCov">        260 :           return gval(n);  /* that's it */</span>
+<span class="lineNum">     486 </span>                :<span class="lineCov">       1140 :         else n = gnext(n);</span>
+<span class="lineNum">     487 </span>        [<span class="branchCov" title="Branch 0 was taken 312 times"> + </span><span class="branchCov" title="Branch 1 was taken 828 times"> + </span>]:<span class="lineCov">       1140 :       } while (n);</span>
+<span class="lineNum">     488 </span>                :<span class="lineCov">     379590 :       return luaO_nilobject;</span>
+<span class="lineNum">     489 </span>                :            :     }
+<span class="lineNum">     490 </span>                :            :   }
+<span class="lineNum">     491 </span>                :            : }
+<span class="lineNum">     492 </span>                :            : 
+<span class="lineNum">     493 </span>                :            : 
+<span class="lineNum">     494 </span>                :<span class="lineCov">     216620 : TValue *luaH_set (lua_State *L, Table *t, const TValue *key) {</span>
+<span class="lineNum">     495 </span>                :<span class="lineCov">     216620 :   const TValue *p = luaH_get(t, key);</span>
+<span class="lineNum">     496 </span>                :<span class="lineCov">     216620 :   t-&gt;flags = 0;</span>
+<span class="lineNum">     497 </span>        [<span class="branchCov" title="Branch 0 was taken 106173 times"> + </span><span class="branchCov" title="Branch 1 was taken 110447 times"> + </span>]:<span class="lineCov">     216620 :   if (p != luaO_nilobject)</span>
+<span class="lineNum">     498 </span>                :<span class="lineCov">     106173 :     return cast(TValue *, p);</span>
+<span class="lineNum">     499 </span>                :            :   else {
+<span class="lineNum">     500 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 110447 times"> + </span>]:<span class="lineCov">     110447 :     if (ttisnil(key)) luaG_runerror(L, &quot;table index is nil&quot;);</span>
+<span class="lineNum">     501 </span>[<span class="branchCov" title="Branch 0 was taken 25202 times"> + </span><span class="branchCov" title="Branch 1 was taken 85245 times"> + </span>][<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 25202 times"> + </span>]:<span class="lineCov">     110447 :     else if (ttisnumber(key) &amp;&amp; luai_numisnan(L, nvalue(key)))</span>
+<span class="lineNum">     502 </span>                :<span class="lineNoCov">          0 :       luaG_runerror(L, &quot;table index is NaN&quot;);</span>
+<span class="lineNum">     503 </span>                :<span class="lineCov">     216620 :     return newkey(L, t, key);</span>
+<span class="lineNum">     504 </span>                :            :   }
+<span class="lineNum">     505 </span>                :            : }
+<span class="lineNum">     506 </span>                :            : 
+<span class="lineNum">     507 </span>                :            : 
+<span class="lineNum">     508 </span>                :<span class="lineCov">      87214 : TValue *luaH_setint (lua_State *L, Table *t, int key) {</span>
+<span class="lineNum">     509 </span>                :<span class="lineCov">      87214 :   const TValue *p = luaH_getint(t, key);</span>
+<span class="lineNum">     510 </span>        [<span class="branchCov" title="Branch 0 was taken 87008 times"> + </span><span class="branchCov" title="Branch 1 was taken 206 times"> + </span>]:<span class="lineCov">      87214 :   if (p != luaO_nilobject)</span>
+<span class="lineNum">     511 </span>                :<span class="lineCov">      87008 :     return cast(TValue *, p);</span>
+<span class="lineNum">     512 </span>                :            :   else {
+<span class="lineNum">     513 </span>                :            :     TValue k;
+<span class="lineNum">     514 </span>                :<span class="lineCov">        206 :     setnvalue(&amp;k, cast_num(key));</span>
+<span class="lineNum">     515 </span>                :<span class="lineCov">      87214 :     return newkey(L, t, &amp;k);</span>
+<span class="lineNum">     516 </span>                :            :   }
+<span class="lineNum">     517 </span>                :            : }
+<span class="lineNum">     518 </span>                :            : 
+<span class="lineNum">     519 </span>                :            : 
+<span class="lineNum">     520 </span>                :<span class="lineCov">      73158 : TValue *luaH_setstr (lua_State *L, Table *t, TString *key) {</span>
+<span class="lineNum">     521 </span>                :<span class="lineCov">      73158 :   const TValue *p = luaH_getstr(t, key);</span>
+<span class="lineNum">     522 </span>        [<span class="branchCov" title="Branch 0 was taken 37973 times"> + </span><span class="branchCov" title="Branch 1 was taken 35185 times"> + </span>]:<span class="lineCov">      73158 :   if (p != luaO_nilobject)</span>
+<span class="lineNum">     523 </span>                :<span class="lineCov">      37973 :     return cast(TValue *, p);</span>
+<span class="lineNum">     524 </span>                :            :   else {
+<span class="lineNum">     525 </span>                :            :     TValue k;
+<span class="lineNum">     526 </span>                :<span class="lineCov">      35185 :     setsvalue(L, &amp;k, key);</span>
+<span class="lineNum">     527 </span>                :<span class="lineCov">      73158 :     return newkey(L, t, &amp;k);</span>
+<span class="lineNum">     528 </span>                :            :   }
+<span class="lineNum">     529 </span>                :            : }
+<span class="lineNum">     530 </span>                :            : 
+<span class="lineNum">     531 </span>                :            : 
+<span class="lineNum">     532 </span>                :            : static int unbound_search (Table *t, unsigned int j) {
+<span class="lineNum">     533 </span>                :<span class="lineCov">          3 :   unsigned int i = j;  /* i is zero or a present index */</span>
+<span class="lineNum">     534 </span>                :<span class="lineCov">          3 :   j++;</span>
+<span class="lineNum">     535 </span>                :            :   /* find `i' and `j' such that i is present and j is not */
+<span class="lineNum">     536 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 3 times"> + </span>]:<span class="lineCov">          3 :   while (!ttisnil(luaH_getint(t, j))) {</span>
+<span class="lineNum">     537 </span>                :<span class="lineNoCov">          0 :     i = j;</span>
+<span class="lineNum">     538 </span>                :<span class="lineNoCov">          0 :     j *= 2;</span>
+<span class="lineNum">     539 </span>        [<span class="branchNoExec" title="Block containing branch 0 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span>]:<span class="lineNoCov">          0 :     if (j &gt; cast(unsigned int, MAX_INT)) {  /* overflow? */</span>
+<span class="lineNum">     540 </span>                :            :       /* table was built with bad purposes: resort to linear search */
+<span class="lineNum">     541 </span>                :<span class="lineNoCov">          0 :       i = 1;</span>
+<span class="lineNum">     542 </span>        [<span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 2 was never executed"> # </span>]:<span class="lineNoCov">          0 :       while (!ttisnil(luaH_getint(t, i))) i++;</span>
+<span class="lineNum">     543 </span>                :<span class="lineNoCov">          0 :       return i - 1;</span>
+<span class="lineNum">     544 </span>                :            :     }
+<span class="lineNum">     545 </span>                :            :   }
+<span class="lineNum">     546 </span>                :            :   /* now do a binary search between them */
+<span class="lineNum">     547 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          3 :   while (j - i &gt; 1) {</span>
+<span class="lineNum">     548 </span>                :<span class="lineNoCov">          0 :     unsigned int m = (i+j)/2;</span>
+<span class="lineNum">     549 </span>        [<span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 2 was never executed"> # </span>]:<span class="lineNoCov">          0 :     if (ttisnil(luaH_getint(t, m))) j = m;</span>
+<span class="lineNum">     550 </span>                :<span class="lineNoCov">          0 :     else i = m;</span>
+<span class="lineNum">     551 </span>                :            :   }
+<span class="lineNum">     552 </span>                :<span class="lineCov">          3 :   return i;</span>
+<span class="lineNum">     553 </span>                :            : }
+<span class="lineNum">     554 </span>                :            : 
+<span class="lineNum">     555 </span>                :            : 
+<span class="lineNum">     556 </span>                :            : /*
+<span class="lineNum">     557 </span>                :            : ** Try to find a boundary in table `t'. A `boundary' is an integer index
+<span class="lineNum">     558 </span>                :            : ** such that t[i] is non-nil and t[i+1] is nil (and 0 if t[1] is nil).
+<span class="lineNum">     559 </span>                :            : */
+<span class="lineNum">     560 </span>                :<span class="lineCov">      18672 : int luaH_getn (Table *t) {</span>
+<span class="lineNum">     561 </span>                :<span class="lineCov">      18672 :   unsigned int j = t-&gt;sizearray;</span>
+<span class="lineNum">     562 </span>[<span class="branchCov" title="Branch 0 was taken 18399 times"> + </span><span class="branchCov" title="Branch 1 was taken 273 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 17793 times"> + </span><span class="branchCov" title="Branch 3 was taken 606 times"> + </span>]:<span class="lineCov">      18672 :   if (j &gt; 0 &amp;&amp; ttisnil(&amp;t-&gt;array[j - 1])) {</span>
+<span class="lineNum">     563 </span>                :            :     /* there is a boundary in the array part: (binary) search for it */
+<span class="lineNum">     564 </span>                :<span class="lineCov">      17793 :     unsigned int i = 0;</span>
+<span class="lineNum">     565 </span>        [<span class="branchCov" title="Branch 0 was taken 53190 times"> + </span><span class="branchCov" title="Branch 1 was taken 17793 times"> + </span>]:<span class="lineCov">      70983 :     while (j - i &gt; 1) {</span>
+<span class="lineNum">     566 </span>                :<span class="lineCov">      53190 :       unsigned int m = (i+j)/2;</span>
+<span class="lineNum">     567 </span>        [<span class="branchCov" title="Branch 0 was taken 2575 times"> + </span><span class="branchCov" title="Branch 1 was taken 50615 times"> + </span>]:<span class="lineCov">      53190 :       if (ttisnil(&amp;t-&gt;array[m - 1])) j = m;</span>
+<span class="lineNum">     568 </span>                :<span class="lineCov">      50615 :       else i = m;</span>
+<span class="lineNum">     569 </span>                :            :     }
+<span class="lineNum">     570 </span>                :<span class="lineCov">      17793 :     return i;</span>
+<span class="lineNum">     571 </span>                :            :   }
+<span class="lineNum">     572 </span>                :            :   /* else must find a boundary in hash part */
+<span class="lineNum">     573 </span>        [<span class="branchCov" title="Branch 0 was taken 876 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">        879 :   else if (isdummy(t-&gt;node))  /* hash part is empty? */</span>
+<span class="lineNum">     574 </span>                :<span class="lineCov">        876 :     return j;  /* that is easy... */</span>
+<span class="lineNum">     575 </span>                :<span class="lineCov">      18672 :   else return unbound_search(t, j);</span>
+<span class="lineNum">     576 </span>                :            : }
+<span class="lineNum">     577 </span>                :            : 
+<span class="lineNum">     578 </span>                :            : 
+<span class="lineNum">     579 </span>                :            : 
+<span class="lineNum">     580 </span>                :            : #if defined(LUA_DEBUG)
+<span class="lineNum">     581 </span>                :            : 
+<span class="lineNum">     582 </span>                :            : Node *luaH_mainposition (const Table *t, const TValue *key) {
+<span class="lineNum">     583 </span>                :            :   return mainposition(t, key);
+<span class="lineNum">     584 </span>                :            : }
+<span class="lineNum">     585 </span>                :            : 
+<span class="lineNum">     586 </span>                :            : int luaH_isdummy (Node *n) { return isdummy(n); }
+<span class="lineNum">     587 </span>                :            : 
+<span class="lineNum">     588 </span>                :            : #endif
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.8</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>
