@@ -31,7 +31,7 @@ See "Programming in Lua", section 19 "The Table Library".
 
 require 'Test.More'
 
-plan(46)
+plan(49)
 
 t = {'a','b','c','d','e'}
 is(table.concat(t), 'abcde', "function concat")
@@ -116,6 +116,22 @@ else
     skip("module (deprecated)", 3)
 end
 
+if arg[-1] == 'luajit' then
+    skip("LuaJIT. pack", 4)
+else
+    t = table.pack("abc", "def", "ghi")
+    eq_array(t, {
+        "abc",
+        "def",
+        "ghi"
+    }, "function pack")
+    is(t.n, 3)
+
+    t = table.pack()
+    eq_array(t, {}, "function pack (no element)")
+    is(t.n, 0)
+end
+
 t = {}
 a = table.remove(t)
 is(a, nil, "function remove")
@@ -132,15 +148,6 @@ is(table.concat(t, ','), 'b,d')
 a = table.remove(t,7)
 is(a, nil)
 is(table.concat(t, ','), 'b,d')
-
-if table.setn == nil then
-    skip("setn is deprecated", 1)
-else
-    a = {}
-    error_like(function () table.setn(a, 10000) end,
-               "^[^:]+:%d+: 'setn' is obsolete",
-               "function setn")
-end
 
 lines = {
     luaH_set = 10,

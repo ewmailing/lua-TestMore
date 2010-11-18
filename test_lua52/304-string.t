@@ -31,7 +31,7 @@ See "Programming in Lua", section 20 "The String Library".
 
 require 'Test.More'
 
-plan(97)
+plan(108)
 
 is(string.byte('ABC'), 65, "function byte")
 is(string.byte('ABC', 2), 66)
@@ -49,6 +49,17 @@ is(s:byte(2), 66, "method s:byte")
 is(string.char(65, 66, 67), 'ABC', "function char")
 is(string.char(), '')
 
+if arg[-1] == 'luajit' then
+    skip("LuaJIT intentional. Cannot dump functions.", 2)
+else
+    d = string.dump(plan)
+    type_ok(d, 'string', "function dump")
+
+    error_like(function () string.dump(print) end,
+               "^[^:]+:%d+: unable to dump given function",
+               "function dump (C function)")
+end
+
 s = "hello world"
 eq_array({string.find(s, "hello")}, {1, 5}, "function find (mode plain)")
 eq_array({string.find(s, "hello", 1, true)}, {1, 5})
@@ -59,6 +70,7 @@ eq_array({string.find(s, "l")}, {3, 3})
 is(string.find(s, "lll"), nil)
 is(string.find(s, "hello", 2, true), nil)
 eq_array({string.find(s, "world", 2, true)}, {7, 11})
+is(string.find(s, "hello", 20), nil)
 
 s = "hello world"
 eq_array({string.find(s, "^h.ll.")}, {1, 5}, "function find (with regex & captures)")
@@ -69,6 +81,12 @@ eq_array({string.find(s, "^(h.)l(l.)")}, {1, 5, 'he', 'lo'})
 s = "Deadline is 30/05/1999, firm"
 date = "%d%d/%d%d/%d%d%d%d"
 is(string.sub(s, string.find(s, date)), "30/05/1999")
+date = "%f[%S]%d%d/%d%d/%d%d%d%d"
+is(string.sub(s, string.find(s, date)), "30/05/1999")
+
+error_like(function () string.find(s, '%f') end,
+           "^[^:]+:%d+: missing '%[' after '%%f' in pattern",
+           "function find (invalid frontier)")
 
 is(string.format("pi = %.4f", math.pi), 'pi = 3.1416', "function format")
 d = 5; m = 11; y = 1990
@@ -79,9 +97,17 @@ is(string.format("<%s>%s</%s>", tag, title, tag), "<h1>a title</h1>")
 is(string.format('%q', 'a string with "quotes" and \n new line'), [["a string with \"quotes\" and \
  new line"]], "function format %q")
 
+if arg[-1] == 'luajit' then
+    todo("LuaJIT. %q escape control char.", 1)
+end
+is(string.format('%q', 'a string with \b and \b2'), [["a string with \8 and \0082"]], "function format %q")
+
 is(string.format("%s %s", 1, 2, 3), '1 2', "function format (too many arg)")
 
-is(string.format("%% %s %%", 'percent'), '% percent %', "function format (%%)")
+is(string.format("%% %c %%", 65), '% A %', "function format (%%)")
+
+r = string.rep("ab", 100)
+is(string.format("%s %d", r, r:len()), r .. " 200")
 
 error_like(function () string.format("%s %s", 1) end,
            "^[^:]+:%d+: bad argument #3 to 'format' %(.-no value%)",
@@ -106,6 +132,13 @@ error_like(function () string.format('pi = %.123f', math.pi) end,
 error_like(function () string.format('% 123s', 'toto') end,
            "^[^:]+:%d+: invalid format %(width or precision too long%)",
            "function format (invalid format)")
+
+if arg[-1] == 'luajit' then
+    todo("LuaJIT. rename gfind.", 1)
+end
+error_like(function () string.gfind() end,
+           "^[^:]+:%d+: 'string.gfind' was renamed to 'string.gmatch'",
+           "function gfind (renamed)")
 
 s = "hello"
 output = {}
@@ -143,7 +176,7 @@ is(string.gsub("$name-$version.tar.gz", "%$(%w+)", t), "lua-5.1.tar.gz")
 
 is(string.gsub("Lua is cute", 'cute', 'great'), "Lua is great")
 is(string.gsub("all lii", 'l', 'x'), "axx xii")
-is(string.gsub("Lua is great", 'Sol', 'Sun'), "Lua is great")
+is(string.gsub("Lua is great", '^Sol', 'Sun'), "Lua is great")
 is(string.gsub("all lii", 'l', 'x', 1), "axl lii")
 is(string.gsub("all lii", 'l', 'x', 2), "axx lii")
 is(select(2, string.gsub("string with 3 spaces", ' ', ' ')), 3)
@@ -158,6 +191,11 @@ eq_array({string.gsub(test, "/%*.*%*/", '<COMMENT>')}, {"int x; <COMMENT>", 1})
 eq_array({string.gsub(test, "/%*.-%*/", '<COMMENT>')}, {"int x; <COMMENT>  int y; <COMMENT>", 2})
 s = "a (enclosed (in) parentheses) line"
 eq_array({string.gsub(s, '%b()', '')}, {"a  line", 1})
+
+error_like(function () string.gsub(s, '%b(', '') end,
+           "^[^:]+:%d+: .- pattern",
+           "function gsub (malformed pattern)")
+
 eq_array({string.gsub("hello Lua!", "%a", "%0-%0")}, {"h-he-el-ll-lo-o L-Lu-ua-a!", 8})
 eq_array({string.gsub("hello Lua", "(.)(.)", "%2%1")}, {"ehll ouLa", 4})
 
@@ -220,6 +258,15 @@ eq_array({string.match(s, "([\"'])(.-)%1")}, {'"', "it's all right"}, "function 
 p = "%[(=*)%[(.-)%]%1%]"
 s = "a = [=[[[ something ]] ]==]x]=]; print(a)"
 eq_array({string.match(s, p)}, {'=', '[[ something ]] ]==]x'})
+
+if arg[-1] == 'luajit' then
+    todo("LuaJIT. pattern %g.", 1)
+end
+is(string.match(s, "%g"), "a", "match graphic char")
+
+error_like(function () string.match("hello world", "%1") end,
+           "^[^:]+:%d+: invalid capture index",
+           "function match invalid capture")
 
 is(string.rep('ab', 3), 'ababab', "function rep")
 is(string.rep('ab', 0), '')

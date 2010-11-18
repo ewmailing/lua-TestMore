@@ -31,7 +31,7 @@ See "Programming in Lua", section 18 "The Mathematical Library".
 
 require 'Test.More'
 
-plan(43)
+plan(47)
 
 like(tostring(math.pi), '^3%.14', "variable pi")
 
@@ -74,6 +74,11 @@ eq_array({math.frexp(1.5)}, {0.75, 1}, "function frexp")
 is(math.ldexp(1.2, 3), 9.6, "function ldexp")
 
 like(math.log(47), '^3%.85', "function log")
+if arg[-1] == 'luajit' then
+    todo("LuaJIT. log with base.", 2)
+end
+like(math.log(47, 2), '^5%.554', "function log (base 2)")
+like(math.log(47, 10), '^1%.672', "function log (base 10)")
 
 if (platform and platform.compat)
 or (arg[-1] == 'luajit') then
@@ -111,6 +116,17 @@ like(math.random(), '^%d%.%d+', "function random no arg")
 like(math.random(9), '^%d$', "function random 1 arg")
 
 like(math.random(10, 19), '^1%d$', "function random 2 arg")
+
+if arg[-1] == 'luajit' then
+    todo("LuaJIT. check empty interval.", 2)
+end
+error_like(function () math.random(0) end,
+           "^[^:]+:%d+: bad argument #1 to 'random' %(interval is empty%)",
+           "function random empty interval")
+
+error_like(function () math.random(19, 10) end,
+           "^[^:]+:%d+: bad argument #2 to 'random' %(interval is empty%)",
+           "function random empty interval")
 
 if arg[-1] == 'luajit' then
     todo("LuaJIT intentional. Don't care about extra arguments.")
