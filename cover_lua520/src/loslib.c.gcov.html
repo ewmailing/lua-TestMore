@@ -31,18 +31,18 @@
             <td class="headerValue">Lua 5.2.0 alpha</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">116</td>
+            <td class="headerCovTableEntry">117</td>
             <td class="headerCovTableEntry">131</td>
-            <td class="headerCovTableEntryMed">88.5 %</td>
+            <td class="headerCovTableEntryMed">89.3 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2010-11-17</td>
+            <td class="headerValue">2010-11-18</td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">36</td>
+            <td class="headerCovTableEntry">38</td>
             <td class="headerCovTableEntry">66</td>
-            <td class="headerCovTableEntryLo">54.5 %</td>
+            <td class="headerCovTableEntryLo">57.6 %</td>
           </tr>
           <tr>
             <td class="headerItem">Legend:</td>
@@ -148,9 +148,9 @@
 <span class="lineNum">      74 </span>                :            : }
 <span class="lineNum">      75 </span>                :            : 
 <span class="lineNum">      76 </span>                :            : 
-<span class="lineNum">      77 </span>                :<span class="lineCov">          3 : static int os_execute (lua_State *L) {</span>
-<span class="lineNum">      78 </span>                :<span class="lineCov">          3 :   lua_pushinteger(L, system(luaL_optstring(L, 1, NULL)));</span>
-<span class="lineNum">      79 </span>                :<span class="lineCov">          3 :   return 1;</span>
+<span class="lineNum">      77 </span>                :<span class="lineCov">          5 : static int os_execute (lua_State *L) {</span>
+<span class="lineNum">      78 </span>                :<span class="lineCov">          5 :   lua_pushinteger(L, system(luaL_optstring(L, 1, NULL)));</span>
+<span class="lineNum">      79 </span>                :<span class="lineCov">          5 :   return 1;</span>
 <span class="lineNum">      80 </span>                :            : }
 <span class="lineNum">      81 </span>                :            : 
 <span class="lineNum">      82 </span>                :            : 
@@ -233,12 +233,12 @@
 <span class="lineNum">     159 </span>                :            : }
 <span class="lineNum">     160 </span>                :            : 
 <span class="lineNum">     161 </span>                :            : 
-<span class="lineNum">     162 </span>                :<span class="lineCov">          9 : static const char *checkoption (lua_State *L, const char *conv, char *buff) {</span>
+<span class="lineNum">     162 </span>                :<span class="lineCov">         10 : static const char *checkoption (lua_State *L, const char *conv, char *buff) {</span>
 <span class="lineNum">     163 </span>                :            :   static const char *const options[] = LUA_STRFTIMEOPTIONS;
 <span class="lineNum">     164 </span>                :            :   unsigned int i;
-<span class="lineNum">     165 </span>        [<span class="branchCov" title="Branch 0 was taken 9 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          9 :   for (i = 0; i &lt; sizeof(options)/sizeof(options[0]); i += 2) {</span>
-<span class="lineNum">     166 </span>[<span class="branchCov" title="Branch 0 was taken 9 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 9 times"> + </span>]:<span class="lineCov">          9 :     if (*conv != '\0' &amp;&amp; strchr(options[i], *conv) != NULL) {</span>
-<span class="lineNum">         </span>[<span class="branchNoExec" title="Block containing branch 4 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 5 was never executed"> # </span>][<span class="branchCov" title="Branch 7 was taken 9 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>]
+<span class="lineNum">     165 </span>        [<span class="branchCov" title="Branch 0 was taken 12 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">         13 :   for (i = 0; i &lt; sizeof(options)/sizeof(options[0]); i += 2) {</span>
+<span class="lineNum">     166 </span>[<span class="branchCov" title="Branch 0 was taken 12 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 12 times"> + </span>]:<span class="lineCov">         12 :     if (*conv != '\0' &amp;&amp; strchr(options[i], *conv) != NULL) {</span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Block containing branch 4 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 5 was never executed"> # </span>][<span class="branchCov" title="Branch 7 was taken 9 times"> + </span><span class="branchCov" title="Branch 8 was taken 3 times"> + </span>]
 <span class="lineNum">     167 </span>                :<span class="lineCov">          9 :       buff[1] = *conv;</span>
 <span class="lineNum">     168 </span>        [<span class="branchCov" title="Branch 0 was taken 9 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          9 :       if (*options[i + 1] == '\0') {  /* one-char conversion specifier? */</span>
 <span class="lineNum">     169 </span>                :<span class="lineCov">          9 :         buff[2] = '\0';  /* end buffer */</span>
@@ -253,27 +253,27 @@
 <span class="lineNum">     177 </span>                :            :       }
 <span class="lineNum">     178 </span>                :            :     }
 <span class="lineNum">     179 </span>                :            :   }
-<span class="lineNum">     180 </span>                :<span class="lineNoCov">          0 :   luaL_argerror(L, 1,</span>
+<span class="lineNum">     180 </span>                :<span class="lineCov">          1 :   luaL_argerror(L, 1,</span>
 <span class="lineNum">     181 </span>                :            :     lua_pushfstring(L, &quot;invalid conversion specifier '%%%s'&quot;, conv));
 <span class="lineNum">     182 </span>                :<span class="lineCov">          9 :   return conv;  /* to avoid warnings */</span>
 <span class="lineNum">     183 </span>                :            : }
 <span class="lineNum">     184 </span>                :            : 
 <span class="lineNum">     185 </span>                :            :     
-<span class="lineNum">     186 </span>                :<span class="lineCov">          3 : static int os_date (lua_State *L) {</span>
-<span class="lineNum">     187 </span>                :<span class="lineCov">          3 :   const char *s = luaL_optstring(L, 1, &quot;%c&quot;);</span>
-<span class="lineNum">     188 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>]:<span class="lineCov">          3 :   time_t t = luaL_opt(L, (time_t)luaL_checknumber, 2, time(NULL));</span>
+<span class="lineNum">     186 </span>                :<span class="lineCov">          4 : static int os_date (lua_State *L) {</span>
+<span class="lineNum">     187 </span>                :<span class="lineCov">          4 :   const char *s = luaL_optstring(L, 1, &quot;%c&quot;);</span>
+<span class="lineNum">     188 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 3 times"> + </span>]:<span class="lineCov">          4 :   time_t t = luaL_opt(L, (time_t)luaL_checknumber, 2, time(NULL));</span>
 <span class="lineNum">     189 </span>                :            :   struct tm *stm;
-<span class="lineNum">     190 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          3 :   if (*s == '!') {  /* UTC? */</span>
+<span class="lineNum">     190 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          4 :   if (*s == '!') {  /* UTC? */</span>
 <span class="lineNum">     191 </span>                :<span class="lineCov">          2 :     stm = gmtime(&amp;t);</span>
 <span class="lineNum">     192 </span>                :<span class="lineCov">          2 :     s++;  /* skip `!' */</span>
 <span class="lineNum">     193 </span>                :            :   }
 <span class="lineNum">     194 </span>                :            :   else
-<span class="lineNum">     195 </span>                :<span class="lineCov">          1 :     stm = localtime(&amp;t);</span>
-<span class="lineNum">     196 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          3 :   if (stm == NULL)  /* invalid date? */</span>
+<span class="lineNum">     195 </span>                :<span class="lineCov">          2 :     stm = localtime(&amp;t);</span>
+<span class="lineNum">     196 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span>]:<span class="lineCov">          4 :   if (stm == NULL)  /* invalid date? */</span>
 <span class="lineNum">     197 </span>                :<span class="lineNoCov">          0 :     lua_pushnil(L);</span>
-<span class="lineNum">     198 </span>[<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">          3 :   else if (strcmp(s, &quot;*t&quot;) == 0) {</span>
+<span class="lineNum">     198 </span>[<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchCov" title="Branch 3 was taken 3 times"> + </span>]:<span class="lineCov">          4 :   else if (strcmp(s, &quot;*t&quot;) == 0) {</span>
 <span class="lineNum">         </span>[<span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>][<span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 1 time"> + </span>]
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 8 was taken 1 time"> + </span><span class="branchCov" title="Branch 9 was taken 2 times"> + </span>]
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 8 was taken 1 time"> + </span><span class="branchCov" title="Branch 9 was taken 3 times"> + </span>]
 <span class="lineNum">     199 </span>                :<span class="lineCov">          1 :     lua_createtable(L, 0, 9);  /* 9 = number of fields */</span>
 <span class="lineNum">     200 </span>                :<span class="lineCov">          1 :     setfield(L, &quot;sec&quot;, stm-&gt;tm_sec);</span>
 <span class="lineNum">     201 </span>                :<span class="lineCov">          1 :     setfield(L, &quot;min&quot;, stm-&gt;tm_min);</span>
@@ -288,15 +288,15 @@
 <span class="lineNum">     210 </span>                :            :   else {
 <span class="lineNum">     211 </span>                :            :     char cc[4];
 <span class="lineNum">     212 </span>                :            :     luaL_Buffer b;
-<span class="lineNum">     213 </span>                :<span class="lineCov">          2 :     cc[0] = '%';</span>
-<span class="lineNum">     214 </span>                :<span class="lineCov">          2 :     luaL_buffinit(L, &amp;b);</span>
-<span class="lineNum">     215 </span>        [<span class="branchCov" title="Branch 0 was taken 16 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">         18 :     while (*s) {</span>
-<span class="lineNum">     216 </span>        [<span class="branchCov" title="Branch 0 was taken 7 times"> + </span><span class="branchCov" title="Branch 1 was taken 9 times"> + </span>]:<span class="lineCov">         16 :       if (*s != '%')  /* no conversion specifier? */</span>
+<span class="lineNum">     213 </span>                :<span class="lineCov">          3 :     cc[0] = '%';</span>
+<span class="lineNum">     214 </span>                :<span class="lineCov">          3 :     luaL_buffinit(L, &amp;b);</span>
+<span class="lineNum">     215 </span>        [<span class="branchCov" title="Branch 0 was taken 17 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">         19 :     while (*s) {</span>
+<span class="lineNum">     216 </span>        [<span class="branchCov" title="Branch 0 was taken 7 times"> + </span><span class="branchCov" title="Branch 1 was taken 10 times"> + </span>]:<span class="lineCov">         17 :       if (*s != '%')  /* no conversion specifier? */</span>
 <span class="lineNum">     217 </span>[<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 7 times"> + </span>][<span class="branchNoExec" title="Block containing branch 3 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 4 was never executed"> # </span>]:<span class="lineCov">          7 :         luaL_addchar(&amp;b, *s++);</span>
 <span class="lineNum">     218 </span>                :            :       else {
 <span class="lineNum">     219 </span>                :            :         size_t reslen;
 <span class="lineNum">     220 </span>                :            :         char buff[200];  /* should be big enough for any conversion result */
-<span class="lineNum">     221 </span>                :<span class="lineCov">          9 :         s = checkoption(L, s + 1, cc);</span>
+<span class="lineNum">     221 </span>                :<span class="lineCov">         10 :         s = checkoption(L, s + 1, cc);</span>
 <span class="lineNum">     222 </span>                :<span class="lineCov">          9 :         reslen = strftime(buff, sizeof(buff), cc, stm);</span>
 <span class="lineNum">     223 </span>                :<span class="lineCov">          9 :         luaL_addlstring(&amp;b, buff, reslen);</span>
 <span class="lineNum">     224 </span>                :            :       }
@@ -384,9 +384,9 @@
 <span class="lineNum">     306 </span>                :            : 
 <span class="lineNum">     307 </span>                :            : 
 <span class="lineNum">     308 </span>                :            : 
-<span class="lineNum">     309 </span>                :<span class="lineCov">         38 : LUAMOD_API int luaopen_os (lua_State *L) {</span>
-<span class="lineNum">     310 </span>                :<span class="lineCov">         38 :   luaL_newlib(L, syslib);</span>
-<span class="lineNum">     311 </span>                :<span class="lineCov">         38 :   return 1;</span>
+<span class="lineNum">     309 </span>                :<span class="lineCov">         39 : LUAMOD_API int luaopen_os (lua_State *L) {</span>
+<span class="lineNum">     310 </span>                :<span class="lineCov">         39 :   luaL_newlib(L, syslib);</span>
+<span class="lineNum">     311 </span>                :<span class="lineCov">         39 :   return 1;</span>
 <span class="lineNum">     312 </span>                :            : }
 <span class="lineNum">     313 </span>                :            : 
 </pre>

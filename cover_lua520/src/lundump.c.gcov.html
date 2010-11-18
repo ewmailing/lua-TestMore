@@ -31,13 +31,13 @@
             <td class="headerValue">Lua 5.2.0 alpha</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">12</td>
             <td class="headerCovTableEntry">116</td>
-            <td class="headerCovTableEntryLo">0.0 %</td>
+            <td class="headerCovTableEntryLo">10.3 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2010-11-17</td>
+            <td class="headerValue">2010-11-18</td>
             <td></td>
             <td class="headerItem">Branches:</td>
             <td class="headerCovTableEntry">0</td>
@@ -295,21 +295,21 @@
 <span class="lineNum">     220 </span>                :            : * if you make any changes in the code below or in LUA_SIGNATURE in lua.h,
 <span class="lineNum">     221 </span>                :            : * be sure to update LoadHeader above and LUAC_HEADERSIZE in lundump.h
 <span class="lineNum">     222 </span>                :            : */
-<span class="lineNum">     223 </span>                :<span class="lineNoCov">          0 : void luaU_header (char* h)</span>
+<span class="lineNum">     223 </span>                :<span class="lineCov">          1 : void luaU_header (char* h)</span>
 <span class="lineNum">     224 </span>                :            : {
-<span class="lineNum">     225 </span>                :<span class="lineNoCov">          0 :  int x=1;</span>
+<span class="lineNum">     225 </span>                :<span class="lineCov">          1 :  int x=1;</span>
 <span class="lineNum">     226 </span>                :            :  memcpy(h,LUA_SIGNATURE,sizeof(LUA_SIGNATURE)-1);
-<span class="lineNum">     227 </span>                :<span class="lineNoCov">          0 :  h+=sizeof(LUA_SIGNATURE)-1;</span>
-<span class="lineNum">     228 </span>                :<span class="lineNoCov">          0 :  *h++=(char)0x52;                               /* Lua 5.2 */</span>
-<span class="lineNum">     229 </span>                :<span class="lineNoCov">          0 :  *h++=(char)0;                                  /* the official format */</span>
-<span class="lineNum">     230 </span>                :<span class="lineNoCov">          0 :  *h++=(char)*(char*)&amp;x;                             /* endianness */</span>
-<span class="lineNum">     231 </span>                :<span class="lineNoCov">          0 :  *h++=(char)sizeof(int);</span>
-<span class="lineNum">     232 </span>                :<span class="lineNoCov">          0 :  *h++=(char)sizeof(size_t);</span>
-<span class="lineNum">     233 </span>                :<span class="lineNoCov">          0 :  *h++=(char)sizeof(Instruction);</span>
-<span class="lineNum">     234 </span>                :<span class="lineNoCov">          0 :  *h++=(char)sizeof(lua_Number);</span>
-<span class="lineNum">     235 </span>                :<span class="lineNoCov">          0 :  *h++=(char)(((lua_Number)0.5)==0);             /* is lua_Number integral? */</span>
+<span class="lineNum">     227 </span>                :<span class="lineCov">          1 :  h+=sizeof(LUA_SIGNATURE)-1;</span>
+<span class="lineNum">     228 </span>                :<span class="lineCov">          1 :  *h++=(char)0x52;                               /* Lua 5.2 */</span>
+<span class="lineNum">     229 </span>                :<span class="lineCov">          1 :  *h++=(char)0;                                  /* the official format */</span>
+<span class="lineNum">     230 </span>                :<span class="lineCov">          1 :  *h++=(char)*(char*)&amp;x;                             /* endianness */</span>
+<span class="lineNum">     231 </span>                :<span class="lineCov">          1 :  *h++=(char)sizeof(int);</span>
+<span class="lineNum">     232 </span>                :<span class="lineCov">          1 :  *h++=(char)sizeof(size_t);</span>
+<span class="lineNum">     233 </span>                :<span class="lineCov">          1 :  *h++=(char)sizeof(Instruction);</span>
+<span class="lineNum">     234 </span>                :<span class="lineCov">          1 :  *h++=(char)sizeof(lua_Number);</span>
+<span class="lineNum">     235 </span>                :<span class="lineCov">          1 :  *h++=(char)(((lua_Number)0.5)==0);             /* is lua_Number integral? */</span>
 <span class="lineNum">     236 </span>                :            :  memcpy(h,TAIL,sizeof(TAIL)-1);
-<span class="lineNum">     237 </span>                :<span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     237 </span>                :<span class="lineCov">          1 : }</span>
 </pre>
       </td>
     </tr>

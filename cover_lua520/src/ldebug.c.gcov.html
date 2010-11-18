@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2010-11-17</td>
+            <td class="headerValue">2010-11-18</td>
             <td></td>
             <td class="headerItem">Branches:</td>
             <td class="headerCovTableEntry">110</td>
@@ -109,12 +109,12 @@
 <span class="lineNum">      35 </span>                :            : 
 <span class="lineNum">      36 </span>                :            : static int currentpc (CallInfo *ci) {
 <span class="lineNum">      37 </span>                :            :   lua_assert(isLua(ci));
-<span class="lineNum">      38 </span>                :<span class="lineCov">        328 :   return pcRel(ci-&gt;u.l.savedpc, ci_func(ci)-&gt;l.p);</span>
+<span class="lineNum">      38 </span>                :<span class="lineCov">        342 :   return pcRel(ci-&gt;u.l.savedpc, ci_func(ci)-&gt;l.p);</span>
 <span class="lineNum">      39 </span>                :            : }
 <span class="lineNum">      40 </span>                :            : 
 <span class="lineNum">      41 </span>                :            : 
 <span class="lineNum">      42 </span>                :            : static int currentline (CallInfo *ci) {
-<span class="lineNum">      43 </span>[<span class="branchCov" title="Branch 0 was taken 181 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 2 was taken 46 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        227 :   return getfuncline(ci_func(ci)-&gt;l.p, currentpc(ci));</span>
+<span class="lineNum">      43 </span>[<span class="branchCov" title="Branch 0 was taken 181 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 2 was taken 54 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        235 :   return getfuncline(ci_func(ci)-&gt;l.p, currentpc(ci));</span>
 <span class="lineNum">      44 </span>                :            : }
 <span class="lineNum">      45 </span>                :            : 
 <span class="lineNum">      46 </span>                :            : 
@@ -151,20 +151,20 @@
 <span class="lineNum">      77 </span>                :            : }
 <span class="lineNum">      78 </span>                :            : 
 <span class="lineNum">      79 </span>                :            : 
-<span class="lineNum">      80 </span>                :<span class="lineCov">         85 : LUA_API int lua_getstack (lua_State *L, int level, lua_Debug *ar) {</span>
+<span class="lineNum">      80 </span>                :<span class="lineCov">         96 : LUA_API int lua_getstack (lua_State *L, int level, lua_Debug *ar) {</span>
 <span class="lineNum">      81 </span>                :            :   int status;
 <span class="lineNum">      82 </span>                :            :   CallInfo *ci;
-<span class="lineNum">      83 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 85 times"> + </span>]:<span class="lineCov">         85 :   if (level &lt; 0) return 0;  /* invalid (negative) level */</span>
+<span class="lineNum">      83 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 96 times"> + </span>]:<span class="lineCov">         96 :   if (level &lt; 0) return 0;  /* invalid (negative) level */</span>
 <span class="lineNum">      84 </span>                :            :   lua_lock(L);
-<span class="lineNum">      85 </span>[<span class="branchCov" title="Branch 0 was taken 93 times"> + </span><span class="branchCov" title="Branch 1 was taken 82 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 90 times"> + </span><span class="branchCov" title="Branch 3 was taken 3 times"> + </span>]:<span class="lineCov">        175 :   for (ci = L-&gt;ci; level &gt; 0 &amp;&amp; ci != &amp;L-&gt;base_ci; ci = ci-&gt;previous)</span>
-<span class="lineNum">      86 </span>                :<span class="lineCov">         90 :     level--;</span>
-<span class="lineNum">      87 </span>[<span class="branchCov" title="Branch 0 was taken 82 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 76 times"> + </span><span class="branchCov" title="Branch 3 was taken 6 times"> + </span>]:<span class="lineCov">         85 :   if (level == 0 &amp;&amp; ci != &amp;L-&gt;base_ci) {  /* level found? */</span>
-<span class="lineNum">      88 </span>                :<span class="lineCov">         76 :     status = 1;</span>
-<span class="lineNum">      89 </span>                :<span class="lineCov">         76 :     ar-&gt;i_ci = ci;</span>
+<span class="lineNum">      85 </span>[<span class="branchCov" title="Branch 0 was taken 101 times"> + </span><span class="branchCov" title="Branch 1 was taken 93 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 98 times"> + </span><span class="branchCov" title="Branch 3 was taken 3 times"> + </span>]:<span class="lineCov">        194 :   for (ci = L-&gt;ci; level &gt; 0 &amp;&amp; ci != &amp;L-&gt;base_ci; ci = ci-&gt;previous)</span>
+<span class="lineNum">      86 </span>                :<span class="lineCov">         98 :     level--;</span>
+<span class="lineNum">      87 </span>[<span class="branchCov" title="Branch 0 was taken 93 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 87 times"> + </span><span class="branchCov" title="Branch 3 was taken 6 times"> + </span>]:<span class="lineCov">         96 :   if (level == 0 &amp;&amp; ci != &amp;L-&gt;base_ci) {  /* level found? */</span>
+<span class="lineNum">      88 </span>                :<span class="lineCov">         87 :     status = 1;</span>
+<span class="lineNum">      89 </span>                :<span class="lineCov">         87 :     ar-&gt;i_ci = ci;</span>
 <span class="lineNum">      90 </span>                :            :   }
 <span class="lineNum">      91 </span>                :<span class="lineCov">          9 :   else status = 0;  /* no such level */</span>
 <span class="lineNum">      92 </span>                :            :   lua_unlock(L);
-<span class="lineNum">      93 </span>                :<span class="lineCov">         85 :   return status;</span>
+<span class="lineNum">      93 </span>                :<span class="lineCov">         96 :   return status;</span>
 <span class="lineNum">      94 </span>                :            : }
 <span class="lineNum">      95 </span>                :            : 
 <span class="lineNum">      96 </span>                :            : 
@@ -227,20 +227,20 @@
 <span class="lineNum">     153 </span>                :            : 
 <span class="lineNum">     154 </span>                :            : 
 <span class="lineNum">     155 </span>                :            : static void funcinfo (lua_Debug *ar, Closure *cl) {
-<span class="lineNum">     156 </span>[<span class="branchCov" title="Branch 0 was taken 48 times"> + </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchCov" title="Branch 3 was taken 47 times"> + </span>]:<span class="lineCov">         54 :   if (cl == NULL || cl-&gt;c.isC) {</span>
+<span class="lineNum">     156 </span>[<span class="branchCov" title="Branch 0 was taken 56 times"> + </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchCov" title="Branch 3 was taken 55 times"> + </span>]:<span class="lineCov">         62 :   if (cl == NULL || cl-&gt;c.isC) {</span>
 <span class="lineNum">     157 </span>                :<span class="lineCov">          7 :     ar-&gt;source = &quot;=[C]&quot;;</span>
 <span class="lineNum">     158 </span>                :<span class="lineCov">          7 :     ar-&gt;linedefined = -1;</span>
 <span class="lineNum">     159 </span>                :<span class="lineCov">          7 :     ar-&gt;lastlinedefined = -1;</span>
 <span class="lineNum">     160 </span>                :<span class="lineCov">          7 :     ar-&gt;what = &quot;C&quot;;</span>
 <span class="lineNum">     161 </span>                :            :   }
 <span class="lineNum">     162 </span>                :            :   else {
-<span class="lineNum">     163 </span>                :<span class="lineCov">         47 :     Proto *p = cl-&gt;l.p;</span>
-<span class="lineNum">     164 </span>        [<span class="branchCov" title="Branch 0 was taken 47 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         47 :     ar-&gt;source = p-&gt;source ? getstr(p-&gt;source) : &quot;=?&quot;;</span>
-<span class="lineNum">     165 </span>                :<span class="lineCov">         47 :     ar-&gt;linedefined = p-&gt;linedefined;</span>
-<span class="lineNum">     166 </span>                :<span class="lineCov">         47 :     ar-&gt;lastlinedefined = p-&gt;lastlinedefined;</span>
-<span class="lineNum">     167 </span>        [<span class="branchCov" title="Branch 0 was taken 5 times"> + </span><span class="branchCov" title="Branch 1 was taken 42 times"> + </span>]:<span class="lineCov">         47 :     ar-&gt;what = (ar-&gt;linedefined == 0) ? &quot;main&quot; : &quot;Lua&quot;;</span>
+<span class="lineNum">     163 </span>                :<span class="lineCov">         55 :     Proto *p = cl-&gt;l.p;</span>
+<span class="lineNum">     164 </span>        [<span class="branchCov" title="Branch 0 was taken 55 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         55 :     ar-&gt;source = p-&gt;source ? getstr(p-&gt;source) : &quot;=?&quot;;</span>
+<span class="lineNum">     165 </span>                :<span class="lineCov">         55 :     ar-&gt;linedefined = p-&gt;linedefined;</span>
+<span class="lineNum">     166 </span>                :<span class="lineCov">         55 :     ar-&gt;lastlinedefined = p-&gt;lastlinedefined;</span>
+<span class="lineNum">     167 </span>        [<span class="branchCov" title="Branch 0 was taken 5 times"> + </span><span class="branchCov" title="Branch 1 was taken 50 times"> + </span>]:<span class="lineCov">         55 :     ar-&gt;what = (ar-&gt;linedefined == 0) ? &quot;main&quot; : &quot;Lua&quot;;</span>
 <span class="lineNum">     168 </span>                :            :   }
-<span class="lineNum">     169 </span>                :<span class="lineCov">         54 :   luaO_chunkid(ar-&gt;short_src, ar-&gt;source, LUA_IDSIZE);</span>
+<span class="lineNum">     169 </span>                :<span class="lineCov">         62 :   luaO_chunkid(ar-&gt;short_src, ar-&gt;source, LUA_IDSIZE);</span>
 <span class="lineNum">     170 </span>                :            : }
 <span class="lineNum">     171 </span>                :            : 
 <span class="lineNum">     172 </span>                :            : 
@@ -261,19 +261,19 @@
 <span class="lineNum">     187 </span>                :            : }
 <span class="lineNum">     188 </span>                :            : 
 <span class="lineNum">     189 </span>                :            : 
-<span class="lineNum">     190 </span>                :<span class="lineCov">         73 : static int auxgetinfo (lua_State *L, const char *what, lua_Debug *ar,</span>
+<span class="lineNum">     190 </span>                :<span class="lineCov">         84 : static int auxgetinfo (lua_State *L, const char *what, lua_Debug *ar,</span>
 <span class="lineNum">     191 </span>                :            :                     Closure *f, CallInfo *ci) {
-<span class="lineNum">     192 </span>                :<span class="lineCov">         73 :   int status = 1;</span>
-<span class="lineNum">     193 </span>        [<span class="branchCov" title="Branch 0 was taken 143 times"> + </span><span class="branchCov" title="Branch 1 was taken 73 times"> + </span>]:<span class="lineCov">        216 :   for (; *what; what++) {</span>
-<span class="lineNum">     194 </span>[<span class="branchCov" title="Branch 0 was taken 54 times"> + </span><span class="branchCov" title="Branch 1 was taken 54 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span><span class="branchCov" title="Branch 3 was taken 6 times"> + </span><span class="branchCov" title="Branch 4 was taken 21 times"> + </span>:<span class="lineCov">        143 :     switch (*what) {</span>
+<span class="lineNum">     192 </span>                :<span class="lineCov">         84 :   int status = 1;</span>
+<span class="lineNum">     193 </span>        [<span class="branchCov" title="Branch 0 was taken 162 times"> + </span><span class="branchCov" title="Branch 1 was taken 84 times"> + </span>]:<span class="lineCov">        246 :   for (; *what; what++) {</span>
+<span class="lineNum">     194 </span>[<span class="branchCov" title="Branch 0 was taken 62 times"> + </span><span class="branchCov" title="Branch 1 was taken 62 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span><span class="branchCov" title="Branch 3 was taken 6 times"> + </span><span class="branchCov" title="Branch 4 was taken 24 times"> + </span>:<span class="lineCov">        162 :     switch (*what) {</span>
 <span class="lineNum">         </span>         <span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 6 times"> + </span>]
 <span class="lineNum">     195 </span>                :            :       case 'S': {
 <span class="lineNum">     196 </span>                :            :         funcinfo(ar, f);
-<span class="lineNum">     197 </span>                :<span class="lineCov">         54 :         break;</span>
+<span class="lineNum">     197 </span>                :<span class="lineCov">         62 :         break;</span>
 <span class="lineNum">     198 </span>                :            :       }
 <span class="lineNum">     199 </span>                :            :       case 'l': {
-<span class="lineNum">     200 </span>[<span class="branchCov" title="Branch 0 was taken 53 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 2 was taken 46 times"> + </span><span class="branchCov" title="Branch 3 was taken 7 times"> + </span>]:<span class="lineCov">        100 :         ar-&gt;currentline = (ci &amp;&amp; isLua(ci)) ? currentline(ci) : -1;</span>
-<span class="lineNum">     201 </span>                :<span class="lineCov">         54 :         break;</span>
+<span class="lineNum">     200 </span>[<span class="branchCov" title="Branch 0 was taken 61 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 2 was taken 54 times"> + </span><span class="branchCov" title="Branch 3 was taken 7 times"> + </span>]:<span class="lineCov">        116 :         ar-&gt;currentline = (ci &amp;&amp; isLua(ci)) ? currentline(ci) : -1;</span>
+<span class="lineNum">     201 </span>                :<span class="lineCov">         62 :         break;</span>
 <span class="lineNum">     202 </span>                :            :       }
 <span class="lineNum">     203 </span>                :            :       case 'u': {
 <span class="lineNum">     204 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :         ar-&gt;nups = (f == NULL) ? 0 : f-&gt;c.nupvalues;</span>
@@ -292,8 +292,8 @@
 <span class="lineNum">     217 </span>                :<span class="lineCov">          6 :         break;</span>
 <span class="lineNum">     218 </span>                :            :       }
 <span class="lineNum">     219 </span>                :            :       case 'n': {
-<span class="lineNum">     220 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">         21 :         ar-&gt;namewhat = (ci) ? getfuncname(L, ci, &amp;ar-&gt;name) : NULL;</span>
-<span class="lineNum">     221 </span>        [<span class="branchCov" title="Branch 0 was taken 6 times"> + </span><span class="branchCov" title="Branch 1 was taken 15 times"> + </span>]:<span class="lineCov">         21 :         if (ar-&gt;namewhat == NULL) {</span>
+<span class="lineNum">     220 </span>        [<span class="branchCov" title="Branch 0 was taken 23 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">         24 :         ar-&gt;namewhat = (ci) ? getfuncname(L, ci, &amp;ar-&gt;name) : NULL;</span>
+<span class="lineNum">     221 </span>        [<span class="branchCov" title="Branch 0 was taken 6 times"> + </span><span class="branchCov" title="Branch 1 was taken 18 times"> + </span>]:<span class="lineCov">         24 :         if (ar-&gt;namewhat == NULL) {</span>
 <span class="lineNum">     222 </span>                :<span class="lineCov">          6 :           ar-&gt;namewhat = &quot;&quot;;  /* not found */</span>
 <span class="lineNum">     223 </span>                :<span class="lineCov">          6 :           ar-&gt;name = NULL;</span>
 <span class="lineNum">     224 </span>                :            :         }
@@ -305,17 +305,17 @@
 <span class="lineNum">     230 </span>                :<span class="lineNoCov">          0 :       default: status = 0;  /* invalid option */</span>
 <span class="lineNum">     231 </span>                :            :     }
 <span class="lineNum">     232 </span>                :            :   }
-<span class="lineNum">     233 </span>                :<span class="lineCov">         73 :   return status;</span>
+<span class="lineNum">     233 </span>                :<span class="lineCov">         84 :   return status;</span>
 <span class="lineNum">     234 </span>                :            : }
 <span class="lineNum">     235 </span>                :            : 
 <span class="lineNum">     236 </span>                :            : 
-<span class="lineNum">     237 </span>                :<span class="lineCov">         73 : LUA_API int lua_getinfo (lua_State *L, const char *what, lua_Debug *ar) {</span>
+<span class="lineNum">     237 </span>                :<span class="lineCov">         84 : LUA_API int lua_getinfo (lua_State *L, const char *what, lua_Debug *ar) {</span>
 <span class="lineNum">     238 </span>                :            :   int status;
 <span class="lineNum">     239 </span>                :            :   Closure *cl;
 <span class="lineNum">     240 </span>                :            :   CallInfo *ci;
 <span class="lineNum">     241 </span>                :            :   StkId func;
 <span class="lineNum">     242 </span>                :            :   lua_lock(L);
-<span class="lineNum">     243 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 72 times"> + </span>]:<span class="lineCov">         73 :   if (*what == '&gt;') {</span>
+<span class="lineNum">     243 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 83 times"> + </span>]:<span class="lineCov">         84 :   if (*what == '&gt;') {</span>
 <span class="lineNum">     244 </span>                :<span class="lineCov">          1 :     ci = NULL;</span>
 <span class="lineNum">     245 </span>                :<span class="lineCov">          1 :     func = L-&gt;top - 1;</span>
 <span class="lineNum">     246 </span>                :            :     luai_apicheck(L, ttisfunction(func));
@@ -323,20 +323,20 @@
 <span class="lineNum">     248 </span>                :<span class="lineCov">          1 :     L-&gt;top--;  /* pop function */</span>
 <span class="lineNum">     249 </span>                :            :   }
 <span class="lineNum">     250 </span>                :            :   else {
-<span class="lineNum">     251 </span>                :<span class="lineCov">         72 :     ci = ar-&gt;i_ci;</span>
-<span class="lineNum">     252 </span>                :<span class="lineCov">         72 :     func = ci-&gt;func;</span>
+<span class="lineNum">     251 </span>                :<span class="lineCov">         83 :     ci = ar-&gt;i_ci;</span>
+<span class="lineNum">     252 </span>                :<span class="lineCov">         83 :     func = ci-&gt;func;</span>
 <span class="lineNum">     253 </span>                :            :     lua_assert(ttisfunction(ci-&gt;func));
 <span class="lineNum">     254 </span>                :            :   }
-<span class="lineNum">     255 </span>        [<span class="branchCov" title="Branch 0 was taken 50 times"> + </span><span class="branchCov" title="Branch 1 was taken 23 times"> + </span>]:<span class="lineCov">         73 :   cl = ttisclosure(func) ? clvalue(func) : NULL;</span>
-<span class="lineNum">     256 </span>                :<span class="lineCov">         73 :   status = auxgetinfo(L, what, ar, cl, ci);</span>
-<span class="lineNum">     257 </span>        [<span class="branchCov" title="Branch 0 was taken 6 times"> + </span><span class="branchCov" title="Branch 1 was taken 67 times"> + </span>]:<span class="lineCov">         73 :   if (strchr(what, 'f')) {</span>
+<span class="lineNum">     255 </span>        [<span class="branchCov" title="Branch 0 was taken 58 times"> + </span><span class="branchCov" title="Branch 1 was taken 26 times"> + </span>]:<span class="lineCov">         84 :   cl = ttisclosure(func) ? clvalue(func) : NULL;</span>
+<span class="lineNum">     256 </span>                :<span class="lineCov">         84 :   status = auxgetinfo(L, what, ar, cl, ci);</span>
+<span class="lineNum">     257 </span>        [<span class="branchCov" title="Branch 0 was taken 6 times"> + </span><span class="branchCov" title="Branch 1 was taken 78 times"> + </span>]:<span class="lineCov">         84 :   if (strchr(what, 'f')) {</span>
 <span class="lineNum">     258 </span>                :<span class="lineCov">          6 :     setobjs2s(L, L-&gt;top, func);</span>
 <span class="lineNum">     259 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span>]:<span class="lineCov">          6 :     incr_top(L);</span>
 <span class="lineNum">     260 </span>                :            :   }
-<span class="lineNum">     261 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 73 times"> + </span>]:<span class="lineCov">         73 :   if (strchr(what, 'L'))</span>
+<span class="lineNum">     261 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 84 times"> + </span>]:<span class="lineCov">         84 :   if (strchr(what, 'L'))</span>
 <span class="lineNum">     262 </span>                :            :     collectvalidlines(L, cl);
 <span class="lineNum">     263 </span>                :            :   lua_unlock(L);
-<span class="lineNum">     264 </span>                :<span class="lineCov">         73 :   return status;</span>
+<span class="lineNum">     264 </span>                :<span class="lineCov">         84 :   return status;</span>
 <span class="lineNum">     265 </span>                :            : }
 <span class="lineNum">     266 </span>                :            : 
 <span class="lineNum">     267 </span>                :            : 
@@ -349,32 +349,32 @@
 <span class="lineNum">     274 </span>                :            : 
 <span class="lineNum">     275 </span>                :            : static void kname (Proto *p, int c, int reg, const char *what,
 <span class="lineNum">     276 </span>                :            :                    const char **name) {
-<span class="lineNum">     277 </span>[<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 85 times"> + </span>][<span class="branchNoExec" title="Block containing branch 2 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 3 was never executed"> # </span>]:<span class="lineCov">         87 :   if (c == reg &amp;&amp; what &amp;&amp; *what == 'c')</span>
+<span class="lineNum">     277 </span>[<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 91 times"> + </span>][<span class="branchNoExec" title="Block containing branch 2 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 3 was never executed"> # </span>]:<span class="lineCov">         93 :   if (c == reg &amp;&amp; what &amp;&amp; *what == 'c')</span>
 <span class="lineNum">         </span>[<span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 2 times"> + </span>][<span class="branchNoExec" title="Block containing branch 6 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 7 was never executed"> # </span>]
 <span class="lineNum">     278 </span>                :            :     return;  /* index is a constant; name already correct */
-<span class="lineNum">     279 </span>[<span class="branchCov" title="Branch 0 was taken 85 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 2 was taken 85 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         87 :   else if (ISK(c) &amp;&amp; ttisstring(&amp;p-&gt;k[INDEXK(c)]))</span>
+<span class="lineNum">     279 </span>[<span class="branchCov" title="Branch 0 was taken 91 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 2 was taken 91 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         93 :   else if (ISK(c) &amp;&amp; ttisstring(&amp;p-&gt;k[INDEXK(c)]))</span>
 <span class="lineNum">         </span>[<span class="branchCov" title="Branch 4 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>][<span class="branchCov" title="Branch 6 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]
-<span class="lineNum">     280 </span>                :<span class="lineCov">         87 :     *name = svalue(&amp;p-&gt;k[INDEXK(c)]);</span>
+<span class="lineNum">     280 </span>                :<span class="lineCov">         93 :     *name = svalue(&amp;p-&gt;k[INDEXK(c)]);</span>
 <span class="lineNum">     281 </span>                :            :   else
 <span class="lineNum">     282 </span>                :<span class="lineNoCov">          0 :     *name = &quot;?&quot;;</span>
 <span class="lineNum">     283 </span>                :            : }
 <span class="lineNum">     284 </span>                :            : 
 <span class="lineNum">     285 </span>                :            : 
-<span class="lineNum">     286 </span>                :<span class="lineCov">         86 : static const char *getobjname (lua_State *L, CallInfo *ci, int reg,</span>
+<span class="lineNum">     286 </span>                :<span class="lineCov">         89 : static const char *getobjname (lua_State *L, CallInfo *ci, int reg,</span>
 <span class="lineNum">     287 </span>                :            :                                const char **name) {
-<span class="lineNum">     288 </span>                :<span class="lineCov">         86 :   Proto *p = ci_func(ci)-&gt;l.p;</span>
-<span class="lineNum">     289 </span>                :<span class="lineCov">         86 :   const char *what = NULL;</span>
-<span class="lineNum">     290 </span>                :<span class="lineCov">         86 :   int lastpc = currentpc(ci);</span>
+<span class="lineNum">     288 </span>                :<span class="lineCov">         89 :   Proto *p = ci_func(ci)-&gt;l.p;</span>
+<span class="lineNum">     289 </span>                :<span class="lineCov">         89 :   const char *what = NULL;</span>
+<span class="lineNum">     290 </span>                :<span class="lineCov">         89 :   int lastpc = currentpc(ci);</span>
 <span class="lineNum">     291 </span>                :            :   int pc;
-<span class="lineNum">     292 </span>                :<span class="lineCov">         86 :   *name = luaF_getlocalname(p, reg + 1, lastpc);</span>
-<span class="lineNum">     293 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 86 times"> + </span>]:<span class="lineCov">         86 :   if (*name)  /* is a local? */</span>
+<span class="lineNum">     292 </span>                :<span class="lineCov">         89 :   *name = luaF_getlocalname(p, reg + 1, lastpc);</span>
+<span class="lineNum">     293 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 89 times"> + </span>]:<span class="lineCov">         89 :   if (*name)  /* is a local? */</span>
 <span class="lineNum">     294 </span>                :<span class="lineNoCov">          0 :     return &quot;local&quot;;</span>
 <span class="lineNum">     295 </span>                :            :   /* else try symbolic execution */
-<span class="lineNum">     296 </span>        [<span class="branchCov" title="Branch 0 was taken 154 times"> + </span><span class="branchCov" title="Branch 1 was taken 86 times"> + </span>]:<span class="lineCov">        240 :   for (pc = 0; pc &lt; lastpc; pc++) {</span>
-<span class="lineNum">     297 </span>                :<span class="lineCov">        154 :     Instruction i = p-&gt;code[pc];</span>
-<span class="lineNum">     298 </span>                :<span class="lineCov">        154 :     OpCode op = GET_OPCODE(i);</span>
-<span class="lineNum">     299 </span>                :<span class="lineCov">        154 :     int a = GETARG_A(i);</span>
-<span class="lineNum">     300 </span>[<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 85 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 28 times"> + </span><span class="branchCov" title="Branch 4 was taken 3 times"> + </span>:<span class="lineCov">        154 :     switch (op) {</span>
+<span class="lineNum">     296 </span>        [<span class="branchCov" title="Branch 0 was taken 165 times"> + </span><span class="branchCov" title="Branch 1 was taken 89 times"> + </span>]:<span class="lineCov">        254 :   for (pc = 0; pc &lt; lastpc; pc++) {</span>
+<span class="lineNum">     297 </span>                :<span class="lineCov">        165 :     Instruction i = p-&gt;code[pc];</span>
+<span class="lineNum">     298 </span>                :<span class="lineCov">        165 :     OpCode op = GET_OPCODE(i);</span>
+<span class="lineNum">     299 </span>                :<span class="lineCov">        165 :     int a = GETARG_A(i);</span>
+<span class="lineNum">     300 </span>[<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 91 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 33 times"> + </span><span class="branchCov" title="Branch 4 was taken 3 times"> + </span>:<span class="lineCov">        165 :     switch (op) {</span>
 <span class="lineNum">         </span><span class="branchCov" title="Branch 5 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 36 times"> + </span>]
 <span class="lineNum">     301 </span>                :            :       case OP_MOVE: {
 <span class="lineNum">     302 </span>        [<span class="branchNoExec" title="Block containing branch 0 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span>]:<span class="lineNoCov">          0 :         if (reg == a) {</span>
@@ -387,16 +387,16 @@
 <span class="lineNum">     309 </span>                :            :       }
 <span class="lineNum">     310 </span>                :            :       case OP_GETTABUP:
 <span class="lineNum">     311 </span>                :            :       case OP_GETTABLE: {
-<span class="lineNum">     312 </span>        [<span class="branchCov" title="Branch 0 was taken 85 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         85 :         if (reg == a) {</span>
-<span class="lineNum">     313 </span>                :<span class="lineCov">         85 :           int k = GETARG_C(i);  /* key index */</span>
-<span class="lineNum">     314 </span>                :<span class="lineCov">         85 :           int t = GETARG_B(i);</span>
+<span class="lineNum">     312 </span>        [<span class="branchCov" title="Branch 0 was taken 91 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         91 :         if (reg == a) {</span>
+<span class="lineNum">     313 </span>                :<span class="lineCov">         91 :           int k = GETARG_C(i);  /* key index */</span>
+<span class="lineNum">     314 </span>                :<span class="lineCov">         91 :           int t = GETARG_B(i);</span>
 <span class="lineNum">     315 </span>                :            :           const char *vn = (op == OP_GETTABLE)  /* name of indexed variable */ 
-<span class="lineNum">     316 </span>                :<span class="lineCov">          6 :                            ? luaF_getlocalname(p, t + 1, pc)</span>
-<span class="lineNum">     317 </span>        [<span class="branchCov" title="Branch 0 was taken 6 times"> + </span><span class="branchCov" title="Branch 1 was taken 79 times"> + </span>]:<span class="lineCov">         91 :                            : getstr(p-&gt;upvalues[t].name);</span>
+<span class="lineNum">     316 </span>                :<span class="lineCov">          9 :                            ? luaF_getlocalname(p, t + 1, pc)</span>
+<span class="lineNum">     317 </span>        [<span class="branchCov" title="Branch 0 was taken 9 times"> + </span><span class="branchCov" title="Branch 1 was taken 82 times"> + </span>]:<span class="lineCov">        100 :                            : getstr(p-&gt;upvalues[t].name);</span>
 <span class="lineNum">     318 </span>                :            :           kname(p, k, a, what, name);
-<span class="lineNum">     319 </span>[<span class="branchCov" title="Branch 0 was taken 79 times"> + </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span>][<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 79 times"> + </span>]:<span class="lineCov">         85 :           what = (vn &amp;&amp; strcmp(vn, LUA_ENV) == 0) ? &quot;global&quot; : &quot;field&quot;;</span>
+<span class="lineNum">     319 </span>[<span class="branchCov" title="Branch 0 was taken 82 times"> + </span><span class="branchCov" title="Branch 1 was taken 9 times"> + </span>][<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 82 times"> + </span>]:<span class="lineCov">         91 :           what = (vn &amp;&amp; strcmp(vn, LUA_ENV) == 0) ? &quot;global&quot; : &quot;field&quot;;</span>
 <span class="lineNum">         </span>[<span class="branchNoExec" title="Block containing branch 4 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 5 was never executed"> # </span>][<span class="branchNoExec" title="Block containing branch 6 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 7 was never executed"> # </span>]
-<span class="lineNum">         </span>[<span class="branchNoExec" title="Block containing branch 8 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 9 was never executed"> # </span>][<span class="branchCov" title="Branch 10 was taken 79 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Block containing branch 8 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 9 was never executed"> # </span>][<span class="branchCov" title="Branch 10 was taken 82 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
 <span class="lineNum">     320 </span>                :            :         }
 <span class="lineNum">     321 </span>                :            :         break;
 <span class="lineNum">     322 </span>                :            :       }
@@ -410,7 +410,7 @@
 <span class="lineNum">     330 </span>                :            :         break;
 <span class="lineNum">     331 </span>                :            :       }
 <span class="lineNum">     332 </span>                :            :       case OP_LOADK: {
-<span class="lineNum">     333 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 26 times"> + </span>]:<span class="lineCov">         28 :         if (reg == a) {</span>
+<span class="lineNum">     333 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 31 times"> + </span>]:<span class="lineCov">         33 :         if (reg == a) {</span>
 <span class="lineNum">     334 </span>                :<span class="lineCov">          2 :           int b = GETARG_Bx(i);</span>
 <span class="lineNum">     335 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :           b = (b &gt; 0) ? b - 1 : GETARG_Ax(p-&gt;code[pc + 1]);</span>
 <span class="lineNum">     336 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          2 :           if (ttisstring(&amp;p-&gt;k[b])) {</span>
@@ -456,26 +456,26 @@
 <span class="lineNum">     376 </span>                :            :         break;
 <span class="lineNum">     377 </span>                :            :     }
 <span class="lineNum">     378 </span>                :            :   }
-<span class="lineNum">     379 </span>                :<span class="lineCov">         86 :   return what;</span>
+<span class="lineNum">     379 </span>                :<span class="lineCov">         89 :   return what;</span>
 <span class="lineNum">     380 </span>                :            : }
 <span class="lineNum">     381 </span>                :            : 
 <span class="lineNum">     382 </span>                :            : 
-<span class="lineNum">     383 </span>                :<span class="lineCov">         20 : static const char *getfuncname (lua_State *L, CallInfo *ci, const char **name) {</span>
+<span class="lineNum">     383 </span>                :<span class="lineCov">         23 : static const char *getfuncname (lua_State *L, CallInfo *ci, const char **name) {</span>
 <span class="lineNum">     384 </span>                :            :   TMS tm;
 <span class="lineNum">     385 </span>                :            :   Instruction i;
-<span class="lineNum">     386 </span>[<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 2 was taken 5 times"> + </span><span class="branchCov" title="Branch 3 was taken 15 times"> + </span>]:<span class="lineCov">         20 :   if ((ci-&gt;callstatus &amp; CIST_TAIL) || !isLua(ci-&gt;previous))</span>
+<span class="lineNum">     386 </span>[<span class="branchCov" title="Branch 0 was taken 23 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 2 was taken 5 times"> + </span><span class="branchCov" title="Branch 3 was taken 18 times"> + </span>]:<span class="lineCov">         23 :   if ((ci-&gt;callstatus &amp; CIST_TAIL) || !isLua(ci-&gt;previous))</span>
 <span class="lineNum">     387 </span>                :<span class="lineCov">          5 :     return NULL;  /* calling function is not Lua (or is unknown) */</span>
-<span class="lineNum">     388 </span>                :<span class="lineCov">         15 :   ci = ci-&gt;previous;  /* calling function */</span>
-<span class="lineNum">     389 </span>                :<span class="lineCov">         30 :   i = ci_func(ci)-&gt;l.p-&gt;code[currentpc(ci)];</span>
-<span class="lineNum">     390 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 15 times"> + </span>]:<span class="lineCov">         15 :   if (GET_OPCODE(i) == OP_EXTRAARG)  /* extra argument? */</span>
+<span class="lineNum">     388 </span>                :<span class="lineCov">         18 :   ci = ci-&gt;previous;  /* calling function */</span>
+<span class="lineNum">     389 </span>                :<span class="lineCov">         36 :   i = ci_func(ci)-&gt;l.p-&gt;code[currentpc(ci)];</span>
+<span class="lineNum">     390 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 18 times"> + </span>]:<span class="lineCov">         18 :   if (GET_OPCODE(i) == OP_EXTRAARG)  /* extra argument? */</span>
 <span class="lineNum">     391 </span>                :<span class="lineNoCov">          0 :     i = ci_func(ci)-&gt;l.p-&gt;code[currentpc(ci) - 1];  /* get 'real' instruction */</span>
-<span class="lineNum">     392 </span>[<span class="branchCov" title="Branch 0 was taken 15 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>:<span class="lineCov">         15 :   switch (GET_OPCODE(i)) {</span>
+<span class="lineNum">     392 </span>[<span class="branchCov" title="Branch 0 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>:<span class="lineCov">         18 :   switch (GET_OPCODE(i)) {</span>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span> 
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchNoCov" title="Branch 12 was not taken"> - </span><span class="branchNoCov" title="Branch 13 was not taken"> - </span><span class="branchNoCov" title="Branch 14 was not taken"> - </span> 
 <span class="lineNum">         </span>         <span class="branchNoCov" title="Branch 15 was not taken"> - </span><span class="branchNoCov" title="Branch 16 was not taken"> - </span>]
 <span class="lineNum">     393 </span>                :            :     case OP_CALL:
 <span class="lineNum">     394 </span>                :            :     case OP_TAILCALL:
-<span class="lineNum">     395 </span>                :<span class="lineCov">         15 :       return getobjname(L, ci, GETARG_A(i), name);</span>
+<span class="lineNum">     395 </span>                :<span class="lineCov">         18 :       return getobjname(L, ci, GETARG_A(i), name);</span>
 <span class="lineNum">     396 </span>                :            :     case OP_TFORCALL: {
 <span class="lineNum">     397 </span>                :<span class="lineNoCov">          0 :       *name = &quot;for iterator&quot;;</span>
 <span class="lineNum">     398 </span>                :<span class="lineNoCov">          0 :        return &quot;for iterator&quot;;</span>
@@ -501,7 +501,7 @@
 <span class="lineNum">     418 </span>                :<span class="lineNoCov">          0 :       return NULL;  /* else no useful name can be found */</span>
 <span class="lineNum">     419 </span>                :            :   }
 <span class="lineNum">     420 </span>                :<span class="lineNoCov">          0 :   *name = getstr(G(L)-&gt;tmname[tm]);</span>
-<span class="lineNum">     421 </span>                :<span class="lineCov">         20 :   return &quot;metamethod&quot;;</span>
+<span class="lineNum">     421 </span>                :<span class="lineCov">         23 :   return &quot;metamethod&quot;;</span>
 <span class="lineNum">     422 </span>                :            : }
 <span class="lineNum">     423 </span>                :            : 
 <span class="lineNum">     424 </span>                :            : /* }====================================================== */
@@ -591,8 +591,8 @@
 <span class="lineNum">     508 </span>                :            : }
 <span class="lineNum">     509 </span>                :            : 
 <span class="lineNum">     510 </span>                :            : 
-<span class="lineNum">     511 </span>                :<span class="lineCov">        233 : void luaG_errormsg (lua_State *L) {</span>
-<span class="lineNum">     512 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 231 times"> + </span>]:<span class="lineCov">        233 :   if (L-&gt;errfunc != 0) {  /* is there an error handling function? */</span>
+<span class="lineNum">     511 </span>                :<span class="lineCov">        241 : void luaG_errormsg (lua_State *L) {</span>
+<span class="lineNum">     512 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 239 times"> + </span>]:<span class="lineCov">        241 :   if (L-&gt;errfunc != 0) {  /* is there an error handling function? */</span>
 <span class="lineNum">     513 </span>                :<span class="lineCov">          2 :     StkId errfunc = restorestack(L, L-&gt;errfunc);</span>
 <span class="lineNum">     514 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          2 :     if (!ttisfunction(errfunc)) luaD_throw(L, LUA_ERRERR);</span>
 <span class="lineNum">     515 </span>                :<span class="lineCov">          1 :     setobjs2s(L, L-&gt;top, L-&gt;top - 1);  /* move argument */</span>
@@ -600,7 +600,7 @@
 <span class="lineNum">     517 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          1 :     incr_top(L);</span>
 <span class="lineNum">     518 </span>                :<span class="lineCov">          1 :     luaD_call(L, L-&gt;top - 2, 1, 0);  /* call it */</span>
 <span class="lineNum">     519 </span>                :            :   }
-<span class="lineNum">     520 </span>                :<span class="lineCov">        232 :   luaD_throw(L, LUA_ERRRUN);</span>
+<span class="lineNum">     520 </span>                :<span class="lineCov">        240 :   luaD_throw(L, LUA_ERRRUN);</span>
 <span class="lineNum">     521 </span>                :<span class="lineNoCov">          0 : }</span>
 <span class="lineNum">     522 </span>                :            : 
 <span class="lineNum">     523 </span>                :            : 

@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2010-11-17</td>
+            <td class="headerValue">2010-11-18</td>
             <td></td>
             <td class="headerItem">Branches:</td>
             <td class="headerCovTableEntry">30</td>
@@ -207,8 +207,8 @@
 <span class="lineNum">     133 </span>                :<span class="lineNoCov">          0 : }</span>
 <span class="lineNum">     134 </span>                :            : 
 <span class="lineNum">     135 </span>                :            : 
-<span class="lineNum">     136 </span>                :<span class="lineCov">         76 : static int report (lua_State *L, int status) {</span>
-<span class="lineNum">     137 </span>[<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 76 times"> + </span>][<span class="branchNoExec" title="Block containing branch 3 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 4 was never executed"> # </span>]:<span class="lineCov">         76 :   if (status != LUA_OK &amp;&amp; !lua_isnil(L, -1)) {</span>
+<span class="lineNum">     136 </span>                :<span class="lineCov">         78 : static int report (lua_State *L, int status) {</span>
+<span class="lineNum">     137 </span>[<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 78 times"> + </span>][<span class="branchNoExec" title="Block containing branch 3 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 4 was never executed"> # </span>]:<span class="lineCov">         78 :   if (status != LUA_OK &amp;&amp; !lua_isnil(L, -1)) {</span>
 <span class="lineNum">     138 </span>                :<span class="lineNoCov">          0 :     const char *msg = lua_tostring(L, -1);</span>
 <span class="lineNum">     139 </span>        [<span class="branchNoExec" title="Block containing branch 0 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span>]:<span class="lineNoCov">          0 :     if (msg == NULL) msg = &quot;(error object is not a string)&quot;;</span>
 <span class="lineNum">     140 </span>                :<span class="lineNoCov">          0 :     l_message(progname, msg);</span>
@@ -216,13 +216,13 @@
 <span class="lineNum">     142 </span>                :            :     /* force a complete garbage collection in case of errors */
 <span class="lineNum">     143 </span>                :<span class="lineNoCov">          0 :     lua_gc(L, LUA_GCCOLLECT, 0);</span>
 <span class="lineNum">     144 </span>                :            :   }
-<span class="lineNum">     145 </span>                :<span class="lineCov">         76 :   return status;</span>
+<span class="lineNum">     145 </span>                :<span class="lineCov">         78 :   return status;</span>
 <span class="lineNum">     146 </span>                :            : }
 <span class="lineNum">     147 </span>                :            : 
 <span class="lineNum">     148 </span>                :            : 
 <span class="lineNum">     149 </span>                :            : /* the next function is called unprotected, so it must avoid errors */
 <span class="lineNum">     150 </span>                :            : static void finalreport (lua_State *L, int status) {
-<span class="lineNum">     151 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 38 times"> + </span>]:<span class="lineCov">         38 :   if (status != LUA_OK) {</span>
+<span class="lineNum">     151 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 39 times"> + </span>]:<span class="lineCov">         39 :   if (status != LUA_OK) {</span>
 <span class="lineNum">     152 </span>                :<span class="lineNoCov">          0 :     const char *msg = (lua_type(L, -1) == LUA_TSTRING) ? lua_tostring(L, -1)</span>
 <span class="lineNum">     153 </span>        [<span class="branchNoExec" title="Block containing branch 0 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span>]:<span class="lineNoCov">          0 :                                                        : NULL;</span>
 <span class="lineNum">     154 </span>        [<span class="branchNoExec" title="Block containing branch 0 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span>]:<span class="lineNoCov">          0 :     if (msg == NULL) msg = &quot;(error object is not a string)&quot;;</span>
@@ -244,17 +244,17 @@
 <span class="lineNum">     170 </span>                :            : }
 <span class="lineNum">     171 </span>                :            : 
 <span class="lineNum">     172 </span>                :            : 
-<span class="lineNum">     173 </span>                :<span class="lineCov">         76 : static int docall (lua_State *L, int narg, int nres) {</span>
+<span class="lineNum">     173 </span>                :<span class="lineCov">         78 : static int docall (lua_State *L, int narg, int nres) {</span>
 <span class="lineNum">     174 </span>                :            :   int status;
-<span class="lineNum">     175 </span>                :<span class="lineCov">         76 :   int base = lua_gettop(L) - narg;  /* function index */</span>
-<span class="lineNum">     176 </span>                :<span class="lineCov">         76 :   lua_pushcfunction(L, traceback);  /* push traceback function */</span>
-<span class="lineNum">     177 </span>                :<span class="lineCov">         76 :   lua_insert(L, base);  /* put it under chunk and args */</span>
-<span class="lineNum">     178 </span>                :<span class="lineCov">         76 :   globalL = L;  /* to be available to 'laction' */</span>
-<span class="lineNum">     179 </span>                :<span class="lineCov">         76 :   signal(SIGINT, laction);</span>
-<span class="lineNum">     180 </span>                :<span class="lineCov">         76 :   status = lua_pcall(L, narg, nres, base);</span>
-<span class="lineNum">     181 </span>                :<span class="lineCov">         76 :   signal(SIGINT, SIG_DFL);</span>
-<span class="lineNum">     182 </span>                :<span class="lineCov">         76 :   lua_remove(L, base);  /* remove traceback function */</span>
-<span class="lineNum">     183 </span>                :<span class="lineCov">         76 :   return status;</span>
+<span class="lineNum">     175 </span>                :<span class="lineCov">         78 :   int base = lua_gettop(L) - narg;  /* function index */</span>
+<span class="lineNum">     176 </span>                :<span class="lineCov">         78 :   lua_pushcfunction(L, traceback);  /* push traceback function */</span>
+<span class="lineNum">     177 </span>                :<span class="lineCov">         78 :   lua_insert(L, base);  /* put it under chunk and args */</span>
+<span class="lineNum">     178 </span>                :<span class="lineCov">         78 :   globalL = L;  /* to be available to 'laction' */</span>
+<span class="lineNum">     179 </span>                :<span class="lineCov">         78 :   signal(SIGINT, laction);</span>
+<span class="lineNum">     180 </span>                :<span class="lineCov">         78 :   status = lua_pcall(L, narg, nres, base);</span>
+<span class="lineNum">     181 </span>                :<span class="lineCov">         78 :   signal(SIGINT, SIG_DFL);</span>
+<span class="lineNum">     182 </span>                :<span class="lineCov">         78 :   lua_remove(L, base);  /* remove traceback function */</span>
+<span class="lineNum">     183 </span>                :<span class="lineCov">         78 :   return status;</span>
 <span class="lineNum">     184 </span>                :            : }
 <span class="lineNum">     185 </span>                :            : 
 <span class="lineNum">     186 </span>                :            : 
@@ -263,21 +263,21 @@
 <span class="lineNum">     189 </span>                :            : }
 <span class="lineNum">     190 </span>                :            : 
 <span class="lineNum">     191 </span>                :            : 
-<span class="lineNum">     192 </span>                :<span class="lineCov">         38 : static int getargs (lua_State *L, char **argv, int n) {</span>
+<span class="lineNum">     192 </span>                :<span class="lineCov">         39 : static int getargs (lua_State *L, char **argv, int n) {</span>
 <span class="lineNum">     193 </span>                :            :   int narg;
 <span class="lineNum">     194 </span>                :            :   int i;
-<span class="lineNum">     195 </span>                :<span class="lineCov">         38 :   int argc = 0;</span>
-<span class="lineNum">     196 </span>        [<span class="branchCov" title="Branch 0 was taken 76 times"> + </span><span class="branchCov" title="Branch 1 was taken 38 times"> + </span>]:<span class="lineCov">        114 :   while (argv[argc]) argc++;  /* count total number of arguments */</span>
-<span class="lineNum">     197 </span>                :<span class="lineCov">         38 :   narg = argc - (n + 1);  /* number of arguments to the script */</span>
-<span class="lineNum">     198 </span>                :<span class="lineCov">         38 :   luaL_checkstack(L, narg + 3, &quot;too many arguments to script&quot;);</span>
-<span class="lineNum">     199 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 38 times"> + </span>]:<span class="lineCov">         38 :   for (i=n+1; i &lt; argc; i++)</span>
+<span class="lineNum">     195 </span>                :<span class="lineCov">         39 :   int argc = 0;</span>
+<span class="lineNum">     196 </span>        [<span class="branchCov" title="Branch 0 was taken 78 times"> + </span><span class="branchCov" title="Branch 1 was taken 39 times"> + </span>]:<span class="lineCov">        117 :   while (argv[argc]) argc++;  /* count total number of arguments */</span>
+<span class="lineNum">     197 </span>                :<span class="lineCov">         39 :   narg = argc - (n + 1);  /* number of arguments to the script */</span>
+<span class="lineNum">     198 </span>                :<span class="lineCov">         39 :   luaL_checkstack(L, narg + 3, &quot;too many arguments to script&quot;);</span>
+<span class="lineNum">     199 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 39 times"> + </span>]:<span class="lineCov">         39 :   for (i=n+1; i &lt; argc; i++)</span>
 <span class="lineNum">     200 </span>                :<span class="lineNoCov">          0 :     lua_pushstring(L, argv[i]);</span>
-<span class="lineNum">     201 </span>                :<span class="lineCov">         38 :   lua_createtable(L, narg, n + 1);</span>
-<span class="lineNum">     202 </span>        [<span class="branchCov" title="Branch 0 was taken 76 times"> + </span><span class="branchCov" title="Branch 1 was taken 38 times"> + </span>]:<span class="lineCov">        114 :   for (i=0; i &lt; argc; i++) {</span>
-<span class="lineNum">     203 </span>                :<span class="lineCov">         76 :     lua_pushstring(L, argv[i]);</span>
-<span class="lineNum">     204 </span>                :<span class="lineCov">         76 :     lua_rawseti(L, -2, i - n);</span>
+<span class="lineNum">     201 </span>                :<span class="lineCov">         39 :   lua_createtable(L, narg, n + 1);</span>
+<span class="lineNum">     202 </span>        [<span class="branchCov" title="Branch 0 was taken 78 times"> + </span><span class="branchCov" title="Branch 1 was taken 39 times"> + </span>]:<span class="lineCov">        117 :   for (i=0; i &lt; argc; i++) {</span>
+<span class="lineNum">     203 </span>                :<span class="lineCov">         78 :     lua_pushstring(L, argv[i]);</span>
+<span class="lineNum">     204 </span>                :<span class="lineCov">         78 :     lua_rawseti(L, -2, i - n);</span>
 <span class="lineNum">     205 </span>                :            :   }
-<span class="lineNum">     206 </span>                :<span class="lineCov">         38 :   return narg;</span>
+<span class="lineNum">     206 </span>                :<span class="lineCov">         39 :   return narg;</span>
 <span class="lineNum">     207 </span>                :            : }
 <span class="lineNum">     208 </span>                :            : 
 <span class="lineNum">     209 </span>                :            : 
@@ -288,10 +288,10 @@
 <span class="lineNum">     214 </span>                :            : }
 <span class="lineNum">     215 </span>                :            : 
 <span class="lineNum">     216 </span>                :            : 
-<span class="lineNum">     217 </span>                :<span class="lineCov">         38 : static int dostring (lua_State *L, const char *s, const char *name) {</span>
-<span class="lineNum">     218 </span>                :<span class="lineCov">         38 :   int status = luaL_loadbuffer(L, s, strlen(s), name);</span>
-<span class="lineNum">     219 </span>        [<span class="branchCov" title="Branch 0 was taken 38 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         38 :   if (status == LUA_OK) status = docall(L, 0, 0);</span>
-<span class="lineNum">     220 </span>                :<span class="lineCov">         38 :   return report(L, status);</span>
+<span class="lineNum">     217 </span>                :<span class="lineCov">         39 : static int dostring (lua_State *L, const char *s, const char *name) {</span>
+<span class="lineNum">     218 </span>                :<span class="lineCov">         39 :   int status = luaL_loadbuffer(L, s, strlen(s), name);</span>
+<span class="lineNum">     219 </span>        [<span class="branchCov" title="Branch 0 was taken 39 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         39 :   if (status == LUA_OK) status = docall(L, 0, 0);</span>
+<span class="lineNum">     220 </span>                :<span class="lineCov">         39 :   return report(L, status);</span>
 <span class="lineNum">     221 </span>                :            : }
 <span class="lineNum">     222 </span>                :            : 
 <span class="lineNum">     223 </span>                :            : 
@@ -403,25 +403,25 @@
 <span class="lineNum">     327 </span>                :<span class="lineNoCov">          0 : }</span>
 <span class="lineNum">     328 </span>                :            : 
 <span class="lineNum">     329 </span>                :            : 
-<span class="lineNum">     330 </span>                :<span class="lineCov">         38 : static int handle_script (lua_State *L, char **argv, int n) {</span>
+<span class="lineNum">     330 </span>                :<span class="lineCov">         39 : static int handle_script (lua_State *L, char **argv, int n) {</span>
 <span class="lineNum">     331 </span>                :            :   int status;
 <span class="lineNum">     332 </span>                :            :   const char *fname;
-<span class="lineNum">     333 </span>                :<span class="lineCov">         38 :   int narg = getargs(L, argv, n);  /* collect arguments */</span>
-<span class="lineNum">     334 </span>                :<span class="lineCov">         38 :   lua_setglobal(L, &quot;arg&quot;);</span>
-<span class="lineNum">     335 </span>                :<span class="lineCov">         38 :   fname = argv[n];</span>
-<span class="lineNum">     336 </span>  [<span class="branchCov" title="Branch 0 was taken 38 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 38 times"> + </span>]:<span class="lineCov">         38 :   if (strcmp(fname, &quot;-&quot;) == 0 &amp;&amp; strcmp(argv[n-1], &quot;--&quot;) != 0)</span>
+<span class="lineNum">     333 </span>                :<span class="lineCov">         39 :   int narg = getargs(L, argv, n);  /* collect arguments */</span>
+<span class="lineNum">     334 </span>                :<span class="lineCov">         39 :   lua_setglobal(L, &quot;arg&quot;);</span>
+<span class="lineNum">     335 </span>                :<span class="lineCov">         39 :   fname = argv[n];</span>
+<span class="lineNum">     336 </span>  [<span class="branchCov" title="Branch 0 was taken 39 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 39 times"> + </span>]:<span class="lineCov">         39 :   if (strcmp(fname, &quot;-&quot;) == 0 &amp;&amp; strcmp(argv[n-1], &quot;--&quot;) != 0)</span>
 <span class="lineNum">         </span>[<span class="branchNoExec" title="Block containing branch 4 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 5 was never executed"> # </span>][<span class="branchNoExec" title="Block containing branch 6 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 7 was never executed"> # </span>]
-<span class="lineNum">         </span>[<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 38 times"> + </span>][<span class="branchNoExec" title="Block containing branch 10 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 11 was never executed"> # </span>]
+<span class="lineNum">         </span>[<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 39 times"> + </span>][<span class="branchNoExec" title="Block containing branch 10 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 11 was never executed"> # </span>]
 <span class="lineNum">         </span>[<span class="branchNoExec" title="Block containing branch 12 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 13 was never executed"> # </span>][<span class="branchNoExec" title="Block containing branch 14 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 15 was never executed"> # </span>]
 <span class="lineNum">         </span>[<span class="branchNoExec" title="Block containing branch 16 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 17 was never executed"> # </span>][<span class="branchNoExec" title="Block containing branch 18 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 19 was never executed"> # </span>]
 <span class="lineNum">     337 </span>                :<span class="lineNoCov">          0 :     fname = NULL;  /* stdin */</span>
-<span class="lineNum">     338 </span>                :<span class="lineCov">         38 :   status = luaL_loadfile(L, fname);</span>
-<span class="lineNum">     339 </span>                :<span class="lineCov">         38 :   lua_insert(L, -(narg+1));</span>
-<span class="lineNum">     340 </span>        [<span class="branchCov" title="Branch 0 was taken 38 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         38 :   if (status == LUA_OK)</span>
-<span class="lineNum">     341 </span>                :<span class="lineCov">         38 :     status = docall(L, narg, LUA_MULTRET);</span>
+<span class="lineNum">     338 </span>                :<span class="lineCov">         39 :   status = luaL_loadfile(L, fname);</span>
+<span class="lineNum">     339 </span>                :<span class="lineCov">         39 :   lua_insert(L, -(narg+1));</span>
+<span class="lineNum">     340 </span>        [<span class="branchCov" title="Branch 0 was taken 39 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         39 :   if (status == LUA_OK)</span>
+<span class="lineNum">     341 </span>                :<span class="lineCov">         39 :     status = docall(L, narg, LUA_MULTRET);</span>
 <span class="lineNum">     342 </span>                :            :   else
 <span class="lineNum">     343 </span>                :<span class="lineNoCov">          0 :     lua_pop(L, narg);</span>
-<span class="lineNum">     344 </span>                :<span class="lineCov">         38 :   return report(L, status);</span>
+<span class="lineNum">     344 </span>                :<span class="lineCov">         39 :   return report(L, status);</span>
 <span class="lineNum">     345 </span>                :            : }
 <span class="lineNum">     346 </span>                :            : 
 <span class="lineNum">     347 </span>                :            : 
@@ -431,9 +431,9 @@
 <span class="lineNum">     351 </span>                :            : 
 <span class="lineNum">     352 </span>                :            : static int collectargs (char **argv, int *pi, int *pv, int *pe) {
 <span class="lineNum">     353 </span>                :            :   int i;
-<span class="lineNum">     354 </span>        [<span class="branchCov" title="Branch 0 was taken 38 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         38 :   for (i = 1; argv[i] != NULL; i++) {</span>
-<span class="lineNum">     355 </span>        [<span class="branchCov" title="Branch 0 was taken 38 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         38 :     if (argv[i][0] != '-')  /* not an option? */</span>
-<span class="lineNum">     356 </span>                :<span class="lineCov">         38 :         return i;</span>
+<span class="lineNum">     354 </span>        [<span class="branchCov" title="Branch 0 was taken 39 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         39 :   for (i = 1; argv[i] != NULL; i++) {</span>
+<span class="lineNum">     355 </span>        [<span class="branchCov" title="Branch 0 was taken 39 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         39 :     if (argv[i][0] != '-')  /* not an option? */</span>
+<span class="lineNum">     356 </span>                :<span class="lineCov">         39 :         return i;</span>
 <span class="lineNum">     357 </span>[<span class="branchNoExec" title="Block containing branch 0 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 2 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 3 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 4 was never executed"> # </span>:<span class="lineNoCov">          0 :     switch (argv[i][1]) {  /* option */</span>
 <span class="lineNum">         </span>         <span class="branchNoExec" title="Block containing branch 5 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 6 was never executed"> # </span>]
 <span class="lineNum">     358 </span>                :            :       case '-':
@@ -467,7 +467,7 @@
 <span class="lineNum">     386 </span>                :            : 
 <span class="lineNum">     387 </span>                :            : static int runargs (lua_State *L, char **argv, int n) {
 <span class="lineNum">     388 </span>                :            :   int i;
-<span class="lineNum">     389 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 38 times"> + </span>]:<span class="lineCov">         38 :   for (i = 1; i &lt; n; i++) {</span>
+<span class="lineNum">     389 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 39 times"> + </span>]:<span class="lineCov">         39 :   for (i = 1; i &lt; n; i++) {</span>
 <span class="lineNum">     390 </span>                :            :     lua_assert(argv[i][0] == '-');
 <span class="lineNum">     391 </span>     [<span class="branchNoExec" title="Block containing branch 0 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 2 was never executed"> # </span>]:<span class="lineNoCov">          0 :     switch (argv[i][1]) {  /* option */</span>
 <span class="lineNum">     392 </span>                :            :       case 'e': {
@@ -489,51 +489,51 @@
 <span class="lineNum">     408 </span>                :            :       default: break;
 <span class="lineNum">     409 </span>                :            :     }
 <span class="lineNum">     410 </span>                :            :   }
-<span class="lineNum">     411 </span>                :<span class="lineCov">         38 :   return 1;</span>
+<span class="lineNum">     411 </span>                :<span class="lineCov">         39 :   return 1;</span>
 <span class="lineNum">     412 </span>                :            : }
 <span class="lineNum">     413 </span>                :            : 
 <span class="lineNum">     414 </span>                :            : 
 <span class="lineNum">     415 </span>                :            : static int handle_luainit (lua_State *L) {
-<span class="lineNum">     416 </span>                :<span class="lineCov">         38 :   const char *name = &quot;=&quot; LUA_INITVERSION;</span>
-<span class="lineNum">     417 </span>                :<span class="lineCov">         38 :   const char *init = getenv(name + 1);</span>
-<span class="lineNum">     418 </span>        [<span class="branchCov" title="Branch 0 was taken 38 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         38 :   if (init == NULL) {</span>
-<span class="lineNum">     419 </span>                :<span class="lineCov">         38 :     name = &quot;=&quot; LUA_INIT;</span>
-<span class="lineNum">     420 </span>                :<span class="lineCov">         38 :     init = getenv(name + 1);  /* try alternative name */</span>
+<span class="lineNum">     416 </span>                :<span class="lineCov">         39 :   const char *name = &quot;=&quot; LUA_INITVERSION;</span>
+<span class="lineNum">     417 </span>                :<span class="lineCov">         39 :   const char *init = getenv(name + 1);</span>
+<span class="lineNum">     418 </span>        [<span class="branchCov" title="Branch 0 was taken 39 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         39 :   if (init == NULL) {</span>
+<span class="lineNum">     419 </span>                :<span class="lineCov">         39 :     name = &quot;=&quot; LUA_INIT;</span>
+<span class="lineNum">     420 </span>                :<span class="lineCov">         39 :     init = getenv(name + 1);  /* try alternative name */</span>
 <span class="lineNum">     421 </span>                :            :   }
-<span class="lineNum">     422 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 38 times"> + </span>]:<span class="lineCov">         38 :   if (init == NULL) return LUA_OK;</span>
-<span class="lineNum">     423 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 38 times"> + </span>]:<span class="lineCov">         38 :   else if (init[0] == '@')</span>
+<span class="lineNum">     422 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 39 times"> + </span>]:<span class="lineCov">         39 :   if (init == NULL) return LUA_OK;</span>
+<span class="lineNum">     423 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 39 times"> + </span>]:<span class="lineCov">         39 :   else if (init[0] == '@')</span>
 <span class="lineNum">     424 </span>                :<span class="lineNoCov">          0 :     return dofile(L, init+1);</span>
 <span class="lineNum">     425 </span>                :            :   else
-<span class="lineNum">     426 </span>                :<span class="lineCov">         38 :     return dostring(L, init, name);</span>
+<span class="lineNum">     426 </span>                :<span class="lineCov">         39 :     return dostring(L, init, name);</span>
 <span class="lineNum">     427 </span>                :            : }
 <span class="lineNum">     428 </span>                :            : 
 <span class="lineNum">     429 </span>                :            : 
-<span class="lineNum">     430 </span>                :<span class="lineCov">         38 : static int pmain (lua_State *L) {</span>
-<span class="lineNum">     431 </span>                :<span class="lineCov">         38 :   int argc = (int)lua_tointeger(L, 1);</span>
-<span class="lineNum">     432 </span>                :<span class="lineCov">         38 :   char **argv = (char **)lua_touserdata(L, 2);</span>
+<span class="lineNum">     430 </span>                :<span class="lineCov">         39 : static int pmain (lua_State *L) {</span>
+<span class="lineNum">     431 </span>                :<span class="lineCov">         39 :   int argc = (int)lua_tointeger(L, 1);</span>
+<span class="lineNum">     432 </span>                :<span class="lineCov">         39 :   char **argv = (char **)lua_touserdata(L, 2);</span>
 <span class="lineNum">     433 </span>                :            :   int script;
-<span class="lineNum">     434 </span>                :<span class="lineCov">         38 :   int has_i = 0, has_v = 0, has_e = 0;</span>
-<span class="lineNum">     435 </span>  [<span class="branchCov" title="Branch 0 was taken 38 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 38 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         38 :   if (argv[0] &amp;&amp; argv[0][0]) progname = argv[0];</span>
-<span class="lineNum">     436 </span>                :<span class="lineCov">         38 :   script = collectargs(argv, &amp;has_i, &amp;has_v, &amp;has_e);</span>
-<span class="lineNum">     437 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 38 times"> + </span>]:<span class="lineCov">         38 :   if (script &lt; 0) {  /* invalid arg? */</span>
+<span class="lineNum">     434 </span>                :<span class="lineCov">         39 :   int has_i = 0, has_v = 0, has_e = 0;</span>
+<span class="lineNum">     435 </span>  [<span class="branchCov" title="Branch 0 was taken 39 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 39 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         39 :   if (argv[0] &amp;&amp; argv[0][0]) progname = argv[0];</span>
+<span class="lineNum">     436 </span>                :<span class="lineCov">         39 :   script = collectargs(argv, &amp;has_i, &amp;has_v, &amp;has_e);</span>
+<span class="lineNum">     437 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 39 times"> + </span>]:<span class="lineCov">         39 :   if (script &lt; 0) {  /* invalid arg? */</span>
 <span class="lineNum">     438 </span>                :<span class="lineNoCov">          0 :     print_usage(argv[-script]);</span>
 <span class="lineNum">     439 </span>                :<span class="lineNoCov">          0 :     return 0;</span>
 <span class="lineNum">     440 </span>                :            :   }
-<span class="lineNum">     441 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 38 times"> + </span>]:<span class="lineCov">         38 :   if (has_v) print_version();</span>
+<span class="lineNum">     441 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 39 times"> + </span>]:<span class="lineCov">         39 :   if (has_v) print_version();</span>
 <span class="lineNum">     442 </span>                :            :   /* open standard libraries */
-<span class="lineNum">     443 </span>                :<span class="lineCov">         38 :   luaL_checkversion(L);</span>
-<span class="lineNum">     444 </span>                :<span class="lineCov">         38 :   lua_gc(L, LUA_GCSTOP, 0);  /* stop collector during initialization */</span>
-<span class="lineNum">     445 </span>                :<span class="lineCov">         38 :   luaL_openlibs(L);  /* open libraries */</span>
-<span class="lineNum">     446 </span>                :<span class="lineCov">         38 :   lua_gc(L, LUA_GCRESTART, 0);</span>
+<span class="lineNum">     443 </span>                :<span class="lineCov">         39 :   luaL_checkversion(L);</span>
+<span class="lineNum">     444 </span>                :<span class="lineCov">         39 :   lua_gc(L, LUA_GCSTOP, 0);  /* stop collector during initialization */</span>
+<span class="lineNum">     445 </span>                :<span class="lineCov">         39 :   luaL_openlibs(L);  /* open libraries */</span>
+<span class="lineNum">     446 </span>                :<span class="lineCov">         39 :   lua_gc(L, LUA_GCRESTART, 0);</span>
 <span class="lineNum">     447 </span>                :            :   /* run LUA_INIT */
-<span class="lineNum">     448 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 38 times"> + </span>]:<span class="lineCov">         38 :   if (handle_luainit(L) != LUA_OK) return 0;</span>
+<span class="lineNum">     448 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 39 times"> + </span>]:<span class="lineCov">         39 :   if (handle_luainit(L) != LUA_OK) return 0;</span>
 <span class="lineNum">     449 </span>                :            :   /* execute arguments -e and -l */
-<span class="lineNum">     450 </span>[<span class="branchCov" title="Branch 0 was taken 38 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 38 times"> + </span>]:<span class="lineCov">         76 :   if (!runargs(L, argv, (script &gt; 0) ? script : argc)) return 0;</span>
+<span class="lineNum">     450 </span>[<span class="branchCov" title="Branch 0 was taken 39 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 39 times"> + </span>]:<span class="lineCov">         78 :   if (!runargs(L, argv, (script &gt; 0) ? script : argc)) return 0;</span>
 <span class="lineNum">     451 </span>                :            :   /* execute main script (if there is one) */
-<span class="lineNum">     452 </span>[<span class="branchCov" title="Branch 0 was taken 38 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 38 times"> + </span>]:<span class="lineCov">         38 :   if (script &amp;&amp; handle_script(L, argv, script) != LUA_OK) return 0;</span>
-<span class="lineNum">     453 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 38 times"> + </span>]:<span class="lineCov">         38 :   if (has_i)  /* -i option? */</span>
+<span class="lineNum">     452 </span>[<span class="branchCov" title="Branch 0 was taken 39 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 39 times"> + </span>]:<span class="lineCov">         39 :   if (script &amp;&amp; handle_script(L, argv, script) != LUA_OK) return 0;</span>
+<span class="lineNum">     453 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 39 times"> + </span>]:<span class="lineCov">         39 :   if (has_i)  /* -i option? */</span>
 <span class="lineNum">     454 </span>                :<span class="lineNoCov">          0 :     dotty(L);</span>
-<span class="lineNum">     455 </span>[<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 38 times"> + </span>][<span class="branchNoExec" title="Block containing branch 2 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 3 was never executed"> # </span>]:<span class="lineCov">         38 :   else if (script == 0 &amp;&amp; !has_e &amp;&amp; !has_v) {  /* no arguments? */</span>
+<span class="lineNum">     455 </span>[<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 39 times"> + </span>][<span class="branchNoExec" title="Block containing branch 2 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 3 was never executed"> # </span>]:<span class="lineCov">         39 :   else if (script == 0 &amp;&amp; !has_e &amp;&amp; !has_v) {  /* no arguments? */</span>
 <span class="lineNum">         </span>        [<span class="branchNoExec" title="Block containing branch 4 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 5 was never executed"> # </span>]
 <span class="lineNum">     456 </span>        [<span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 2 was never executed"> # </span>]:<span class="lineNoCov">          0 :     if (lua_stdin_is_tty()) {</span>
 <span class="lineNum">     457 </span>                :            :       print_version();
@@ -541,27 +541,27 @@
 <span class="lineNum">     459 </span>                :            :     }
 <span class="lineNum">     460 </span>                :<span class="lineNoCov">          0 :     else dofile(L, NULL);  /* executes stdin as a file */</span>
 <span class="lineNum">     461 </span>                :            :   }
-<span class="lineNum">     462 </span>                :<span class="lineCov">         38 :   lua_pushboolean(L, 1);  /* signal no errors */</span>
-<span class="lineNum">     463 </span>                :<span class="lineCov">         38 :   return 1;</span>
+<span class="lineNum">     462 </span>                :<span class="lineCov">         39 :   lua_pushboolean(L, 1);  /* signal no errors */</span>
+<span class="lineNum">     463 </span>                :<span class="lineCov">         39 :   return 1;</span>
 <span class="lineNum">     464 </span>                :            : }
 <span class="lineNum">     465 </span>                :            : 
 <span class="lineNum">     466 </span>                :            : 
-<span class="lineNum">     467 </span>                :<span class="lineCov">         38 : int main (int argc, char **argv) {</span>
+<span class="lineNum">     467 </span>                :<span class="lineCov">         39 : int main (int argc, char **argv) {</span>
 <span class="lineNum">     468 </span>                :            :   int status, result;
-<span class="lineNum">     469 </span>                :<span class="lineCov">         38 :   lua_State *L = luaL_newstate();  /* create state */</span>
-<span class="lineNum">     470 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 38 times"> + </span>]:<span class="lineCov">         38 :   if (L == NULL) {</span>
+<span class="lineNum">     469 </span>                :<span class="lineCov">         39 :   lua_State *L = luaL_newstate();  /* create state */</span>
+<span class="lineNum">     470 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 39 times"> + </span>]:<span class="lineCov">         39 :   if (L == NULL) {</span>
 <span class="lineNum">     471 </span>                :<span class="lineNoCov">          0 :     l_message(argv[0], &quot;cannot create state: not enough memory&quot;);</span>
 <span class="lineNum">     472 </span>                :<span class="lineNoCov">          0 :     return EXIT_FAILURE;</span>
 <span class="lineNum">     473 </span>                :            :   }
 <span class="lineNum">     474 </span>                :            :   /* call 'pmain' in protected mode */
-<span class="lineNum">     475 </span>                :<span class="lineCov">         38 :   lua_pushcfunction(L, &amp;pmain);</span>
-<span class="lineNum">     476 </span>                :<span class="lineCov">         38 :   lua_pushinteger(L, argc);  /* 1st argument */</span>
-<span class="lineNum">     477 </span>                :<span class="lineCov">         38 :   lua_pushlightuserdata(L, argv); /* 2nd argument */</span>
-<span class="lineNum">     478 </span>                :<span class="lineCov">         38 :   status = lua_pcall(L, 2, 1, 0);</span>
-<span class="lineNum">     479 </span>                :<span class="lineCov">         38 :   result = lua_toboolean(L, -1);  /* get result */</span>
+<span class="lineNum">     475 </span>                :<span class="lineCov">         39 :   lua_pushcfunction(L, &amp;pmain);</span>
+<span class="lineNum">     476 </span>                :<span class="lineCov">         39 :   lua_pushinteger(L, argc);  /* 1st argument */</span>
+<span class="lineNum">     477 </span>                :<span class="lineCov">         39 :   lua_pushlightuserdata(L, argv); /* 2nd argument */</span>
+<span class="lineNum">     478 </span>                :<span class="lineCov">         39 :   status = lua_pcall(L, 2, 1, 0);</span>
+<span class="lineNum">     479 </span>                :<span class="lineCov">         39 :   result = lua_toboolean(L, -1);  /* get result */</span>
 <span class="lineNum">     480 </span>                :            :   finalreport(L, status);
-<span class="lineNum">     481 </span>                :<span class="lineCov">         38 :   lua_close(L);</span>
-<span class="lineNum">     482 </span>                :<span class="lineCov">         38 :   return (result &amp;&amp; status == LUA_OK) ? EXIT_SUCCESS : EXIT_FAILURE;</span>
+<span class="lineNum">     481 </span>                :<span class="lineCov">         39 :   lua_close(L);</span>
+<span class="lineNum">     482 </span>                :<span class="lineCov">         39 :   return (result &amp;&amp; status == LUA_OK) ? EXIT_SUCCESS : EXIT_FAILURE;</span>
 <span class="lineNum">     483 </span>                :            : }
 <span class="lineNum">     484 </span>                :            : 
 </pre>

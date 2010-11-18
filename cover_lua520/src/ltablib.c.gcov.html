@@ -31,18 +31,18 @@
             <td class="headerValue">Lua 5.2.0 alpha</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">167</td>
+            <td class="headerCovTableEntry">179</td>
             <td class="headerCovTableEntry">182</td>
-            <td class="headerCovTableEntryHi">91.8 %</td>
+            <td class="headerCovTableEntryHi">98.4 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2010-11-17</td>
+            <td class="headerValue">2010-11-18</td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">65</td>
+            <td class="headerCovTableEntry">69</td>
             <td class="headerCovTableEntry">77</td>
-            <td class="headerCovTableEntryMed">84.4 %</td>
+            <td class="headerCovTableEntryMed">89.6 %</td>
           </tr>
           <tr>
             <td class="headerItem">Legend:</td>
@@ -243,35 +243,35 @@
 <span class="lineNum">     169 </span>                :            : ** =======================================================
 <span class="lineNum">     170 </span>                :            : */
 <span class="lineNum">     171 </span>                :            : 
-<span class="lineNum">     172 </span>                :<span class="lineNoCov">          0 : static int pack (lua_State *L) {</span>
-<span class="lineNum">     173 </span>                :<span class="lineNoCov">          0 :   int top = lua_gettop(L);</span>
-<span class="lineNum">     174 </span>                :<span class="lineNoCov">          0 :   lua_createtable(L, top, 1);  /* create result table */</span>
-<span class="lineNum">     175 </span>                :<span class="lineNoCov">          0 :   lua_pushinteger(L, top);  /* number of elements */</span>
-<span class="lineNum">     176 </span>                :<span class="lineNoCov">          0 :   lua_setfield(L, -2, &quot;n&quot;);  /* t.n = number of elements */</span>
-<span class="lineNum">     177 </span>        [<span class="branchNoExec" title="Block containing branch 0 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span>]:<span class="lineNoCov">          0 :   if (top &gt; 0) {  /* at least one element? */</span>
-<span class="lineNum">     178 </span>                :<span class="lineNoCov">          0 :     lua_pushvalue(L, 1);</span>
-<span class="lineNum">     179 </span>                :<span class="lineNoCov">          0 :     lua_rawseti(L, -2, 1);  /* insert first element */</span>
-<span class="lineNum">     180 </span>                :<span class="lineNoCov">          0 :     lua_replace(L, 1);  /* move table into its position (index 1) */</span>
-<span class="lineNum">     181 </span>        [<span class="branchNoExec" title="Block containing branch 0 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span>]:<span class="lineNoCov">          0 :     for (; top &gt;= 2; top--)  /* assign other elements */</span>
-<span class="lineNum">     182 </span>                :<span class="lineNoCov">          0 :       lua_rawseti(L, 1, top);</span>
+<span class="lineNum">     172 </span>                :<span class="lineCov">          2 : static int pack (lua_State *L) {</span>
+<span class="lineNum">     173 </span>                :<span class="lineCov">          2 :   int top = lua_gettop(L);</span>
+<span class="lineNum">     174 </span>                :<span class="lineCov">          2 :   lua_createtable(L, top, 1);  /* create result table */</span>
+<span class="lineNum">     175 </span>                :<span class="lineCov">          2 :   lua_pushinteger(L, top);  /* number of elements */</span>
+<span class="lineNum">     176 </span>                :<span class="lineCov">          2 :   lua_setfield(L, -2, &quot;n&quot;);  /* t.n = number of elements */</span>
+<span class="lineNum">     177 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          2 :   if (top &gt; 0) {  /* at least one element? */</span>
+<span class="lineNum">     178 </span>                :<span class="lineCov">          1 :     lua_pushvalue(L, 1);</span>
+<span class="lineNum">     179 </span>                :<span class="lineCov">          1 :     lua_rawseti(L, -2, 1);  /* insert first element */</span>
+<span class="lineNum">     180 </span>                :<span class="lineCov">          1 :     lua_replace(L, 1);  /* move table into its position (index 1) */</span>
+<span class="lineNum">     181 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          3 :     for (; top &gt;= 2; top--)  /* assign other elements */</span>
+<span class="lineNum">     182 </span>                :<span class="lineCov">          2 :       lua_rawseti(L, 1, top);</span>
 <span class="lineNum">     183 </span>                :            :   }
-<span class="lineNum">     184 </span>                :<span class="lineNoCov">          0 :   return 1;</span>
+<span class="lineNum">     184 </span>                :<span class="lineCov">          2 :   return 1;</span>
 <span class="lineNum">     185 </span>                :            : }
 <span class="lineNum">     186 </span>                :            : 
 <span class="lineNum">     187 </span>                :            : 
-<span class="lineNum">     188 </span>                :<span class="lineCov">        235 : static int unpack (lua_State *L) {</span>
+<span class="lineNum">     188 </span>                :<span class="lineCov">        243 : static int unpack (lua_State *L) {</span>
 <span class="lineNum">     189 </span>                :            :   int i, e, n;
-<span class="lineNum">     190 </span>                :<span class="lineCov">        235 :   luaL_checktype(L, 1, LUA_TTABLE);</span>
-<span class="lineNum">     191 </span>                :<span class="lineCov">        235 :   i = luaL_optint(L, 2, 1);</span>
-<span class="lineNum">     192 </span>        [<span class="branchCov" title="Branch 1 was taken 233 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>]:<span class="lineCov">        235 :   e = luaL_opt(L, luaL_checkint, 3, (int)lua_rawlen(L, 1));</span>
-<span class="lineNum">     193 </span>        [<span class="branchCov" title="Branch 0 was taken 230 times"> + </span><span class="branchCov" title="Branch 1 was taken 5 times"> + </span>]:<span class="lineCov">        235 :   if (i &gt; e) return 0;  /* empty range */</span>
+<span class="lineNum">     190 </span>                :<span class="lineCov">        243 :   luaL_checktype(L, 1, LUA_TTABLE);</span>
+<span class="lineNum">     191 </span>                :<span class="lineCov">        243 :   i = luaL_optint(L, 2, 1);</span>
+<span class="lineNum">     192 </span>        [<span class="branchCov" title="Branch 1 was taken 241 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>]:<span class="lineCov">        243 :   e = luaL_opt(L, luaL_checkint, 3, (int)lua_rawlen(L, 1));</span>
+<span class="lineNum">     193 </span>        [<span class="branchCov" title="Branch 0 was taken 238 times"> + </span><span class="branchCov" title="Branch 1 was taken 5 times"> + </span>]:<span class="lineCov">        243 :   if (i &gt; e) return 0;  /* empty range */</span>
 <span class="lineNum">     194 </span>                :<span class="lineCov">          5 :   n = e - i + 1;  /* number of elements */</span>
 <span class="lineNum">     195 </span>[<span class="branchCov" title="Branch 0 was taken 5 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 5 times"> + </span>]:<span class="lineCov">          5 :   if (n &lt;= 0 || !lua_checkstack(L, n))  /* n &lt;= 0 means arith. overflow */</span>
 <span class="lineNum">     196 </span>                :<span class="lineNoCov">          0 :     return luaL_error(L, &quot;too many results to unpack&quot;);</span>
 <span class="lineNum">     197 </span>                :<span class="lineCov">          5 :   lua_rawgeti(L, 1, i);  /* push arg[i] (avoiding overflow problems) */</span>
 <span class="lineNum">     198 </span>        [<span class="branchCov" title="Branch 0 was taken 8 times"> + </span><span class="branchCov" title="Branch 1 was taken 5 times"> + </span>]:<span class="lineCov">         13 :   while (i++ &lt; e)  /* push arg[i + 1...e] */</span>
 <span class="lineNum">     199 </span>                :<span class="lineCov">          8 :     lua_rawgeti(L, 1, i);</span>
-<span class="lineNum">     200 </span>                :<span class="lineCov">        235 :   return n;</span>
+<span class="lineNum">     200 </span>                :<span class="lineCov">        243 :   return n;</span>
 <span class="lineNum">     201 </span>                :            : }
 <span class="lineNum">     202 </span>                :            : 
 <span class="lineNum">     203 </span>                :            : /* }====================================================== */
@@ -398,14 +398,14 @@
 <span class="lineNum">     324 </span>                :            : };
 <span class="lineNum">     325 </span>                :            : 
 <span class="lineNum">     326 </span>                :            : 
-<span class="lineNum">     327 </span>                :<span class="lineCov">         38 : LUAMOD_API int luaopen_table (lua_State *L) {</span>
-<span class="lineNum">     328 </span>                :<span class="lineCov">         38 :   luaL_newlib(L, tab_funcs);</span>
+<span class="lineNum">     327 </span>                :<span class="lineCov">         39 : LUAMOD_API int luaopen_table (lua_State *L) {</span>
+<span class="lineNum">     328 </span>                :<span class="lineCov">         39 :   luaL_newlib(L, tab_funcs);</span>
 <span class="lineNum">     329 </span>                :            : #if defined(LUA_COMPAT_UNPACK)
 <span class="lineNum">     330 </span>                :            :   /* _G.unpack = table.unpack */
-<span class="lineNum">     331 </span>                :<span class="lineCov">         38 :   lua_getfield(L, -1, &quot;unpack&quot;);</span>
-<span class="lineNum">     332 </span>                :<span class="lineCov">         38 :   lua_setglobal(L, &quot;unpack&quot;);</span>
+<span class="lineNum">     331 </span>                :<span class="lineCov">         39 :   lua_getfield(L, -1, &quot;unpack&quot;);</span>
+<span class="lineNum">     332 </span>                :<span class="lineCov">         39 :   lua_setglobal(L, &quot;unpack&quot;);</span>
 <span class="lineNum">     333 </span>                :            : #endif
-<span class="lineNum">     334 </span>                :<span class="lineCov">         38 :   return 1;</span>
+<span class="lineNum">     334 </span>                :<span class="lineCov">         39 :   return 1;</span>
 <span class="lineNum">     335 </span>                :            : }
 <span class="lineNum">     336 </span>                :            : 
 </pre>

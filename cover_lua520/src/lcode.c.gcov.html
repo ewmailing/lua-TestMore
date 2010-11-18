@@ -37,12 +37,12 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2010-11-17</td>
+            <td class="headerValue">2010-11-18</td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">278</td>
+            <td class="headerCovTableEntry">279</td>
             <td class="headerCovTableEntry">363</td>
-            <td class="headerCovTableEntryMed">76.6 %</td>
+            <td class="headerCovTableEntryMed">76.9 %</td>
           </tr>
           <tr>
             <td class="headerItem">Legend:</td>
@@ -103,62 +103,62 @@
 <span class="lineNum">      29 </span>                :            : 
 <span class="lineNum">      30 </span>                :            : 
 <span class="lineNum">      31 </span>                :            : static int isnumeral(expdesc *e) {
-<span class="lineNum">      32 </span>[<span class="branchCov" title="Branch 0 was taken 76 times"> + </span><span class="branchCov" title="Branch 1 was taken 2389 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 76 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       3140 :   return (e-&gt;k == VKNUM &amp;&amp; e-&gt;t == NO_JUMP &amp;&amp; e-&gt;f == NO_JUMP);</span>
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 4 was taken 76 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>][<span class="branchCov" title="Branch 6 was taken 11 times"> + </span><span class="branchCov" title="Branch 7 was taken 65 times"> + </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 8 was taken 11 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>][<span class="branchCov" title="Branch 10 was taken 11 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 12 was taken 106 times"> + </span><span class="branchCov" title="Branch 13 was taken 15 times"> + </span>][<span class="branchCov" title="Branch 14 was taken 106 times"> + </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 16 was taken 106 times"> + </span><span class="branchNoCov" title="Branch 17 was not taken"> - </span>][<span class="branchCov" title="Branch 18 was taken 76 times"> + </span><span class="branchCov" title="Branch 19 was taken 402 times"> + </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 20 was taken 76 times"> + </span><span class="branchNoCov" title="Branch 21 was not taken"> - </span>][<span class="branchCov" title="Branch 22 was taken 76 times"> + </span><span class="branchNoCov" title="Branch 23 was not taken"> - </span>]
+<span class="lineNum">      32 </span>[<span class="branchCov" title="Branch 0 was taken 80 times"> + </span><span class="branchCov" title="Branch 1 was taken 2450 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 80 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       3231 :   return (e-&gt;k == VKNUM &amp;&amp; e-&gt;t == NO_JUMP &amp;&amp; e-&gt;f == NO_JUMP);</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 4 was taken 80 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>][<span class="branchCov" title="Branch 6 was taken 14 times"> + </span><span class="branchCov" title="Branch 7 was taken 66 times"> + </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 8 was taken 14 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>][<span class="branchCov" title="Branch 10 was taken 14 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 12 was taken 120 times"> + </span><span class="branchCov" title="Branch 13 was taken 15 times"> + </span>][<span class="branchCov" title="Branch 14 was taken 120 times"> + </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 16 was taken 120 times"> + </span><span class="branchNoCov" title="Branch 17 was not taken"> - </span>][<span class="branchCov" title="Branch 18 was taken 80 times"> + </span><span class="branchCov" title="Branch 19 was taken 406 times"> + </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 20 was taken 80 times"> + </span><span class="branchNoCov" title="Branch 21 was not taken"> - </span>][<span class="branchCov" title="Branch 22 was taken 80 times"> + </span><span class="branchNoCov" title="Branch 23 was not taken"> - </span>]
 <span class="lineNum">      33 </span>                :            : }
 <span class="lineNum">      34 </span>                :            : 
 <span class="lineNum">      35 </span>                :            : 
-<span class="lineNum">      36 </span>                :<span class="lineCov">        488 : void luaK_nil (FuncState *fs, int from, int n) {</span>
+<span class="lineNum">      36 </span>                :<span class="lineCov">        502 : void luaK_nil (FuncState *fs, int from, int n) {</span>
 <span class="lineNum">      37 </span>                :            :   Instruction *previous;
-<span class="lineNum">      38 </span>        [<span class="branchCov" title="Branch 0 was taken 231 times"> + </span><span class="branchCov" title="Branch 1 was taken 257 times"> + </span>]:<span class="lineCov">        488 :   if (fs-&gt;pc &gt; fs-&gt;lasttarget) {  /* no jumps to current position? */</span>
-<span class="lineNum">      39 </span>                :<span class="lineCov">        231 :     previous = &amp;fs-&gt;f-&gt;code[fs-&gt;pc-1];</span>
-<span class="lineNum">      40 </span>        [<span class="branchCov" title="Branch 0 was taken 33 times"> + </span><span class="branchCov" title="Branch 1 was taken 198 times"> + </span>]:<span class="lineCov">        231 :     if (GET_OPCODE(*previous) == OP_LOADNIL) {</span>
-<span class="lineNum">      41 </span>                :<span class="lineCov">         33 :       int pfrom = GETARG_A(*previous);</span>
-<span class="lineNum">      42 </span>                :<span class="lineCov">         33 :       int pto = GETARG_B(*previous);</span>
-<span class="lineNum">      43 </span>[<span class="branchCov" title="Branch 0 was taken 33 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 2 was taken 33 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         33 :       if (pfrom &lt;= from &amp;&amp; from &lt;= pto+1) {  /* can connect both? */</span>
-<span class="lineNum">      44 </span>        [<span class="branchCov" title="Branch 0 was taken 33 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         33 :         if (from+n-1 &gt; pto)</span>
-<span class="lineNum">      45 </span>                :<span class="lineCov">         33 :           SETARG_B(*previous, from+n-1);</span>
+<span class="lineNum">      38 </span>        [<span class="branchCov" title="Branch 0 was taken 237 times"> + </span><span class="branchCov" title="Branch 1 was taken 265 times"> + </span>]:<span class="lineCov">        502 :   if (fs-&gt;pc &gt; fs-&gt;lasttarget) {  /* no jumps to current position? */</span>
+<span class="lineNum">      39 </span>                :<span class="lineCov">        237 :     previous = &amp;fs-&gt;f-&gt;code[fs-&gt;pc-1];</span>
+<span class="lineNum">      40 </span>        [<span class="branchCov" title="Branch 0 was taken 34 times"> + </span><span class="branchCov" title="Branch 1 was taken 203 times"> + </span>]:<span class="lineCov">        237 :     if (GET_OPCODE(*previous) == OP_LOADNIL) {</span>
+<span class="lineNum">      41 </span>                :<span class="lineCov">         34 :       int pfrom = GETARG_A(*previous);</span>
+<span class="lineNum">      42 </span>                :<span class="lineCov">         34 :       int pto = GETARG_B(*previous);</span>
+<span class="lineNum">      43 </span>[<span class="branchCov" title="Branch 0 was taken 34 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 2 was taken 34 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         34 :       if (pfrom &lt;= from &amp;&amp; from &lt;= pto+1) {  /* can connect both? */</span>
+<span class="lineNum">      44 </span>        [<span class="branchCov" title="Branch 0 was taken 34 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         34 :         if (from+n-1 &gt; pto)</span>
+<span class="lineNum">      45 </span>                :<span class="lineCov">         34 :           SETARG_B(*previous, from+n-1);</span>
 <span class="lineNum">      46 </span>                :            :         return;
 <span class="lineNum">      47 </span>                :            :       }
 <span class="lineNum">      48 </span>                :            :     }
 <span class="lineNum">      49 </span>                :            :   }
-<span class="lineNum">      50 </span>                :<span class="lineCov">        488 :   luaK_codeABC(fs, OP_LOADNIL, from, from+n-1, 0);  /* else no optimization */</span>
+<span class="lineNum">      50 </span>                :<span class="lineCov">        502 :   luaK_codeABC(fs, OP_LOADNIL, from, from+n-1, 0);  /* else no optimization */</span>
 <span class="lineNum">      51 </span>                :            : }
 <span class="lineNum">      52 </span>                :            : 
 <span class="lineNum">      53 </span>                :            : 
-<span class="lineNum">      54 </span>                :<span class="lineCov">       4534 : int luaK_jump (FuncState *fs) {</span>
-<span class="lineNum">      55 </span>                :<span class="lineCov">       4534 :   int jpc = fs-&gt;jpc;  /* save list of jumps to here */</span>
+<span class="lineNum">      54 </span>                :<span class="lineCov">       4672 : int luaK_jump (FuncState *fs) {</span>
+<span class="lineNum">      55 </span>                :<span class="lineCov">       4672 :   int jpc = fs-&gt;jpc;  /* save list of jumps to here */</span>
 <span class="lineNum">      56 </span>                :            :   int j;
-<span class="lineNum">      57 </span>                :<span class="lineCov">       4534 :   fs-&gt;jpc = NO_JUMP;</span>
-<span class="lineNum">      58 </span>                :<span class="lineCov">       4534 :   j = luaK_codeAsBx(fs, OP_JMP, 0, NO_JUMP);</span>
-<span class="lineNum">      59 </span>                :<span class="lineCov">       4534 :   luaK_concat(fs, &amp;j, jpc);  /* keep them on hold */</span>
-<span class="lineNum">      60 </span>                :<span class="lineCov">       4534 :   return j;</span>
+<span class="lineNum">      57 </span>                :<span class="lineCov">       4672 :   fs-&gt;jpc = NO_JUMP;</span>
+<span class="lineNum">      58 </span>                :<span class="lineCov">       4672 :   j = luaK_codeAsBx(fs, OP_JMP, 0, NO_JUMP);</span>
+<span class="lineNum">      59 </span>                :<span class="lineCov">       4672 :   luaK_concat(fs, &amp;j, jpc);  /* keep them on hold */</span>
+<span class="lineNum">      60 </span>                :<span class="lineCov">       4672 :   return j;</span>
 <span class="lineNum">      61 </span>                :            : }
 <span class="lineNum">      62 </span>                :            : 
 <span class="lineNum">      63 </span>                :            : 
-<span class="lineNum">      64 </span>                :<span class="lineCov">       4485 : void luaK_ret (FuncState *fs, int first, int nret) {</span>
-<span class="lineNum">      65 </span>                :<span class="lineCov">       4485 :   luaK_codeABC(fs, OP_RETURN, first, nret+1, 0);</span>
-<span class="lineNum">      66 </span>                :<span class="lineCov">       4485 : }</span>
+<span class="lineNum">      64 </span>                :<span class="lineCov">       4598 : void luaK_ret (FuncState *fs, int first, int nret) {</span>
+<span class="lineNum">      65 </span>                :<span class="lineCov">       4598 :   luaK_codeABC(fs, OP_RETURN, first, nret+1, 0);</span>
+<span class="lineNum">      66 </span>                :<span class="lineCov">       4598 : }</span>
 <span class="lineNum">      67 </span>                :            : 
 <span class="lineNum">      68 </span>                :            : 
-<span class="lineNum">      69 </span>                :<span class="lineCov">       3570 : static int condjump (FuncState *fs, OpCode op, int A, int B, int C) {</span>
-<span class="lineNum">      70 </span>                :<span class="lineCov">       3570 :   luaK_codeABC(fs, op, A, B, C);</span>
-<span class="lineNum">      71 </span>                :<span class="lineCov">       3570 :   return luaK_jump(fs);</span>
+<span class="lineNum">      69 </span>                :<span class="lineCov">       3683 : static int condjump (FuncState *fs, OpCode op, int A, int B, int C) {</span>
+<span class="lineNum">      70 </span>                :<span class="lineCov">       3683 :   luaK_codeABC(fs, op, A, B, C);</span>
+<span class="lineNum">      71 </span>                :<span class="lineCov">       3683 :   return luaK_jump(fs);</span>
 <span class="lineNum">      72 </span>                :            : }
 <span class="lineNum">      73 </span>                :            : 
 <span class="lineNum">      74 </span>                :            : 
-<span class="lineNum">      75 </span>                :<span class="lineCov">       5519 : static void fixjump (FuncState *fs, int pc, int dest) {</span>
-<span class="lineNum">      76 </span>                :<span class="lineCov">       5519 :   Instruction *jmp = &amp;fs-&gt;f-&gt;code[pc];</span>
-<span class="lineNum">      77 </span>                :<span class="lineCov">       5519 :   int offset = dest-(pc+1);</span>
+<span class="lineNum">      75 </span>                :<span class="lineCov">       5686 : static void fixjump (FuncState *fs, int pc, int dest) {</span>
+<span class="lineNum">      76 </span>                :<span class="lineCov">       5686 :   Instruction *jmp = &amp;fs-&gt;f-&gt;code[pc];</span>
+<span class="lineNum">      77 </span>                :<span class="lineCov">       5686 :   int offset = dest-(pc+1);</span>
 <span class="lineNum">      78 </span>                :            :   lua_assert(dest != NO_JUMP);
-<span class="lineNum">      79 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 5519 times"> + </span>]:<span class="lineCov">       5519 :   if (abs(offset) &gt; MAXARG_sBx)</span>
+<span class="lineNum">      79 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 5686 times"> + </span>]:<span class="lineCov">       5686 :   if (abs(offset) &gt; MAXARG_sBx)</span>
 <span class="lineNum">      80 </span>                :<span class="lineNoCov">          0 :     luaX_syntaxerror(fs-&gt;ls, &quot;control structure too long&quot;);</span>
-<span class="lineNum">      81 </span>                :<span class="lineCov">       5519 :   SETARG_sBx(*jmp, offset);</span>
-<span class="lineNum">      82 </span>                :<span class="lineCov">       5519 : }</span>
+<span class="lineNum">      81 </span>                :<span class="lineCov">       5686 :   SETARG_sBx(*jmp, offset);</span>
+<span class="lineNum">      82 </span>                :<span class="lineCov">       5686 : }</span>
 <span class="lineNum">      83 </span>                :            : 
 <span class="lineNum">      84 </span>                :            : 
 <span class="lineNum">      85 </span>                :            : /*
@@ -166,33 +166,33 @@
 <span class="lineNum">      87 </span>                :            : ** optimizations with consecutive instructions not in the same basic block).
 <span class="lineNum">      88 </span>                :            : */
 <span class="lineNum">      89 </span>                :<span class="lineCov">         15 : int luaK_getlabel (FuncState *fs) {</span>
-<span class="lineNum">      90 </span>                :<span class="lineCov">      12663 :   fs-&gt;lasttarget = fs-&gt;pc;</span>
+<span class="lineNum">      90 </span>                :<span class="lineCov">      13044 :   fs-&gt;lasttarget = fs-&gt;pc;</span>
 <span class="lineNum">      91 </span>                :<span class="lineCov">         15 :   return fs-&gt;pc;</span>
 <span class="lineNum">      92 </span>                :            : }
 <span class="lineNum">      93 </span>                :            : 
 <span class="lineNum">      94 </span>                :            : 
 <span class="lineNum">      95 </span>                :            : static int getjump (FuncState *fs, int pc) {
-<span class="lineNum">      96 </span>                :<span class="lineCov">       5990 :   int offset = GETARG_sBx(fs-&gt;f-&gt;code[pc]);</span>
-<span class="lineNum">      97 </span>[<span class="branchNoExec" title="Block containing branch 0 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span>][<span class="branchCov" title="Branch 2 was taken 4205 times"> + </span><span class="branchCov" title="Branch 3 was taken 657 times"> + </span>]:<span class="lineCov">       5990 :   if (offset == NO_JUMP)  /* point to itself represents end of list */</span>
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 4 was taken 657 times"> + </span><span class="branchCov" title="Branch 5 was taken 110 times"> + </span>][<span class="branchCov" title="Branch 6 was taken 297 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 8 was taken 64 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
-<span class="lineNum">      98 </span>                :<span class="lineCov">       5223 :     return NO_JUMP;  /* end of list */</span>
+<span class="lineNum">      96 </span>                :<span class="lineCov">       6171 :   int offset = GETARG_sBx(fs-&gt;f-&gt;code[pc]);</span>
+<span class="lineNum">      97 </span>[<span class="branchNoExec" title="Block containing branch 0 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span>][<span class="branchCov" title="Branch 2 was taken 4330 times"> + </span><span class="branchCov" title="Branch 3 was taken 678 times"> + </span>]:<span class="lineCov">       6171 :   if (offset == NO_JUMP)  /* point to itself represents end of list */</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 4 was taken 678 times"> + </span><span class="branchCov" title="Branch 5 was taken 113 times"> + </span>][<span class="branchCov" title="Branch 6 was taken 306 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 8 was taken 66 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
+<span class="lineNum">      98 </span>                :<span class="lineCov">       5380 :     return NO_JUMP;  /* end of list */</span>
 <span class="lineNum">      99 </span>                :            :   else
-<span class="lineNum">     100 </span>                :<span class="lineCov">        767 :     return (pc+1)+offset;  /* turn offset into absolute position */</span>
+<span class="lineNum">     100 </span>                :<span class="lineCov">        791 :     return (pc+1)+offset;  /* turn offset into absolute position */</span>
 <span class="lineNum">     101 </span>                :            : }
 <span class="lineNum">     102 </span>                :            : 
 <span class="lineNum">     103 </span>                :            : 
 <span class="lineNum">     104 </span>                :            : static Instruction *getjumpcontrol (FuncState *fs, int pc) {
-<span class="lineNum">     105 </span>                :<span class="lineCov">       6974 :   Instruction *pi = &amp;fs-&gt;f-&gt;code[pc];</span>
-<span class="lineNum">     106 </span>[<span class="branchNoExec" title="Block containing branch 0 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span>][<span class="branchNoExec" title="Block containing branch 2 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 3 was never executed"> # </span>]:<span class="lineCov">       6974 :   if (pc &gt;= 1 &amp;&amp; testTMode(GET_OPCODE(*(pi-1))))</span>
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 4 was taken 4862 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>][<span class="branchCov" title="Branch 6 was taken 3570 times"> + </span><span class="branchCov" title="Branch 7 was taken 1292 times"> + </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 8 was taken 1289 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>][<span class="branchCov" title="Branch 10 was taken 1289 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">     105 </span>                :<span class="lineCov">       7186 :   Instruction *pi = &amp;fs-&gt;f-&gt;code[pc];</span>
+<span class="lineNum">     106 </span>[<span class="branchNoExec" title="Block containing branch 0 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span>][<span class="branchNoExec" title="Block containing branch 2 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 3 was never executed"> # </span>]:<span class="lineCov">       7186 :   if (pc &gt;= 1 &amp;&amp; testTMode(GET_OPCODE(*(pi-1))))</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 4 was taken 5008 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>][<span class="branchCov" title="Branch 6 was taken 3683 times"> + </span><span class="branchCov" title="Branch 7 was taken 1325 times"> + </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 8 was taken 1334 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>][<span class="branchCov" title="Branch 10 was taken 1334 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
 <span class="lineNum">         </span>[<span class="branchNoExec" title="Block containing branch 12 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 13 was never executed"> # </span>][<span class="branchNoExec" title="Block containing branch 14 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 15 was never executed"> # </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 16 was taken 756 times"> + </span><span class="branchNoCov" title="Branch 17 was not taken"> - </span>][<span class="branchCov" title="Branch 18 was taken 756 times"> + </span><span class="branchNoCov" title="Branch 19 was not taken"> - </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 20 was taken 67 times"> + </span><span class="branchNoCov" title="Branch 21 was not taken"> - </span>][<span class="branchCov" title="Branch 22 was taken 64 times"> + </span><span class="branchCov" title="Branch 23 was taken 3 times"> + </span>]
-<span class="lineNum">     107 </span>                :<span class="lineCov">       5679 :     return pi-1;</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 16 was taken 775 times"> + </span><span class="branchNoCov" title="Branch 17 was not taken"> - </span>][<span class="branchCov" title="Branch 18 was taken 775 times"> + </span><span class="branchNoCov" title="Branch 19 was not taken"> - </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 20 was taken 69 times"> + </span><span class="branchNoCov" title="Branch 21 was not taken"> - </span>][<span class="branchCov" title="Branch 22 was taken 66 times"> + </span><span class="branchCov" title="Branch 23 was taken 3 times"> + </span>]
+<span class="lineNum">     107 </span>                :<span class="lineCov">       5858 :     return pi-1;</span>
 <span class="lineNum">     108 </span>                :            :   else
-<span class="lineNum">     109 </span>                :<span class="lineCov">       1295 :     return pi;</span>
+<span class="lineNum">     109 </span>                :<span class="lineCov">       1328 :     return pi;</span>
 <span class="lineNum">     110 </span>                :            : }
 <span class="lineNum">     111 </span>                :            : 
 <span class="lineNum">     112 </span>                :            : 
@@ -201,112 +201,112 @@
 <span class="lineNum">     115 </span>                :            : ** (or produce an inverted value)
 <span class="lineNum">     116 </span>                :            : */
 <span class="lineNum">     117 </span>                :            : static int need_value (FuncState *fs, int list) {
-<span class="lineNum">     118 </span>[<span class="branchCov" title="Branch 0 was taken 756 times"> + </span><span class="branchCov" title="Branch 1 was taken 333 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 67 times"> + </span><span class="branchCov" title="Branch 3 was taken 330 times"> + </span>]:<span class="lineCov">       1486 :   for (; list != NO_JUMP; list = getjump(fs, list)) {</span>
-<span class="lineNum">     119 </span>                :<span class="lineCov">        823 :     Instruction i = *getjumpcontrol(fs, list);</span>
-<span class="lineNum">     120 </span>[<span class="branchCov" title="Branch 0 was taken 459 times"> + </span><span class="branchCov" title="Branch 1 was taken 297 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 3 times"> + </span><span class="branchCov" title="Branch 3 was taken 64 times"> + </span>]:<span class="lineCov">        823 :     if (GET_OPCODE(i) != OP_TESTSET) return 1;</span>
+<span class="lineNum">     118 </span>[<span class="branchCov" title="Branch 0 was taken 775 times"> + </span><span class="branchCov" title="Branch 1 was taken 343 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 69 times"> + </span><span class="branchCov" title="Branch 3 was taken 340 times"> + </span>]:<span class="lineCov">       1527 :   for (; list != NO_JUMP; list = getjump(fs, list)) {</span>
+<span class="lineNum">     119 </span>                :<span class="lineCov">        844 :     Instruction i = *getjumpcontrol(fs, list);</span>
+<span class="lineNum">     120 </span>[<span class="branchCov" title="Branch 0 was taken 469 times"> + </span><span class="branchCov" title="Branch 1 was taken 306 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 3 times"> + </span><span class="branchCov" title="Branch 3 was taken 66 times"> + </span>]:<span class="lineCov">        844 :     if (GET_OPCODE(i) != OP_TESTSET) return 1;</span>
 <span class="lineNum">     121 </span>                :            :   }
-<span class="lineNum">     122 </span>                :<span class="lineCov">        663 :   return 0;  /* not found */</span>
+<span class="lineNum">     122 </span>                :<span class="lineCov">        683 :   return 0;  /* not found */</span>
 <span class="lineNum">     123 </span>                :            : }
 <span class="lineNum">     124 </span>                :            : 
 <span class="lineNum">     125 </span>                :            : 
 <span class="lineNum">     126 </span>                :            : static int patchtestreg (FuncState *fs, int node, int reg) {
-<span class="lineNum">     127 </span>                :<span class="lineCov">       4862 :   Instruction *i = getjumpcontrol(fs, node);</span>
-<span class="lineNum">     128 </span>[<span class="branchNoExec" title="Block containing branch 0 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span>][<span class="branchCov" title="Branch 2 was taken 3757 times"> + </span><span class="branchCov" title="Branch 3 was taken 1105 times"> + </span>]:<span class="lineCov">       4862 :   if (GET_OPCODE(*i) != OP_TESTSET)</span>
-<span class="lineNum">     129 </span>                :<span class="lineCov">       3757 :     return 0;  /* cannot patch other instructions */</span>
-<span class="lineNum">     130 </span>[<span class="branchNoExec" title="Block containing branch 0 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span>][<span class="branchNoExec" title="Block containing branch 2 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 3 was never executed"> # </span>]:<span class="lineCov">       1105 :   if (reg != NO_REG &amp;&amp; reg != GETARG_B(*i))</span>
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 4 was taken 361 times"> + </span><span class="branchCov" title="Branch 5 was taken 744 times"> + </span>][<span class="branchCov" title="Branch 6 was taken 64 times"> + </span><span class="branchCov" title="Branch 7 was taken 297 times"> + </span>]
-<span class="lineNum">     131 </span>                :<span class="lineCov">         64 :     SETARG_A(*i, reg);</span>
+<span class="lineNum">     127 </span>                :<span class="lineCov">       5008 :   Instruction *i = getjumpcontrol(fs, node);</span>
+<span class="lineNum">     128 </span>[<span class="branchNoExec" title="Block containing branch 0 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span>][<span class="branchCov" title="Branch 2 was taken 3868 times"> + </span><span class="branchCov" title="Branch 3 was taken 1140 times"> + </span>]:<span class="lineCov">       5008 :   if (GET_OPCODE(*i) != OP_TESTSET)</span>
+<span class="lineNum">     129 </span>                :<span class="lineCov">       3868 :     return 0;  /* cannot patch other instructions */</span>
+<span class="lineNum">     130 </span>[<span class="branchNoExec" title="Block containing branch 0 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span>][<span class="branchNoExec" title="Block containing branch 2 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 3 was never executed"> # </span>]:<span class="lineCov">       1140 :   if (reg != NO_REG &amp;&amp; reg != GETARG_B(*i))</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 4 was taken 372 times"> + </span><span class="branchCov" title="Branch 5 was taken 768 times"> + </span>][<span class="branchCov" title="Branch 6 was taken 66 times"> + </span><span class="branchCov" title="Branch 7 was taken 306 times"> + </span>]
+<span class="lineNum">     131 </span>                :<span class="lineCov">         66 :     SETARG_A(*i, reg);</span>
 <span class="lineNum">     132 </span>                :            :   else  /* no register to put value or register already has the value */
-<span class="lineNum">     133 </span>                :<span class="lineCov">       1041 :     *i = CREATE_ABC(OP_TEST, GETARG_B(*i), 0, GETARG_C(*i));</span>
+<span class="lineNum">     133 </span>                :<span class="lineCov">       1074 :     *i = CREATE_ABC(OP_TEST, GETARG_B(*i), 0, GETARG_C(*i));</span>
 <span class="lineNum">     134 </span>                :            : 
-<span class="lineNum">     135 </span>                :<span class="lineCov">       1105 :   return 1;</span>
+<span class="lineNum">     135 </span>                :<span class="lineCov">       1140 :   return 1;</span>
 <span class="lineNum">     136 </span>                :            : }
 <span class="lineNum">     137 </span>                :            : 
 <span class="lineNum">     138 </span>                :            : 
-<span class="lineNum">     139 </span>                :<span class="lineCov">       1590 : static void removevalues (FuncState *fs, int list) {</span>
-<span class="lineNum">     140 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1590 times"> + </span>]:<span class="lineCov">       1590 :   for (; list != NO_JUMP; list = getjump(fs, list))</span>
+<span class="lineNum">     139 </span>                :<span class="lineCov">       1640 : static void removevalues (FuncState *fs, int list) {</span>
+<span class="lineNum">     140 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1640 times"> + </span>]:<span class="lineCov">       1640 :   for (; list != NO_JUMP; list = getjump(fs, list))</span>
 <span class="lineNum">     141 </span>                :            :       patchtestreg(fs, list, NO_REG);
-<span class="lineNum">     142 </span>                :<span class="lineCov">       1590 : }</span>
+<span class="lineNum">     142 </span>                :<span class="lineCov">       1640 : }</span>
 <span class="lineNum">     143 </span>                :            : 
 <span class="lineNum">     144 </span>                :            : 
-<span class="lineNum">     145 </span>                :<span class="lineCov">      68106 : static void patchlistaux (FuncState *fs, int list, int vtarget, int reg,</span>
+<span class="lineNum">     145 </span>                :<span class="lineCov">      70215 : static void patchlistaux (FuncState *fs, int list, int vtarget, int reg,</span>
 <span class="lineNum">     146 </span>                :            :                           int dtarget) {
-<span class="lineNum">     147 </span>        [<span class="branchCov" title="Branch 0 was taken 4862 times"> + </span><span class="branchCov" title="Branch 1 was taken 68106 times"> + </span>]:<span class="lineCov">      72968 :   while (list != NO_JUMP) {</span>
-<span class="lineNum">     148 </span>                :<span class="lineCov">       4862 :     int next = getjump(fs, list);</span>
-<span class="lineNum">     149 </span>        [<span class="branchCov" title="Branch 0 was taken 1105 times"> + </span><span class="branchCov" title="Branch 1 was taken 3757 times"> + </span>]:<span class="lineCov">       4862 :     if (patchtestreg(fs, list, reg))</span>
-<span class="lineNum">     150 </span>                :<span class="lineCov">       1105 :       fixjump(fs, list, vtarget);</span>
+<span class="lineNum">     147 </span>        [<span class="branchCov" title="Branch 0 was taken 5008 times"> + </span><span class="branchCov" title="Branch 1 was taken 70215 times"> + </span>]:<span class="lineCov">      75223 :   while (list != NO_JUMP) {</span>
+<span class="lineNum">     148 </span>                :<span class="lineCov">       5008 :     int next = getjump(fs, list);</span>
+<span class="lineNum">     149 </span>        [<span class="branchCov" title="Branch 0 was taken 1140 times"> + </span><span class="branchCov" title="Branch 1 was taken 3868 times"> + </span>]:<span class="lineCov">       5008 :     if (patchtestreg(fs, list, reg))</span>
+<span class="lineNum">     150 </span>                :<span class="lineCov">       1140 :       fixjump(fs, list, vtarget);</span>
 <span class="lineNum">     151 </span>                :            :     else
-<span class="lineNum">     152 </span>                :<span class="lineCov">       3757 :       fixjump(fs, list, dtarget);  /* jump to default target */</span>
-<span class="lineNum">     153 </span>                :<span class="lineCov">       4862 :     list = next;</span>
+<span class="lineNum">     152 </span>                :<span class="lineCov">       3868 :       fixjump(fs, list, dtarget);  /* jump to default target */</span>
+<span class="lineNum">     153 </span>                :<span class="lineCov">       5008 :     list = next;</span>
 <span class="lineNum">     154 </span>                :            :   }
-<span class="lineNum">     155 </span>                :<span class="lineCov">      68106 : }</span>
+<span class="lineNum">     155 </span>                :<span class="lineCov">      70215 : }</span>
 <span class="lineNum">     156 </span>                :            : 
 <span class="lineNum">     157 </span>                :            : 
 <span class="lineNum">     158 </span>                :            : static void dischargejpc (FuncState *fs) {
-<span class="lineNum">     159 </span>                :<span class="lineCov">      66264 :   patchlistaux(fs, fs-&gt;jpc, fs-&gt;pc, NO_REG, fs-&gt;pc);</span>
-<span class="lineNum">     160 </span>                :<span class="lineCov">      66264 :   fs-&gt;jpc = NO_JUMP;</span>
+<span class="lineNum">     159 </span>                :<span class="lineCov">      68327 :   patchlistaux(fs, fs-&gt;jpc, fs-&gt;pc, NO_REG, fs-&gt;pc);</span>
+<span class="lineNum">     160 </span>                :<span class="lineCov">      68327 :   fs-&gt;jpc = NO_JUMP;</span>
 <span class="lineNum">     161 </span>                :            : }
 <span class="lineNum">     162 </span>                :            : 
 <span class="lineNum">     163 </span>                :            : 
-<span class="lineNum">     164 </span>                :<span class="lineCov">        258 : void luaK_patchlist (FuncState *fs, int list, int target) {</span>
-<span class="lineNum">     165 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 258 times"> + </span>]:<span class="lineCov">        258 :   if (target == fs-&gt;pc)</span>
+<span class="lineNum">     164 </span>                :<span class="lineCov">        264 : void luaK_patchlist (FuncState *fs, int list, int target) {</span>
+<span class="lineNum">     165 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 264 times"> + </span>]:<span class="lineCov">        264 :   if (target == fs-&gt;pc)</span>
 <span class="lineNum">     166 </span>                :<span class="lineNoCov">          0 :     luaK_patchtohere(fs, list);</span>
 <span class="lineNum">     167 </span>                :            :   else {
 <span class="lineNum">     168 </span>                :            :     lua_assert(target &lt; fs-&gt;pc);
-<span class="lineNum">     169 </span>                :<span class="lineCov">        258 :     patchlistaux(fs, list, target, NO_REG, target);</span>
+<span class="lineNum">     169 </span>                :<span class="lineCov">        264 :     patchlistaux(fs, list, target, NO_REG, target);</span>
 <span class="lineNum">     170 </span>                :            :   }
-<span class="lineNum">     171 </span>                :<span class="lineCov">        258 : }</span>
+<span class="lineNum">     171 </span>                :<span class="lineCov">        264 : }</span>
 <span class="lineNum">     172 </span>                :            : 
 <span class="lineNum">     173 </span>                :            : 
-<span class="lineNum">     174 </span>                :<span class="lineCov">      10932 : void luaK_patchtohere (FuncState *fs, int list) {</span>
+<span class="lineNum">     174 </span>                :<span class="lineCov">      11273 : void luaK_patchtohere (FuncState *fs, int list) {</span>
 <span class="lineNum">     175 </span>                :            :   luaK_getlabel(fs);
-<span class="lineNum">     176 </span>                :<span class="lineCov">      10932 :   luaK_concat(fs, &amp;fs-&gt;jpc, list);</span>
-<span class="lineNum">     177 </span>                :<span class="lineCov">      10932 : }</span>
+<span class="lineNum">     176 </span>                :<span class="lineCov">      11273 :   luaK_concat(fs, &amp;fs-&gt;jpc, list);</span>
+<span class="lineNum">     177 </span>                :<span class="lineCov">      11273 : }</span>
 <span class="lineNum">     178 </span>                :            : 
 <span class="lineNum">     179 </span>                :            : 
-<span class="lineNum">     180 </span>                :<span class="lineCov">      22164 : void luaK_concat (FuncState *fs, int *l1, int l2) {</span>
-<span class="lineNum">     181 </span>        [<span class="branchCov" title="Branch 0 was taken 10193 times"> + </span><span class="branchCov" title="Branch 1 was taken 11971 times"> + </span>]:<span class="lineCov">      22164 :   if (l2 == NO_JUMP) return;</span>
-<span class="lineNum">     182 </span>        [<span class="branchCov" title="Branch 0 was taken 9536 times"> + </span><span class="branchCov" title="Branch 1 was taken 657 times"> + </span>]:<span class="lineCov">      10193 :   else if (*l1 == NO_JUMP)</span>
-<span class="lineNum">     183 </span>                :<span class="lineCov">       9536 :     *l1 = l2;</span>
+<span class="lineNum">     180 </span>                :<span class="lineCov">      22859 : void luaK_concat (FuncState *fs, int *l1, int l2) {</span>
+<span class="lineNum">     181 </span>        [<span class="branchCov" title="Branch 0 was taken 10519 times"> + </span><span class="branchCov" title="Branch 1 was taken 12340 times"> + </span>]:<span class="lineCov">      22859 :   if (l2 == NO_JUMP) return;</span>
+<span class="lineNum">     182 </span>        [<span class="branchCov" title="Branch 0 was taken 9841 times"> + </span><span class="branchCov" title="Branch 1 was taken 678 times"> + </span>]:<span class="lineCov">      10519 :   else if (*l1 == NO_JUMP)</span>
+<span class="lineNum">     183 </span>                :<span class="lineCov">       9841 :     *l1 = l2;</span>
 <span class="lineNum">     184 </span>                :            :   else {
-<span class="lineNum">     185 </span>                :<span class="lineCov">        657 :     int list = *l1;</span>
+<span class="lineNum">     185 </span>                :<span class="lineCov">        678 :     int list = *l1;</span>
 <span class="lineNum">     186 </span>                :            :     int next;
-<span class="lineNum">     187 </span>        [<span class="branchCov" title="Branch 0 was taken 110 times"> + </span><span class="branchCov" title="Branch 1 was taken 657 times"> + </span>]:<span class="lineCov">       1424 :     while ((next = getjump(fs, list)) != NO_JUMP)  /* find last element */</span>
-<span class="lineNum">     188 </span>                :<span class="lineCov">        110 :       list = next;</span>
-<span class="lineNum">     189 </span>                :<span class="lineCov">      22164 :     fixjump(fs, list, l2);</span>
+<span class="lineNum">     187 </span>        [<span class="branchCov" title="Branch 0 was taken 113 times"> + </span><span class="branchCov" title="Branch 1 was taken 678 times"> + </span>]:<span class="lineCov">       1469 :     while ((next = getjump(fs, list)) != NO_JUMP)  /* find last element */</span>
+<span class="lineNum">     188 </span>                :<span class="lineCov">        113 :       list = next;</span>
+<span class="lineNum">     189 </span>                :<span class="lineCov">      22859 :     fixjump(fs, list, l2);</span>
 <span class="lineNum">     190 </span>                :            :   }
 <span class="lineNum">     191 </span>                :            : }
 <span class="lineNum">     192 </span>                :            : 
 <span class="lineNum">     193 </span>                :            : 
-<span class="lineNum">     194 </span>                :<span class="lineCov">      66264 : static int luaK_code (FuncState *fs, Instruction i) {</span>
-<span class="lineNum">     195 </span>                :<span class="lineCov">      66264 :   Proto *f = fs-&gt;f;</span>
+<span class="lineNum">     194 </span>                :<span class="lineCov">      68327 : static int luaK_code (FuncState *fs, Instruction i) {</span>
+<span class="lineNum">     195 </span>                :<span class="lineCov">      68327 :   Proto *f = fs-&gt;f;</span>
 <span class="lineNum">     196 </span>                :            :   dischargejpc(fs);  /* `pc' will change */
 <span class="lineNum">     197 </span>                :            :   /* put new instruction in code array */
-<span class="lineNum">     198 </span>        [<span class="branchCov" title="Branch 0 was taken 7927 times"> + </span><span class="branchCov" title="Branch 1 was taken 58337 times"> + </span>]:<span class="lineCov">      66264 :   luaM_growvector(fs-&gt;L, f-&gt;code, fs-&gt;pc, f-&gt;sizecode, Instruction,</span>
+<span class="lineNum">     198 </span>        [<span class="branchCov" title="Branch 0 was taken 8148 times"> + </span><span class="branchCov" title="Branch 1 was taken 60179 times"> + </span>]:<span class="lineCov">      68327 :   luaM_growvector(fs-&gt;L, f-&gt;code, fs-&gt;pc, f-&gt;sizecode, Instruction,</span>
 <span class="lineNum">     199 </span>                :            :                   MAX_INT, &quot;opcodes&quot;);
-<span class="lineNum">     200 </span>                :<span class="lineCov">      66264 :   f-&gt;code[fs-&gt;pc] = i;</span>
+<span class="lineNum">     200 </span>                :<span class="lineCov">      68327 :   f-&gt;code[fs-&gt;pc] = i;</span>
 <span class="lineNum">     201 </span>                :            :   /* save corresponding line information */
-<span class="lineNum">     202 </span>        [<span class="branchCov" title="Branch 0 was taken 7927 times"> + </span><span class="branchCov" title="Branch 1 was taken 58337 times"> + </span>]:<span class="lineCov">      66264 :   luaM_growvector(fs-&gt;L, f-&gt;lineinfo, fs-&gt;pc, f-&gt;sizelineinfo, int,</span>
+<span class="lineNum">     202 </span>        [<span class="branchCov" title="Branch 0 was taken 8148 times"> + </span><span class="branchCov" title="Branch 1 was taken 60179 times"> + </span>]:<span class="lineCov">      68327 :   luaM_growvector(fs-&gt;L, f-&gt;lineinfo, fs-&gt;pc, f-&gt;sizelineinfo, int,</span>
 <span class="lineNum">     203 </span>                :            :                   MAX_INT, &quot;opcodes&quot;);
-<span class="lineNum">     204 </span>                :<span class="lineCov">      66264 :   f-&gt;lineinfo[fs-&gt;pc] = fs-&gt;ls-&gt;lastline;</span>
-<span class="lineNum">     205 </span>                :<span class="lineCov">      66264 :   return fs-&gt;pc++;</span>
+<span class="lineNum">     204 </span>                :<span class="lineCov">      68327 :   f-&gt;lineinfo[fs-&gt;pc] = fs-&gt;ls-&gt;lastline;</span>
+<span class="lineNum">     205 </span>                :<span class="lineCov">      68327 :   return fs-&gt;pc++;</span>
 <span class="lineNum">     206 </span>                :            : }
 <span class="lineNum">     207 </span>                :            : 
 <span class="lineNum">     208 </span>                :            : 
-<span class="lineNum">     209 </span>                :<span class="lineCov">      51518 : int luaK_codeABC (FuncState *fs, OpCode o, int a, int b, int c) {</span>
+<span class="lineNum">     209 </span>                :<span class="lineCov">      53089 : int luaK_codeABC (FuncState *fs, OpCode o, int a, int b, int c) {</span>
 <span class="lineNum">     210 </span>                :            :   lua_assert(getOpMode(o) == iABC);
 <span class="lineNum">     211 </span>                :            :   lua_assert(getBMode(o) != OpArgN || b == 0);
 <span class="lineNum">     212 </span>                :            :   lua_assert(getCMode(o) != OpArgN || c == 0);
 <span class="lineNum">     213 </span>                :            :   lua_assert(a &lt;= MAXARG_A &amp;&amp; b &lt;= MAXARG_B &amp;&amp; c &lt;= MAXARG_C);
-<span class="lineNum">     214 </span>                :<span class="lineCov">      51518 :   return luaK_code(fs, CREATE_ABC(o, a, b, c));</span>
+<span class="lineNum">     214 </span>                :<span class="lineCov">      53089 :   return luaK_code(fs, CREATE_ABC(o, a, b, c));</span>
 <span class="lineNum">     215 </span>                :            : }
 <span class="lineNum">     216 </span>                :            : 
 <span class="lineNum">     217 </span>                :            : 
-<span class="lineNum">     218 </span>                :<span class="lineCov">      14746 : int luaK_codeABx (FuncState *fs, OpCode o, int a, unsigned int bc) {</span>
+<span class="lineNum">     218 </span>                :<span class="lineCov">      15238 : int luaK_codeABx (FuncState *fs, OpCode o, int a, unsigned int bc) {</span>
 <span class="lineNum">     219 </span>                :            :   lua_assert(getOpMode(o) == iABx || getOpMode(o) == iAsBx);
 <span class="lineNum">     220 </span>                :            :   lua_assert(getCMode(o) == OpArgN);
 <span class="lineNum">     221 </span>                :            :   lua_assert(a &lt;= MAXARG_A &amp;&amp; bc &lt;= MAXARG_Bx);
-<span class="lineNum">     222 </span>                :<span class="lineCov">      14746 :   return luaK_code(fs, CREATE_ABx(o, a, bc));</span>
+<span class="lineNum">     222 </span>                :<span class="lineCov">      15238 :   return luaK_code(fs, CREATE_ABx(o, a, bc));</span>
 <span class="lineNum">     223 </span>                :            : }
 <span class="lineNum">     224 </span>                :            : 
 <span class="lineNum">     225 </span>                :            : 
@@ -316,227 +316,227 @@
 <span class="lineNum">     229 </span>                :            : }
 <span class="lineNum">     230 </span>                :            : 
 <span class="lineNum">     231 </span>                :            : 
-<span class="lineNum">     232 </span>                :<span class="lineCov">       7634 : int luaK_codeABxX (FuncState *fs, OpCode o, int reg, int k) {</span>
-<span class="lineNum">     233 </span>        [<span class="branchCov" title="Branch 0 was taken 7634 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       7634 :   if (k &lt; MAXARG_Bx)</span>
-<span class="lineNum">     234 </span>                :<span class="lineCov">       7634 :     return luaK_codeABx(fs, o, reg, k + 1);</span>
+<span class="lineNum">     232 </span>                :<span class="lineCov">       7914 : int luaK_codeABxX (FuncState *fs, OpCode o, int reg, int k) {</span>
+<span class="lineNum">     233 </span>        [<span class="branchCov" title="Branch 0 was taken 7914 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       7914 :   if (k &lt; MAXARG_Bx)</span>
+<span class="lineNum">     234 </span>                :<span class="lineCov">       7914 :     return luaK_codeABx(fs, o, reg, k + 1);</span>
 <span class="lineNum">     235 </span>                :            :   else {
 <span class="lineNum">     236 </span>                :<span class="lineNoCov">          0 :     int p = luaK_codeABx(fs, o, reg, 0);</span>
 <span class="lineNum">     237 </span>                :            :     codeextraarg(fs, k);
-<span class="lineNum">     238 </span>                :<span class="lineCov">       7634 :     return p;</span>
+<span class="lineNum">     238 </span>                :<span class="lineCov">       7914 :     return p;</span>
 <span class="lineNum">     239 </span>                :            :   }
 <span class="lineNum">     240 </span>                :            : }
 <span class="lineNum">     241 </span>                :            : 
 <span class="lineNum">     242 </span>                :            : 
-<span class="lineNum">     243 </span>                :<span class="lineCov">      42253 : void luaK_checkstack (FuncState *fs, int n) {</span>
-<span class="lineNum">     244 </span>                :<span class="lineCov">      42253 :   int newstack = fs-&gt;freereg + n;</span>
-<span class="lineNum">     245 </span>        [<span class="branchCov" title="Branch 0 was taken 10225 times"> + </span><span class="branchCov" title="Branch 1 was taken 32028 times"> + </span>]:<span class="lineCov">      42253 :   if (newstack &gt; fs-&gt;f-&gt;maxstacksize) {</span>
-<span class="lineNum">     246 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 10225 times"> + </span>]:<span class="lineCov">      10225 :     if (newstack &gt;= MAXSTACK)</span>
+<span class="lineNum">     243 </span>                :<span class="lineCov">      43603 : void luaK_checkstack (FuncState *fs, int n) {</span>
+<span class="lineNum">     244 </span>                :<span class="lineCov">      43603 :   int newstack = fs-&gt;freereg + n;</span>
+<span class="lineNum">     245 </span>        [<span class="branchCov" title="Branch 0 was taken 10532 times"> + </span><span class="branchCov" title="Branch 1 was taken 33071 times"> + </span>]:<span class="lineCov">      43603 :   if (newstack &gt; fs-&gt;f-&gt;maxstacksize) {</span>
+<span class="lineNum">     246 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 10532 times"> + </span>]:<span class="lineCov">      10532 :     if (newstack &gt;= MAXSTACK)</span>
 <span class="lineNum">     247 </span>                :<span class="lineNoCov">          0 :       luaX_syntaxerror(fs-&gt;ls, &quot;function or expression too complex&quot;);</span>
-<span class="lineNum">     248 </span>                :<span class="lineCov">      10225 :     fs-&gt;f-&gt;maxstacksize = cast_byte(newstack);</span>
+<span class="lineNum">     248 </span>                :<span class="lineCov">      10532 :     fs-&gt;f-&gt;maxstacksize = cast_byte(newstack);</span>
 <span class="lineNum">     249 </span>                :            :   }
-<span class="lineNum">     250 </span>                :<span class="lineCov">      42253 : }</span>
+<span class="lineNum">     250 </span>                :<span class="lineCov">      43603 : }</span>
 <span class="lineNum">     251 </span>                :            : 
 <span class="lineNum">     252 </span>                :            : 
-<span class="lineNum">     253 </span>                :<span class="lineCov">      42095 : void luaK_reserveregs (FuncState *fs, int n) {</span>
-<span class="lineNum">     254 </span>                :<span class="lineCov">      42095 :   luaK_checkstack(fs, n);</span>
-<span class="lineNum">     255 </span>                :<span class="lineCov">      42095 :   fs-&gt;freereg += n;</span>
-<span class="lineNum">     256 </span>                :<span class="lineCov">      42095 : }</span>
+<span class="lineNum">     253 </span>                :<span class="lineCov">      43441 : void luaK_reserveregs (FuncState *fs, int n) {</span>
+<span class="lineNum">     254 </span>                :<span class="lineCov">      43441 :   luaK_checkstack(fs, n);</span>
+<span class="lineNum">     255 </span>                :<span class="lineCov">      43441 :   fs-&gt;freereg += n;</span>
+<span class="lineNum">     256 </span>                :<span class="lineCov">      43441 : }</span>
 <span class="lineNum">     257 </span>                :            : 
 <span class="lineNum">     258 </span>                :            : 
 <span class="lineNum">     259 </span>                :            : static void freereg (FuncState *fs, int reg) {
-<span class="lineNum">     260 </span>[<span class="branchCov" title="Branch 0 was taken 244 times"> + </span><span class="branchCov" title="Branch 1 was taken 6526 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 17 times"> + </span><span class="branchCov" title="Branch 3 was taken 227 times"> + </span>]:<span class="lineCov">      35156 :   if (!ISK(reg) &amp;&amp; reg &gt;= fs-&gt;nactvar) {</span>
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 4 was taken 2448 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>][<span class="branchCov" title="Branch 6 was taken 1016 times"> + </span><span class="branchCov" title="Branch 7 was taken 1432 times"> + </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 8 was taken 1105 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>][<span class="branchCov" title="Branch 10 was taken 472 times"> + </span><span class="branchCov" title="Branch 11 was taken 633 times"> + </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 12 was taken 784 times"> + </span><span class="branchNoCov" title="Branch 13 was not taken"> - </span>][<span class="branchCov" title="Branch 14 was taken 163 times"> + </span><span class="branchCov" title="Branch 15 was taken 621 times"> + </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 16 was taken 8886 times"> + </span><span class="branchNoCov" title="Branch 17 was not taken"> - </span>][<span class="branchCov" title="Branch 18 was taken 1884 times"> + </span><span class="branchCov" title="Branch 19 was taken 7002 times"> + </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 20 was taken 159 times"> + </span><span class="branchNoCov" title="Branch 21 was not taken"> - </span>][<span class="branchCov" title="Branch 22 was taken 91 times"> + </span><span class="branchCov" title="Branch 23 was taken 68 times"> + </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 24 was taken 109 times"> + </span><span class="branchNoCov" title="Branch 25 was not taken"> - </span>][<span class="branchCov" title="Branch 26 was taken 10 times"> + </span><span class="branchCov" title="Branch 27 was taken 99 times"> + </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 28 was taken 1816 times"> + </span><span class="branchNoCov" title="Branch 29 was not taken"> - </span>][<span class="branchCov" title="Branch 30 was taken 1808 times"> + </span><span class="branchCov" title="Branch 31 was taken 8 times"> + </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 32 was taken 2187 times"> + </span><span class="branchNoCov" title="Branch 33 was not taken"> - </span>][<span class="branchCov" title="Branch 34 was taken 1949 times"> + </span><span class="branchCov" title="Branch 35 was taken 238 times"> + </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 36 was taken 598 times"> + </span><span class="branchNoCov" title="Branch 37 was not taken"> - </span>][<span class="branchCov" title="Branch 38 was taken 190 times"> + </span><span class="branchCov" title="Branch 39 was taken 408 times"> + </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 40 was taken 1684 times"> + </span><span class="branchNoCov" title="Branch 41 was not taken"> - </span>][<span class="branchCov" title="Branch 42 was taken 1029 times"> + </span><span class="branchCov" title="Branch 43 was taken 655 times"> + </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 44 was taken 2118 times"> + </span><span class="branchNoCov" title="Branch 45 was not taken"> - </span>][<span class="branchCov" title="Branch 46 was taken 2118 times"> + </span><span class="branchNoCov" title="Branch 47 was not taken"> - </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 48 was taken 3288 times"> + </span><span class="branchNoCov" title="Branch 49 was not taken"> - </span>][<span class="branchCov" title="Branch 50 was taken 2426 times"> + </span><span class="branchCov" title="Branch 51 was taken 862 times"> + </span>]
+<span class="lineNum">     260 </span>[<span class="branchCov" title="Branch 0 was taken 252 times"> + </span><span class="branchCov" title="Branch 1 was taken 6763 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 19 times"> + </span><span class="branchCov" title="Branch 3 was taken 233 times"> + </span>]:<span class="lineCov">      36281 :   if (!ISK(reg) &amp;&amp; reg &gt;= fs-&gt;nactvar) {</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 4 was taken 2539 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>][<span class="branchCov" title="Branch 6 was taken 1066 times"> + </span><span class="branchCov" title="Branch 7 was taken 1473 times"> + </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 8 was taken 1140 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>][<span class="branchCov" title="Branch 10 was taken 487 times"> + </span><span class="branchCov" title="Branch 11 was taken 653 times"> + </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 12 was taken 809 times"> + </span><span class="branchNoCov" title="Branch 13 was not taken"> - </span>][<span class="branchCov" title="Branch 14 was taken 168 times"> + </span><span class="branchCov" title="Branch 15 was taken 641 times"> + </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 16 was taken 9159 times"> + </span><span class="branchNoCov" title="Branch 17 was not taken"> - </span>][<span class="branchCov" title="Branch 18 was taken 1946 times"> + </span><span class="branchCov" title="Branch 19 was taken 7213 times"> + </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 20 was taken 162 times"> + </span><span class="branchNoCov" title="Branch 21 was not taken"> - </span>][<span class="branchCov" title="Branch 22 was taken 92 times"> + </span><span class="branchCov" title="Branch 23 was taken 70 times"> + </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 24 was taken 111 times"> + </span><span class="branchNoCov" title="Branch 25 was not taken"> - </span>][<span class="branchCov" title="Branch 26 was taken 10 times"> + </span><span class="branchCov" title="Branch 27 was taken 101 times"> + </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 28 was taken 1872 times"> + </span><span class="branchNoCov" title="Branch 29 was not taken"> - </span>][<span class="branchCov" title="Branch 30 was taken 1864 times"> + </span><span class="branchCov" title="Branch 31 was taken 8 times"> + </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 32 was taken 2245 times"> + </span><span class="branchNoCov" title="Branch 33 was not taken"> - </span>][<span class="branchCov" title="Branch 34 was taken 2006 times"> + </span><span class="branchCov" title="Branch 35 was taken 239 times"> + </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 36 was taken 615 times"> + </span><span class="branchNoCov" title="Branch 37 was not taken"> - </span>][<span class="branchCov" title="Branch 38 was taken 194 times"> + </span><span class="branchCov" title="Branch 39 was taken 421 times"> + </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 40 was taken 1739 times"> + </span><span class="branchNoCov" title="Branch 41 was not taken"> - </span>][<span class="branchCov" title="Branch 42 was taken 1065 times"> + </span><span class="branchCov" title="Branch 43 was taken 674 times"> + </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 44 was taken 2185 times"> + </span><span class="branchNoCov" title="Branch 45 was not taken"> - </span>][<span class="branchCov" title="Branch 46 was taken 2185 times"> + </span><span class="branchNoCov" title="Branch 47 was not taken"> - </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 48 was taken 3393 times"> + </span><span class="branchNoCov" title="Branch 49 was not taken"> - </span>][<span class="branchCov" title="Branch 50 was taken 2504 times"> + </span><span class="branchCov" title="Branch 51 was taken 889 times"> + </span>]
 <span class="lineNum">         </span>[<span class="branchNoExec" title="Block containing branch 52 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 53 was never executed"> # </span>][<span class="branchNoExec" title="Block containing branch 54 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 55 was never executed"> # </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 56 was taken 522 times"> + </span><span class="branchNoCov" title="Branch 57 was not taken"> - </span>][<span class="branchCov" title="Branch 58 was taken 522 times"> + </span><span class="branchNoCov" title="Branch 59 was not taken"> - </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 60 was taken 2682 times"> + </span><span class="branchNoCov" title="Branch 61 was not taken"> - </span>][<span class="branchCov" title="Branch 62 was taken 2338 times"> + </span><span class="branchCov" title="Branch 63 was taken 344 times"> + </span>]
-<span class="lineNum">     261 </span>                :<span class="lineCov">      18955 :     fs-&gt;freereg--;</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 56 was taken 537 times"> + </span><span class="branchNoCov" title="Branch 57 was not taken"> - </span>][<span class="branchCov" title="Branch 58 was taken 537 times"> + </span><span class="branchNoCov" title="Branch 59 was not taken"> - </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 60 was taken 2760 times"> + </span><span class="branchNoCov" title="Branch 61 was not taken"> - </span>][<span class="branchCov" title="Branch 62 was taken 2406 times"> + </span><span class="branchCov" title="Branch 63 was taken 354 times"> + </span>]
+<span class="lineNum">     261 </span>                :<span class="lineCov">      19556 :     fs-&gt;freereg--;</span>
 <span class="lineNum">     262 </span>                :            :     lua_assert(reg == fs-&gt;freereg);
 <span class="lineNum">     263 </span>                :            :   }
 <span class="lineNum">     264 </span>                :            : }
 <span class="lineNum">     265 </span>                :            : 
 <span class="lineNum">     266 </span>                :            : 
 <span class="lineNum">     267 </span>                :            : static void freeexp (FuncState *fs, expdesc *e) {
-<span class="lineNum">     268 </span>[<span class="branchCov" title="Branch 0 was taken 1105 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 784 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 8886 times"> + </span>:<span class="lineCov">      57325 :   if (e-&gt;k == VNONRELOC)</span>
-<span class="lineNum">         </span>      <span class="branchCov" title="Branch 5 was taken 25816 times"> + </span><span class="branchCov" title="Branch 6 was taken 159 times"> + </span><span class="branchCov" title="Branch 7 was taken 77 times"> + </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 8 was taken 109 times"> + </span><span class="branchCov" title="Branch 9 was taken 127 times"> + </span>][<span class="branchCov" title="Branch 10 was taken 1816 times"> + </span><span class="branchCov" title="Branch 11 was taken 406 times"> + </span>]
-<span class="lineNum">         </span>  [<span class="branchCov" title="Branch 12 was taken 2187 times"> + </span><span class="branchCov" title="Branch 13 was taken 35 times"> + </span><span class="branchCov" title="Branch 14 was taken 598 times"> + </span><span class="branchCov" title="Branch 15 was taken 1151 times"> + </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 16 was taken 1684 times"> + </span><span class="branchCov" title="Branch 17 was taken 65 times"> + </span>][<span class="branchCov" title="Branch 18 was taken 2118 times"> + </span><span class="branchNoCov" title="Branch 19 was not taken"> - </span> 
-<span class="lineNum">         </span>   <span class="branchCov" title="Branch 20 was taken 3288 times"> + </span><span class="branchNoCov" title="Branch 21 was not taken"> - </span><span class="branchNoCov" title="Branch 22 was not taken"> - </span><span class="branchCov" title="Branch 23 was taken 3288 times"> + </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 24 was taken 522 times"> + </span><span class="branchCov" title="Branch 25 was taken 1240 times"> + </span>][<span class="branchCov" title="Branch 26 was taken 2682 times"> + </span><span class="branchCov" title="Branch 27 was taken 816 times"> + </span>]
-<span class="lineNum">     269 </span>                :<span class="lineCov">      25938 :     freereg(fs, e-&gt;u.info);</span>
+<span class="lineNum">     268 </span>[<span class="branchCov" title="Branch 0 was taken 1140 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 809 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 9159 times"> + </span>:<span class="lineCov">      59128 :   if (e-&gt;k == VNONRELOC)</span>
+<span class="lineNum">         </span>      <span class="branchCov" title="Branch 5 was taken 26663 times"> + </span><span class="branchCov" title="Branch 6 was taken 162 times"> + </span><span class="branchCov" title="Branch 7 was taken 79 times"> + </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 8 was taken 111 times"> + </span><span class="branchCov" title="Branch 9 was taken 130 times"> + </span>][<span class="branchCov" title="Branch 10 was taken 1872 times"> + </span><span class="branchCov" title="Branch 11 was taken 407 times"> + </span>]
+<span class="lineNum">         </span>  [<span class="branchCov" title="Branch 12 was taken 2245 times"> + </span><span class="branchCov" title="Branch 13 was taken 34 times"> + </span><span class="branchCov" title="Branch 14 was taken 615 times"> + </span><span class="branchCov" title="Branch 15 was taken 1189 times"> + </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 16 was taken 1739 times"> + </span><span class="branchCov" title="Branch 17 was taken 65 times"> + </span>][<span class="branchCov" title="Branch 18 was taken 2185 times"> + </span><span class="branchNoCov" title="Branch 19 was not taken"> - </span> 
+<span class="lineNum">         </span>   <span class="branchCov" title="Branch 20 was taken 3393 times"> + </span><span class="branchNoCov" title="Branch 21 was not taken"> - </span><span class="branchNoCov" title="Branch 22 was not taken"> - </span><span class="branchCov" title="Branch 23 was taken 3393 times"> + </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 24 was taken 537 times"> + </span><span class="branchCov" title="Branch 25 was taken 1277 times"> + </span>][<span class="branchCov" title="Branch 26 was taken 2760 times"> + </span><span class="branchCov" title="Branch 27 was taken 839 times"> + </span>]
+<span class="lineNum">     269 </span>                :<span class="lineCov">      26727 :     freereg(fs, e-&gt;u.info);</span>
 <span class="lineNum">     270 </span>                :            : }
 <span class="lineNum">     271 </span>                :            : 
 <span class="lineNum">     272 </span>                :            : 
-<span class="lineNum">     273 </span>                :<span class="lineCov">      23643 : static int addk (FuncState *fs, TValue *key, TValue *v) {</span>
-<span class="lineNum">     274 </span>                :<span class="lineCov">      23643 :   lua_State *L = fs-&gt;L;</span>
-<span class="lineNum">     275 </span>                :<span class="lineCov">      23643 :   TValue *idx = luaH_set(L, fs-&gt;h, key);</span>
-<span class="lineNum">     276 </span>                :<span class="lineCov">      23643 :   Proto *f = fs-&gt;f;</span>
+<span class="lineNum">     273 </span>                :<span class="lineCov">      24434 : static int addk (FuncState *fs, TValue *key, TValue *v) {</span>
+<span class="lineNum">     274 </span>                :<span class="lineCov">      24434 :   lua_State *L = fs-&gt;L;</span>
+<span class="lineNum">     275 </span>                :<span class="lineCov">      24434 :   TValue *idx = luaH_set(L, fs-&gt;h, key);</span>
+<span class="lineNum">     276 </span>                :<span class="lineCov">      24434 :   Proto *f = fs-&gt;f;</span>
 <span class="lineNum">     277 </span>                :            :   int k, oldsize;
-<span class="lineNum">     278 </span>        [<span class="branchCov" title="Branch 0 was taken 8376 times"> + </span><span class="branchCov" title="Branch 1 was taken 15267 times"> + </span>]:<span class="lineCov">      23643 :   if (ttisnumber(idx)) {</span>
-<span class="lineNum">     279 </span>                :<span class="lineCov">       8376 :     lua_Number n = nvalue(idx);</span>
-<span class="lineNum">     280 </span>                :<span class="lineCov">       8376 :     lua_number2int(k, n);</span>
-<span class="lineNum">     281 </span>        [<span class="branchCov" title="Branch 1 was taken 8376 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       8376 :     if (luaO_rawequalObj(&amp;f-&gt;k[k], v))</span>
-<span class="lineNum">     282 </span>                :<span class="lineCov">       8376 :       return k;</span>
+<span class="lineNum">     278 </span>        [<span class="branchCov" title="Branch 0 was taken 8696 times"> + </span><span class="branchCov" title="Branch 1 was taken 15738 times"> + </span>]:<span class="lineCov">      24434 :   if (ttisnumber(idx)) {</span>
+<span class="lineNum">     279 </span>                :<span class="lineCov">       8696 :     lua_Number n = nvalue(idx);</span>
+<span class="lineNum">     280 </span>                :<span class="lineCov">       8696 :     lua_number2int(k, n);</span>
+<span class="lineNum">     281 </span>        [<span class="branchCov" title="Branch 1 was taken 8696 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       8696 :     if (luaO_rawequalObj(&amp;f-&gt;k[k], v))</span>
+<span class="lineNum">     282 </span>                :<span class="lineCov">       8696 :       return k;</span>
 <span class="lineNum">     283 </span>                :            :     /* else may be a collision (e.g., between 0.0 and &quot;\0\0\0\0\0\0\0\0&quot;);
 <span class="lineNum">     284 </span>                :            :        go through and create a new entry for this value */
 <span class="lineNum">     285 </span>                :            :   }
 <span class="lineNum">     286 </span>                :            :   /* constant not found; create a new entry */
-<span class="lineNum">     287 </span>                :<span class="lineCov">      15267 :   oldsize = f-&gt;sizek;</span>
-<span class="lineNum">     288 </span>                :<span class="lineCov">      15267 :   k = fs-&gt;nk;</span>
-<span class="lineNum">     289 </span>                :<span class="lineCov">      15267 :   setnvalue(idx, cast_num(k));</span>
-<span class="lineNum">     290 </span>        [<span class="branchCov" title="Branch 0 was taken 3959 times"> + </span><span class="branchCov" title="Branch 1 was taken 11308 times"> + </span>]:<span class="lineCov">      15267 :   luaM_growvector(L, f-&gt;k, k, f-&gt;sizek, TValue, MAXARG_Ax, &quot;constants&quot;);</span>
-<span class="lineNum">     291 </span>        [<span class="branchCov" title="Branch 0 was taken 23176 times"> + </span><span class="branchCov" title="Branch 1 was taken 15267 times"> + </span>]:<span class="lineCov">      38443 :   while (oldsize &lt; f-&gt;sizek) setnilvalue(&amp;f-&gt;k[oldsize++]);</span>
-<span class="lineNum">     292 </span>                :<span class="lineCov">      15267 :   setobj(L, &amp;f-&gt;k[k], v);</span>
-<span class="lineNum">     293 </span>                :<span class="lineCov">      15267 :   fs-&gt;nk++;</span>
-<span class="lineNum">     294 </span>[<span class="branchCov" title="Branch 0 was taken 13588 times"> + </span><span class="branchCov" title="Branch 1 was taken 1679 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 12998 times"> + </span><span class="branchCov" title="Branch 3 was taken 590 times"> + </span>]:<span class="lineCov">      15267 :   luaC_barrier(L, f, v);</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 4 was taken 162 times"> + </span><span class="branchCov" title="Branch 5 was taken 12836 times"> + </span>]
-<span class="lineNum">     295 </span>                :<span class="lineCov">      23643 :   return k;</span>
+<span class="lineNum">     287 </span>                :<span class="lineCov">      15738 :   oldsize = f-&gt;sizek;</span>
+<span class="lineNum">     288 </span>                :<span class="lineCov">      15738 :   k = fs-&gt;nk;</span>
+<span class="lineNum">     289 </span>                :<span class="lineCov">      15738 :   setnvalue(idx, cast_num(k));</span>
+<span class="lineNum">     290 </span>        [<span class="branchCov" title="Branch 0 was taken 4065 times"> + </span><span class="branchCov" title="Branch 1 was taken 11673 times"> + </span>]:<span class="lineCov">      15738 :   luaM_growvector(L, f-&gt;k, k, f-&gt;sizek, TValue, MAXARG_Ax, &quot;constants&quot;);</span>
+<span class="lineNum">     291 </span>        [<span class="branchCov" title="Branch 0 was taken 24032 times"> + </span><span class="branchCov" title="Branch 1 was taken 15738 times"> + </span>]:<span class="lineCov">      39770 :   while (oldsize &lt; f-&gt;sizek) setnilvalue(&amp;f-&gt;k[oldsize++]);</span>
+<span class="lineNum">     292 </span>                :<span class="lineCov">      15738 :   setobj(L, &amp;f-&gt;k[k], v);</span>
+<span class="lineNum">     293 </span>                :<span class="lineCov">      15738 :   fs-&gt;nk++;</span>
+<span class="lineNum">     294 </span>[<span class="branchCov" title="Branch 0 was taken 14015 times"> + </span><span class="branchCov" title="Branch 1 was taken 1723 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 13384 times"> + </span><span class="branchCov" title="Branch 3 was taken 631 times"> + </span>]:<span class="lineCov">      15738 :   luaC_barrier(L, f, v);</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 4 was taken 177 times"> + </span><span class="branchCov" title="Branch 5 was taken 13207 times"> + </span>]
+<span class="lineNum">     295 </span>                :<span class="lineCov">      24434 :   return k;</span>
 <span class="lineNum">     296 </span>                :            : }
 <span class="lineNum">     297 </span>                :            : 
 <span class="lineNum">     298 </span>                :            : 
-<span class="lineNum">     299 </span>                :<span class="lineCov">      20748 : int luaK_stringK (FuncState *fs, TString *s) {</span>
+<span class="lineNum">     299 </span>                :<span class="lineCov">      21430 : int luaK_stringK (FuncState *fs, TString *s) {</span>
 <span class="lineNum">     300 </span>                :            :   TValue o;
-<span class="lineNum">     301 </span>                :<span class="lineCov">      20748 :   setsvalue(fs-&gt;L, &amp;o, s);</span>
-<span class="lineNum">     302 </span>                :<span class="lineCov">      20748 :   return addk(fs, &amp;o, &amp;o);</span>
+<span class="lineNum">     301 </span>                :<span class="lineCov">      21430 :   setsvalue(fs-&gt;L, &amp;o, s);</span>
+<span class="lineNum">     302 </span>                :<span class="lineCov">      21430 :   return addk(fs, &amp;o, &amp;o);</span>
 <span class="lineNum">     303 </span>                :            : }
 <span class="lineNum">     304 </span>                :            : 
 <span class="lineNum">     305 </span>                :            : 
-<span class="lineNum">     306 </span>                :<span class="lineCov">       2230 : int luaK_numberK (FuncState *fs, lua_Number r) {</span>
+<span class="lineNum">     306 </span>                :<span class="lineCov">       2322 : int luaK_numberK (FuncState *fs, lua_Number r) {</span>
 <span class="lineNum">     307 </span>                :            :   int n;
-<span class="lineNum">     308 </span>                :<span class="lineCov">       2230 :   lua_State *L = fs-&gt;L;</span>
+<span class="lineNum">     308 </span>                :<span class="lineCov">       2322 :   lua_State *L = fs-&gt;L;</span>
 <span class="lineNum">     309 </span>                :            :   TValue o;
-<span class="lineNum">     310 </span>                :<span class="lineCov">       2230 :   setnvalue(&amp;o, r);</span>
-<span class="lineNum">     311 </span>[<span class="branchCov" title="Branch 0 was taken 1592 times"> + </span><span class="branchCov" title="Branch 1 was taken 638 times"> + </span>][<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1592 times"> + </span>]:<span class="lineCov">       2868 :   if (r == 0 || luai_numisnan(NULL, r)) {  /* handle -0 and NaN */</span>
+<span class="lineNum">     310 </span>                :<span class="lineCov">       2322 :   setnvalue(&amp;o, r);</span>
+<span class="lineNum">     311 </span>[<span class="branchCov" title="Branch 0 was taken 1669 times"> + </span><span class="branchCov" title="Branch 1 was taken 653 times"> + </span>][<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1669 times"> + </span>]:<span class="lineCov">       2975 :   if (r == 0 || luai_numisnan(NULL, r)) {  /* handle -0 and NaN */</span>
 <span class="lineNum">     312 </span>                :            :     /* use raw representation as key to avoid numeric problems */
-<span class="lineNum">     313 </span>                :<span class="lineCov">        638 :     setsvalue(L, L-&gt;top, luaS_newlstr(L, (char *)&amp;r, sizeof(r)));</span>
-<span class="lineNum">     314 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 638 times"> + </span>]:<span class="lineCov">        638 :      incr_top(L);</span>
-<span class="lineNum">     315 </span>                :<span class="lineCov">        638 :      n = addk(fs, L-&gt;top - 1, &amp;o);</span>
-<span class="lineNum">     316 </span>                :<span class="lineCov">        638 :      L-&gt;top--;</span>
+<span class="lineNum">     313 </span>                :<span class="lineCov">        653 :     setsvalue(L, L-&gt;top, luaS_newlstr(L, (char *)&amp;r, sizeof(r)));</span>
+<span class="lineNum">     314 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 653 times"> + </span>]:<span class="lineCov">        653 :      incr_top(L);</span>
+<span class="lineNum">     315 </span>                :<span class="lineCov">        653 :      n = addk(fs, L-&gt;top - 1, &amp;o);</span>
+<span class="lineNum">     316 </span>                :<span class="lineCov">        653 :      L-&gt;top--;</span>
 <span class="lineNum">     317 </span>                :            :   }
 <span class="lineNum">     318 </span>                :            :   else
-<span class="lineNum">     319 </span>                :<span class="lineCov">       1592 :     n = addk(fs, &amp;o, &amp;o);  /* regular case */</span>
-<span class="lineNum">     320 </span>                :<span class="lineCov">       2230 :   return n;</span>
+<span class="lineNum">     319 </span>                :<span class="lineCov">       1669 :     n = addk(fs, &amp;o, &amp;o);  /* regular case */</span>
+<span class="lineNum">     320 </span>                :<span class="lineCov">       2322 :   return n;</span>
 <span class="lineNum">     321 </span>                :            : }
 <span class="lineNum">     322 </span>                :            : 
 <span class="lineNum">     323 </span>                :            : 
 <span class="lineNum">     324 </span>                :            : static int boolK (FuncState *fs, int b) {
 <span class="lineNum">     325 </span>                :            :   TValue o;
-<span class="lineNum">     326 </span>                :<span class="lineCov">        552 :   setbvalue(&amp;o, b);</span>
-<span class="lineNum">     327 </span>                :<span class="lineCov">        552 :   return addk(fs, &amp;o, &amp;o);</span>
+<span class="lineNum">     326 </span>                :<span class="lineCov">        568 :   setbvalue(&amp;o, b);</span>
+<span class="lineNum">     327 </span>                :<span class="lineCov">        568 :   return addk(fs, &amp;o, &amp;o);</span>
 <span class="lineNum">     328 </span>                :            : }
 <span class="lineNum">     329 </span>                :            : 
 <span class="lineNum">     330 </span>                :            : 
 <span class="lineNum">     331 </span>                :            : static int nilK (FuncState *fs) {
 <span class="lineNum">     332 </span>                :            :   TValue k, v;
-<span class="lineNum">     333 </span>                :<span class="lineCov">        113 :   setnilvalue(&amp;v);</span>
+<span class="lineNum">     333 </span>                :<span class="lineCov">        114 :   setnilvalue(&amp;v);</span>
 <span class="lineNum">     334 </span>                :            :   /* cannot use nil as key; instead use table itself to represent nil */
-<span class="lineNum">     335 </span>                :<span class="lineCov">        113 :   sethvalue(fs-&gt;L, &amp;k, fs-&gt;h);</span>
-<span class="lineNum">     336 </span>                :<span class="lineCov">        113 :   return addk(fs, &amp;k, &amp;v);</span>
+<span class="lineNum">     335 </span>                :<span class="lineCov">        114 :   sethvalue(fs-&gt;L, &amp;k, fs-&gt;h);</span>
+<span class="lineNum">     336 </span>                :<span class="lineCov">        114 :   return addk(fs, &amp;k, &amp;v);</span>
 <span class="lineNum">     337 </span>                :            : }
 <span class="lineNum">     338 </span>                :            : 
 <span class="lineNum">     339 </span>                :            : 
-<span class="lineNum">     340 </span>                :<span class="lineCov">       9546 : void luaK_setreturns (FuncState *fs, expdesc *e, int nresults) {</span>
-<span class="lineNum">     341 </span>        [<span class="branchCov" title="Branch 0 was taken 1391 times"> + </span><span class="branchCov" title="Branch 1 was taken 8155 times"> + </span>]:<span class="lineCov">       9546 :   if (e-&gt;k == VCALL) {  /* expression is an open function call? */</span>
-<span class="lineNum">     342 </span>                :<span class="lineCov">       1391 :     SETARG_C(getcode(fs, e), nresults+1);</span>
+<span class="lineNum">     340 </span>                :<span class="lineCov">       9853 : void luaK_setreturns (FuncState *fs, expdesc *e, int nresults) {</span>
+<span class="lineNum">     341 </span>        [<span class="branchCov" title="Branch 0 was taken 1425 times"> + </span><span class="branchCov" title="Branch 1 was taken 8428 times"> + </span>]:<span class="lineCov">       9853 :   if (e-&gt;k == VCALL) {  /* expression is an open function call? */</span>
+<span class="lineNum">     342 </span>                :<span class="lineCov">       1425 :     SETARG_C(getcode(fs, e), nresults+1);</span>
 <span class="lineNum">     343 </span>                :            :   }
-<span class="lineNum">     344 </span>        [<span class="branchCov" title="Branch 0 was taken 168 times"> + </span><span class="branchCov" title="Branch 1 was taken 7987 times"> + </span>]:<span class="lineCov">       8155 :   else if (e-&gt;k == VVARARG) {</span>
-<span class="lineNum">     345 </span>                :<span class="lineCov">        168 :     SETARG_B(getcode(fs, e), nresults+1);</span>
-<span class="lineNum">     346 </span>                :<span class="lineCov">        168 :     SETARG_A(getcode(fs, e), fs-&gt;freereg);</span>
-<span class="lineNum">     347 </span>                :<span class="lineCov">        168 :     luaK_reserveregs(fs, 1);</span>
+<span class="lineNum">     344 </span>        [<span class="branchCov" title="Branch 0 was taken 173 times"> + </span><span class="branchCov" title="Branch 1 was taken 8255 times"> + </span>]:<span class="lineCov">       8428 :   else if (e-&gt;k == VVARARG) {</span>
+<span class="lineNum">     345 </span>                :<span class="lineCov">        173 :     SETARG_B(getcode(fs, e), nresults+1);</span>
+<span class="lineNum">     346 </span>                :<span class="lineCov">        173 :     SETARG_A(getcode(fs, e), fs-&gt;freereg);</span>
+<span class="lineNum">     347 </span>                :<span class="lineCov">        173 :     luaK_reserveregs(fs, 1);</span>
 <span class="lineNum">     348 </span>                :            :   }
-<span class="lineNum">     349 </span>                :<span class="lineCov">       9546 : }</span>
+<span class="lineNum">     349 </span>                :<span class="lineCov">       9853 : }</span>
 <span class="lineNum">     350 </span>                :            : 
 <span class="lineNum">     351 </span>                :            : 
-<span class="lineNum">     352 </span>                :<span class="lineCov">       5581 : void luaK_setoneret (FuncState *fs, expdesc *e) {</span>
-<span class="lineNum">     353 </span>        [<span class="branchCov" title="Branch 0 was taken 2709 times"> + </span><span class="branchCov" title="Branch 1 was taken 2872 times"> + </span>]:<span class="lineCov">       5581 :   if (e-&gt;k == VCALL) {  /* expression is an open function call? */</span>
-<span class="lineNum">     354 </span>                :<span class="lineCov">       2709 :     e-&gt;k = VNONRELOC;</span>
-<span class="lineNum">     355 </span>                :<span class="lineCov">       2709 :     e-&gt;u.info = GETARG_A(getcode(fs, e));</span>
+<span class="lineNum">     352 </span>                :<span class="lineCov">       5756 : void luaK_setoneret (FuncState *fs, expdesc *e) {</span>
+<span class="lineNum">     353 </span>        [<span class="branchCov" title="Branch 0 was taken 2805 times"> + </span><span class="branchCov" title="Branch 1 was taken 2951 times"> + </span>]:<span class="lineCov">       5756 :   if (e-&gt;k == VCALL) {  /* expression is an open function call? */</span>
+<span class="lineNum">     354 </span>                :<span class="lineCov">       2805 :     e-&gt;k = VNONRELOC;</span>
+<span class="lineNum">     355 </span>                :<span class="lineCov">       2805 :     e-&gt;u.info = GETARG_A(getcode(fs, e));</span>
 <span class="lineNum">     356 </span>                :            :   }
-<span class="lineNum">     357 </span>        [<span class="branchCov" title="Branch 0 was taken 32 times"> + </span><span class="branchCov" title="Branch 1 was taken 2840 times"> + </span>]:<span class="lineCov">       2872 :   else if (e-&gt;k == VVARARG) {</span>
-<span class="lineNum">     358 </span>                :<span class="lineCov">         32 :     SETARG_B(getcode(fs, e), 2);</span>
-<span class="lineNum">     359 </span>                :<span class="lineCov">         32 :     e-&gt;k = VRELOCABLE;  /* can relocate its simple result */</span>
+<span class="lineNum">     357 </span>        [<span class="branchCov" title="Branch 0 was taken 33 times"> + </span><span class="branchCov" title="Branch 1 was taken 2918 times"> + </span>]:<span class="lineCov">       2951 :   else if (e-&gt;k == VVARARG) {</span>
+<span class="lineNum">     358 </span>                :<span class="lineCov">         33 :     SETARG_B(getcode(fs, e), 2);</span>
+<span class="lineNum">     359 </span>                :<span class="lineCov">         33 :     e-&gt;k = VRELOCABLE;  /* can relocate its simple result */</span>
 <span class="lineNum">     360 </span>                :            :   }
-<span class="lineNum">     361 </span>                :<span class="lineCov">       5581 : }</span>
+<span class="lineNum">     361 </span>                :<span class="lineCov">       5756 : }</span>
 <span class="lineNum">     362 </span>                :            : 
 <span class="lineNum">     363 </span>                :            : 
-<span class="lineNum">     364 </span>                :<span class="lineCov">     130236 : void luaK_dischargevars (FuncState *fs, expdesc *e) {</span>
-<span class="lineNum">     365 </span>  [<span class="branchCov" title="Branch 0 was taken 15837 times"> + </span><span class="branchCov" title="Branch 1 was taken 5331 times"> + </span><span class="branchCov" title="Branch 2 was taken 6770 times"> + </span><span class="branchCov" title="Branch 3 was taken 2358 times"> + </span> :<span class="lineCov">     130236 :   switch (e-&gt;k) {</span>
-<span class="lineNum">         </span>            <span class="branchCov" title="Branch 4 was taken 99940 times"> + </span>]
+<span class="lineNum">     364 </span>                :<span class="lineCov">     134337 : void luaK_dischargevars (FuncState *fs, expdesc *e) {</span>
+<span class="lineNum">     365 </span>  [<span class="branchCov" title="Branch 0 was taken 16310 times"> + </span><span class="branchCov" title="Branch 1 was taken 5501 times"> + </span><span class="branchCov" title="Branch 2 was taken 7015 times"> + </span><span class="branchCov" title="Branch 3 was taken 2443 times"> + </span> :<span class="lineCov">     134337 :   switch (e-&gt;k) {</span>
+<span class="lineNum">         </span>            <span class="branchCov" title="Branch 4 was taken 103068 times"> + </span>]
 <span class="lineNum">     366 </span>                :            :     case VLOCAL: {
-<span class="lineNum">     367 </span>                :<span class="lineCov">      15837 :       e-&gt;k = VNONRELOC;</span>
-<span class="lineNum">     368 </span>                :<span class="lineCov">      15837 :       break;</span>
+<span class="lineNum">     367 </span>                :<span class="lineCov">      16310 :       e-&gt;k = VNONRELOC;</span>
+<span class="lineNum">     368 </span>                :<span class="lineCov">      16310 :       break;</span>
 <span class="lineNum">     369 </span>                :            :     }
 <span class="lineNum">     370 </span>                :            :     case VUPVAL: {
-<span class="lineNum">     371 </span>                :<span class="lineCov">       5331 :       e-&gt;u.info = luaK_codeABC(fs, OP_GETUPVAL, 0, e-&gt;u.info, 0);</span>
-<span class="lineNum">     372 </span>                :<span class="lineCov">       5331 :       e-&gt;k = VRELOCABLE;</span>
-<span class="lineNum">     373 </span>                :<span class="lineCov">       5331 :       break;</span>
+<span class="lineNum">     371 </span>                :<span class="lineCov">       5501 :       e-&gt;u.info = luaK_codeABC(fs, OP_GETUPVAL, 0, e-&gt;u.info, 0);</span>
+<span class="lineNum">     372 </span>                :<span class="lineCov">       5501 :       e-&gt;k = VRELOCABLE;</span>
+<span class="lineNum">     373 </span>                :<span class="lineCov">       5501 :       break;</span>
 <span class="lineNum">     374 </span>                :            :     }
 <span class="lineNum">     375 </span>                :            :     case VINDEXED: {
-<span class="lineNum">     376 </span>                :<span class="lineCov">       6770 :       OpCode op = OP_GETTABUP;  /* assume 't' is in an upvalue */</span>
-<span class="lineNum">     377 </span>                :<span class="lineCov">       6770 :       freereg(fs, e-&gt;u.ind.idx);</span>
-<span class="lineNum">     378 </span>        [<span class="branchCov" title="Branch 0 was taken 2448 times"> + </span><span class="branchCov" title="Branch 1 was taken 4322 times"> + </span>]:<span class="lineCov">       6770 :       if (e-&gt;u.ind.vt == VLOCAL) {  /* 't' is in a register? */</span>
-<span class="lineNum">     379 </span>                :<span class="lineCov">       2448 :         freereg(fs, e-&gt;u.ind.t);</span>
-<span class="lineNum">     380 </span>                :<span class="lineCov">       2448 :         op = OP_GETTABLE;</span>
+<span class="lineNum">     376 </span>                :<span class="lineCov">       7015 :       OpCode op = OP_GETTABUP;  /* assume 't' is in an upvalue */</span>
+<span class="lineNum">     377 </span>                :<span class="lineCov">       7015 :       freereg(fs, e-&gt;u.ind.idx);</span>
+<span class="lineNum">     378 </span>        [<span class="branchCov" title="Branch 0 was taken 2539 times"> + </span><span class="branchCov" title="Branch 1 was taken 4476 times"> + </span>]:<span class="lineCov">       7015 :       if (e-&gt;u.ind.vt == VLOCAL) {  /* 't' is in a register? */</span>
+<span class="lineNum">     379 </span>                :<span class="lineCov">       2539 :         freereg(fs, e-&gt;u.ind.t);</span>
+<span class="lineNum">     380 </span>                :<span class="lineCov">       2539 :         op = OP_GETTABLE;</span>
 <span class="lineNum">     381 </span>                :            :       }
-<span class="lineNum">     382 </span>                :<span class="lineCov">       6770 :       e-&gt;u.info = luaK_codeABC(fs, op, 0, e-&gt;u.ind.t, e-&gt;u.ind.idx);</span>
-<span class="lineNum">     383 </span>                :<span class="lineCov">       6770 :       e-&gt;k = VRELOCABLE;</span>
-<span class="lineNum">     384 </span>                :<span class="lineCov">       6770 :       break;</span>
+<span class="lineNum">     382 </span>                :<span class="lineCov">       7015 :       e-&gt;u.info = luaK_codeABC(fs, op, 0, e-&gt;u.ind.t, e-&gt;u.ind.idx);</span>
+<span class="lineNum">     383 </span>                :<span class="lineCov">       7015 :       e-&gt;k = VRELOCABLE;</span>
+<span class="lineNum">     384 </span>                :<span class="lineCov">       7015 :       break;</span>
 <span class="lineNum">     385 </span>                :            :     }
 <span class="lineNum">     386 </span>                :            :     case VVARARG:
 <span class="lineNum">     387 </span>                :            :     case VCALL: {
-<span class="lineNum">     388 </span>                :<span class="lineCov">       2358 :       luaK_setoneret(fs, e);</span>
+<span class="lineNum">     388 </span>                :<span class="lineCov">       2443 :       luaK_setoneret(fs, e);</span>
 <span class="lineNum">     389 </span>                :            :       break;
 <span class="lineNum">     390 </span>                :            :     }
 <span class="lineNum">     391 </span>                :            :     default: break;  /* there is one value available (somewhere) */
 <span class="lineNum">     392 </span>                :            :   }
-<span class="lineNum">     393 </span>                :<span class="lineCov">     130236 : }</span>
+<span class="lineNum">     393 </span>                :<span class="lineCov">     134337 : }</span>
 <span class="lineNum">     394 </span>                :            : 
 <span class="lineNum">     395 </span>                :            : 
 <span class="lineNum">     396 </span>                :            : static int code_label (FuncState *fs, int A, int b, int jump) {
 <span class="lineNum">     397 </span>                :            :   luaK_getlabel(fs);  /* those instructions may be jump targets */
-<span class="lineNum">     398 </span>                :<span class="lineCov">        462 :   return luaK_codeABC(fs, OP_LOADBOOL, A, b, jump);</span>
+<span class="lineNum">     398 </span>                :<span class="lineCov">        472 :   return luaK_codeABC(fs, OP_LOADBOOL, A, b, jump);</span>
 <span class="lineNum">     399 </span>                :            : }
 <span class="lineNum">     400 </span>                :            : 
 <span class="lineNum">     401 </span>                :            : 
-<span class="lineNum">     402 </span>                :<span class="lineCov">      36944 : static void discharge2reg (FuncState *fs, expdesc *e, int reg) {</span>
-<span class="lineNum">     403 </span>                :<span class="lineCov">      36944 :   luaK_dischargevars(fs, e);</span>
-<span class="lineNum">     404 </span>[<span class="branchCov" title="Branch 0 was taken 200 times"> + </span><span class="branchCov" title="Branch 1 was taken 1128 times"> + </span><span class="branchCov" title="Branch 2 was taken 6407 times"> + </span><span class="branchCov" title="Branch 3 was taken 1153 times"> + </span><span class="branchCov" title="Branch 4 was taken 17719 times"> + </span>:<span class="lineCov">      36944 :   switch (e-&gt;k) {</span>
-<span class="lineNum">         </span>         <span class="branchCov" title="Branch 5 was taken 9878 times"> + </span><span class="branchCov" title="Branch 6 was taken 459 times"> + </span>]
+<span class="lineNum">     402 </span>                :<span class="lineCov">      38131 : static void discharge2reg (FuncState *fs, expdesc *e, int reg) {</span>
+<span class="lineNum">     403 </span>                :<span class="lineCov">      38131 :   luaK_dischargevars(fs, e);</span>
+<span class="lineNum">     404 </span>[<span class="branchCov" title="Branch 0 was taken 205 times"> + </span><span class="branchCov" title="Branch 1 was taken 1162 times"> + </span><span class="branchCov" title="Branch 2 was taken 6618 times"> + </span><span class="branchCov" title="Branch 3 was taken 1220 times"> + </span><span class="branchCov" title="Branch 4 was taken 18276 times"> + </span>:<span class="lineCov">      38131 :   switch (e-&gt;k) {</span>
+<span class="lineNum">         </span>         <span class="branchCov" title="Branch 5 was taken 10181 times"> + </span><span class="branchCov" title="Branch 6 was taken 469 times"> + </span>]
 <span class="lineNum">     405 </span>                :            :     case VNIL: {
-<span class="lineNum">     406 </span>                :<span class="lineCov">        200 :       luaK_nil(fs, reg, 1);</span>
-<span class="lineNum">     407 </span>                :<span class="lineCov">        200 :       break;</span>
+<span class="lineNum">     406 </span>                :<span class="lineCov">        205 :       luaK_nil(fs, reg, 1);</span>
+<span class="lineNum">     407 </span>                :<span class="lineCov">        205 :       break;</span>
 <span class="lineNum">     408 </span>                :            :     }
 <span class="lineNum">     409 </span>                :            :     case VFALSE:  case VTRUE: {
-<span class="lineNum">     410 </span>                :<span class="lineCov">       1128 :       luaK_codeABC(fs, OP_LOADBOOL, reg, e-&gt;k == VTRUE, 0);</span>
-<span class="lineNum">     411 </span>                :<span class="lineCov">       1128 :       break;</span>
+<span class="lineNum">     410 </span>                :<span class="lineCov">       1162 :       luaK_codeABC(fs, OP_LOADBOOL, reg, e-&gt;k == VTRUE, 0);</span>
+<span class="lineNum">     411 </span>                :<span class="lineCov">       1162 :       break;</span>
 <span class="lineNum">     412 </span>                :            :     }
 <span class="lineNum">     413 </span>                :            :     case VK: {
-<span class="lineNum">     414 </span>                :<span class="lineCov">       6407 :       luaK_codek(fs, reg, e-&gt;u.info);</span>
-<span class="lineNum">     415 </span>                :<span class="lineCov">       6407 :       break;</span>
+<span class="lineNum">     414 </span>                :<span class="lineCov">       6618 :       luaK_codek(fs, reg, e-&gt;u.info);</span>
+<span class="lineNum">     415 </span>                :<span class="lineCov">       6618 :       break;</span>
 <span class="lineNum">     416 </span>                :            :     }
 <span class="lineNum">     417 </span>                :            :     case VKNUM: {
-<span class="lineNum">     418 </span>                :<span class="lineCov">       1153 :       luaK_codek(fs, reg, luaK_numberK(fs, e-&gt;u.nval));</span>
-<span class="lineNum">     419 </span>                :<span class="lineCov">       1153 :       break;</span>
+<span class="lineNum">     418 </span>                :<span class="lineCov">       1220 :       luaK_codek(fs, reg, luaK_numberK(fs, e-&gt;u.nval));</span>
+<span class="lineNum">     419 </span>                :<span class="lineCov">       1220 :       break;</span>
 <span class="lineNum">     420 </span>                :            :     }
 <span class="lineNum">     421 </span>                :            :     case VRELOCABLE: {
-<span class="lineNum">     422 </span>                :<span class="lineCov">      17719 :       Instruction *pc = &amp;getcode(fs, e);</span>
-<span class="lineNum">     423 </span>                :<span class="lineCov">      17719 :       SETARG_A(*pc, reg);</span>
-<span class="lineNum">     424 </span>                :<span class="lineCov">      17719 :       break;</span>
+<span class="lineNum">     422 </span>                :<span class="lineCov">      18276 :       Instruction *pc = &amp;getcode(fs, e);</span>
+<span class="lineNum">     423 </span>                :<span class="lineCov">      18276 :       SETARG_A(*pc, reg);</span>
+<span class="lineNum">     424 </span>                :<span class="lineCov">      18276 :       break;</span>
 <span class="lineNum">     425 </span>                :            :     }
 <span class="lineNum">     426 </span>                :            :     case VNONRELOC: {
-<span class="lineNum">     427 </span>        [<span class="branchCov" title="Branch 0 was taken 7931 times"> + </span><span class="branchCov" title="Branch 1 was taken 1947 times"> + </span>]:<span class="lineCov">       9878 :       if (reg != e-&gt;u.info)</span>
-<span class="lineNum">     428 </span>                :<span class="lineCov">       7931 :         luaK_codeABC(fs, OP_MOVE, reg, e-&gt;u.info, 0);</span>
+<span class="lineNum">     427 </span>        [<span class="branchCov" title="Branch 0 was taken 8170 times"> + </span><span class="branchCov" title="Branch 1 was taken 2011 times"> + </span>]:<span class="lineCov">      10181 :       if (reg != e-&gt;u.info)</span>
+<span class="lineNum">     428 </span>                :<span class="lineCov">       8170 :         luaK_codeABC(fs, OP_MOVE, reg, e-&gt;u.info, 0);</span>
 <span class="lineNum">     429 </span>                :            :       break;
 <span class="lineNum">     430 </span>                :            :     }
 <span class="lineNum">     431 </span>                :            :     default: {
@@ -544,125 +544,125 @@
 <span class="lineNum">     433 </span>                :            :       return;  /* nothing to do... */
 <span class="lineNum">     434 </span>                :            :     }
 <span class="lineNum">     435 </span>                :            :   }
-<span class="lineNum">     436 </span>                :<span class="lineCov">      36485 :   e-&gt;u.info = reg;</span>
-<span class="lineNum">     437 </span>                :<span class="lineCov">      36944 :   e-&gt;k = VNONRELOC;</span>
+<span class="lineNum">     436 </span>                :<span class="lineCov">      37662 :   e-&gt;u.info = reg;</span>
+<span class="lineNum">     437 </span>                :<span class="lineCov">      38131 :   e-&gt;k = VNONRELOC;</span>
 <span class="lineNum">     438 </span>                :            : }
 <span class="lineNum">     439 </span>                :            : 
 <span class="lineNum">     440 </span>                :            : 
-<span class="lineNum">     441 </span>                :<span class="lineCov">       1889 : static void discharge2anyreg (FuncState *fs, expdesc *e) {</span>
-<span class="lineNum">     442 </span>        [<span class="branchCov" title="Branch 0 was taken 417 times"> + </span><span class="branchCov" title="Branch 1 was taken 1472 times"> + </span>]:<span class="lineCov">       1889 :   if (e-&gt;k != VNONRELOC) {</span>
-<span class="lineNum">     443 </span>                :<span class="lineCov">        417 :     luaK_reserveregs(fs, 1);</span>
-<span class="lineNum">     444 </span>                :<span class="lineCov">        417 :     discharge2reg(fs, e, fs-&gt;freereg-1);</span>
+<span class="lineNum">     441 </span>                :<span class="lineCov">       1949 : static void discharge2anyreg (FuncState *fs, expdesc *e) {</span>
+<span class="lineNum">     442 </span>        [<span class="branchCov" title="Branch 0 was taken 430 times"> + </span><span class="branchCov" title="Branch 1 was taken 1519 times"> + </span>]:<span class="lineCov">       1949 :   if (e-&gt;k != VNONRELOC) {</span>
+<span class="lineNum">     443 </span>                :<span class="lineCov">        430 :     luaK_reserveregs(fs, 1);</span>
+<span class="lineNum">     444 </span>                :<span class="lineCov">        430 :     discharge2reg(fs, e, fs-&gt;freereg-1);</span>
 <span class="lineNum">     445 </span>                :            :   }
-<span class="lineNum">     446 </span>                :<span class="lineCov">       1889 : }</span>
+<span class="lineNum">     446 </span>                :<span class="lineCov">       1949 : }</span>
 <span class="lineNum">     447 </span>                :            : 
 <span class="lineNum">     448 </span>                :            : 
-<span class="lineNum">     449 </span>                :<span class="lineCov">      36527 : static void exp2reg (FuncState *fs, expdesc *e, int reg) {</span>
-<span class="lineNum">     450 </span>                :<span class="lineCov">      36527 :   discharge2reg(fs, e, reg);</span>
-<span class="lineNum">     451 </span>        [<span class="branchCov" title="Branch 0 was taken 459 times"> + </span><span class="branchCov" title="Branch 1 was taken 36068 times"> + </span>]:<span class="lineCov">      36527 :   if (e-&gt;k == VJMP)</span>
-<span class="lineNum">     452 </span>                :<span class="lineCov">        459 :     luaK_concat(fs, &amp;e-&gt;t, e-&gt;u.info);  /* put this jump in `t' list */</span>
-<span class="lineNum">     453 </span>        [<span class="branchCov" title="Branch 0 was taken 792 times"> + </span><span class="branchCov" title="Branch 1 was taken 35735 times"> + </span>]:<span class="lineCov">      36527 :   if (hasjumps(e)) {</span>
+<span class="lineNum">     449 </span>                :<span class="lineCov">      37701 : static void exp2reg (FuncState *fs, expdesc *e, int reg) {</span>
+<span class="lineNum">     450 </span>                :<span class="lineCov">      37701 :   discharge2reg(fs, e, reg);</span>
+<span class="lineNum">     451 </span>        [<span class="branchCov" title="Branch 0 was taken 469 times"> + </span><span class="branchCov" title="Branch 1 was taken 37232 times"> + </span>]:<span class="lineCov">      37701 :   if (e-&gt;k == VJMP)</span>
+<span class="lineNum">     452 </span>                :<span class="lineCov">        469 :     luaK_concat(fs, &amp;e-&gt;t, e-&gt;u.info);  /* put this jump in `t' list */</span>
+<span class="lineNum">     453 </span>        [<span class="branchCov" title="Branch 0 was taken 812 times"> + </span><span class="branchCov" title="Branch 1 was taken 36889 times"> + </span>]:<span class="lineCov">      37701 :   if (hasjumps(e)) {</span>
 <span class="lineNum">     454 </span>                :            :     int final;  /* position after whole expression */
-<span class="lineNum">     455 </span>                :<span class="lineCov">        792 :     int p_f = NO_JUMP;  /* position of an eventual LOAD false */</span>
-<span class="lineNum">     456 </span>                :<span class="lineCov">        792 :     int p_t = NO_JUMP;  /* position of an eventual LOAD true */</span>
-<span class="lineNum">     457 </span>[<span class="branchCov" title="Branch 0 was taken 333 times"> + </span><span class="branchCov" title="Branch 1 was taken 459 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 3 times"> + </span><span class="branchCov" title="Branch 3 was taken 330 times"> + </span>]:<span class="lineCov">       1917 :     if (need_value(fs, e-&gt;t) || need_value(fs, e-&gt;f)) {</span>
-<span class="lineNum">     458 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 459 times"> + </span>]:<span class="lineCov">        462 :       int fj = (e-&gt;k == VJMP) ? NO_JUMP : luaK_jump(fs);</span>
-<span class="lineNum">     459 </span>                :<span class="lineCov">        462 :       p_f = code_label(fs, reg, 0, 1);</span>
-<span class="lineNum">     460 </span>                :<span class="lineCov">        462 :       p_t = code_label(fs, reg, 1, 0);</span>
-<span class="lineNum">     461 </span>                :<span class="lineCov">        462 :       luaK_patchtohere(fs, fj);</span>
+<span class="lineNum">     455 </span>                :<span class="lineCov">        812 :     int p_f = NO_JUMP;  /* position of an eventual LOAD false */</span>
+<span class="lineNum">     456 </span>                :<span class="lineCov">        812 :     int p_t = NO_JUMP;  /* position of an eventual LOAD true */</span>
+<span class="lineNum">     457 </span>[<span class="branchCov" title="Branch 0 was taken 343 times"> + </span><span class="branchCov" title="Branch 1 was taken 469 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 3 times"> + </span><span class="branchCov" title="Branch 3 was taken 340 times"> + </span>]:<span class="lineCov">       1967 :     if (need_value(fs, e-&gt;t) || need_value(fs, e-&gt;f)) {</span>
+<span class="lineNum">     458 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 469 times"> + </span>]:<span class="lineCov">        472 :       int fj = (e-&gt;k == VJMP) ? NO_JUMP : luaK_jump(fs);</span>
+<span class="lineNum">     459 </span>                :<span class="lineCov">        472 :       p_f = code_label(fs, reg, 0, 1);</span>
+<span class="lineNum">     460 </span>                :<span class="lineCov">        472 :       p_t = code_label(fs, reg, 1, 0);</span>
+<span class="lineNum">     461 </span>                :<span class="lineCov">        472 :       luaK_patchtohere(fs, fj);</span>
 <span class="lineNum">     462 </span>                :            :     }
-<span class="lineNum">     463 </span>                :<span class="lineCov">        792 :     final = luaK_getlabel(fs);</span>
-<span class="lineNum">     464 </span>                :<span class="lineCov">        792 :     patchlistaux(fs, e-&gt;f, final, reg, p_f);</span>
-<span class="lineNum">     465 </span>                :<span class="lineCov">        792 :     patchlistaux(fs, e-&gt;t, final, reg, p_t);</span>
+<span class="lineNum">     463 </span>                :<span class="lineCov">        812 :     final = luaK_getlabel(fs);</span>
+<span class="lineNum">     464 </span>                :<span class="lineCov">        812 :     patchlistaux(fs, e-&gt;f, final, reg, p_f);</span>
+<span class="lineNum">     465 </span>                :<span class="lineCov">        812 :     patchlistaux(fs, e-&gt;t, final, reg, p_t);</span>
 <span class="lineNum">     466 </span>                :            :   }
-<span class="lineNum">     467 </span>                :<span class="lineCov">      36527 :   e-&gt;f = e-&gt;t = NO_JUMP;</span>
-<span class="lineNum">     468 </span>                :<span class="lineCov">      36527 :   e-&gt;u.info = reg;</span>
-<span class="lineNum">     469 </span>                :<span class="lineCov">      36527 :   e-&gt;k = VNONRELOC;</span>
-<span class="lineNum">     470 </span>                :<span class="lineCov">      36527 : }</span>
+<span class="lineNum">     467 </span>                :<span class="lineCov">      37701 :   e-&gt;f = e-&gt;t = NO_JUMP;</span>
+<span class="lineNum">     468 </span>                :<span class="lineCov">      37701 :   e-&gt;u.info = reg;</span>
+<span class="lineNum">     469 </span>                :<span class="lineCov">      37701 :   e-&gt;k = VNONRELOC;</span>
+<span class="lineNum">     470 </span>                :<span class="lineCov">      37701 : }</span>
 <span class="lineNum">     471 </span>                :            : 
 <span class="lineNum">     472 </span>                :            : 
-<span class="lineNum">     473 </span>                :<span class="lineCov">      34702 : void luaK_exp2nextreg (FuncState *fs, expdesc *e) {</span>
-<span class="lineNum">     474 </span>                :<span class="lineCov">      34702 :   luaK_dischargevars(fs, e);</span>
+<span class="lineNum">     473 </span>                :<span class="lineCov">      35822 : void luaK_exp2nextreg (FuncState *fs, expdesc *e) {</span>
+<span class="lineNum">     474 </span>                :<span class="lineCov">      35822 :   luaK_dischargevars(fs, e);</span>
 <span class="lineNum">     475 </span>                :            :   freeexp(fs, e);
-<span class="lineNum">     476 </span>                :<span class="lineCov">      34702 :   luaK_reserveregs(fs, 1);</span>
-<span class="lineNum">     477 </span>                :<span class="lineCov">      34702 :   exp2reg(fs, e, fs-&gt;freereg - 1);</span>
-<span class="lineNum">     478 </span>                :<span class="lineCov">      34702 : }</span>
+<span class="lineNum">     476 </span>                :<span class="lineCov">      35822 :   luaK_reserveregs(fs, 1);</span>
+<span class="lineNum">     477 </span>                :<span class="lineCov">      35822 :   exp2reg(fs, e, fs-&gt;freereg - 1);</span>
+<span class="lineNum">     478 </span>                :<span class="lineCov">      35822 : }</span>
 <span class="lineNum">     479 </span>                :            : 
 <span class="lineNum">     480 </span>                :            : 
-<span class="lineNum">     481 </span>                :<span class="lineCov">      21854 : int luaK_exp2anyreg (FuncState *fs, expdesc *e) {</span>
-<span class="lineNum">     482 </span>                :<span class="lineCov">      21854 :   luaK_dischargevars(fs, e);</span>
-<span class="lineNum">     483 </span>        [<span class="branchCov" title="Branch 0 was taken 14078 times"> + </span><span class="branchCov" title="Branch 1 was taken 7776 times"> + </span>]:<span class="lineCov">      21854 :   if (e-&gt;k == VNONRELOC) {</span>
-<span class="lineNum">     484 </span>        [<span class="branchCov" title="Branch 0 was taken 14014 times"> + </span><span class="branchCov" title="Branch 1 was taken 64 times"> + </span>]:<span class="lineCov">      14078 :     if (!hasjumps(e)) return e-&gt;u.info;  /* exp is already in a register */</span>
-<span class="lineNum">     485 </span>        [<span class="branchCov" title="Branch 0 was taken 63 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">         64 :     if (e-&gt;u.info &gt;= fs-&gt;nactvar) {  /* reg. is not a local? */</span>
-<span class="lineNum">     486 </span>                :<span class="lineCov">         63 :       exp2reg(fs, e, e-&gt;u.info);  /* put value on it */</span>
-<span class="lineNum">     487 </span>                :<span class="lineCov">         63 :       return e-&gt;u.info;</span>
+<span class="lineNum">     481 </span>                :<span class="lineCov">      22506 : int luaK_exp2anyreg (FuncState *fs, expdesc *e) {</span>
+<span class="lineNum">     482 </span>                :<span class="lineCov">      22506 :   luaK_dischargevars(fs, e);</span>
+<span class="lineNum">     483 </span>        [<span class="branchCov" title="Branch 0 was taken 14491 times"> + </span><span class="branchCov" title="Branch 1 was taken 8015 times"> + </span>]:<span class="lineCov">      22506 :   if (e-&gt;k == VNONRELOC) {</span>
+<span class="lineNum">     484 </span>        [<span class="branchCov" title="Branch 0 was taken 14425 times"> + </span><span class="branchCov" title="Branch 1 was taken 66 times"> + </span>]:<span class="lineCov">      14491 :     if (!hasjumps(e)) return e-&gt;u.info;  /* exp is already in a register */</span>
+<span class="lineNum">     485 </span>        [<span class="branchCov" title="Branch 0 was taken 65 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">         66 :     if (e-&gt;u.info &gt;= fs-&gt;nactvar) {  /* reg. is not a local? */</span>
+<span class="lineNum">     486 </span>                :<span class="lineCov">         65 :       exp2reg(fs, e, e-&gt;u.info);  /* put value on it */</span>
+<span class="lineNum">     487 </span>                :<span class="lineCov">         65 :       return e-&gt;u.info;</span>
 <span class="lineNum">     488 </span>                :            :     }
 <span class="lineNum">     489 </span>                :            :   }
-<span class="lineNum">     490 </span>                :<span class="lineCov">       7777 :   luaK_exp2nextreg(fs, e);  /* default */</span>
-<span class="lineNum">     491 </span>                :<span class="lineCov">      21854 :   return e-&gt;u.info;</span>
+<span class="lineNum">     490 </span>                :<span class="lineCov">       8016 :   luaK_exp2nextreg(fs, e);  /* default */</span>
+<span class="lineNum">     491 </span>                :<span class="lineCov">      22506 :   return e-&gt;u.info;</span>
 <span class="lineNum">     492 </span>                :            : }
 <span class="lineNum">     493 </span>                :            : 
 <span class="lineNum">     494 </span>                :            : 
-<span class="lineNum">     495 </span>                :<span class="lineCov">       5321 : void luaK_exp2anyregup (FuncState *fs, expdesc *e) {</span>
-<span class="lineNum">     496 </span>[<span class="branchCov" title="Branch 0 was taken 167 times"> + </span><span class="branchCov" title="Branch 1 was taken 5154 times"> + </span>][<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 167 times"> + </span>]:<span class="lineCov">       5321 :   if (e-&gt;k != VUPVAL || hasjumps(e))</span>
-<span class="lineNum">     497 </span>                :<span class="lineCov">       5154 :     luaK_exp2anyreg(fs, e);</span>
-<span class="lineNum">     498 </span>                :<span class="lineCov">       5321 : }</span>
+<span class="lineNum">     495 </span>                :<span class="lineCov">       5499 : void luaK_exp2anyregup (FuncState *fs, expdesc *e) {</span>
+<span class="lineNum">     496 </span>[<span class="branchCov" title="Branch 0 was taken 172 times"> + </span><span class="branchCov" title="Branch 1 was taken 5327 times"> + </span>][<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 172 times"> + </span>]:<span class="lineCov">       5499 :   if (e-&gt;k != VUPVAL || hasjumps(e))</span>
+<span class="lineNum">     497 </span>                :<span class="lineCov">       5327 :     luaK_exp2anyreg(fs, e);</span>
+<span class="lineNum">     498 </span>                :<span class="lineCov">       5499 : }</span>
 <span class="lineNum">     499 </span>                :            : 
 <span class="lineNum">     500 </span>                :            : 
-<span class="lineNum">     501 </span>                :<span class="lineCov">      32191 : void luaK_exp2val (FuncState *fs, expdesc *e) {</span>
-<span class="lineNum">     502 </span>        [<span class="branchCov" title="Branch 0 was taken 32 times"> + </span><span class="branchCov" title="Branch 1 was taken 32159 times"> + </span>]:<span class="lineCov">      32191 :   if (hasjumps(e))</span>
-<span class="lineNum">     503 </span>                :<span class="lineCov">         32 :     luaK_exp2anyreg(fs, e);</span>
+<span class="lineNum">     501 </span>                :<span class="lineCov">      33186 : void luaK_exp2val (FuncState *fs, expdesc *e) {</span>
+<span class="lineNum">     502 </span>        [<span class="branchCov" title="Branch 0 was taken 33 times"> + </span><span class="branchCov" title="Branch 1 was taken 33153 times"> + </span>]:<span class="lineCov">      33186 :   if (hasjumps(e))</span>
+<span class="lineNum">     503 </span>                :<span class="lineCov">         33 :     luaK_exp2anyreg(fs, e);</span>
 <span class="lineNum">     504 </span>                :            :   else
-<span class="lineNum">     505 </span>                :<span class="lineCov">      32159 :     luaK_dischargevars(fs, e);</span>
-<span class="lineNum">     506 </span>                :<span class="lineCov">      32191 : }</span>
+<span class="lineNum">     505 </span>                :<span class="lineCov">      33153 :     luaK_dischargevars(fs, e);</span>
+<span class="lineNum">     506 </span>                :<span class="lineCov">      33186 : }</span>
 <span class="lineNum">     507 </span>                :            : 
 <span class="lineNum">     508 </span>                :            : 
-<span class="lineNum">     509 </span>                :<span class="lineCov">      27738 : int luaK_exp2RK (FuncState *fs, expdesc *e) {</span>
-<span class="lineNum">     510 </span>                :<span class="lineCov">      27738 :   luaK_exp2val(fs, e);</span>
-<span class="lineNum">     511 </span>  [<span class="branchCov" title="Branch 0 was taken 665 times"> + </span><span class="branchCov" title="Branch 1 was taken 1003 times"> + </span><span class="branchCov" title="Branch 2 was taken 14447 times"> + </span><span class="branchCov" title="Branch 3 was taken 11623 times"> + </span>]:<span class="lineCov">      27738 :   switch (e-&gt;k) {</span>
+<span class="lineNum">     509 </span>                :<span class="lineCov">      28586 : int luaK_exp2RK (FuncState *fs, expdesc *e) {</span>
+<span class="lineNum">     510 </span>                :<span class="lineCov">      28586 :   luaK_exp2val(fs, e);</span>
+<span class="lineNum">     511 </span>  [<span class="branchCov" title="Branch 0 was taken 682 times"> + </span><span class="branchCov" title="Branch 1 was taken 1026 times"> + </span><span class="branchCov" title="Branch 2 was taken 14920 times"> + </span><span class="branchCov" title="Branch 3 was taken 11958 times"> + </span>]:<span class="lineCov">      28586 :   switch (e-&gt;k) {</span>
 <span class="lineNum">     512 </span>                :            :     case VTRUE:
 <span class="lineNum">     513 </span>                :            :     case VFALSE:
 <span class="lineNum">     514 </span>                :            :     case VNIL: {
-<span class="lineNum">     515 </span>        [<span class="branchCov" title="Branch 0 was taken 665 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        665 :       if (fs-&gt;nk &lt;= MAXINDEXRK) {  /* constant fits in RK operand? */</span>
-<span class="lineNum">     516 </span>        [<span class="branchCov" title="Branch 0 was taken 113 times"> + </span><span class="branchCov" title="Branch 1 was taken 552 times"> + </span>]:<span class="lineCov">       1330 :         e-&gt;u.info = (e-&gt;k == VNIL) ? nilK(fs) : boolK(fs, (e-&gt;k == VTRUE));</span>
-<span class="lineNum">     517 </span>                :<span class="lineCov">        665 :         e-&gt;k = VK;</span>
-<span class="lineNum">     518 </span>                :<span class="lineCov">        665 :         return RKASK(e-&gt;u.info);</span>
+<span class="lineNum">     515 </span>        [<span class="branchCov" title="Branch 0 was taken 682 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        682 :       if (fs-&gt;nk &lt;= MAXINDEXRK) {  /* constant fits in RK operand? */</span>
+<span class="lineNum">     516 </span>        [<span class="branchCov" title="Branch 0 was taken 114 times"> + </span><span class="branchCov" title="Branch 1 was taken 568 times"> + </span>]:<span class="lineCov">       1364 :         e-&gt;u.info = (e-&gt;k == VNIL) ? nilK(fs) : boolK(fs, (e-&gt;k == VTRUE));</span>
+<span class="lineNum">     517 </span>                :<span class="lineCov">        682 :         e-&gt;k = VK;</span>
+<span class="lineNum">     518 </span>                :<span class="lineCov">        682 :         return RKASK(e-&gt;u.info);</span>
 <span class="lineNum">     519 </span>                :            :       }
 <span class="lineNum">     520 </span>                :            :       else break;
 <span class="lineNum">     521 </span>                :            :     }
 <span class="lineNum">     522 </span>                :            :     case VKNUM: {
-<span class="lineNum">     523 </span>                :<span class="lineCov">       1003 :       e-&gt;u.info = luaK_numberK(fs, e-&gt;u.nval);</span>
-<span class="lineNum">     524 </span>                :<span class="lineCov">       1003 :       e-&gt;k = VK;</span>
+<span class="lineNum">     523 </span>                :<span class="lineCov">       1026 :       e-&gt;u.info = luaK_numberK(fs, e-&gt;u.nval);</span>
+<span class="lineNum">     524 </span>                :<span class="lineCov">       1026 :       e-&gt;k = VK;</span>
 <span class="lineNum">     525 </span>                :            :       /* go through */
 <span class="lineNum">     526 </span>                :            :     }
 <span class="lineNum">     527 </span>                :            :     case VK: {
-<span class="lineNum">     528 </span>        [<span class="branchCov" title="Branch 0 was taken 15450 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      15450 :       if (e-&gt;u.info &lt;= MAXINDEXRK)  /* constant fits in argC? */</span>
-<span class="lineNum">     529 </span>                :<span class="lineCov">      15450 :         return RKASK(e-&gt;u.info);</span>
+<span class="lineNum">     528 </span>        [<span class="branchCov" title="Branch 0 was taken 15944 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">      15946 :       if (e-&gt;u.info &lt;= MAXINDEXRK)  /* constant fits in argC? */</span>
+<span class="lineNum">     529 </span>                :<span class="lineCov">      15944 :         return RKASK(e-&gt;u.info);</span>
 <span class="lineNum">     530 </span>                :            :       else break;
 <span class="lineNum">     531 </span>                :            :     }
 <span class="lineNum">     532 </span>                :            :     default: break;
 <span class="lineNum">     533 </span>                :            :   }
 <span class="lineNum">     534 </span>                :            :   /* not a constant in the right range: put it in a register */
-<span class="lineNum">     535 </span>                :<span class="lineCov">      27738 :   return luaK_exp2anyreg(fs, e);</span>
+<span class="lineNum">     535 </span>                :<span class="lineCov">      28586 :   return luaK_exp2anyreg(fs, e);</span>
 <span class="lineNum">     536 </span>                :            : }
 <span class="lineNum">     537 </span>                :            : 
 <span class="lineNum">     538 </span>                :            : 
-<span class="lineNum">     539 </span>                :<span class="lineCov">       5260 : void luaK_storevar (FuncState *fs, expdesc *var, expdesc *ex) {</span>
-<span class="lineNum">     540 </span>  [<span class="branchCov" title="Branch 0 was taken 1762 times"> + </span><span class="branchCov" title="Branch 1 was taken 227 times"> + </span><span class="branchCov" title="Branch 2 was taken 3271 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       5260 :   switch (var-&gt;k) {</span>
+<span class="lineNum">     539 </span>                :<span class="lineCov">       5413 : void luaK_storevar (FuncState *fs, expdesc *var, expdesc *ex) {</span>
+<span class="lineNum">     540 </span>  [<span class="branchCov" title="Branch 0 was taken 1814 times"> + </span><span class="branchCov" title="Branch 1 was taken 234 times"> + </span><span class="branchCov" title="Branch 2 was taken 3365 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       5413 :   switch (var-&gt;k) {</span>
 <span class="lineNum">     541 </span>                :            :     case VLOCAL: {
 <span class="lineNum">     542 </span>                :            :       freeexp(fs, ex);
-<span class="lineNum">     543 </span>                :<span class="lineCov">       1762 :       exp2reg(fs, ex, var-&gt;u.info);</span>
-<span class="lineNum">     544 </span>                :<span class="lineCov">       1762 :       return;</span>
+<span class="lineNum">     543 </span>                :<span class="lineCov">       1814 :       exp2reg(fs, ex, var-&gt;u.info);</span>
+<span class="lineNum">     544 </span>                :<span class="lineCov">       1814 :       return;</span>
 <span class="lineNum">     545 </span>                :            :     }
 <span class="lineNum">     546 </span>                :            :     case VUPVAL: {
-<span class="lineNum">     547 </span>                :<span class="lineCov">        227 :       int e = luaK_exp2anyreg(fs, ex);</span>
-<span class="lineNum">     548 </span>                :<span class="lineCov">        227 :       luaK_codeABC(fs, OP_SETUPVAL, e, var-&gt;u.info, 0);</span>
-<span class="lineNum">     549 </span>                :<span class="lineCov">        227 :       break;</span>
+<span class="lineNum">     547 </span>                :<span class="lineCov">        234 :       int e = luaK_exp2anyreg(fs, ex);</span>
+<span class="lineNum">     548 </span>                :<span class="lineCov">        234 :       luaK_codeABC(fs, OP_SETUPVAL, e, var-&gt;u.info, 0);</span>
+<span class="lineNum">     549 </span>                :<span class="lineCov">        234 :       break;</span>
 <span class="lineNum">     550 </span>                :            :     }
 <span class="lineNum">     551 </span>                :            :     case VINDEXED: {
-<span class="lineNum">     552 </span>        [<span class="branchCov" title="Branch 0 was taken 2706 times"> + </span><span class="branchCov" title="Branch 1 was taken 565 times"> + </span>]:<span class="lineCov">       3271 :       OpCode op = (var-&gt;u.ind.vt == VLOCAL) ? OP_SETTABLE : OP_SETTABUP;</span>
-<span class="lineNum">     553 </span>                :<span class="lineCov">       3271 :       int e = luaK_exp2RK(fs, ex);</span>
-<span class="lineNum">     554 </span>                :<span class="lineCov">       3271 :       luaK_codeABC(fs, op, var-&gt;u.ind.t, var-&gt;u.ind.idx, e);</span>
+<span class="lineNum">     552 </span>        [<span class="branchCov" title="Branch 0 was taken 2788 times"> + </span><span class="branchCov" title="Branch 1 was taken 577 times"> + </span>]:<span class="lineCov">       3365 :       OpCode op = (var-&gt;u.ind.vt == VLOCAL) ? OP_SETTABLE : OP_SETTABUP;</span>
+<span class="lineNum">     553 </span>                :<span class="lineCov">       3365 :       int e = luaK_exp2RK(fs, ex);</span>
+<span class="lineNum">     554 </span>                :<span class="lineCov">       3365 :       luaK_codeABC(fs, op, var-&gt;u.ind.t, var-&gt;u.ind.idx, e);</span>
 <span class="lineNum">     555 </span>                :            :       break;
 <span class="lineNum">     556 </span>                :            :     }
 <span class="lineNum">     557 </span>                :            :     default: {
@@ -674,54 +674,54 @@
 <span class="lineNum">     563 </span>                :            : }
 <span class="lineNum">     564 </span>                :            : 
 <span class="lineNum">     565 </span>                :            : 
-<span class="lineNum">     566 </span>                :<span class="lineCov">       3288 : void luaK_self (FuncState *fs, expdesc *e, expdesc *key) {</span>
+<span class="lineNum">     566 </span>                :<span class="lineCov">       3393 : void luaK_self (FuncState *fs, expdesc *e, expdesc *key) {</span>
 <span class="lineNum">     567 </span>                :            :   int func;
-<span class="lineNum">     568 </span>                :<span class="lineCov">       3288 :   luaK_exp2anyreg(fs, e);</span>
+<span class="lineNum">     568 </span>                :<span class="lineCov">       3393 :   luaK_exp2anyreg(fs, e);</span>
 <span class="lineNum">     569 </span>                :            :   freeexp(fs, e);
-<span class="lineNum">     570 </span>                :<span class="lineCov">       3288 :   func = fs-&gt;freereg;</span>
-<span class="lineNum">     571 </span>                :<span class="lineCov">       3288 :   luaK_codeABC(fs, OP_SELF, func, e-&gt;u.info, luaK_exp2RK(fs, key));</span>
+<span class="lineNum">     570 </span>                :<span class="lineCov">       3393 :   func = fs-&gt;freereg;</span>
+<span class="lineNum">     571 </span>                :<span class="lineCov">       3393 :   luaK_codeABC(fs, OP_SELF, func, e-&gt;u.info, luaK_exp2RK(fs, key));</span>
 <span class="lineNum">     572 </span>                :            :   freeexp(fs, key);
-<span class="lineNum">     573 </span>                :<span class="lineCov">       3288 :   luaK_reserveregs(fs, 2);</span>
-<span class="lineNum">     574 </span>                :<span class="lineCov">       3288 :   e-&gt;u.info = func;</span>
-<span class="lineNum">     575 </span>                :<span class="lineCov">       3288 :   e-&gt;k = VNONRELOC;</span>
-<span class="lineNum">     576 </span>                :<span class="lineCov">       3288 : }</span>
+<span class="lineNum">     573 </span>                :<span class="lineCov">       3393 :   luaK_reserveregs(fs, 2);</span>
+<span class="lineNum">     574 </span>                :<span class="lineCov">       3393 :   e-&gt;u.info = func;</span>
+<span class="lineNum">     575 </span>                :<span class="lineCov">       3393 :   e-&gt;k = VNONRELOC;</span>
+<span class="lineNum">     576 </span>                :<span class="lineCov">       3393 : }</span>
 <span class="lineNum">     577 </span>                :            : 
 <span class="lineNum">     578 </span>                :            : 
 <span class="lineNum">     579 </span>                :            : static void invertjump (FuncState *fs, expdesc *e) {
-<span class="lineNum">     580 </span>                :<span class="lineCov">       2578 :   Instruction *pc = getjumpcontrol(fs, e-&gt;u.info);</span>
+<span class="lineNum">     580 </span>                :<span class="lineCov">       2668 :   Instruction *pc = getjumpcontrol(fs, e-&gt;u.info);</span>
 <span class="lineNum">     581 </span>                :            :   lua_assert(testTMode(GET_OPCODE(*pc)) &amp;&amp; GET_OPCODE(*pc) != OP_TESTSET &amp;&amp;
 <span class="lineNum">     582 </span>                :            :                                            GET_OPCODE(*pc) != OP_TEST);
-<span class="lineNum">     583 </span>[<span class="branchCov" title="Branch 0 was taken 491 times"> + </span><span class="branchCov" title="Branch 1 was taken 798 times"> + </span>][<span class="branchNoExec" title="Block containing branch 2 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 3 was never executed"> # </span>]:<span class="lineCov">       1289 :   SETARG_A(*pc, !(GETARG_A(*pc)));</span>
+<span class="lineNum">     583 </span>[<span class="branchCov" title="Branch 0 was taken 506 times"> + </span><span class="branchCov" title="Branch 1 was taken 828 times"> + </span>][<span class="branchNoExec" title="Block containing branch 2 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 3 was never executed"> # </span>]:<span class="lineCov">       1334 :   SETARG_A(*pc, !(GETARG_A(*pc)));</span>
 <span class="lineNum">     584 </span>                :            : }
 <span class="lineNum">     585 </span>                :            : 
 <span class="lineNum">     586 </span>                :            : 
-<span class="lineNum">     587 </span>                :<span class="lineCov">       1821 : static int jumponcond (FuncState *fs, expdesc *e, int cond) {</span>
-<span class="lineNum">     588 </span>        [<span class="branchCov" title="Branch 0 was taken 1058 times"> + </span><span class="branchCov" title="Branch 1 was taken 763 times"> + </span>]:<span class="lineCov">       1821 :   if (e-&gt;k == VRELOCABLE) {</span>
-<span class="lineNum">     589 </span>                :<span class="lineCov">       1058 :     Instruction ie = getcode(fs, e);</span>
-<span class="lineNum">     590 </span>        [<span class="branchCov" title="Branch 0 was taken 716 times"> + </span><span class="branchCov" title="Branch 1 was taken 342 times"> + </span>]:<span class="lineCov">       1058 :     if (GET_OPCODE(ie) == OP_NOT) {</span>
-<span class="lineNum">     591 </span>                :<span class="lineCov">        716 :       fs-&gt;pc--;  /* remove previous OP_NOT */</span>
-<span class="lineNum">     592 </span>                :<span class="lineCov">        716 :       return condjump(fs, OP_TEST, GETARG_B(ie), 0, !cond);</span>
+<span class="lineNum">     587 </span>                :<span class="lineCov">       1879 : static int jumponcond (FuncState *fs, expdesc *e, int cond) {</span>
+<span class="lineNum">     588 </span>        [<span class="branchCov" title="Branch 0 was taken 1092 times"> + </span><span class="branchCov" title="Branch 1 was taken 787 times"> + </span>]:<span class="lineCov">       1879 :   if (e-&gt;k == VRELOCABLE) {</span>
+<span class="lineNum">     589 </span>                :<span class="lineCov">       1092 :     Instruction ie = getcode(fs, e);</span>
+<span class="lineNum">     590 </span>        [<span class="branchCov" title="Branch 0 was taken 739 times"> + </span><span class="branchCov" title="Branch 1 was taken 353 times"> + </span>]:<span class="lineCov">       1092 :     if (GET_OPCODE(ie) == OP_NOT) {</span>
+<span class="lineNum">     591 </span>                :<span class="lineCov">        739 :       fs-&gt;pc--;  /* remove previous OP_NOT */</span>
+<span class="lineNum">     592 </span>                :<span class="lineCov">        739 :       return condjump(fs, OP_TEST, GETARG_B(ie), 0, !cond);</span>
 <span class="lineNum">     593 </span>                :            :     }
 <span class="lineNum">     594 </span>                :            :     /* else go through */
 <span class="lineNum">     595 </span>                :            :   }
-<span class="lineNum">     596 </span>                :<span class="lineCov">       1105 :   discharge2anyreg(fs, e);</span>
+<span class="lineNum">     596 </span>                :<span class="lineCov">       1140 :   discharge2anyreg(fs, e);</span>
 <span class="lineNum">     597 </span>                :            :   freeexp(fs, e);
-<span class="lineNum">     598 </span>                :<span class="lineCov">       1821 :   return condjump(fs, OP_TESTSET, NO_REG, e-&gt;u.info, cond);</span>
+<span class="lineNum">     598 </span>                :<span class="lineCov">       1879 :   return condjump(fs, OP_TESTSET, NO_REG, e-&gt;u.info, cond);</span>
 <span class="lineNum">     599 </span>                :            : }
 <span class="lineNum">     600 </span>                :            : 
 <span class="lineNum">     601 </span>                :            : 
-<span class="lineNum">     602 </span>                :<span class="lineCov">       2785 : void luaK_goiftrue (FuncState *fs, expdesc *e) {</span>
+<span class="lineNum">     602 </span>                :<span class="lineCov">       2878 : void luaK_goiftrue (FuncState *fs, expdesc *e) {</span>
 <span class="lineNum">     603 </span>                :            :   int pc;  /* pc of last jump */
-<span class="lineNum">     604 </span>                :<span class="lineCov">       2785 :   luaK_dischargevars(fs, e);</span>
-<span class="lineNum">     605 </span>  [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchCov" title="Branch 1 was taken 1289 times"> + </span><span class="branchCov" title="Branch 2 was taken 4 times"> + </span><span class="branchCov" title="Branch 3 was taken 1488 times"> + </span>]:<span class="lineCov">       2785 :   switch (e-&gt;k) {</span>
+<span class="lineNum">     604 </span>                :<span class="lineCov">       2878 :   luaK_dischargevars(fs, e);</span>
+<span class="lineNum">     605 </span>  [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchCov" title="Branch 1 was taken 1334 times"> + </span><span class="branchCov" title="Branch 2 was taken 4 times"> + </span><span class="branchCov" title="Branch 3 was taken 1536 times"> + </span>]:<span class="lineCov">       2878 :   switch (e-&gt;k) {</span>
 <span class="lineNum">     606 </span>                :            :     case VK: case VKNUM: case VTRUE: {
 <span class="lineNum">     607 </span>                :<span class="lineCov">          4 :       pc = NO_JUMP;  /* always true; do nothing */</span>
 <span class="lineNum">     608 </span>                :<span class="lineCov">          4 :       break;</span>
 <span class="lineNum">     609 </span>                :            :     }
 <span class="lineNum">     610 </span>                :            :     case VJMP: {
 <span class="lineNum">     611 </span>                :            :       invertjump(fs, e);
-<span class="lineNum">     612 </span>                :<span class="lineCov">       1289 :       pc = e-&gt;u.info;</span>
-<span class="lineNum">     613 </span>                :<span class="lineCov">       1289 :       break;</span>
+<span class="lineNum">     612 </span>                :<span class="lineCov">       1334 :       pc = e-&gt;u.info;</span>
+<span class="lineNum">     613 </span>                :<span class="lineCov">       1334 :       break;</span>
 <span class="lineNum">     614 </span>                :            :     }
 <span class="lineNum">     615 </span>                :            :     case VFALSE: {
 <span class="lineNum">     616 </span>        [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          4 :       if (!hasjumps(e)) {</span>
@@ -731,20 +731,20 @@
 <span class="lineNum">     620 </span>                :            :       /* else go through */
 <span class="lineNum">     621 </span>                :            :     }
 <span class="lineNum">     622 </span>                :            :     default: {
-<span class="lineNum">     623 </span>                :<span class="lineCov">       1488 :       pc = jumponcond(fs, e, 0);</span>
+<span class="lineNum">     623 </span>                :<span class="lineCov">       1536 :       pc = jumponcond(fs, e, 0);</span>
 <span class="lineNum">     624 </span>                :            :       break;
 <span class="lineNum">     625 </span>                :            :     }
 <span class="lineNum">     626 </span>                :            :   }
-<span class="lineNum">     627 </span>                :<span class="lineCov">       2785 :   luaK_concat(fs, &amp;e-&gt;f, pc);  /* insert last jump in `f' list */</span>
-<span class="lineNum">     628 </span>                :<span class="lineCov">       2785 :   luaK_patchtohere(fs, e-&gt;t);</span>
-<span class="lineNum">     629 </span>                :<span class="lineCov">       2785 :   e-&gt;t = NO_JUMP;</span>
-<span class="lineNum">     630 </span>                :<span class="lineCov">       2785 : }</span>
+<span class="lineNum">     627 </span>                :<span class="lineCov">       2878 :   luaK_concat(fs, &amp;e-&gt;f, pc);  /* insert last jump in `f' list */</span>
+<span class="lineNum">     628 </span>                :<span class="lineCov">       2878 :   luaK_patchtohere(fs, e-&gt;t);</span>
+<span class="lineNum">     629 </span>                :<span class="lineCov">       2878 :   e-&gt;t = NO_JUMP;</span>
+<span class="lineNum">     630 </span>                :<span class="lineCov">       2878 : }</span>
 <span class="lineNum">     631 </span>                :            : 
 <span class="lineNum">     632 </span>                :            : 
 <span class="lineNum">     633 </span>                :            : static void luaK_goiffalse (FuncState *fs, expdesc *e) {
 <span class="lineNum">     634 </span>                :            :   int pc;  /* pc of last jump */
-<span class="lineNum">     635 </span>                :<span class="lineCov">        338 :   luaK_dischargevars(fs, e);</span>
-<span class="lineNum">     636 </span>  [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 333 times"> + </span>]:<span class="lineCov">        338 :   switch (e-&gt;k) {</span>
+<span class="lineNum">     635 </span>                :<span class="lineCov">        348 :   luaK_dischargevars(fs, e);</span>
+<span class="lineNum">     636 </span>  [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 343 times"> + </span>]:<span class="lineCov">        348 :   switch (e-&gt;k) {</span>
 <span class="lineNum">     637 </span>                :            :     case VNIL: case VFALSE: {
 <span class="lineNum">     638 </span>                :<span class="lineCov">          4 :       pc = NO_JUMP;  /* always false; do nothing */</span>
 <span class="lineNum">     639 </span>                :            :       break;
@@ -761,19 +761,19 @@
 <span class="lineNum">     650 </span>                :            :       /* else go through */
 <span class="lineNum">     651 </span>                :            :     }
 <span class="lineNum">     652 </span>                :            :     default: {
-<span class="lineNum">     653 </span>                :<span class="lineCov">        333 :       pc = jumponcond(fs, e, 1);</span>
+<span class="lineNum">     653 </span>                :<span class="lineCov">        343 :       pc = jumponcond(fs, e, 1);</span>
 <span class="lineNum">     654 </span>                :            :       break;
 <span class="lineNum">     655 </span>                :            :     }
 <span class="lineNum">     656 </span>                :            :   }
-<span class="lineNum">     657 </span>                :<span class="lineCov">        338 :   luaK_concat(fs, &amp;e-&gt;t, pc);  /* insert last jump in `t' list */</span>
-<span class="lineNum">     658 </span>                :<span class="lineCov">        338 :   luaK_patchtohere(fs, e-&gt;f);</span>
-<span class="lineNum">     659 </span>                :<span class="lineCov">        338 :   e-&gt;f = NO_JUMP;</span>
+<span class="lineNum">     657 </span>                :<span class="lineCov">        348 :   luaK_concat(fs, &amp;e-&gt;t, pc);  /* insert last jump in `t' list */</span>
+<span class="lineNum">     658 </span>                :<span class="lineCov">        348 :   luaK_patchtohere(fs, e-&gt;f);</span>
+<span class="lineNum">     659 </span>                :<span class="lineCov">        348 :   e-&gt;f = NO_JUMP;</span>
 <span class="lineNum">     660 </span>                :            : }
 <span class="lineNum">     661 </span>                :            : 
 <span class="lineNum">     662 </span>                :            : 
-<span class="lineNum">     663 </span>                :<span class="lineCov">        795 : static void codenot (FuncState *fs, expdesc *e) {</span>
-<span class="lineNum">     664 </span>                :<span class="lineCov">        795 :   luaK_dischargevars(fs, e);</span>
-<span class="lineNum">     665 </span>  [<span class="branchCov" title="Branch 0 was taken 5 times"> + </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 784 times"> + </span> :<span class="lineCov">        795 :   switch (e-&gt;k) {</span>
+<span class="lineNum">     663 </span>                :<span class="lineCov">        820 : static void codenot (FuncState *fs, expdesc *e) {</span>
+<span class="lineNum">     664 </span>                :<span class="lineCov">        820 :   luaK_dischargevars(fs, e);</span>
+<span class="lineNum">     665 </span>  [<span class="branchCov" title="Branch 0 was taken 5 times"> + </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 809 times"> + </span> :<span class="lineCov">        820 :   switch (e-&gt;k) {</span>
 <span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 4 was not taken"> - </span>]
 <span class="lineNum">     666 </span>                :            :     case VNIL: case VFALSE: {
 <span class="lineNum">     667 </span>                :<span class="lineCov">          5 :       e-&gt;k = VTRUE;</span>
@@ -789,10 +789,10 @@
 <span class="lineNum">     677 </span>                :            :     }
 <span class="lineNum">     678 </span>                :            :     case VRELOCABLE:
 <span class="lineNum">     679 </span>                :            :     case VNONRELOC: {
-<span class="lineNum">     680 </span>                :<span class="lineCov">        784 :       discharge2anyreg(fs, e);</span>
+<span class="lineNum">     680 </span>                :<span class="lineCov">        809 :       discharge2anyreg(fs, e);</span>
 <span class="lineNum">     681 </span>                :            :       freeexp(fs, e);
-<span class="lineNum">     682 </span>                :<span class="lineCov">        784 :       e-&gt;u.info = luaK_codeABC(fs, OP_NOT, 0, e-&gt;u.info, 0);</span>
-<span class="lineNum">     683 </span>                :<span class="lineCov">        784 :       e-&gt;k = VRELOCABLE;</span>
+<span class="lineNum">     682 </span>                :<span class="lineCov">        809 :       e-&gt;u.info = luaK_codeABC(fs, OP_NOT, 0, e-&gt;u.info, 0);</span>
+<span class="lineNum">     683 </span>                :<span class="lineCov">        809 :       e-&gt;k = VRELOCABLE;</span>
 <span class="lineNum">     684 </span>                :            :       break;
 <span class="lineNum">     685 </span>                :            :     }
 <span class="lineNum">     686 </span>                :            :     default: {
@@ -801,41 +801,41 @@
 <span class="lineNum">     689 </span>                :            :     }
 <span class="lineNum">     690 </span>                :            :   }
 <span class="lineNum">     691 </span>                :            :   /* interchange true and false lists */
-<span class="lineNum">     692 </span>                :<span class="lineCov">        795 :   { int temp = e-&gt;f; e-&gt;f = e-&gt;t; e-&gt;t = temp; }</span>
-<span class="lineNum">     693 </span>                :<span class="lineCov">        795 :   removevalues(fs, e-&gt;f);</span>
-<span class="lineNum">     694 </span>                :<span class="lineCov">        795 :   removevalues(fs, e-&gt;t);</span>
-<span class="lineNum">     695 </span>                :<span class="lineCov">        795 : }</span>
+<span class="lineNum">     692 </span>                :<span class="lineCov">        820 :   { int temp = e-&gt;f; e-&gt;f = e-&gt;t; e-&gt;t = temp; }</span>
+<span class="lineNum">     693 </span>                :<span class="lineCov">        820 :   removevalues(fs, e-&gt;f);</span>
+<span class="lineNum">     694 </span>                :<span class="lineCov">        820 :   removevalues(fs, e-&gt;t);</span>
+<span class="lineNum">     695 </span>                :<span class="lineCov">        820 : }</span>
 <span class="lineNum">     696 </span>                :            : 
 <span class="lineNum">     697 </span>                :            : 
-<span class="lineNum">     698 </span>                :<span class="lineCov">      10043 : void luaK_indexed (FuncState *fs, expdesc *t, expdesc *k) {</span>
+<span class="lineNum">     698 </span>                :<span class="lineCov">      10382 : void luaK_indexed (FuncState *fs, expdesc *t, expdesc *k) {</span>
 <span class="lineNum">     699 </span>                :            :   lua_assert(!hasjumps(t));
-<span class="lineNum">     700 </span>                :<span class="lineCov">      10043 :   t-&gt;u.ind.t = t-&gt;u.info;</span>
-<span class="lineNum">     701 </span>                :<span class="lineCov">      10043 :   t-&gt;u.ind.idx = luaK_exp2RK(fs, k);</span>
-<span class="lineNum">     702 </span>        [<span class="branchCov" title="Branch 0 was taken 4889 times"> + </span><span class="branchCov" title="Branch 1 was taken 5154 times"> + </span>]:<span class="lineCov">      10043 :   t-&gt;u.ind.vt = (t-&gt;k == VUPVAL) ? VUPVAL</span>
+<span class="lineNum">     700 </span>                :<span class="lineCov">      10382 :   t-&gt;u.ind.t = t-&gt;u.info;</span>
+<span class="lineNum">     701 </span>                :<span class="lineCov">      10382 :   t-&gt;u.ind.idx = luaK_exp2RK(fs, k);</span>
+<span class="lineNum">     702 </span>        [<span class="branchCov" title="Branch 0 was taken 5055 times"> + </span><span class="branchCov" title="Branch 1 was taken 5327 times"> + </span>]:<span class="lineCov">      10382 :   t-&gt;u.ind.vt = (t-&gt;k == VUPVAL) ? VUPVAL</span>
 <span class="lineNum">     703 </span>                :            :                                  : check_exp(vkisinreg(t-&gt;k), VLOCAL);
-<span class="lineNum">     704 </span>                :<span class="lineCov">      10043 :   t-&gt;k = VINDEXED;</span>
-<span class="lineNum">     705 </span>                :<span class="lineCov">      10043 : }</span>
+<span class="lineNum">     704 </span>                :<span class="lineCov">      10382 :   t-&gt;k = VINDEXED;</span>
+<span class="lineNum">     705 </span>                :<span class="lineCov">      10382 : }</span>
 <span class="lineNum">     706 </span>                :            : 
 <span class="lineNum">     707 </span>                :            : 
 <span class="lineNum">     708 </span>                :            : static int constfolding (OpCode op, expdesc *e1, expdesc *e2) {
 <span class="lineNum">     709 </span>                :            :   lua_Number r;
-<span class="lineNum">     710 </span>[<span class="branchCov" title="Branch 0 was taken 76 times"> + </span><span class="branchCov" title="Branch 1 was taken 2389 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 65 times"> + </span><span class="branchCov" title="Branch 3 was taken 11 times"> + </span>]:<span class="lineCov">       2541 :   if (!isnumeral(e1) || !isnumeral(e2)) return 0;</span>
-<span class="lineNum">     711 </span>[<span class="branchCov" title="Branch 0 was taken 6 times"> + </span><span class="branchCov" title="Branch 1 was taken 5 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 4 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">         11 :   if ((op == OP_DIV || op == OP_MOD) &amp;&amp; e2-&gt;u.nval == 0)</span>
+<span class="lineNum">     710 </span>[<span class="branchCov" title="Branch 0 was taken 80 times"> + </span><span class="branchCov" title="Branch 1 was taken 2450 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 66 times"> + </span><span class="branchCov" title="Branch 3 was taken 14 times"> + </span>]:<span class="lineCov">       2610 :   if (!isnumeral(e1) || !isnumeral(e2)) return 0;</span>
+<span class="lineNum">     711 </span>[<span class="branchCov" title="Branch 0 was taken 7 times"> + </span><span class="branchCov" title="Branch 1 was taken 7 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 4 times"> + </span><span class="branchCov" title="Branch 3 was taken 3 times"> + </span>]:<span class="lineCov">         14 :   if ((op == OP_DIV || op == OP_MOD) &amp;&amp; e2-&gt;u.nval == 0)</span>
 <span class="lineNum">     712 </span>                :<span class="lineCov">          4 :     return 0;  /* do not attempt to divide by 0 */</span>
-<span class="lineNum">     713 </span>                :<span class="lineCov">          7 :   r = luaO_arith(op - OP_ADD + LUA_OPADD, e1-&gt;u.nval, e2-&gt;u.nval);</span>
-<span class="lineNum">     714 </span>                :<span class="lineCov">          7 :   e1-&gt;u.nval = r;</span>
-<span class="lineNum">     715 </span>                :<span class="lineCov">          7 :   return 1;</span>
+<span class="lineNum">     713 </span>                :<span class="lineCov">         10 :   r = luaO_arith(op - OP_ADD + LUA_OPADD, e1-&gt;u.nval, e2-&gt;u.nval);</span>
+<span class="lineNum">     714 </span>                :<span class="lineCov">         10 :   e1-&gt;u.nval = r;</span>
+<span class="lineNum">     715 </span>                :<span class="lineCov">         10 :   return 1;</span>
 <span class="lineNum">     716 </span>                :            : }
 <span class="lineNum">     717 </span>                :            : 
 <span class="lineNum">     718 </span>                :            : 
-<span class="lineNum">     719 </span>                :<span class="lineCov">       2465 : static void codearith (FuncState *fs, OpCode op,</span>
+<span class="lineNum">     719 </span>                :<span class="lineCov">       2530 : static void codearith (FuncState *fs, OpCode op,</span>
 <span class="lineNum">     720 </span>                :            :                        expdesc *e1, expdesc *e2, int line) {
-<span class="lineNum">     721 </span>        [<span class="branchCov" title="Branch 0 was taken 2458 times"> + </span><span class="branchCov" title="Branch 1 was taken 7 times"> + </span>]:<span class="lineCov">       2465 :   if (constfolding(op, e1, e2))</span>
+<span class="lineNum">     721 </span>        [<span class="branchCov" title="Branch 0 was taken 2520 times"> + </span><span class="branchCov" title="Branch 1 was taken 10 times"> + </span>]:<span class="lineCov">       2530 :   if (constfolding(op, e1, e2))</span>
 <span class="lineNum">     722 </span>                :            :     return;
 <span class="lineNum">     723 </span>                :            :   else {
-<span class="lineNum">     724 </span>        [<span class="branchCov" title="Branch 0 was taken 2153 times"> + </span><span class="branchCov" title="Branch 1 was taken 305 times"> + </span>]:<span class="lineCov">       2458 :     int o2 = (op != OP_UNM &amp;&amp; op != OP_LEN) ? luaK_exp2RK(fs, e2) : 0;</span>
-<span class="lineNum">     725 </span>                :<span class="lineCov">       2458 :     int o1 = luaK_exp2RK(fs, e1);</span>
-<span class="lineNum">     726 </span>        [<span class="branchCov" title="Branch 0 was taken 236 times"> + </span><span class="branchCov" title="Branch 1 was taken 2222 times"> + </span>]:<span class="lineCov">       2458 :     if (o1 &gt; o2) {</span>
+<span class="lineNum">     724 </span>        [<span class="branchCov" title="Branch 0 was taken 2212 times"> + </span><span class="branchCov" title="Branch 1 was taken 308 times"> + </span>]:<span class="lineCov">       2520 :     int o2 = (op != OP_UNM &amp;&amp; op != OP_LEN) ? luaK_exp2RK(fs, e2) : 0;</span>
+<span class="lineNum">     725 </span>                :<span class="lineCov">       2520 :     int o1 = luaK_exp2RK(fs, e1);</span>
+<span class="lineNum">     726 </span>        [<span class="branchCov" title="Branch 0 was taken 241 times"> + </span><span class="branchCov" title="Branch 1 was taken 2279 times"> + </span>]:<span class="lineCov">       2520 :     if (o1 &gt; o2) {</span>
 <span class="lineNum">     727 </span>                :            :       freeexp(fs, e1);
 <span class="lineNum">     728 </span>                :            :       freeexp(fs, e2);
 <span class="lineNum">     729 </span>                :            :     }
@@ -843,150 +843,150 @@
 <span class="lineNum">     731 </span>                :            :       freeexp(fs, e2);
 <span class="lineNum">     732 </span>                :            :       freeexp(fs, e1);
 <span class="lineNum">     733 </span>                :            :     }
-<span class="lineNum">     734 </span>                :<span class="lineCov">       2458 :     e1-&gt;u.info = luaK_codeABC(fs, op, 0, o1, o2);</span>
-<span class="lineNum">     735 </span>                :<span class="lineCov">       2458 :     e1-&gt;k = VRELOCABLE;</span>
+<span class="lineNum">     734 </span>                :<span class="lineCov">       2520 :     e1-&gt;u.info = luaK_codeABC(fs, op, 0, o1, o2);</span>
+<span class="lineNum">     735 </span>                :<span class="lineCov">       2520 :     e1-&gt;k = VRELOCABLE;</span>
 <span class="lineNum">     736 </span>                :            :     luaK_fixline(fs, line);
 <span class="lineNum">     737 </span>                :            :   }
 <span class="lineNum">     738 </span>                :            : }
 <span class="lineNum">     739 </span>                :            : 
 <span class="lineNum">     740 </span>                :            : 
-<span class="lineNum">     741 </span>                :<span class="lineCov">       1749 : static void codecomp (FuncState *fs, OpCode op, int cond, expdesc *e1,</span>
+<span class="lineNum">     741 </span>                :<span class="lineCov">       1804 : static void codecomp (FuncState *fs, OpCode op, int cond, expdesc *e1,</span>
 <span class="lineNum">     742 </span>                :            :                                                           expdesc *e2) {
-<span class="lineNum">     743 </span>                :<span class="lineCov">       1749 :   int o1 = luaK_exp2RK(fs, e1);</span>
-<span class="lineNum">     744 </span>                :<span class="lineCov">       1749 :   int o2 = luaK_exp2RK(fs, e2);</span>
+<span class="lineNum">     743 </span>                :<span class="lineCov">       1804 :   int o1 = luaK_exp2RK(fs, e1);</span>
+<span class="lineNum">     744 </span>                :<span class="lineCov">       1804 :   int o2 = luaK_exp2RK(fs, e2);</span>
 <span class="lineNum">     745 </span>                :            :   freeexp(fs, e2);
 <span class="lineNum">     746 </span>                :            :   freeexp(fs, e1);
-<span class="lineNum">     747 </span>        [<span class="branchCov" title="Branch 0 was taken 203 times"> + </span><span class="branchCov" title="Branch 1 was taken 1546 times"> + </span>]:<span class="lineCov">       1749 :   if (cond == 0 &amp;&amp; op != OP_EQ) {</span>
+<span class="lineNum">     747 </span>        [<span class="branchCov" title="Branch 0 was taken 208 times"> + </span><span class="branchCov" title="Branch 1 was taken 1596 times"> + </span>]:<span class="lineCov">       1804 :   if (cond == 0 &amp;&amp; op != OP_EQ) {</span>
 <span class="lineNum">     748 </span>                :            :     int temp;  /* exchange args to replace by `&lt;' or `&lt;=' */
-<span class="lineNum">     749 </span>                :<span class="lineCov">        203 :     temp = o1; o1 = o2; o2 = temp;  /* o1 &lt;==&gt; o2 */</span>
-<span class="lineNum">     750 </span>                :<span class="lineCov">        203 :     cond = 1;</span>
+<span class="lineNum">     749 </span>                :<span class="lineCov">        208 :     temp = o1; o1 = o2; o2 = temp;  /* o1 &lt;==&gt; o2 */</span>
+<span class="lineNum">     750 </span>                :<span class="lineCov">        208 :     cond = 1;</span>
 <span class="lineNum">     751 </span>                :            :   }
-<span class="lineNum">     752 </span>                :<span class="lineCov">       1749 :   e1-&gt;u.info = condjump(fs, op, cond, o1, o2);</span>
-<span class="lineNum">     753 </span>                :<span class="lineCov">       1749 :   e1-&gt;k = VJMP;</span>
-<span class="lineNum">     754 </span>                :<span class="lineCov">       1749 : }</span>
+<span class="lineNum">     752 </span>                :<span class="lineCov">       1804 :   e1-&gt;u.info = condjump(fs, op, cond, o1, o2);</span>
+<span class="lineNum">     753 </span>                :<span class="lineCov">       1804 :   e1-&gt;k = VJMP;</span>
+<span class="lineNum">     754 </span>                :<span class="lineCov">       1804 : }</span>
 <span class="lineNum">     755 </span>                :            : 
 <span class="lineNum">     756 </span>                :            : 
-<span class="lineNum">     757 </span>                :<span class="lineCov">       1206 : void luaK_prefix (FuncState *fs, UnOpr op, expdesc *e, int line) {</span>
+<span class="lineNum">     757 </span>                :<span class="lineCov">       1248 : void luaK_prefix (FuncState *fs, UnOpr op, expdesc *e, int line) {</span>
 <span class="lineNum">     758 </span>                :            :   expdesc e2;
-<span class="lineNum">     759 </span>                :<span class="lineCov">       1206 :   e2.t = e2.f = NO_JUMP; e2.k = VKNUM; e2.u.nval = 0;</span>
-<span class="lineNum">     760 </span>  [<span class="branchCov" title="Branch 0 was taken 121 times"> + </span><span class="branchCov" title="Branch 1 was taken 795 times"> + </span><span class="branchCov" title="Branch 2 was taken 290 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       1206 :   switch (op) {</span>
+<span class="lineNum">     759 </span>                :<span class="lineCov">       1248 :   e2.t = e2.f = NO_JUMP; e2.k = VKNUM; e2.u.nval = 0;</span>
+<span class="lineNum">     760 </span>  [<span class="branchCov" title="Branch 0 was taken 135 times"> + </span><span class="branchCov" title="Branch 1 was taken 820 times"> + </span><span class="branchCov" title="Branch 2 was taken 293 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       1248 :   switch (op) {</span>
 <span class="lineNum">     761 </span>                :            :     case OPR_MINUS: {
-<span class="lineNum">     762 </span>        [<span class="branchCov" title="Branch 0 was taken 106 times"> + </span><span class="branchCov" title="Branch 1 was taken 15 times"> + </span>]:<span class="lineCov">        121 :       if (isnumeral(e))  /* minus constant? */</span>
-<span class="lineNum">     763 </span>                :<span class="lineCov">        106 :         e-&gt;u.nval = luai_numunm(NULL, e-&gt;u.nval);  /* fold it */</span>
+<span class="lineNum">     762 </span>        [<span class="branchCov" title="Branch 0 was taken 120 times"> + </span><span class="branchCov" title="Branch 1 was taken 15 times"> + </span>]:<span class="lineCov">        135 :       if (isnumeral(e))  /* minus constant? */</span>
+<span class="lineNum">     763 </span>                :<span class="lineCov">        120 :         e-&gt;u.nval = luai_numunm(NULL, e-&gt;u.nval);  /* fold it */</span>
 <span class="lineNum">     764 </span>                :            :       else {
 <span class="lineNum">     765 </span>                :<span class="lineCov">         15 :         luaK_exp2anyreg(fs, e);</span>
 <span class="lineNum">     766 </span>                :<span class="lineCov">         15 :         codearith(fs, OP_UNM, e, &amp;e2, line);</span>
 <span class="lineNum">     767 </span>                :            :       }
 <span class="lineNum">     768 </span>                :            :       break;
 <span class="lineNum">     769 </span>                :            :     }
-<span class="lineNum">     770 </span>                :<span class="lineCov">        795 :     case OPR_NOT: codenot(fs, e); break;</span>
+<span class="lineNum">     770 </span>                :<span class="lineCov">        820 :     case OPR_NOT: codenot(fs, e); break;</span>
 <span class="lineNum">     771 </span>                :            :     case OPR_LEN: {
-<span class="lineNum">     772 </span>                :<span class="lineCov">        290 :       luaK_exp2anyreg(fs, e);  /* cannot operate on constants */</span>
-<span class="lineNum">     773 </span>                :<span class="lineCov">        290 :       codearith(fs, OP_LEN, e, &amp;e2, line);</span>
+<span class="lineNum">     772 </span>                :<span class="lineCov">        293 :       luaK_exp2anyreg(fs, e);  /* cannot operate on constants */</span>
+<span class="lineNum">     773 </span>                :<span class="lineCov">        293 :       codearith(fs, OP_LEN, e, &amp;e2, line);</span>
 <span class="lineNum">     774 </span>                :            :       break;
 <span class="lineNum">     775 </span>                :            :     }
 <span class="lineNum">     776 </span>                :            :     default: lua_assert(0);
 <span class="lineNum">     777 </span>                :            :   }
-<span class="lineNum">     778 </span>                :<span class="lineCov">       1206 : }</span>
+<span class="lineNum">     778 </span>                :<span class="lineCov">       1248 : }</span>
 <span class="lineNum">     779 </span>                :            : 
 <span class="lineNum">     780 </span>                :            : 
-<span class="lineNum">     781 </span>                :<span class="lineCov">       6611 : void luaK_infix (FuncState *fs, BinOpr op, expdesc *v) {</span>
-<span class="lineNum">     782 </span>  [<span class="branchCov" title="Branch 0 was taken 246 times"> + </span><span class="branchCov" title="Branch 1 was taken 338 times"> + </span><span class="branchCov" title="Branch 2 was taken 3800 times"> + </span><span class="branchCov" title="Branch 3 was taken 478 times"> + </span> :<span class="lineCov">       6611 :   switch (op) {</span>
-<span class="lineNum">         </span>            <span class="branchCov" title="Branch 4 was taken 1749 times"> + </span>]
+<span class="lineNum">     781 </span>                :<span class="lineCov">       6813 : void luaK_infix (FuncState *fs, BinOpr op, expdesc *v) {</span>
+<span class="lineNum">     782 </span>  [<span class="branchCov" title="Branch 0 was taken 254 times"> + </span><span class="branchCov" title="Branch 1 was taken 348 times"> + </span><span class="branchCov" title="Branch 2 was taken 3921 times"> + </span><span class="branchCov" title="Branch 3 was taken 486 times"> + </span> :<span class="lineCov">       6813 :   switch (op) {</span>
+<span class="lineNum">         </span>            <span class="branchCov" title="Branch 4 was taken 1804 times"> + </span>]
 <span class="lineNum">     783 </span>                :            :     case OPR_AND: {
-<span class="lineNum">     784 </span>                :<span class="lineCov">        246 :       luaK_goiftrue(fs, v);</span>
-<span class="lineNum">     785 </span>                :<span class="lineCov">        246 :       break;</span>
+<span class="lineNum">     784 </span>                :<span class="lineCov">        254 :       luaK_goiftrue(fs, v);</span>
+<span class="lineNum">     785 </span>                :<span class="lineCov">        254 :       break;</span>
 <span class="lineNum">     786 </span>                :            :     }
 <span class="lineNum">     787 </span>                :            :     case OPR_OR: {
 <span class="lineNum">     788 </span>                :            :       luaK_goiffalse(fs, v);
-<span class="lineNum">     789 </span>                :<span class="lineCov">        338 :       break;</span>
+<span class="lineNum">     789 </span>                :<span class="lineCov">        348 :       break;</span>
 <span class="lineNum">     790 </span>                :            :     }
 <span class="lineNum">     791 </span>                :            :     case OPR_CONCAT: {
-<span class="lineNum">     792 </span>                :<span class="lineCov">       3800 :       luaK_exp2nextreg(fs, v);  /* operand must be on the `stack' */</span>
-<span class="lineNum">     793 </span>                :<span class="lineCov">       3800 :       break;</span>
+<span class="lineNum">     792 </span>                :<span class="lineCov">       3921 :       luaK_exp2nextreg(fs, v);  /* operand must be on the `stack' */</span>
+<span class="lineNum">     793 </span>                :<span class="lineCov">       3921 :       break;</span>
 <span class="lineNum">     794 </span>                :            :     }
 <span class="lineNum">     795 </span>                :            :     case OPR_ADD: case OPR_SUB: case OPR_MUL: case OPR_DIV:
 <span class="lineNum">     796 </span>                :            :     case OPR_MOD: case OPR_POW: {
-<span class="lineNum">     797 </span>        [<span class="branchCov" title="Branch 0 was taken 402 times"> + </span><span class="branchCov" title="Branch 1 was taken 76 times"> + </span>]:<span class="lineCov">        478 :       if (!isnumeral(v)) luaK_exp2RK(fs, v);</span>
+<span class="lineNum">     797 </span>        [<span class="branchCov" title="Branch 0 was taken 406 times"> + </span><span class="branchCov" title="Branch 1 was taken 80 times"> + </span>]:<span class="lineCov">        486 :       if (!isnumeral(v)) luaK_exp2RK(fs, v);</span>
 <span class="lineNum">     798 </span>                :            :       break;
 <span class="lineNum">     799 </span>                :            :     }
 <span class="lineNum">     800 </span>                :            :     default: {
-<span class="lineNum">     801 </span>                :<span class="lineCov">       1749 :       luaK_exp2RK(fs, v);</span>
+<span class="lineNum">     801 </span>                :<span class="lineCov">       1804 :       luaK_exp2RK(fs, v);</span>
 <span class="lineNum">     802 </span>                :            :       break;
 <span class="lineNum">     803 </span>                :            :     }
 <span class="lineNum">     804 </span>                :            :   }
-<span class="lineNum">     805 </span>                :<span class="lineCov">       6611 : }</span>
+<span class="lineNum">     805 </span>                :<span class="lineCov">       6813 : }</span>
 <span class="lineNum">     806 </span>                :            : 
 <span class="lineNum">     807 </span>                :            : 
-<span class="lineNum">     808 </span>                :<span class="lineCov">       6611 : void luaK_posfix (FuncState *fs, BinOpr op,</span>
+<span class="lineNum">     808 </span>                :<span class="lineCov">       6813 : void luaK_posfix (FuncState *fs, BinOpr op,</span>
 <span class="lineNum">     809 </span>                :            :                   expdesc *e1, expdesc *e2, int line) {
-<span class="lineNum">     810 </span>[<span class="branchCov" title="Branch 0 was taken 246 times"> + </span><span class="branchCov" title="Branch 1 was taken 338 times"> + </span><span class="branchCov" title="Branch 2 was taken 3800 times"> + </span><span class="branchCov" title="Branch 3 was taken 478 times"> + </span><span class="branchCov" title="Branch 4 was taken 968 times"> + </span>:<span class="lineCov">       6611 :   switch (op) {</span>
-<span class="lineNum">         </span>         <span class="branchCov" title="Branch 5 was taken 781 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]
+<span class="lineNum">     810 </span>[<span class="branchCov" title="Branch 0 was taken 254 times"> + </span><span class="branchCov" title="Branch 1 was taken 348 times"> + </span><span class="branchCov" title="Branch 2 was taken 3921 times"> + </span><span class="branchCov" title="Branch 3 was taken 486 times"> + </span><span class="branchCov" title="Branch 4 was taken 1001 times"> + </span>:<span class="lineCov">       6813 :   switch (op) {</span>
+<span class="lineNum">         </span>         <span class="branchCov" title="Branch 5 was taken 803 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]
 <span class="lineNum">     811 </span>                :            :     case OPR_AND: {
 <span class="lineNum">     812 </span>                :            :       lua_assert(e1-&gt;t == NO_JUMP);  /* list must be closed */
-<span class="lineNum">     813 </span>                :<span class="lineCov">        246 :       luaK_dischargevars(fs, e2);</span>
-<span class="lineNum">     814 </span>                :<span class="lineCov">        246 :       luaK_concat(fs, &amp;e2-&gt;f, e1-&gt;f);</span>
-<span class="lineNum">     815 </span>                :<span class="lineCov">        246 :       *e1 = *e2;</span>
-<span class="lineNum">     816 </span>                :<span class="lineCov">        246 :       break;</span>
+<span class="lineNum">     813 </span>                :<span class="lineCov">        254 :       luaK_dischargevars(fs, e2);</span>
+<span class="lineNum">     814 </span>                :<span class="lineCov">        254 :       luaK_concat(fs, &amp;e2-&gt;f, e1-&gt;f);</span>
+<span class="lineNum">     815 </span>                :<span class="lineCov">        254 :       *e1 = *e2;</span>
+<span class="lineNum">     816 </span>                :<span class="lineCov">        254 :       break;</span>
 <span class="lineNum">     817 </span>                :            :     }
 <span class="lineNum">     818 </span>                :            :     case OPR_OR: {
 <span class="lineNum">     819 </span>                :            :       lua_assert(e1-&gt;f == NO_JUMP);  /* list must be closed */
-<span class="lineNum">     820 </span>                :<span class="lineCov">        338 :       luaK_dischargevars(fs, e2);</span>
-<span class="lineNum">     821 </span>                :<span class="lineCov">        338 :       luaK_concat(fs, &amp;e2-&gt;t, e1-&gt;t);</span>
-<span class="lineNum">     822 </span>                :<span class="lineCov">        338 :       *e1 = *e2;</span>
-<span class="lineNum">     823 </span>                :<span class="lineCov">        338 :       break;</span>
+<span class="lineNum">     820 </span>                :<span class="lineCov">        348 :       luaK_dischargevars(fs, e2);</span>
+<span class="lineNum">     821 </span>                :<span class="lineCov">        348 :       luaK_concat(fs, &amp;e2-&gt;t, e1-&gt;t);</span>
+<span class="lineNum">     822 </span>                :<span class="lineCov">        348 :       *e1 = *e2;</span>
+<span class="lineNum">     823 </span>                :<span class="lineCov">        348 :       break;</span>
 <span class="lineNum">     824 </span>                :            :     }
 <span class="lineNum">     825 </span>                :            :     case OPR_CONCAT: {
-<span class="lineNum">     826 </span>                :<span class="lineCov">       3800 :       luaK_exp2val(fs, e2);</span>
-<span class="lineNum">     827 </span>  [<span class="branchCov" title="Branch 0 was taken 2186 times"> + </span><span class="branchCov" title="Branch 1 was taken 1614 times"> + </span><span class="branchCov" title="Branch 2 was taken 2118 times"> + </span><span class="branchCov" title="Branch 3 was taken 68 times"> + </span>]:<span class="lineCov">       5918 :       if (e2-&gt;k == VRELOCABLE &amp;&amp; GET_OPCODE(getcode(fs, e2)) == OP_CONCAT) {</span>
+<span class="lineNum">     826 </span>                :<span class="lineCov">       3921 :       luaK_exp2val(fs, e2);</span>
+<span class="lineNum">     827 </span>  [<span class="branchCov" title="Branch 0 was taken 2255 times"> + </span><span class="branchCov" title="Branch 1 was taken 1666 times"> + </span><span class="branchCov" title="Branch 2 was taken 2185 times"> + </span><span class="branchCov" title="Branch 3 was taken 70 times"> + </span>]:<span class="lineCov">       6106 :       if (e2-&gt;k == VRELOCABLE &amp;&amp; GET_OPCODE(getcode(fs, e2)) == OP_CONCAT) {</span>
 <span class="lineNum">     828 </span>                :            :         lua_assert(e1-&gt;u.info == GETARG_B(getcode(fs, e2))-1);
 <span class="lineNum">     829 </span>                :            :         freeexp(fs, e1);
-<span class="lineNum">     830 </span>                :<span class="lineCov">       2118 :         SETARG_B(getcode(fs, e2), e1-&gt;u.info);</span>
-<span class="lineNum">     831 </span>                :<span class="lineCov">       2118 :         e1-&gt;k = VRELOCABLE; e1-&gt;u.info = e2-&gt;u.info;</span>
+<span class="lineNum">     830 </span>                :<span class="lineCov">       2185 :         SETARG_B(getcode(fs, e2), e1-&gt;u.info);</span>
+<span class="lineNum">     831 </span>                :<span class="lineCov">       2185 :         e1-&gt;k = VRELOCABLE; e1-&gt;u.info = e2-&gt;u.info;</span>
 <span class="lineNum">     832 </span>                :            :       }
 <span class="lineNum">     833 </span>                :            :       else {
-<span class="lineNum">     834 </span>                :<span class="lineCov">       1682 :         luaK_exp2nextreg(fs, e2);  /* operand must be on the 'stack' */</span>
-<span class="lineNum">     835 </span>                :<span class="lineCov">       1682 :         codearith(fs, OP_CONCAT, e1, e2, line);</span>
+<span class="lineNum">     834 </span>                :<span class="lineCov">       1736 :         luaK_exp2nextreg(fs, e2);  /* operand must be on the 'stack' */</span>
+<span class="lineNum">     835 </span>                :<span class="lineCov">       1736 :         codearith(fs, OP_CONCAT, e1, e2, line);</span>
 <span class="lineNum">     836 </span>                :            :       }
 <span class="lineNum">     837 </span>                :            :       break;
 <span class="lineNum">     838 </span>                :            :     }
 <span class="lineNum">     839 </span>                :            :     case OPR_ADD: case OPR_SUB: case OPR_MUL: case OPR_DIV:
 <span class="lineNum">     840 </span>                :            :     case OPR_MOD: case OPR_POW: {
-<span class="lineNum">     841 </span>                :<span class="lineCov">        478 :       codearith(fs, cast(OpCode, op - OPR_ADD + OP_ADD), e1, e2, line);</span>
-<span class="lineNum">     842 </span>                :<span class="lineCov">        478 :       break;</span>
+<span class="lineNum">     841 </span>                :<span class="lineCov">        486 :       codearith(fs, cast(OpCode, op - OPR_ADD + OP_ADD), e1, e2, line);</span>
+<span class="lineNum">     842 </span>                :<span class="lineCov">        486 :       break;</span>
 <span class="lineNum">     843 </span>                :            :     }
 <span class="lineNum">     844 </span>                :            :     case OPR_EQ: case OPR_LT: case OPR_LE: {
-<span class="lineNum">     845 </span>                :<span class="lineCov">        968 :       codecomp(fs, cast(OpCode, op - OPR_EQ + OP_EQ), 1, e1, e2);</span>
-<span class="lineNum">     846 </span>                :<span class="lineCov">        968 :       break;</span>
+<span class="lineNum">     845 </span>                :<span class="lineCov">       1001 :       codecomp(fs, cast(OpCode, op - OPR_EQ + OP_EQ), 1, e1, e2);</span>
+<span class="lineNum">     846 </span>                :<span class="lineCov">       1001 :       break;</span>
 <span class="lineNum">     847 </span>                :            :     }
 <span class="lineNum">     848 </span>                :            :     case OPR_NE: case OPR_GT: case OPR_GE: {
-<span class="lineNum">     849 </span>                :<span class="lineCov">        781 :       codecomp(fs, cast(OpCode, op - OPR_NE + OP_EQ), 0, e1, e2);</span>
+<span class="lineNum">     849 </span>                :<span class="lineCov">        803 :       codecomp(fs, cast(OpCode, op - OPR_NE + OP_EQ), 0, e1, e2);</span>
 <span class="lineNum">     850 </span>                :            :       break;
 <span class="lineNum">     851 </span>                :            :     }
 <span class="lineNum">     852 </span>                :            :     default: lua_assert(0);
 <span class="lineNum">     853 </span>                :            :   }
-<span class="lineNum">     854 </span>                :<span class="lineCov">       6611 : }</span>
+<span class="lineNum">     854 </span>                :<span class="lineCov">       6813 : }</span>
 <span class="lineNum">     855 </span>                :            : 
 <span class="lineNum">     856 </span>                :            : 
-<span class="lineNum">     857 </span>                :<span class="lineCov">      10850 : void luaK_fixline (FuncState *fs, int line) {</span>
-<span class="lineNum">     858 </span>                :<span class="lineCov">       2465 :   fs-&gt;f-&gt;lineinfo[fs-&gt;pc - 1] = line;</span>
-<span class="lineNum">     859 </span>                :<span class="lineCov">      10850 : }</span>
+<span class="lineNum">     857 </span>                :<span class="lineCov">      11204 : void luaK_fixline (FuncState *fs, int line) {</span>
+<span class="lineNum">     858 </span>                :<span class="lineCov">       2530 :   fs-&gt;f-&gt;lineinfo[fs-&gt;pc - 1] = line;</span>
+<span class="lineNum">     859 </span>                :<span class="lineCov">      11204 : }</span>
 <span class="lineNum">     860 </span>                :            : 
 <span class="lineNum">     861 </span>                :            : 
-<span class="lineNum">     862 </span>                :<span class="lineCov">        358 : void luaK_setlist (FuncState *fs, int base, int nelems, int tostore) {</span>
-<span class="lineNum">     863 </span>                :<span class="lineCov">        358 :   int c =  (nelems - 1)/LFIELDS_PER_FLUSH + 1;</span>
-<span class="lineNum">     864 </span>        [<span class="branchCov" title="Branch 0 was taken 122 times"> + </span><span class="branchCov" title="Branch 1 was taken 236 times"> + </span>]:<span class="lineCov">        358 :   int b = (tostore == LUA_MULTRET) ? 0 : tostore;</span>
+<span class="lineNum">     862 </span>                :<span class="lineCov">        360 : void luaK_setlist (FuncState *fs, int base, int nelems, int tostore) {</span>
+<span class="lineNum">     863 </span>                :<span class="lineCov">        360 :   int c =  (nelems - 1)/LFIELDS_PER_FLUSH + 1;</span>
+<span class="lineNum">     864 </span>        [<span class="branchCov" title="Branch 0 was taken 123 times"> + </span><span class="branchCov" title="Branch 1 was taken 237 times"> + </span>]:<span class="lineCov">        360 :   int b = (tostore == LUA_MULTRET) ? 0 : tostore;</span>
 <span class="lineNum">     865 </span>                :            :   lua_assert(tostore != 0);
-<span class="lineNum">     866 </span>        [<span class="branchCov" title="Branch 0 was taken 358 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        358 :   if (c &lt;= MAXARG_C)</span>
-<span class="lineNum">     867 </span>                :<span class="lineCov">        358 :     luaK_codeABC(fs, OP_SETLIST, base, b, c);</span>
+<span class="lineNum">     866 </span>        [<span class="branchCov" title="Branch 0 was taken 360 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        360 :   if (c &lt;= MAXARG_C)</span>
+<span class="lineNum">     867 </span>                :<span class="lineCov">        360 :     luaK_codeABC(fs, OP_SETLIST, base, b, c);</span>
 <span class="lineNum">     868 </span>        [<span class="branchNoExec" title="Block containing branch 0 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span>]:<span class="lineNoCov">          0 :   else if (c &lt;= MAXARG_Ax) {</span>
 <span class="lineNum">     869 </span>                :<span class="lineNoCov">          0 :     luaK_codeABC(fs, OP_SETLIST, base, b, 0);</span>
 <span class="lineNum">     870 </span>                :            :     codeextraarg(fs, c);
 <span class="lineNum">     871 </span>                :            :   }
 <span class="lineNum">     872 </span>                :            :   else
 <span class="lineNum">     873 </span>                :<span class="lineNoCov">          0 :     luaX_syntaxerror(fs-&gt;ls, &quot;constructor too long&quot;);</span>
-<span class="lineNum">     874 </span>                :<span class="lineCov">        358 :   fs-&gt;freereg = base + 1;  /* free registers with list values */</span>
-<span class="lineNum">     875 </span>                :<span class="lineCov">        358 : }</span>
+<span class="lineNum">     874 </span>                :<span class="lineCov">        360 :   fs-&gt;freereg = base + 1;  /* free registers with list values */</span>
+<span class="lineNum">     875 </span>                :<span class="lineCov">        360 : }</span>
 <span class="lineNum">     876 </span>                :            : 
 </pre>
       </td>

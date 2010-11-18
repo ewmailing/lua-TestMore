@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2010-11-17</td>
+            <td class="headerValue">2010-11-18</td>
             <td></td>
             <td class="headerItem">Branches:</td>
             <td class="headerCovTableEntry">3</td>
@@ -123,21 +123,21 @@
 <span class="lineNum">      49 </span>                :            : };
 <span class="lineNum">      50 </span>                :            : 
 <span class="lineNum">      51 </span>                :            : 
-<span class="lineNum">      52 </span>                :<span class="lineCov">         38 : LUALIB_API void luaL_openlibs (lua_State *L) {</span>
+<span class="lineNum">      52 </span>                :<span class="lineCov">         39 : LUALIB_API void luaL_openlibs (lua_State *L) {</span>
 <span class="lineNum">      53 </span>                :            :   const luaL_Reg *lib;
 <span class="lineNum">      54 </span>                :            :   /* call open functions from 'loadedlibs' and set results to global table */
-<span class="lineNum">      55 </span>        [<span class="branchCov" title="Branch 0 was taken 380 times"> + </span><span class="branchCov" title="Branch 1 was taken 38 times"> + </span>]:<span class="lineCov">        418 :   for (lib = loadedlibs; lib-&gt;func; lib++) {</span>
-<span class="lineNum">      56 </span>                :<span class="lineCov">        380 :     luaL_requiref(L, lib-&gt;name, lib-&gt;func, 1);</span>
-<span class="lineNum">      57 </span>                :<span class="lineCov">        380 :     lua_pop(L, 1);  /* remove lib */</span>
+<span class="lineNum">      55 </span>        [<span class="branchCov" title="Branch 0 was taken 390 times"> + </span><span class="branchCov" title="Branch 1 was taken 39 times"> + </span>]:<span class="lineCov">        429 :   for (lib = loadedlibs; lib-&gt;func; lib++) {</span>
+<span class="lineNum">      56 </span>                :<span class="lineCov">        390 :     luaL_requiref(L, lib-&gt;name, lib-&gt;func, 1);</span>
+<span class="lineNum">      57 </span>                :<span class="lineCov">        390 :     lua_pop(L, 1);  /* remove lib */</span>
 <span class="lineNum">      58 </span>                :            :   }
 <span class="lineNum">      59 </span>                :            :   /* add open functions from 'preloadedlibs' into 'package.preload' table */
-<span class="lineNum">      60 </span>                :<span class="lineCov">         38 :   luaL_findtable(L, LUA_REGISTRYINDEX, &quot;_PRELOAD&quot;);</span>
-<span class="lineNum">      61 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 38 times"> + </span>]:<span class="lineCov">         38 :   for (lib = preloadedlibs; lib-&gt;func; lib++) {</span>
+<span class="lineNum">      60 </span>                :<span class="lineCov">         39 :   luaL_findtable(L, LUA_REGISTRYINDEX, &quot;_PRELOAD&quot;);</span>
+<span class="lineNum">      61 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 39 times"> + </span>]:<span class="lineCov">         39 :   for (lib = preloadedlibs; lib-&gt;func; lib++) {</span>
 <span class="lineNum">      62 </span>                :<span class="lineNoCov">          0 :     lua_pushcfunction(L, lib-&gt;func);</span>
 <span class="lineNum">      63 </span>                :<span class="lineNoCov">          0 :     lua_setfield(L, -2, lib-&gt;name);</span>
 <span class="lineNum">      64 </span>                :            :   }
-<span class="lineNum">      65 </span>                :<span class="lineCov">         38 :   lua_pop(L, 1);  /* remove _PRELOAD table */</span>
-<span class="lineNum">      66 </span>                :<span class="lineCov">         38 : }</span>
+<span class="lineNum">      65 </span>                :<span class="lineCov">         39 :   lua_pop(L, 1);  /* remove _PRELOAD table */</span>
+<span class="lineNum">      66 </span>                :<span class="lineCov">         39 : }</span>
 <span class="lineNum">      67 </span>                :            : 
 </pre>
       </td>

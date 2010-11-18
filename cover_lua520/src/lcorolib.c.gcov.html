@@ -31,13 +31,13 @@
             <td class="headerValue">Lua 5.2.0 alpha</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">56</td>
+            <td class="headerCovTableEntry">60</td>
             <td class="headerCovTableEntry">73</td>
-            <td class="headerCovTableEntryMed">76.7 %</td>
+            <td class="headerCovTableEntryMed">82.2 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2010-11-17</td>
+            <td class="headerValue">2010-11-18</td>
             <td></td>
             <td class="headerItem">Branches:</td>
             <td class="headerCovTableEntry">18</td>
@@ -202,10 +202,10 @@
 <span class="lineNum">     128 </span>                :            : }
 <span class="lineNum">     129 </span>                :            : 
 <span class="lineNum">     130 </span>                :            : 
-<span class="lineNum">     131 </span>                :<span class="lineNoCov">          0 : static int luaB_corunning (lua_State *L) {</span>
-<span class="lineNum">     132 </span>                :<span class="lineNoCov">          0 :   int ismain = lua_pushthread(L);</span>
-<span class="lineNum">     133 </span>                :<span class="lineNoCov">          0 :   lua_pushboolean(L, ismain);</span>
-<span class="lineNum">     134 </span>                :<span class="lineNoCov">          0 :   return 2;</span>
+<span class="lineNum">     131 </span>                :<span class="lineCov">          1 : static int luaB_corunning (lua_State *L) {</span>
+<span class="lineNum">     132 </span>                :<span class="lineCov">          1 :   int ismain = lua_pushthread(L);</span>
+<span class="lineNum">     133 </span>                :<span class="lineCov">          1 :   lua_pushboolean(L, ismain);</span>
+<span class="lineNum">     134 </span>                :<span class="lineCov">          1 :   return 2;</span>
 <span class="lineNum">     135 </span>                :            : }
 <span class="lineNum">     136 </span>                :            : 
 <span class="lineNum">     137 </span>                :            : 
@@ -221,9 +221,9 @@
 <span class="lineNum">     147 </span>                :            : 
 <span class="lineNum">     148 </span>                :            : 
 <span class="lineNum">     149 </span>                :            : 
-<span class="lineNum">     150 </span>                :<span class="lineCov">         38 : LUAMOD_API int luaopen_coroutine (lua_State *L) {</span>
-<span class="lineNum">     151 </span>                :<span class="lineCov">         38 :   luaL_newlib(L, co_funcs);</span>
-<span class="lineNum">     152 </span>                :<span class="lineCov">         38 :   return 1;</span>
+<span class="lineNum">     150 </span>                :<span class="lineCov">         39 : LUAMOD_API int luaopen_coroutine (lua_State *L) {</span>
+<span class="lineNum">     151 </span>                :<span class="lineCov">         39 :   luaL_newlib(L, co_funcs);</span>
+<span class="lineNum">     152 </span>                :<span class="lineCov">         39 :   return 1;</span>
 <span class="lineNum">     153 </span>                :            : }
 <span class="lineNum">     154 </span>                :            : 
 </pre>

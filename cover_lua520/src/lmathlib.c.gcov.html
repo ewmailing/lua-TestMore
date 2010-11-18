@@ -31,18 +31,18 @@
             <td class="headerValue">Lua 5.2.0 alpha</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">123</td>
             <td class="headerCovTableEntry">126</td>
-            <td class="headerCovTableEntryHi">97.6 %</td>
+            <td class="headerCovTableEntry">126</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2010-11-17</td>
+            <td class="headerValue">2010-11-18</td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">15</td>
+            <td class="headerCovTableEntry">20</td>
             <td class="headerCovTableEntry">24</td>
-            <td class="headerCovTableEntryLo">62.5 %</td>
+            <td class="headerCovTableEntryMed">83.3 %</td>
           </tr>
           <tr>
             <td class="headerItem">Legend:</td>
@@ -194,18 +194,18 @@
 <span class="lineNum">     120 </span>                :<span class="lineCov">          1 :   return 1;</span>
 <span class="lineNum">     121 </span>                :            : }
 <span class="lineNum">     122 </span>                :            : 
-<span class="lineNum">     123 </span>                :<span class="lineCov">          1 : static int math_log (lua_State *L) {</span>
-<span class="lineNum">     124 </span>                :<span class="lineCov">          1 :   lua_Number x = luaL_checknumber(L, 1);</span>
+<span class="lineNum">     123 </span>                :<span class="lineCov">          3 : static int math_log (lua_State *L) {</span>
+<span class="lineNum">     124 </span>                :<span class="lineCov">          3 :   lua_Number x = luaL_checknumber(L, 1);</span>
 <span class="lineNum">     125 </span>                :            :   lua_Number res;
-<span class="lineNum">     126 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          1 :   if (lua_isnoneornil(L, 2))</span>
+<span class="lineNum">     126 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>]:<span class="lineCov">          3 :   if (lua_isnoneornil(L, 2))</span>
 <span class="lineNum">     127 </span>                :<span class="lineCov">          1 :     res = l_tg(log)(x);</span>
 <span class="lineNum">     128 </span>                :            :   else {
-<span class="lineNum">     129 </span>                :<span class="lineNoCov">          0 :     lua_Number base = luaL_checknumber(L, 2);</span>
-<span class="lineNum">     130 </span>        [<span class="branchNoExec" title="Block containing branch 0 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span>]:<span class="lineNoCov">          0 :     if (base == 10.0) res = l_tg(log10)(x);</span>
-<span class="lineNum">     131 </span>                :<span class="lineNoCov">          0 :     else res = l_tg(log)(x)/l_tg(log)(base);</span>
+<span class="lineNum">     129 </span>                :<span class="lineCov">          2 :     lua_Number base = luaL_checknumber(L, 2);</span>
+<span class="lineNum">     130 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          2 :     if (base == 10.0) res = l_tg(log10)(x);</span>
+<span class="lineNum">     131 </span>                :<span class="lineCov">          1 :     else res = l_tg(log)(x)/l_tg(log)(base);</span>
 <span class="lineNum">     132 </span>                :            :   }
-<span class="lineNum">     133 </span>                :<span class="lineCov">          1 :   lua_pushnumber(L, res);</span>
-<span class="lineNum">     134 </span>                :<span class="lineCov">          1 :   return 1;</span>
+<span class="lineNum">     133 </span>                :<span class="lineCov">          3 :   lua_pushnumber(L, res);</span>
+<span class="lineNum">     134 </span>                :<span class="lineCov">          3 :   return 1;</span>
 <span class="lineNum">     135 </span>                :            : }
 <span class="lineNum">     136 </span>                :            : 
 <span class="lineNum">     137 </span>                :<span class="lineCov">          1 : static int math_log10 (lua_State *L) {</span>
@@ -275,25 +275,25 @@
 <span class="lineNum">     201 </span>                :            : }
 <span class="lineNum">     202 </span>                :            : 
 <span class="lineNum">     203 </span>                :            : 
-<span class="lineNum">     204 </span>                :<span class="lineCov">          6 : static int math_random (lua_State *L) {</span>
+<span class="lineNum">     204 </span>                :<span class="lineCov">          8 : static int math_random (lua_State *L) {</span>
 <span class="lineNum">     205 </span>                :            :   /* the `%' avoids the (rare) case of r==1, and is needed also because on
 <span class="lineNum">     206 </span>                :            :      some systems (SunOS!) `rand()' may return a value larger than RAND_MAX */
-<span class="lineNum">     207 </span>                :<span class="lineCov">          6 :   lua_Number r = (lua_Number)(rand()%RAND_MAX) / (lua_Number)RAND_MAX;</span>
-<span class="lineNum">     208 </span>  [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchCov" title="Branch 4 was taken 1 time"> + </span>]:<span class="lineCov">          6 :   switch (lua_gettop(L)) {  /* check number of arguments */</span>
+<span class="lineNum">     207 </span>                :<span class="lineCov">          8 :   lua_Number r = (lua_Number)(rand()%RAND_MAX) / (lua_Number)RAND_MAX;</span>
+<span class="lineNum">     208 </span>  [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span><span class="branchCov" title="Branch 4 was taken 1 time"> + </span>]:<span class="lineCov">          8 :   switch (lua_gettop(L)) {  /* check number of arguments */</span>
 <span class="lineNum">     209 </span>                :            :     case 0: {  /* no arguments */
 <span class="lineNum">     210 </span>                :<span class="lineCov">          3 :       lua_pushnumber(L, r);  /* Number between 0 and 1 */</span>
 <span class="lineNum">     211 </span>                :<span class="lineCov">          3 :       break;</span>
 <span class="lineNum">     212 </span>                :            :     }
 <span class="lineNum">     213 </span>                :            :     case 1: {  /* only upper limit */
-<span class="lineNum">     214 </span>                :<span class="lineCov">          1 :       lua_Number u = luaL_checknumber(L, 1);</span>
-<span class="lineNum">     215 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoExec" title="Block containing branch 3 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 4 was never executed"> # </span>]:<span class="lineCov">          1 :       luaL_argcheck(L, 1.0 &lt;= u, 1, &quot;interval is empty&quot;);</span>
+<span class="lineNum">     214 </span>                :<span class="lineCov">          2 :       lua_Number u = luaL_checknumber(L, 1);</span>
+<span class="lineNum">     215 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoExec" title="Block containing branch 3 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 4 was never executed"> # </span>]:<span class="lineCov">          2 :       luaL_argcheck(L, 1.0 &lt;= u, 1, &quot;interval is empty&quot;);</span>
 <span class="lineNum">     216 </span>                :<span class="lineCov">          1 :       lua_pushnumber(L, l_tg(floor)(r*u) + 1.0);  /* int in [1, u] */</span>
 <span class="lineNum">     217 </span>                :<span class="lineCov">          1 :       break;</span>
 <span class="lineNum">     218 </span>                :            :     }
 <span class="lineNum">     219 </span>                :            :     case 2: {  /* lower and upper limits */
-<span class="lineNum">     220 </span>                :<span class="lineCov">          1 :       lua_Number l = luaL_checknumber(L, 1);</span>
-<span class="lineNum">     221 </span>                :<span class="lineCov">          1 :       lua_Number u = luaL_checknumber(L, 2);</span>
-<span class="lineNum">     222 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoExec" title="Block containing branch 3 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 4 was never executed"> # </span>]:<span class="lineCov">          1 :       luaL_argcheck(L, l &lt;= u, 2, &quot;interval is empty&quot;);</span>
+<span class="lineNum">     220 </span>                :<span class="lineCov">          2 :       lua_Number l = luaL_checknumber(L, 1);</span>
+<span class="lineNum">     221 </span>                :<span class="lineCov">          2 :       lua_Number u = luaL_checknumber(L, 2);</span>
+<span class="lineNum">     222 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoExec" title="Block containing branch 3 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 4 was never executed"> # </span>]:<span class="lineCov">          2 :       luaL_argcheck(L, l &lt;= u, 2, &quot;interval is empty&quot;);</span>
 <span class="lineNum">     223 </span>                :<span class="lineCov">          1 :       lua_pushnumber(L, l_tg(floor)(r*(u-l+1)) + l);  /* int in [l, u] */</span>
 <span class="lineNum">     224 </span>                :<span class="lineCov">          1 :       break;</span>
 <span class="lineNum">     225 </span>                :            :     }
@@ -346,13 +346,13 @@
 <span class="lineNum">     272 </span>                :            : /*
 <span class="lineNum">     273 </span>                :            : ** Open math library
 <span class="lineNum">     274 </span>                :            : */
-<span class="lineNum">     275 </span>                :<span class="lineCov">         38 : LUAMOD_API int luaopen_math (lua_State *L) {</span>
-<span class="lineNum">     276 </span>                :<span class="lineCov">         38 :   luaL_newlib(L, mathlib);</span>
-<span class="lineNum">     277 </span>                :<span class="lineCov">         38 :   lua_pushnumber(L, PI);</span>
-<span class="lineNum">     278 </span>                :<span class="lineCov">         38 :   lua_setfield(L, -2, &quot;pi&quot;);</span>
-<span class="lineNum">     279 </span>                :<span class="lineCov">         38 :   lua_pushnumber(L, HUGE_VAL);</span>
-<span class="lineNum">     280 </span>                :<span class="lineCov">         38 :   lua_setfield(L, -2, &quot;huge&quot;);</span>
-<span class="lineNum">     281 </span>                :<span class="lineCov">         38 :   return 1;</span>
+<span class="lineNum">     275 </span>                :<span class="lineCov">         39 : LUAMOD_API int luaopen_math (lua_State *L) {</span>
+<span class="lineNum">     276 </span>                :<span class="lineCov">         39 :   luaL_newlib(L, mathlib);</span>
+<span class="lineNum">     277 </span>                :<span class="lineCov">         39 :   lua_pushnumber(L, PI);</span>
+<span class="lineNum">     278 </span>                :<span class="lineCov">         39 :   lua_setfield(L, -2, &quot;pi&quot;);</span>
+<span class="lineNum">     279 </span>                :<span class="lineCov">         39 :   lua_pushnumber(L, HUGE_VAL);</span>
+<span class="lineNum">     280 </span>                :<span class="lineCov">         39 :   lua_setfield(L, -2, &quot;huge&quot;);</span>
+<span class="lineNum">     281 </span>                :<span class="lineCov">         39 :   return 1;</span>
 <span class="lineNum">     282 </span>                :            : }
 <span class="lineNum">     283 </span>                :            : 
 </pre>
