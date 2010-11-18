@@ -14,14 +14,14 @@
 
 =head2 Synopsis
 
-    % prove 309-debug.t
+    % prove 310-debug.t
 
 =head2 Description
 
 Tests Lua Debug Library
 
-See "Lua 5.1 Reference Manual", section 5.9 "The Debug Library",
-L<http://www.lua.org/manual/5.1/manual.html#5.9>.
+See "Lua 5.2 Reference Manual", section 6.10 "The Debug Library",
+L<http://www.lua.org/manual/5.2/manual.html#6.10>.
 
 See "Programming in Lua", section 23 "The Debug Library".
 

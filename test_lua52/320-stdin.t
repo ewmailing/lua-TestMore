@@ -14,7 +14,7 @@
 
 =head2 Synopsis
 
-    % prove 310-stdin.t
+    % prove 320-stdin.t
 
 =head2 Description
 

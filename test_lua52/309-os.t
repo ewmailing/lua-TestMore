@@ -14,14 +14,14 @@
 
 =head2 Synopsis
 
-    % prove 308-os.t
+    % prove 309-os.t
 
 =head2 Description
 
 Tests Lua Operating System Library
 
-See "Lua 5.2 Reference Manual", section 6.8 "Operating System Facilities",
-L<http://www.lua.org/manual/5.2/manual.html#6.8>.
+See "Lua 5.2 Reference Manual", section 6.9 "Operating System Facilities",
+L<http://www.lua.org/manual/5.2/manual.html#6.9>.
 
 See "Programming in Lua", section 22 "The Operating System Library".
 

@@ -14,14 +14,14 @@
 
 =head2 Synopsis
 
-    % prove 307-io.t
+    % prove 308-io.t
 
 =head2 Description
 
 Tests Lua Input/Output Library
 
-See "Lua 5.2 Reference Manual", section 6.7 "Input and Output Facilities",
-L<http://www.lua.org/manual/5.2/manual.html#6.7>.
+See "Lua 5.2 Reference Manual", section 6.8 "Input and Output Facilities",
+L<http://www.lua.org/manual/5.2/manual.html#6.8>.
 
 See "Programming in Lua", section 21 "The I/O Library".
 
