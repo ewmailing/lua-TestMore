@@ -29,7 +29,7 @@ See "Programming in Lua", section 9 "Coroutines".
 
 require 'Test.More'
 
-plan(14)
+plan(16)
 
 -- [=[ foo1 ]]
 output = {}
@@ -81,6 +81,12 @@ co = coroutine.create(function ()
     end)
 
 coroutine.resume(co)
+thr, ismain = coroutine.running(co)
+if arg[-1] == 'luajit' then
+    todo("LuaJIT. running", 2)
+end
+type_ok(thr, 'thread', "running")
+is(ismain, true, "running")
 is(coroutine.status(co), 'suspended', "basics")
 coroutine.resume(co)
 coroutine.resume(co)

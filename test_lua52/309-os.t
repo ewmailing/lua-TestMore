@@ -31,7 +31,7 @@ See "Programming in Lua", section 22 "The Operating System Library".
 
 require 'Test.More'
 
-plan(37)
+plan(40)
 
 local lua = (platform and platform.lua) or arg[-1]
 
@@ -54,6 +54,13 @@ is(os.date('!%d/%m/%y %H:%M:%S', 0), '01/01/70 00:00:00', "function date")
 
 like(os.date('%H:%M:%S'), '^%d%d:%d%d:%d%d', "function date")
 
+if arg[-1] == 'luajit' then
+    todo("LuaJIT. invalid strftime.", 1)
+end
+error_like(function () os.date('%Ja', 0) end,
+           "^[^:]+:%d+: bad argument #1 to 'date' %(invalid conversion specifier '%%Ja'%)",
+           "function date (invalid)")
+
 is(os.difftime(1234, 1200), 34, "function difftime")
 is(os.difftime(1234), 1234)
 
@@ -66,6 +73,16 @@ if platform and platform.osname == 'MSWin32' then
 else
     is(os.execute(cmd), 512, "function execute & exit")
 end
+
+cmd = lua .. [[ -e "print '# hello from external Lua'; os.exit(false)"]]
+if platform and platform.osname == 'MSWin32' then
+    is(os.execute(cmd), 1, "function execute & exit")
+else
+    is(os.execute(cmd), 256, "function execute & exit")
+end
+
+cmd = lua .. [[ -e "print '# hello from external Lua'; os.exit(true)"]]
+is(os.execute(cmd), 0, "function execute & exit")
 
 cmd = lua .. [[ -e "print 'reached'; os.exit(); print 'not reached';"]]
 f = io.popen(cmd)

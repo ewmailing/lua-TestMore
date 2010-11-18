@@ -2,7 +2,7 @@
 --
 -- lua-TestMore : <http://fperrad.github.com/lua-TestMore/>
 --
--- Copyright (C) 2009, Perrad Francois
+-- Copyright (C) 2009-2010, Perrad Francois
 --
 -- This code is licensed under the terms of the MIT/X11 license,
 -- like Lua itself.
@@ -55,12 +55,12 @@ function loop_factorial (n)
 end
 is(loop_factorial(7), 5040, "factorial (loop)")
 
---[[
+--[===[
 
   Knuth's "man or boy" test.
   See http://en.wikipedia.org/wiki/Man_or_boy_test
 
-]]
+]===]
 
 local function A (k, x1, x2, x3, x4, x5)
     local function B ()
