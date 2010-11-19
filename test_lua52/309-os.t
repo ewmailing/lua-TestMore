@@ -55,7 +55,7 @@ is(os.date('!%d/%m/%y %H:%M:%S', 0), '01/01/70 00:00:00', "function date")
 like(os.date('%H:%M:%S'), '^%d%d:%d%d:%d%d', "function date")
 
 if arg[-1] == 'luajit' then
-    todo("LuaJIT. invalid strftime.", 1)
+    todo("LuaJIT TODO. invalid strftime.", 1)
 end
 error_like(function () os.date('%Ja', 0) end,
            "^[^:]+:%d+: bad argument #1 to 'date' %(invalid conversion specifier '%%Ja'%)",

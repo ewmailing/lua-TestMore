@@ -97,9 +97,6 @@ is(string.format("<%s>%s</%s>", tag, title, tag), "<h1>a title</h1>")
 is(string.format('%q', 'a string with "quotes" and \n new line'), [["a string with \"quotes\" and \
  new line"]], "function format %q")
 
-if arg[-1] == 'luajit' then
-    todo("LuaJIT. %q escape control char.", 1)
-end
 is(string.format('%q', 'a string with \b and \b2'), [["a string with \8 and \0082"]], "function format %q")
 
 is(string.format("%s %s", 1, 2, 3), '1 2', "function format (too many arg)")
@@ -134,7 +131,7 @@ error_like(function () string.format('% 123s', 'toto') end,
            "function format (invalid format)")
 
 if arg[-1] == 'luajit' then
-    todo("LuaJIT. rename gfind.", 1)
+    todo("LuaJIT intentional. no gfind.", 1)
 end
 error_like(function () string.gfind() end,
            "^[^:]+:%d+: 'string.gfind' was renamed to 'string.gmatch'",
@@ -259,9 +256,6 @@ p = "%[(=*)%[(.-)%]%1%]"
 s = "a = [=[[[ something ]] ]==]x]=]; print(a)"
 eq_array({string.match(s, p)}, {'=', '[[ something ]] ]==]x'})
 
-if arg[-1] == 'luajit' then
-    todo("LuaJIT. pattern %g.", 1)
-end
 is(string.match(s, "%g"), "a", "match graphic char")
 
 error_like(function () string.match("hello world", "%1") end,

@@ -28,9 +28,6 @@ plan(54)
 
 is("\65", "A")
 is("\065", "A")
-if arg[-1] == 'luajit' then
-    todo("LuaJIT. escape hexa", 1)
-end
 is("\x41", "A")
 
 is(- '1', -1, "-'1'")

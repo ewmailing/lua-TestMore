@@ -30,7 +30,7 @@ L<http://www.lua.org/manual/5.2/manual.html#6.7>.
 require 'Test.More'
 
 if arg[-1] == 'luajit' then
-    skip_all("LuaJIT. bit")
+    skip_all("LuaJIT. bit32")
 end
 
 plan(11)

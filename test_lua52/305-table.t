@@ -117,7 +117,7 @@ else
 end
 
 if arg[-1] == 'luajit' then
-    skip("LuaJIT. pack", 4)
+    skip("LuaJIT TODO. pack", 4)
 else
     t = table.pack("abc", "def", "ghi")
     eq_array(t, {
@@ -238,18 +238,15 @@ eq_array(output, {
     'a b c d e f g', 5040,
 }, "function sort (all permutations)")
 
-local msg = "invalid order function for sorting"
-if arg[-1] == 'luajit' then
-    msg = "attempt to index local 'a' %(a nil value%)"
-end
 error_like(function ()
     local t = { 1 }
     table.sort( { t, t, t, t, }, function (a, b) return a[1] == b[1] end )
            end,
-           "^[^:]+:%d+: " .. msg,
+           "^[^:]+:%d+: invalid order function for sorting",
            "function sort (bad func)")
 
 if arg[-1] == 'luajit' then
+    diag("LuaJIT TODO. unpack")
     table.unpack = unpack
 end
 eq_array({table.unpack({})}, {}, "function unpack")

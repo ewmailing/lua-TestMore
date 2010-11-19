@@ -75,7 +75,7 @@ is(math.ldexp(1.2, 3), 9.6, "function ldexp")
 
 like(math.log(47), '^3%.85', "function log")
 if arg[-1] == 'luajit' then
-    todo("LuaJIT. log with base.", 2)
+    todo("LuaJIT TODO. log with base.", 2)
 end
 like(math.log(47, 2), '^5%.554', "function log (base 2)")
 like(math.log(47, 10), '^1%.672', "function log (base 10)")
@@ -118,7 +118,7 @@ like(math.random(9), '^%d$', "function random 1 arg")
 like(math.random(10, 19), '^1%d$', "function random 2 arg")
 
 if arg[-1] == 'luajit' then
-    todo("LuaJIT. check empty interval.", 2)
+    todo("LuaJIT intentional. Don't check empty interval.", 2)
 end
 error_like(function () math.random(0) end,
            "^[^:]+:%d+: bad argument #1 to 'random' %(interval is empty%)",

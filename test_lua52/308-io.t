@@ -143,7 +143,7 @@ is(s2, nil)
 f:close()
 
 if arg[-1] == 'luajit' then
-    skip("LuaJIT. read *L.", 3)
+    skip("LuaJIT TODO. read *L.", 3)
 else
     f = io.open('file.txt')
     s1, s2 = f:read('*L', '*L')
@@ -215,6 +215,7 @@ error_like(function () f:write('end') end,
 f = io.open('file.out', 'w')
 if arg[-1] == 'luajit' then
     is(f:write('end'), true, "method write")
+    diag("LuaJIT TODO. write")
 else
     is(f:write('end'), f, "method write")
 end
