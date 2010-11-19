@@ -24,11 +24,7 @@
 
 require 'Test.More'
 
-plan(54)
-
-is("\65", "A")
-is("\065", "A")
-is("\x41", "A")
+plan(51)
 
 is(- '1', -1, "-'1'")
 
