@@ -31,7 +31,7 @@ See "Programming in Lua", section 22 "The Operating System Library".
 
 require 'Test.More'
 
-plan(41)
+plan(42)
 
 local lua = (platform and platform.lua) or arg[-1]
 
@@ -55,8 +55,9 @@ is(os.date('!%d/%m/%y %H:%M:%S', 0), '01/01/70 00:00:00', "function date")
 like(os.date('%H:%M:%S'), '^%d%d:%d%d:%d%d', "function date")
 
 if arg[-1] == 'luajit' then
-    todo("LuaJIT TODO. invalid strftime.", 1)
+    todo("LuaJIT TODO. invalid strftime.", 2)
 end
+is(os.date('%Oy', 0), '70')
 error_like(function () os.date('%Ja', 0) end,
            "^[^:]+:%d+: bad argument #1 to 'date' %(invalid conversion specifier '%%Ja'%)",
            "function date (invalid)")

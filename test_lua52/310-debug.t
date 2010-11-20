@@ -31,9 +31,21 @@ See "Programming in Lua", section 23 "The Debug Library".
 
 require 'Test.More'
 
-plan(14)
+plan(26)
 
 debug = require 'debug'
+
+if arg[-1] == 'luajit' then
+    skip("LuaJIT: getuservalue", 2)
+else
+    local u = debug.getuservalue(require 'io'.stdout)
+    type_ok(u, 'table', "function getuservalue")
+    u = debug.getuservalue(debug)
+    is(u, nil)
+end
+
+hook = debug.gethook()
+is(hook, nil, "function gethook")
 
 info = debug.getinfo(is)
 type_ok(info, 'table', "function getinfo (function)")
@@ -49,6 +61,22 @@ error_like(function () debug.getinfo('bad') end,
            "bad argument #1 to 'getinfo' %(function or level expected%)",
            "function getinfo (bad arg)")
 
+local name, value = debug.getlocal(0, 1)
+type_ok(name, 'string', "function getlocal (level)")
+is(value, 0)
+
+error_like(function () debug.getlocal(42, 1) end,
+           "bad argument #1 to 'getlocal' %(level out of range%)",
+           "function getlocal (out of range)")
+
+if arg[-1] == 'luajit' then
+    skip("LuaJIT: getlocal (func)", 2)
+else
+    local name, value = debug.getlocal(like, 1)
+    type_ok(name, 'string', "function getlocal (func)")
+    is(value, nil)
+end
+
 t = {}
 is(debug.getmetatable(t), nil, "function getmetatable")
 t1 = {}
@@ -58,6 +86,21 @@ is(debug.getmetatable(t), t1)
 local reg = debug.getregistry()
 type_ok(reg, 'table', "function getregistry")
 type_ok(reg._LOADED, 'table')
+
+local name = debug.getupvalue(plan, 1)
+type_ok(name, 'string', "function getupvalue")
+
+if arg[-1] == 'luajit' then
+    skip("LuaJIT: setuservalue", 3)
+else
+    local u = io.tmpfile()
+    local old = debug.getuservalue(u)
+    r = debug.setuservalue(u, nil)
+    is(r, u, "function setuservalue")
+    is(debug.getuservalue(u), nil)
+    r = debug.setuservalue(u, old)
+    is(debug.getuservalue(u), old)
+end
 
 t = {}
 t1 = {}
