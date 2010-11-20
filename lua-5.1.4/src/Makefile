@@ -38,12 +38,6 @@ LUAC_O=	luac.o print.o
 ALL_O= $(CORE_O) $(LIB_O) $(LUA_O) $(LUAC_O)
 ALL_T= $(LUA_A) $(LUA_T) $(LUAC_T)
 ALL_A= $(LUA_A)
-ALL_GCOV= lapi.c.gcov lcode.c.gcov ldebug.c.gcov ldo.c.gcov ldump.c.gcov \
-	lfunc.c.gcov lgc.c.gcov llex.c.gcov lmem.c.gcov \
-	lobject.c.gcov lparser.c.gcov lstate.c.gcov \
-	lstring.c.gcov ltable.c.gcov ltm.c.gcov lvm.c.gcov lzio.c.gcov \
-	lauxlib.c.gcov lbaselib.c.gcov ldblib.c.gcov liolib.c.gcov lmathlib.c.gcov \
-	loslib.c.gcov ltablib.c.gcov lstrlib.c.gcov loadlib.c.gcov linit.c.gcov
 
 default: $(PLAT)
 
@@ -53,15 +47,10 @@ o:	$(ALL_O)
 
 a:	$(ALL_A)
 
-gcov::	$(ALL_GCOV)
-
-%.c.gcov: %.c %.gcda
-	gcov $<
-
-lcov: gcov
+lcov:
 	lcov --capture -d . -o lua.info
 	rm -rf ../../cover_lua514
-	genhtml -o ../../cover_lua514 -t "Lua 5.1.4" --no-function-coverage --legend --prefix /home/user/checkout/gh-pages/lua-TestMore/lua-5.1.4 lua.info
+	genhtml -o ../../cover_lua514 -t "Lua 5.1.4" --no-function-coverage --no-branch-coverage --legend --prefix /home/user/checkout/gh-pages/lua-TestMore/lua-5.1.4 lua.info
 
 $(LUA_A): $(CORE_O) $(LIB_O)
 	$(AR) $@ $?
