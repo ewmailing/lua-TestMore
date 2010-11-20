@@ -62,6 +62,13 @@ local test_files = {
 local todo_info = {
 }
 
+if arg[-1] == 'luajit' then
+    todo_info[143] = "LuaJIT. \\0"
+    todo_info[145] = "LuaJIT. \\0"
+    todo_info[147] = "LuaJIT. [^\\0]"
+    todo_info[149] = "LuaJIT. [^\\0]"
+end
+
 local function split (line)
     local pattern, target, result, desc = '', '', '', ''
     local idx = 1
