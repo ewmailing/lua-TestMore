@@ -18,8 +18,8 @@
 
 =head2 Description
 
-See "Lua 5.1 Reference Manual", section 2.11 "Coroutines",
-L<http://www.lua.org/manual/5.1/manual.html#2.11>.
+See "Lua 5.2 Reference Manual", section 2.6 "Coroutines",
+L<http://www.lua.org/manual/5.2/manual.html#2.6>.
 
 See "Programming in Lua", section 9 "Coroutines".
 

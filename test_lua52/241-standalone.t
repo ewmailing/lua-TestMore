@@ -18,8 +18,8 @@
 
 =head2 Description
 
-See "Lua 5.1 Reference Manual", section 6 "Lua Stand-alone",
-L<http://www.lua.org/manual/5.1/manual.html#6>.
+See "Lua 5.2 Reference Manual", section 7 "Lua Stand-alone",
+L<http://www.lua.org/manual/5.2/manual.html#7>.
 
 =cut
 

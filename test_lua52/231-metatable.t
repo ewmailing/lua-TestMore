@@ -18,8 +18,8 @@
 
 =head2 Description
 
-See "Lua 5.1 Reference Manual", section 2.8 "Metatables",
-L<http://www.lua.org/manual/5.1/manual.html#2.8>.
+See "Lua 5.2 Reference Manual", section 2.4 "Metatables and Metamethods",
+L<http://www.lua.org/manual/5.2/manual.html#2.4>.
 
 See "Programming in Lua", section 13 "Metatables and Metamethods".
 
