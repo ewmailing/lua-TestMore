@@ -51,7 +51,7 @@ Description of the test.
 
 require 'Test.More'
 
-plan(150)
+plan(154)
 
 local test_files = {
     'rx_captures',

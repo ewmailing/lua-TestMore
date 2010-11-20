@@ -29,11 +29,19 @@ See "Programming in Lua", section 4.1 "Assignment".
 
 require 'Test.More'
 
-plan(35)
+plan(38)
 
 is(b, nil, "global variable")
 b = 10
 is(b, 10)
+if arg[-1] == 'luajit' then
+    skip("LuaJIT. _ENV.", 3)
+else
+    is(_ENV.b, 10, "_ENV")
+    is(_G, _ENV, "_G")
+    error_like([[ _ENV = nil; b = 20 ]],
+               "^[^:]+:%d+: attempt to index upvalue '_ENV' %(a nil value%)")
+end
 b = nil
 is(b, nil)
 

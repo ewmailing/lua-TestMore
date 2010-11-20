@@ -27,7 +27,7 @@ L<http://www.lua.org/manual/5.2/manual.html#3.1>.
 
 require 'Test.More'
 
-plan(34)
+plan(35)
 
 is("\65", "A")
 is("\065", "A")
@@ -43,6 +43,8 @@ is(string.byte("\r"), 13)
 is(string.byte("\t"), 9)
 is(string.byte("\v"), 11)
 is(string.byte("\\"), 92)
+
+is(string.len("A\0B"), 3)
 
 f, msg = loadstring [[a = "A\300"]]
 like(msg, "^[^:]+:%d+: .- escape .- near")

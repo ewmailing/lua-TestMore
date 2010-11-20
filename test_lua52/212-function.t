@@ -29,7 +29,7 @@ See "Programming in Lua", section 5 "Functions".
 
 require 'Test.More'
 
-plan(64)
+plan(63)
 
 --[[ add ]]
 function add (a)
@@ -214,19 +214,6 @@ function f ()
 end
 ]]
 like(msg, "^[^:]+:%d+: cannot use '...' outside a vararg function", "invalid var args")
-
---[[ orphan break ]]
-f, msg = loadstring [[
-function f()
-    print "before"
-    do
-        print "inner"
-        break
-    end
-    print "after"
-end
-]]
-like(msg, "^[^:]+:%d+: no loop to break", "orphan break")
 
 --[[ tail call ]]
 output = {}

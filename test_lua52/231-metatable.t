@@ -29,7 +29,7 @@ See "Programming in Lua", section 13 "Metatables and Metamethods".
 
 require 'Test.More'
 
-plan(84)
+plan(85)
 
 t = {}
 is(getmetatable(t), nil, "metatable")
@@ -62,6 +62,8 @@ function mt.__tostring () a = "return nothing" end
 setmetatable(t, mt)
 is(tostring(t), nil, "__tostring no-output")
 is(a, "return nothing")
+error_like(function () print(t) end,
+           "^[^:]+:%d+: 'tostring' must return a string to 'print'")
 
 mt.__tostring = function () return '__FIRST__', 2 end
 setmetatable(t, mt)
