@@ -29,7 +29,7 @@ L<http://www.lua.org/manual/5.2/manual.html#6.3>.
 
 require 'Test.More'
 
-plan(29)
+plan(31)
 
 ok(package.loaded._G, "table package.loaded")
 ok(package.loaded.coroutine)
@@ -59,6 +59,15 @@ end
 local m = require 'Test.More'
 m.ok(true, "function require")
 is(m, package.loaded['Test.More'])
+
+if arg[-1] == 'luajit' then
+    skip("LuaJIT. searchpath", 2)
+else
+    p = package.searchpath('Test.More', package.path)
+    type_ok(p, 'string', "searchpath")
+    p = package.searchpath('Test.More', 'bad path')
+    is(p, nil)
+end
 
 f = io.open('complex.lua', 'w')
 f:write [[

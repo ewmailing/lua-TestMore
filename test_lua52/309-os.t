@@ -31,7 +31,7 @@ See "Programming in Lua", section 22 "The Operating System Library".
 
 require 'Test.More'
 
-plan(40)
+plan(41)
 
 local lua = (platform and platform.lua) or arg[-1]
 
@@ -88,7 +88,11 @@ cmd = lua .. [[ -e "print 'reached'; os.exit(); print 'not reached';"]]
 f = io.popen(cmd)
 is(f:read'*l', 'reached', "function exit")
 is(f:read'*l', nil)
-f:close()
+code = f:close()
+if arg[-1] == 'luajit' then
+    todo("LuaJIT. pipe exit code.", 1)
+end
+is(code, 0, "exit code")
 
 is(os.getenv('__IMPROBABLE__'), nil, "function getenv")
 

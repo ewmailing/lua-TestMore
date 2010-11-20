@@ -29,7 +29,7 @@ L<http://www.lua.org/manual/5.2/manual.html#6.1>.
 
 require 'Test.More'
 
-plan(124)
+plan(126)
 
 if arg[-1] == 'luajit' then
     like(_VERSION, '^Lua 5%.1', "variable _VERSION")
@@ -59,7 +59,17 @@ error_like(function () assert(false, nil) end,
            "function assert(false, nil)")
 
 is(collectgarbage('stop'), 0, "function collectgarbage 'stop/restart/collect'")
+if arg[-1] == 'luajit' then
+    skip("LuaJIT. isrunning", 1)
+else
+    is(collectgarbage('isrunning'), false)
+end
 is(collectgarbage('restart'), 0)
+if arg[-1] == 'luajit' then
+    skip("LuaJIT. isrunning", 1)
+else
+    is(collectgarbage('isrunning'), true)
+end
 is(collectgarbage('collect'), 0)
 is(collectgarbage(), 0)
 
