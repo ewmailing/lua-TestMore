@@ -39,14 +39,6 @@ ALL_O= $(CORE_O) $(LIB_O) $(LUA_O) $(LUAC_O)
 ALL_T= $(LUA_A) $(LUA_T) $(LUAC_T)
 ALL_A= $(LUA_A)
 
-ALL_GCOV= lapi.c.gcov lcode.c.gcov ldebug.c.gcov ldo.c.gcov \
-	ldump.c.gcov lfunc.c.gcov lgc.c.gcov llex.c.gcov lmem.c.gcov \
-	lobject.c.gcov lparser.c.gcov lstate.c.gcov \
-	lstring.c.gcov ltable.c.gcov ltm.c.gcov lundump.c.gcov lvm.c.gcov lzio.c.gcov \
-	lauxlib.c.gcov lbaselib.c.gcov lbitlib.c.gcov lcorolib.c.gcov ldblib.c.gcov liolib.c.gcov \
-	lmathlib.c.gcov loslib.c.gcov lstrlib.c.gcov ltablib.c.gcov loadlib.c.gcov linit.c.gcov \
-	lua.c.gcov
-
 # Targets start here.
 default: $(PLAT)
 
@@ -56,15 +48,10 @@ o:	$(ALL_O)
 
 a:	$(ALL_A)
 
-gcov::	$(ALL_GCOV)
-
-%.c.gcov: %.c %.gcda
-	gcov $<
-
-lcov: gcov
+lcov:
 	lcov --capture -d . -o lua.info
 	rm -rf ../../cover_lua520
-	genhtml -o ../../cover_lua520 -t "Lua 5.2.0 alpha" --no-function-coverage --legend --prefix /home/user/checkout/gh-pages/lua-TestMore/lua-5.2.0-alpha lua.info
+	genhtml -o ../../cover_lua520 -t "Lua 5.2.0 alpha" --no-function-coverage --no-branch-coverage --legend --prefix /home/user/checkout/gh-pages/lua-TestMore/lua-5.2.0-alpha lua.info
 
 $(LUA_A): $(CORE_O) $(LIB_O)
 	$(AR) $@ $?

@@ -37,22 +37,14 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2010-11-18</td>
+            <td class="headerValue">2010-11-20</td>
             <td></td>
-            <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">10</td>
-            <td class="headerCovTableEntry">18</td>
-            <td class="headerCovTableEntryLo">55.6 %</td>
           </tr>
           <tr>
             <td class="headerItem">Legend:</td>
             <td class="headerValueLeg">            Lines:
             <span class="coverLegendCov">hit</span>
             <span class="coverLegendNoCov">not hit</span>
-            | Branches:
-            <span class="coverLegendCov">+</span> taken
-            <span class="coverLegendNoCov">-</span> not taken
-            <span class="coverLegendNoCov">#</span> not executed
 </td>
             <td></td>
           </tr>
@@ -70,90 +62,90 @@
     </tr>
     <tr>
       <td>
-<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="sourceHeading">          Line data    Source code</pre>
 <pre class="source">
-<span class="lineNum">       1 </span>                :            : /*
-<span class="lineNum">       2 </span>                :            : ** $Id: lzio.c,v 1.31 2005/06/03 20:15:29 roberto Exp $
-<span class="lineNum">       3 </span>                :            : ** a generic input stream interface
-<span class="lineNum">       4 </span>                :            : ** See Copyright Notice in lua.h
-<span class="lineNum">       5 </span>                :            : */
-<span class="lineNum">       6 </span>                :            : 
-<span class="lineNum">       7 </span>                :            : 
-<span class="lineNum">       8 </span>                :            : #include &lt;string.h&gt;
-<span class="lineNum">       9 </span>                :            : 
-<span class="lineNum">      10 </span>                :            : #define lzio_c
-<span class="lineNum">      11 </span>                :            : #define LUA_CORE
-<span class="lineNum">      12 </span>                :            : 
-<span class="lineNum">      13 </span>                :            : #include &quot;lua.h&quot;
-<span class="lineNum">      14 </span>                :            : 
-<span class="lineNum">      15 </span>                :            : #include &quot;llimits.h&quot;
-<span class="lineNum">      16 </span>                :            : #include &quot;lmem.h&quot;
-<span class="lineNum">      17 </span>                :            : #include &quot;lstate.h&quot;
-<span class="lineNum">      18 </span>                :            : #include &quot;lzio.h&quot;
-<span class="lineNum">      19 </span>                :            : 
-<span class="lineNum">      20 </span>                :            : 
-<span class="lineNum">      21 </span>                :<span class="lineCov">        751 : int luaZ_fill (ZIO *z) {</span>
-<span class="lineNum">      22 </span>                :            :   size_t size;
-<span class="lineNum">      23 </span>                :<span class="lineCov">        751 :   lua_State *L = z-&gt;L;</span>
-<span class="lineNum">      24 </span>                :            :   const char *buff;
-<span class="lineNum">      25 </span>                :            :   lua_unlock(L);
-<span class="lineNum">      26 </span>                :<span class="lineCov">        751 :   buff = z-&gt;reader(L, z-&gt;data, &amp;size);</span>
-<span class="lineNum">      27 </span>                :            :   lua_lock(L);
-<span class="lineNum">      28 </span>  [<span class="branchCov" title="Branch 0 was taken 451 times"> + </span><span class="branchCov" title="Branch 1 was taken 300 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 451 times"> + </span>]:<span class="lineCov">        751 :   if (buff == NULL || size == 0) return EOZ;</span>
-<span class="lineNum">      29 </span>                :<span class="lineCov">        451 :   z-&gt;n = size - 1;</span>
-<span class="lineNum">      30 </span>                :<span class="lineCov">        451 :   z-&gt;p = buff;</span>
-<span class="lineNum">      31 </span>                :<span class="lineCov">        751 :   return char2int(*(z-&gt;p++));</span>
-<span class="lineNum">      32 </span>                :            : }
-<span class="lineNum">      33 </span>                :            : 
-<span class="lineNum">      34 </span>                :            : 
-<span class="lineNum">      35 </span>                :<span class="lineCov">        306 : int luaZ_lookahead (ZIO *z) {</span>
-<span class="lineNum">      36 </span>        [<span class="branchCov" title="Branch 0 was taken 306 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        306 :   if (z-&gt;n == 0) {</span>
-<span class="lineNum">      37 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 306 times"> + </span>]:<span class="lineCov">        306 :     if (luaZ_fill(z) == EOZ)</span>
-<span class="lineNum">      38 </span>                :<span class="lineNoCov">          0 :       return EOZ;</span>
-<span class="lineNum">      39 </span>                :            :     else {
-<span class="lineNum">      40 </span>                :<span class="lineCov">        306 :       z-&gt;n++;  /* luaZ_fill removed first byte; put back it */</span>
-<span class="lineNum">      41 </span>                :<span class="lineCov">        306 :       z-&gt;p--;</span>
-<span class="lineNum">      42 </span>                :            :     }
-<span class="lineNum">      43 </span>                :            :   }
-<span class="lineNum">      44 </span>                :<span class="lineCov">        306 :   return char2int(*z-&gt;p);</span>
-<span class="lineNum">      45 </span>                :            : }
-<span class="lineNum">      46 </span>                :            : 
-<span class="lineNum">      47 </span>                :            : 
-<span class="lineNum">      48 </span>                :<span class="lineCov">        306 : void luaZ_init (lua_State *L, ZIO *z, lua_Reader reader, void *data) {</span>
-<span class="lineNum">      49 </span>                :<span class="lineCov">        306 :   z-&gt;L = L;</span>
-<span class="lineNum">      50 </span>                :<span class="lineCov">        306 :   z-&gt;reader = reader;</span>
-<span class="lineNum">      51 </span>                :<span class="lineCov">        306 :   z-&gt;data = data;</span>
-<span class="lineNum">      52 </span>                :<span class="lineCov">        306 :   z-&gt;n = 0;</span>
-<span class="lineNum">      53 </span>                :<span class="lineCov">        306 :   z-&gt;p = NULL;</span>
-<span class="lineNum">      54 </span>                :<span class="lineCov">        306 : }</span>
-<span class="lineNum">      55 </span>                :            : 
-<span class="lineNum">      56 </span>                :            : 
-<span class="lineNum">      57 </span>                :            : /* --------------------------------------------------------------- read --- */
-<span class="lineNum">      58 </span>                :<span class="lineNoCov">          0 : size_t luaZ_read (ZIO *z, void *b, size_t n) {</span>
-<span class="lineNum">      59 </span>        [<span class="branchNoExec" title="Block containing branch 0 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span>]:<span class="lineNoCov">          0 :   while (n) {</span>
-<span class="lineNum">      60 </span>                :            :     size_t m;
-<span class="lineNum">      61 </span>        [<span class="branchNoExec" title="Block containing branch 1 was never executed"> # </span><span class="branchNoExec" title="Block containing branch 2 was never executed"> # </span>]:<span class="lineNoCov">          0 :     if (luaZ_lookahead(z) == EOZ)</span>
-<span class="lineNum">      62 </span>                :<span class="lineNoCov">          0 :       return n;  /* return number of missing bytes */</span>
-<span class="lineNum">      63 </span>                :<span class="lineNoCov">          0 :     m = (n &lt;= z-&gt;n) ? n : z-&gt;n;  /* min. between n and z-&gt;n */</span>
-<span class="lineNum">      64 </span>                :<span class="lineNoCov">          0 :     memcpy(b, z-&gt;p, m);</span>
-<span class="lineNum">      65 </span>                :<span class="lineNoCov">          0 :     z-&gt;n -= m;</span>
-<span class="lineNum">      66 </span>                :<span class="lineNoCov">          0 :     z-&gt;p += m;</span>
-<span class="lineNum">      67 </span>                :<span class="lineNoCov">          0 :     b = (char *)b + m;</span>
-<span class="lineNum">      68 </span>                :<span class="lineNoCov">          0 :     n -= m;</span>
-<span class="lineNum">      69 </span>                :            :   }
-<span class="lineNum">      70 </span>                :<span class="lineNoCov">          0 :   return 0;</span>
-<span class="lineNum">      71 </span>                :            : }
-<span class="lineNum">      72 </span>                :            : 
-<span class="lineNum">      73 </span>                :            : /* ------------------------------------------------------------------------ */
-<span class="lineNum">      74 </span>                :<span class="lineCov">       7059 : char *luaZ_openspace (lua_State *L, Mbuffer *buff, size_t n) {</span>
-<span class="lineNum">      75 </span>        [<span class="branchCov" title="Branch 0 was taken 262 times"> + </span><span class="branchCov" title="Branch 1 was taken 6797 times"> + </span>]:<span class="lineCov">       7059 :   if (n &gt; buff-&gt;buffsize) {</span>
-<span class="lineNum">      76 </span>        [<span class="branchCov" title="Branch 0 was taken 74 times"> + </span><span class="branchCov" title="Branch 1 was taken 188 times"> + </span>]:<span class="lineCov">        262 :     if (n &lt; LUA_MINBUFFER) n = LUA_MINBUFFER;</span>
-<span class="lineNum">      77 </span>        [<span class="branchCov" title="Branch 0 was taken 262 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        262 :     luaZ_resizebuffer(L, buff, n);</span>
-<span class="lineNum">      78 </span>                :            :   }
-<span class="lineNum">      79 </span>                :<span class="lineCov">       7059 :   return buff-&gt;buffer;</span>
-<span class="lineNum">      80 </span>                :            : }
-<span class="lineNum">      81 </span>                :            : 
-<span class="lineNum">      82 </span>                :            : 
+<span class="lineNum">       1 </span>            : /*
+<span class="lineNum">       2 </span>            : ** $Id: lzio.c,v 1.31 2005/06/03 20:15:29 roberto Exp $
+<span class="lineNum">       3 </span>            : ** a generic input stream interface
+<span class="lineNum">       4 </span>            : ** See Copyright Notice in lua.h
+<span class="lineNum">       5 </span>            : */
+<span class="lineNum">       6 </span>            : 
+<span class="lineNum">       7 </span>            : 
+<span class="lineNum">       8 </span>            : #include &lt;string.h&gt;
+<span class="lineNum">       9 </span>            : 
+<span class="lineNum">      10 </span>            : #define lzio_c
+<span class="lineNum">      11 </span>            : #define LUA_CORE
+<span class="lineNum">      12 </span>            : 
+<span class="lineNum">      13 </span>            : #include &quot;lua.h&quot;
+<span class="lineNum">      14 </span>            : 
+<span class="lineNum">      15 </span>            : #include &quot;llimits.h&quot;
+<span class="lineNum">      16 </span>            : #include &quot;lmem.h&quot;
+<span class="lineNum">      17 </span>            : #include &quot;lstate.h&quot;
+<span class="lineNum">      18 </span>            : #include &quot;lzio.h&quot;
+<span class="lineNum">      19 </span>            : 
+<span class="lineNum">      20 </span>            : 
+<span class="lineNum">      21 </span><span class="lineCov">        806 : int luaZ_fill (ZIO *z) {</span>
+<span class="lineNum">      22 </span>            :   size_t size;
+<span class="lineNum">      23 </span><span class="lineCov">        806 :   lua_State *L = z-&gt;L;</span>
+<span class="lineNum">      24 </span>            :   const char *buff;
+<span class="lineNum">      25 </span>            :   lua_unlock(L);
+<span class="lineNum">      26 </span><span class="lineCov">        806 :   buff = z-&gt;reader(L, z-&gt;data, &amp;size);</span>
+<span class="lineNum">      27 </span>            :   lua_lock(L);
+<span class="lineNum">      28 </span><span class="lineCov">        806 :   if (buff == NULL || size == 0) return EOZ;</span>
+<span class="lineNum">      29 </span><span class="lineCov">        486 :   z-&gt;n = size - 1;</span>
+<span class="lineNum">      30 </span><span class="lineCov">        486 :   z-&gt;p = buff;</span>
+<span class="lineNum">      31 </span><span class="lineCov">        806 :   return char2int(*(z-&gt;p++));</span>
+<span class="lineNum">      32 </span>            : }
+<span class="lineNum">      33 </span>            : 
+<span class="lineNum">      34 </span>            : 
+<span class="lineNum">      35 </span><span class="lineCov">        332 : int luaZ_lookahead (ZIO *z) {</span>
+<span class="lineNum">      36 </span><span class="lineCov">        332 :   if (z-&gt;n == 0) {</span>
+<span class="lineNum">      37 </span><span class="lineCov">        332 :     if (luaZ_fill(z) == EOZ)</span>
+<span class="lineNum">      38 </span><span class="lineNoCov">          0 :       return EOZ;</span>
+<span class="lineNum">      39 </span>            :     else {
+<span class="lineNum">      40 </span><span class="lineCov">        332 :       z-&gt;n++;  /* luaZ_fill removed first byte; put back it */</span>
+<span class="lineNum">      41 </span><span class="lineCov">        332 :       z-&gt;p--;</span>
+<span class="lineNum">      42 </span>            :     }
+<span class="lineNum">      43 </span>            :   }
+<span class="lineNum">      44 </span><span class="lineCov">        332 :   return char2int(*z-&gt;p);</span>
+<span class="lineNum">      45 </span>            : }
+<span class="lineNum">      46 </span>            : 
+<span class="lineNum">      47 </span>            : 
+<span class="lineNum">      48 </span><span class="lineCov">        332 : void luaZ_init (lua_State *L, ZIO *z, lua_Reader reader, void *data) {</span>
+<span class="lineNum">      49 </span><span class="lineCov">        332 :   z-&gt;L = L;</span>
+<span class="lineNum">      50 </span><span class="lineCov">        332 :   z-&gt;reader = reader;</span>
+<span class="lineNum">      51 </span><span class="lineCov">        332 :   z-&gt;data = data;</span>
+<span class="lineNum">      52 </span><span class="lineCov">        332 :   z-&gt;n = 0;</span>
+<span class="lineNum">      53 </span><span class="lineCov">        332 :   z-&gt;p = NULL;</span>
+<span class="lineNum">      54 </span><span class="lineCov">        332 : }</span>
+<span class="lineNum">      55 </span>            : 
+<span class="lineNum">      56 </span>            : 
+<span class="lineNum">      57 </span>            : /* --------------------------------------------------------------- read --- */
+<span class="lineNum">      58 </span><span class="lineNoCov">          0 : size_t luaZ_read (ZIO *z, void *b, size_t n) {</span>
+<span class="lineNum">      59 </span><span class="lineNoCov">          0 :   while (n) {</span>
+<span class="lineNum">      60 </span>            :     size_t m;
+<span class="lineNum">      61 </span><span class="lineNoCov">          0 :     if (luaZ_lookahead(z) == EOZ)</span>
+<span class="lineNum">      62 </span><span class="lineNoCov">          0 :       return n;  /* return number of missing bytes */</span>
+<span class="lineNum">      63 </span><span class="lineNoCov">          0 :     m = (n &lt;= z-&gt;n) ? n : z-&gt;n;  /* min. between n and z-&gt;n */</span>
+<span class="lineNum">      64 </span><span class="lineNoCov">          0 :     memcpy(b, z-&gt;p, m);</span>
+<span class="lineNum">      65 </span><span class="lineNoCov">          0 :     z-&gt;n -= m;</span>
+<span class="lineNum">      66 </span><span class="lineNoCov">          0 :     z-&gt;p += m;</span>
+<span class="lineNum">      67 </span><span class="lineNoCov">          0 :     b = (char *)b + m;</span>
+<span class="lineNum">      68 </span><span class="lineNoCov">          0 :     n -= m;</span>
+<span class="lineNum">      69 </span>            :   }
+<span class="lineNum">      70 </span><span class="lineNoCov">          0 :   return 0;</span>
+<span class="lineNum">      71 </span>            : }
+<span class="lineNum">      72 </span>            : 
+<span class="lineNum">      73 </span>            : /* ------------------------------------------------------------------------ */
+<span class="lineNum">      74 </span><span class="lineCov">       7283 : char *luaZ_openspace (lua_State *L, Mbuffer *buff, size_t n) {</span>
+<span class="lineNum">      75 </span><span class="lineCov">       7283 :   if (n &gt; buff-&gt;buffsize) {</span>
+<span class="lineNum">      76 </span><span class="lineCov">        279 :     if (n &lt; LUA_MINBUFFER) n = LUA_MINBUFFER;</span>
+<span class="lineNum">      77 </span><span class="lineCov">        279 :     luaZ_resizebuffer(L, buff, n);</span>
+<span class="lineNum">      78 </span>            :   }
+<span class="lineNum">      79 </span><span class="lineCov">       7283 :   return buff-&gt;buffer;</span>
+<span class="lineNum">      80 </span>            : }
+<span class="lineNum">      81 </span>            : 
+<span class="lineNum">      82 </span>            : 
 </pre>
       </td>
     </tr>
