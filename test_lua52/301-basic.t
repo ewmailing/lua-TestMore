@@ -29,7 +29,7 @@ L<http://www.lua.org/manual/5.2/manual.html#6.1>.
 
 require 'Test.More'
 
-plan(126)
+plan(145)
 
 if arg[-1] == 'luajit' then
     like(_VERSION, '^Lua 5%.1', "variable _VERSION")
@@ -64,14 +64,26 @@ if arg[-1] == 'luajit' then
 else
     is(collectgarbage('isrunning'), false)
 end
+is(collectgarbage('step'), false)
 is(collectgarbage('restart'), 0)
 if arg[-1] == 'luajit' then
     skip("LuaJIT. isrunning", 1)
 else
     is(collectgarbage('isrunning'), true)
 end
+is(collectgarbage('step'), false)
 is(collectgarbage('collect'), 0)
+is(collectgarbage('setpause', 10), 200)
+is(collectgarbage('setstepmul', 200), 200)
 is(collectgarbage(), 0)
+if arg[-1] == 'luajit' then
+    skip("LuaJIT. mode gen/inc", 4)
+else
+    is(collectgarbage('gen'), 0)
+    is(collectgarbage('step'), false)
+    is(collectgarbage('inc'), 0)
+    is(collectgarbage('setmajorinc'), 200)
+end
 
 type_ok(collectgarbage('count'), 'number', "function collectgarbage 'count'")
 
@@ -130,6 +142,32 @@ s, v = f(a, s)
 is(s, nil)
 is(v, nil)
 
+if arg[-1] == 'luajit' then
+    skip("LuaJIT. load (str)", 2)
+else
+    f = load([[
+function bar (x)
+    return x
+end
+]])
+    is(bar, nil, "function load")
+    f()
+    is(bar('ok'), 'ok')
+end
+
+if arg[-1] == 'luajit' then
+    skip("LuaJIT. loadin", 2)
+else
+    f = loadin(_G, [[
+function baz (x)
+    return x
+end
+]])
+    is(baz, nil, "function load")
+    f()
+    is(baz('ok'), 'ok')
+end
+
 f = io.open('foo.lua', 'w')
 f:write[[
 function foo (x)
@@ -173,6 +211,16 @@ is(g(), 1)
 f, msg = loadstring([[?syntax error?]])
 is(f, nil, "function loadstring (syntax error)")
 like(msg, '^%[string "%?syntax error%?"%]:%d+:')
+
+a = newproxy(true)
+type_ok(a, 'userdata', "newproxy")
+type_ok(getmetatable(a), 'table')
+b = newproxy(a)
+type_ok(b, 'userdata', "newproxy")
+is(getmetatable(a), getmetatable(b))
+c = newproxy(false)
+type_ok(c, 'userdata', "newproxy")
+is(getmetatable(c), nil)
 
 t = {'a','b','c'}
 a = next(t, nil)
@@ -340,6 +388,9 @@ end
 r, msg = xpcall(assert, backtrace)
 is(r, false, "function xpcall (backtrace)")
 is(msg, 'not a back trace')
+
+r = xpcall(assert, backtrace, true)
+is(r, true, "function xpcall")
 
 -- Local Variables:
 --   mode: lua

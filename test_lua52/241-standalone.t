@@ -31,6 +31,7 @@ local lua = (platform and platform.lua) or arg[-1]
 local luac = 'luac'
 
 plan(25)
+diag(lua)
 
 f = io.open('hello.lua', 'w')
 f:write([[

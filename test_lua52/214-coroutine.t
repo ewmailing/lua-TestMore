@@ -29,9 +29,9 @@ See "Programming in Lua", section 9 "Coroutines".
 
 require 'Test.More'
 
-plan(16)
+plan(20)
 
--- [=[ foo1 ]]
+--[[ ]]
 output = {}
 
 function foo1 (a)
@@ -114,6 +114,37 @@ co = coroutine.create(function ()
     end)
 
 eq_array({coroutine.resume(co)}, {true, 6, 7}, "basics")
+
+--[[ ]]
+co = coroutine.wrap(function(...)
+  return pcall(function(...)
+    return coroutine.yield(...)
+  end, ...)
+end)
+eq_array({co("Hello")}, {"Hello"})
+eq_array({co("World")}, {true, "World"})
+
+--[[ ]]
+local output = {}
+co = coroutine.wrap(function()
+  while true do
+    local t = setmetatable({}, {
+      __eq = function(...)
+        return coroutine.yield(...)
+      end}
+    )
+    local t2 = setmetatable({}, getmetatable(t))
+    output[#output+1] = t == t2
+  end
+end)
+co()
+co(true)
+co(false)
+eq_array(output, {true, false})
+
+--[[ ]]
+co = coroutine.wrap(print)
+type_ok(co, 'function')
 
 -- Local Variables:
 --   mode: lua

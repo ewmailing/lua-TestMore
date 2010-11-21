@@ -31,7 +31,7 @@ See "Programming in Lua", section 23 "The Debug Library".
 
 require 'Test.More'
 
-plan(26)
+plan(38)
 
 debug = require 'debug'
 
@@ -44,12 +44,13 @@ else
     is(u, nil)
 end
 
-hook = debug.gethook()
-is(hook, nil, "function gethook")
-
 info = debug.getinfo(is)
 type_ok(info, 'table', "function getinfo (function)")
 is(info.func, is, " .func")
+
+info = debug.getinfo(is, 'L')
+type_ok(info, 'table', "function getinfo (function, opt)")
+type_ok(info.activelines, 'table')
 
 info = debug.getinfo(1)
 type_ok(info, 'table', "function getinfo (level)")
@@ -60,6 +61,10 @@ is(debug.getinfo(12), nil, "function getinfo (too depth)")
 error_like(function () debug.getinfo('bad') end,
            "bad argument #1 to 'getinfo' %(function or level expected%)",
            "function getinfo (bad arg)")
+
+error_like(function () debug.getinfo(is, 'X') end,
+           "bad argument #2 to 'getinfo' %(invalid option%)",
+           "function getinfo (bad opt)")
 
 local name, value = debug.getlocal(0, 1)
 type_ok(name, 'string', "function getlocal (level)")
@@ -90,6 +95,35 @@ type_ok(reg._LOADED, 'table')
 local name = debug.getupvalue(plan, 1)
 type_ok(name, 'string', "function getupvalue")
 
+debug.sethook()
+hook = debug.gethook()
+is(hook, nil, "function gethook")
+local function f () end
+debug.sethook(f, 'c')
+hook = debug.gethook()
+is(hook, f, "function gethook")
+
+local name = debug.setlocal(0, 1, 0)
+type_ok(name, 'string', "function setlocal (level)")
+
+local name = debug.setlocal(0, 42, 0)
+is(name, nil, "function setlocal (level)")
+
+error_like(function () debug.setlocal(42, 1, true) end,
+           "bad argument #1 to 'setlocal' %(level out of range%)",
+           "function getlocal (out of range)")
+
+t = {}
+t1 = {}
+is(debug.setmetatable(t, t1), true, "function setmetatable")
+is(getmetatable(t), t1)
+
+local name = debug.setupvalue(plan, 1, require 'Test.Builder':new())
+type_ok(name, 'string', "function setupvalue")
+
+local name = debug.setupvalue(plan, 42, true)
+is(name, nil)
+
 if arg[-1] == 'luajit' then
     skip("LuaJIT: setuservalue", 3)
 else
@@ -102,14 +136,30 @@ else
     is(debug.getuservalue(u), old)
 end
 
-t = {}
-t1 = {}
-is(debug.setmetatable(t, t1), true, "function setmetatable")
-is(getmetatable(t), t1)
-
 like(debug.traceback(), "^stack traceback:\n", "function traceback")
 
 like(debug.traceback("message\n"), "^message\n\nstack traceback:\n", "function traceback with message")
+
+if arg[-1] == 'luajit' then
+    skip("LuaJIT: upvalueid", 1)
+else
+    local id = debug.upvalueid(plan, 1)
+    type_ok(id, 'userdata', "function upvalueid")
+end
+
+if arg[-1] == 'luajit' then
+    skip("LuaJIT: upvaluejoin", 2)
+else
+    debug.upvaluejoin (like, 1, unlike, 1)
+
+    error_like(function () debug.upvaluejoin(true, 1, nil, 1) end,
+               "bad argument #1 to 'upvaluejoin' %(function expected, got boolean%)",
+               "function upvaluejoin (bad arg)")
+
+    error_like(function () debug.upvaluejoin(like, 1, true, 1) end,
+               "bad argument #3 to 'upvaluejoin' %(function expected, got boolean%)",
+               "function upvaluejoin (bad arg)")
+end
 
 -- Local Variables:
 --   mode: lua

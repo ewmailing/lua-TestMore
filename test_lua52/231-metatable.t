@@ -29,7 +29,7 @@ See "Programming in Lua", section 13 "Metatables and Metamethods".
 
 require 'Test.More'
 
-plan(85)
+plan(88)
 
 t = {}
 is(getmetatable(t), nil, "metatable")
@@ -186,6 +186,16 @@ end
 c1 = Cplx.new(1, 3)
 is(tostring(- c1), '(-1,-3)', "cplx __unm")
 
+function Cplx.mt.__len (a)
+    return math.sqrt(a.re*a.re + a.im*a.im)
+end
+
+c1 = Cplx.new(3, 4)
+if arg[-1] == 'luajit' then
+    todo("LuaJIT. __len.", 1)
+end
+is( #c1, 5, "cplx __len")
+
 function Cplx.mt.__eq (a, b)
     if type(a) ~= 'table' then
         a = Cplx.new(a, 0)
@@ -220,6 +230,12 @@ end
 is(c1 < c2, true, "cplx __lt")
 is(c1 < c3, false)
 is(c1 <= c3, true)
+if arg[-1] == 'luajit' then
+    skip("LuaJit. __lt mixed", 2)
+else
+    is(c1 < 1, false)
+    is(c1 < 4, true)
+end
 
 function Cplx.mt.__le (a, b)
     if type(a) ~= 'table' then
