@@ -31,13 +31,13 @@
             <td class="headerValue">Lua 5.2.0 alpha</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">117</td>
+            <td class="headerCovTableEntry">122</td>
             <td class="headerCovTableEntry">131</td>
-            <td class="headerCovTableEntryMed">89.3 %</td>
+            <td class="headerCovTableEntryHi">93.1 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2010-11-20</td>
+            <td class="headerValue">2010-11-21</td>
             <td></td>
           </tr>
           <tr>
@@ -225,43 +225,43 @@
 <span class="lineNum">     159 </span>            : }
 <span class="lineNum">     160 </span>            : 
 <span class="lineNum">     161 </span>            : 
-<span class="lineNum">     162 </span><span class="lineCov">         10 : static const char *checkoption (lua_State *L, const char *conv, char *buff) {</span>
+<span class="lineNum">     162 </span><span class="lineCov">         11 : static const char *checkoption (lua_State *L, const char *conv, char *buff) {</span>
 <span class="lineNum">     163 </span>            :   static const char *const options[] = LUA_STRFTIMEOPTIONS;
 <span class="lineNum">     164 </span>            :   unsigned int i;
-<span class="lineNum">     165 </span><span class="lineCov">         13 :   for (i = 0; i &lt; sizeof(options)/sizeof(options[0]); i += 2) {</span>
-<span class="lineNum">     166 </span><span class="lineCov">         12 :     if (*conv != '\0' &amp;&amp; strchr(options[i], *conv) != NULL) {</span>
-<span class="lineNum">     167 </span><span class="lineCov">          9 :       buff[1] = *conv;</span>
-<span class="lineNum">     168 </span><span class="lineCov">          9 :       if (*options[i + 1] == '\0') {  /* one-char conversion specifier? */</span>
+<span class="lineNum">     165 </span><span class="lineCov">         16 :   for (i = 0; i &lt; sizeof(options)/sizeof(options[0]); i += 2) {</span>
+<span class="lineNum">     166 </span><span class="lineCov">         15 :     if (*conv != '\0' &amp;&amp; strchr(options[i], *conv) != NULL) {</span>
+<span class="lineNum">     167 </span><span class="lineCov">         10 :       buff[1] = *conv;</span>
+<span class="lineNum">     168 </span><span class="lineCov">         10 :       if (*options[i + 1] == '\0') {  /* one-char conversion specifier? */</span>
 <span class="lineNum">     169 </span><span class="lineCov">          9 :         buff[2] = '\0';  /* end buffer */</span>
 <span class="lineNum">     170 </span><span class="lineCov">          9 :         return conv + 1;</span>
 <span class="lineNum">     171 </span>            :       }
-<span class="lineNum">     172 </span><span class="lineNoCov">          0 :       else if (*(conv + 1) != '\0' &amp;&amp;</span>
-<span class="lineNum">     173 </span><span class="lineNoCov">          0 :                strchr(options[i + 1], *(conv + 1)) != NULL) {</span>
-<span class="lineNum">     174 </span><span class="lineNoCov">          0 :         buff[2] = *(conv + 1);  /* valid two-char conversion specifier */</span>
-<span class="lineNum">     175 </span><span class="lineNoCov">          0 :         buff[3] = '\0';  /* end buffer */</span>
-<span class="lineNum">     176 </span><span class="lineNoCov">          0 :         return conv + 2;</span>
+<span class="lineNum">     172 </span><span class="lineCov">          1 :       else if (*(conv + 1) != '\0' &amp;&amp;</span>
+<span class="lineNum">     173 </span><span class="lineCov">          2 :                strchr(options[i + 1], *(conv + 1)) != NULL) {</span>
+<span class="lineNum">     174 </span><span class="lineCov">          1 :         buff[2] = *(conv + 1);  /* valid two-char conversion specifier */</span>
+<span class="lineNum">     175 </span><span class="lineCov">          1 :         buff[3] = '\0';  /* end buffer */</span>
+<span class="lineNum">     176 </span><span class="lineCov">          1 :         return conv + 2;</span>
 <span class="lineNum">     177 </span>            :       }
 <span class="lineNum">     178 </span>            :     }
 <span class="lineNum">     179 </span>            :   }
 <span class="lineNum">     180 </span><span class="lineCov">          1 :   luaL_argerror(L, 1,</span>
 <span class="lineNum">     181 </span>            :     lua_pushfstring(L, &quot;invalid conversion specifier '%%%s'&quot;, conv));
-<span class="lineNum">     182 </span><span class="lineCov">          9 :   return conv;  /* to avoid warnings */</span>
+<span class="lineNum">     182 </span><span class="lineCov">         10 :   return conv;  /* to avoid warnings */</span>
 <span class="lineNum">     183 </span>            : }
 <span class="lineNum">     184 </span>            : 
 <span class="lineNum">     185 </span>            :     
-<span class="lineNum">     186 </span><span class="lineCov">          4 : static int os_date (lua_State *L) {</span>
-<span class="lineNum">     187 </span><span class="lineCov">          4 :   const char *s = luaL_optstring(L, 1, &quot;%c&quot;);</span>
-<span class="lineNum">     188 </span><span class="lineCov">          4 :   time_t t = luaL_opt(L, (time_t)luaL_checknumber, 2, time(NULL));</span>
+<span class="lineNum">     186 </span><span class="lineCov">          5 : static int os_date (lua_State *L) {</span>
+<span class="lineNum">     187 </span><span class="lineCov">          5 :   const char *s = luaL_optstring(L, 1, &quot;%c&quot;);</span>
+<span class="lineNum">     188 </span><span class="lineCov">          5 :   time_t t = luaL_opt(L, (time_t)luaL_checknumber, 2, time(NULL));</span>
 <span class="lineNum">     189 </span>            :   struct tm *stm;
-<span class="lineNum">     190 </span><span class="lineCov">          4 :   if (*s == '!') {  /* UTC? */</span>
+<span class="lineNum">     190 </span><span class="lineCov">          5 :   if (*s == '!') {  /* UTC? */</span>
 <span class="lineNum">     191 </span><span class="lineCov">          2 :     stm = gmtime(&amp;t);</span>
 <span class="lineNum">     192 </span><span class="lineCov">          2 :     s++;  /* skip `!' */</span>
 <span class="lineNum">     193 </span>            :   }
 <span class="lineNum">     194 </span>            :   else
-<span class="lineNum">     195 </span><span class="lineCov">          2 :     stm = localtime(&amp;t);</span>
-<span class="lineNum">     196 </span><span class="lineCov">          4 :   if (stm == NULL)  /* invalid date? */</span>
+<span class="lineNum">     195 </span><span class="lineCov">          3 :     stm = localtime(&amp;t);</span>
+<span class="lineNum">     196 </span><span class="lineCov">          5 :   if (stm == NULL)  /* invalid date? */</span>
 <span class="lineNum">     197 </span><span class="lineNoCov">          0 :     lua_pushnil(L);</span>
-<span class="lineNum">     198 </span><span class="lineCov">          4 :   else if (strcmp(s, &quot;*t&quot;) == 0) {</span>
+<span class="lineNum">     198 </span><span class="lineCov">          5 :   else if (strcmp(s, &quot;*t&quot;) == 0) {</span>
 <span class="lineNum">     199 </span><span class="lineCov">          1 :     lua_createtable(L, 0, 9);  /* 9 = number of fields */</span>
 <span class="lineNum">     200 </span><span class="lineCov">          1 :     setfield(L, &quot;sec&quot;, stm-&gt;tm_sec);</span>
 <span class="lineNum">     201 </span><span class="lineCov">          1 :     setfield(L, &quot;min&quot;, stm-&gt;tm_min);</span>
@@ -276,22 +276,22 @@
 <span class="lineNum">     210 </span>            :   else {
 <span class="lineNum">     211 </span>            :     char cc[4];
 <span class="lineNum">     212 </span>            :     luaL_Buffer b;
-<span class="lineNum">     213 </span><span class="lineCov">          3 :     cc[0] = '%';</span>
-<span class="lineNum">     214 </span><span class="lineCov">          3 :     luaL_buffinit(L, &amp;b);</span>
-<span class="lineNum">     215 </span><span class="lineCov">         19 :     while (*s) {</span>
-<span class="lineNum">     216 </span><span class="lineCov">         17 :       if (*s != '%')  /* no conversion specifier? */</span>
+<span class="lineNum">     213 </span><span class="lineCov">          4 :     cc[0] = '%';</span>
+<span class="lineNum">     214 </span><span class="lineCov">          4 :     luaL_buffinit(L, &amp;b);</span>
+<span class="lineNum">     215 </span><span class="lineCov">         21 :     while (*s) {</span>
+<span class="lineNum">     216 </span><span class="lineCov">         18 :       if (*s != '%')  /* no conversion specifier? */</span>
 <span class="lineNum">     217 </span><span class="lineCov">          7 :         luaL_addchar(&amp;b, *s++);</span>
 <span class="lineNum">     218 </span>            :       else {
 <span class="lineNum">     219 </span>            :         size_t reslen;
 <span class="lineNum">     220 </span>            :         char buff[200];  /* should be big enough for any conversion result */
-<span class="lineNum">     221 </span><span class="lineCov">         10 :         s = checkoption(L, s + 1, cc);</span>
-<span class="lineNum">     222 </span><span class="lineCov">          9 :         reslen = strftime(buff, sizeof(buff), cc, stm);</span>
-<span class="lineNum">     223 </span><span class="lineCov">          9 :         luaL_addlstring(&amp;b, buff, reslen);</span>
+<span class="lineNum">     221 </span><span class="lineCov">         11 :         s = checkoption(L, s + 1, cc);</span>
+<span class="lineNum">     222 </span><span class="lineCov">         10 :         reslen = strftime(buff, sizeof(buff), cc, stm);</span>
+<span class="lineNum">     223 </span><span class="lineCov">         10 :         luaL_addlstring(&amp;b, buff, reslen);</span>
 <span class="lineNum">     224 </span>            :       }
 <span class="lineNum">     225 </span>            :     }
-<span class="lineNum">     226 </span><span class="lineCov">          2 :     luaL_pushresult(&amp;b);</span>
+<span class="lineNum">     226 </span><span class="lineCov">          3 :     luaL_pushresult(&amp;b);</span>
 <span class="lineNum">     227 </span>            :   }
-<span class="lineNum">     228 </span><span class="lineCov">          3 :   return 1;</span>
+<span class="lineNum">     228 </span><span class="lineCov">          4 :   return 1;</span>
 <span class="lineNum">     229 </span>            : }
 <span class="lineNum">     230 </span>            : 
 <span class="lineNum">     231 </span>            : 
