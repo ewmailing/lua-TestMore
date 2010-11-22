@@ -35,26 +35,26 @@ end
 
 plan(11)
 
-is(bit32.AND(0x01, 0x03, 0x07), 0x01, "function AND")
+is(bit32.band(0x01, 0x03, 0x07), 0x01, "function band")
 
-is(bit32.NOT(0x03), (-1 - 0x03) % 2^32, "function NOT")
+is(bit32.bnot(0x03), (-1 - 0x03) % 2^32, "function bnot")
 
-is(bit32.OR(0x01, 0x03, 0x07), 0x07, "function OR")
+is(bit32.bor(0x01, 0x03, 0x07), 0x07, "function bor")
 
-is(bit32.TEST(0x01), true, "function TEST")
-is(bit32.TEST(0x00), false, "function TEST")
+is(bit32.btest(0x01), true, "function btest")
+is(bit32.btest(0x00), false, "function btest")
 
-is(bit32.XOR(0x01, 0x03, 0x07), 0x05, "function XOR")
+is(bit32.bxor(0x01, 0x03, 0x07), 0x05, "function bxor")
 
-is(bit32.ROL(0x03, 2), 0x0C, "function ROL")
+is(bit32.lrotate(0x03, 2), 0x0C, "function lrotate")
 
-is(bit32.ROR(0x06, 1), 0x03, "function ROR")
+is(bit32.rrotate(0x06, 1), 0x03, "function rrotate")
 
-is(bit32.SAR(0x06, 1), 0x03, "function SAR")
+is(bit32.arshift(0x06, 1), 0x03, "function arshift")
 
-is(bit32.SHL(0x03, 2), 0x0C, "function SHL")
+is(bit32.lshift(0x03, 2), 0x0C, "function lshift")
 
-is(bit32.SHR(0x06, 1), 0x03, "function SHR")
+is(bit32.rshift(0x06, 1), 0x03, "function rshift")
 
 -- Local Variables:
 --   mode: lua

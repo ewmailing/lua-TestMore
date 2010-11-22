@@ -31,7 +31,7 @@ See "Programming in Lua", section 20 "The String Library".
 
 require 'Test.More'
 
-plan(108)
+plan(107)
 
 is(string.byte('ABC'), 65, "function byte")
 is(string.byte('ABC', 2), 66)
@@ -129,13 +129,6 @@ error_like(function () string.format('pi = %.123f', math.pi) end,
 error_like(function () string.format('% 123s', 'toto') end,
            "^[^:]+:%d+: invalid format %(width or precision too long%)",
            "function format (invalid format)")
-
-if arg[-1] == 'luajit' then
-    todo("LuaJIT intentional. no gfind.", 1)
-end
-error_like(function () string.gfind() end,
-           "^[^:]+:%d+: 'string.gfind' was renamed to 'string.gmatch'",
-           "function gfind (renamed)")
 
 s = "hello"
 output = {}
