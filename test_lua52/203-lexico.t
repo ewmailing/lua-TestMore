@@ -81,14 +81,12 @@ is([[alo
 is([==[
 alo
 123"]==], a)
--- [[ LuaJIT TODO
 is("alo\n\*
 123\"", a)
 
 f, msg = loadstring [[a = " escape \* unauthorized
 new line" ]]
 like(msg, "^[^:]+:%d+: unfinished string near")
---]]
 
 is(3.0, 3)
 is(314.16e-2, 3.1416)
