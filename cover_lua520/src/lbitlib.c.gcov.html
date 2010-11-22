@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2010-11-21</td>
+            <td class="headerValue">2010-11-22</td>
             <td></td>
           </tr>
           <tr>
@@ -65,7 +65,7 @@
 <pre class="sourceHeading">          Line data    Source code</pre>
 <pre class="source">
 <span class="lineNum">       1 </span>            : /*
-<span class="lineNum">       2 </span>            : ** $Id: lbitlib.c,v 1.11 2010/11/08 16:31:22 roberto Exp $
+<span class="lineNum">       2 </span>            : ** $Id: lbitlib.c,v 1.13 2010/11/22 18:06:33 roberto Exp $
 <span class="lineNum">       3 </span>            : ** Standard library for bitwise operations
 <span class="lineNum">       4 </span>            : ** See Copyright Notice in lua.h
 <span class="lineNum">       5 </span>            : */
@@ -196,27 +196,27 @@
 <span class="lineNum">     130 </span>            : }
 <span class="lineNum">     131 </span>            : 
 <span class="lineNum">     132 </span>            : 
-<span class="lineNum">     133 </span><span class="lineCov">          1 : static int b_rol (lua_State *L) {</span>
+<span class="lineNum">     133 </span><span class="lineCov">          1 : static int b_lrot (lua_State *L) {</span>
 <span class="lineNum">     134 </span><span class="lineCov">          1 :   return b_rot(L, luaL_checkint(L, 2));</span>
 <span class="lineNum">     135 </span>            : }
 <span class="lineNum">     136 </span>            : 
 <span class="lineNum">     137 </span>            : 
-<span class="lineNum">     138 </span><span class="lineCov">          1 : static int b_ror (lua_State *L) {</span>
+<span class="lineNum">     138 </span><span class="lineCov">          1 : static int b_rrot (lua_State *L) {</span>
 <span class="lineNum">     139 </span><span class="lineCov">          1 :   return b_rot(L, -luaL_checkint(L, 2));</span>
 <span class="lineNum">     140 </span>            : }
 <span class="lineNum">     141 </span>            : 
 <span class="lineNum">     142 </span>            : 
 <span class="lineNum">     143 </span>            : static const luaL_Reg bitlib[] = {
-<span class="lineNum">     144 </span>            :   {&quot;AND&quot;, b_and},
-<span class="lineNum">     145 </span>            :   {&quot;TEST&quot;, b_test},
-<span class="lineNum">     146 </span>            :   {&quot;OR&quot;, b_or},
-<span class="lineNum">     147 </span>            :   {&quot;XOR&quot;, b_xor},
-<span class="lineNum">     148 </span>            :   {&quot;NOT&quot;, b_not},
-<span class="lineNum">     149 </span>            :   {&quot;SHL&quot;, b_lshift},
-<span class="lineNum">     150 </span>            :   {&quot;SAR&quot;, b_arshift},
-<span class="lineNum">     151 </span>            :   {&quot;SHR&quot;, b_rshift},
-<span class="lineNum">     152 </span>            :   {&quot;ROL&quot;, b_rol},
-<span class="lineNum">     153 </span>            :   {&quot;ROR&quot;, b_ror},
+<span class="lineNum">     144 </span>            :   {&quot;arshift&quot;, b_arshift},
+<span class="lineNum">     145 </span>            :   {&quot;band&quot;, b_and},
+<span class="lineNum">     146 </span>            :   {&quot;bnot&quot;, b_not},
+<span class="lineNum">     147 </span>            :   {&quot;bor&quot;, b_or},
+<span class="lineNum">     148 </span>            :   {&quot;bxor&quot;, b_xor},
+<span class="lineNum">     149 </span>            :   {&quot;lrotate&quot;, b_lrot},
+<span class="lineNum">     150 </span>            :   {&quot;lshift&quot;, b_lshift},
+<span class="lineNum">     151 </span>            :   {&quot;rrotate&quot;, b_rrot},
+<span class="lineNum">     152 </span>            :   {&quot;rshift&quot;, b_rshift},
+<span class="lineNum">     153 </span>            :   {&quot;btest&quot;, b_test},
 <span class="lineNum">     154 </span>            :   {NULL, NULL}
 <span class="lineNum">     155 </span>            : };
 <span class="lineNum">     156 </span>            : 
