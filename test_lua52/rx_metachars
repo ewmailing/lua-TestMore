@@ -105,5 +105,9 @@ a%b()f			a(b(de)f	nil		balanced
 a%b()f			a(b(d)e)f	a(b(d)e)f	balanced
 a%b''f			a'bcde'f	a'bcde'f	balanced
 a%b""f			a"bcde"f	a"bcde"f	balanced
+%f[b]bc			abcdef		bc		frontier
+%f[b]c			abcdef		nil		frontier
+%f[^ab]c		abacdef		c		frontier
+%f[^ab]d		abacdef		nil		frontier
 
 ## vim: noexpandtab tabstop=4 shiftwidth=4
