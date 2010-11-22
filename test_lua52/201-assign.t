@@ -35,7 +35,7 @@ is(b, nil, "global variable")
 b = 10
 is(b, 10)
 if arg[-1] == 'luajit' then
-    skip("LuaJIT. _ENV.", 3)
+    skip("LuaJIT intentional. _ENV.", 3)
 else
     is(_ENV.b, 10, "_ENV")
     is(_G, _ENV, "_G")

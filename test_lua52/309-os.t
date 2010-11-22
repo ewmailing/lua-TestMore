@@ -91,7 +91,7 @@ is(f:read'*l', 'reached', "function exit")
 is(f:read'*l', nil)
 code = f:close()
 if arg[-1] == 'luajit' then
-    todo("LuaJIT. pipe exit code.", 1)
+    todo("LuaJIT TODO. pipe exit code.", 1)
 end
 is(code, 0, "exit code")
 

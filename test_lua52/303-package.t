@@ -61,7 +61,7 @@ m.ok(true, "function require")
 is(m, package.loaded['Test.More'])
 
 if arg[-1] == 'luajit' then
-    skip("LuaJIT. searchpath", 2)
+    skip("LuaJIT TODO. searchpath", 2)
 else
     p = package.searchpath('Test.More', package.path)
     type_ok(p, 'string', "searchpath")

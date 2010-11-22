@@ -60,14 +60,14 @@ error_like(function () assert(false, nil) end,
 
 is(collectgarbage('stop'), 0, "function collectgarbage 'stop/restart/collect'")
 if arg[-1] == 'luajit' then
-    skip("LuaJIT. isrunning", 1)
+    skip("LuaJIT. gc isrunning", 1)
 else
     is(collectgarbage('isrunning'), false)
 end
 is(collectgarbage('step'), false)
 is(collectgarbage('restart'), 0)
 if arg[-1] == 'luajit' then
-    skip("LuaJIT. isrunning", 1)
+    skip("LuaJIT. gc isrunning", 1)
 else
     is(collectgarbage('isrunning'), true)
 end
@@ -77,7 +77,7 @@ is(collectgarbage('setpause', 10), 200)
 is(collectgarbage('setstepmul', 200), 200)
 is(collectgarbage(), 0)
 if arg[-1] == 'luajit' then
-    skip("LuaJIT. mode gen/inc", 4)
+    skip("LuaJIT. gc mode gen/inc", 4)
 else
     is(collectgarbage('gen'), 0)
     is(collectgarbage('step'), false)
@@ -156,7 +156,7 @@ end
 end
 
 if arg[-1] == 'luajit' then
-    skip("LuaJIT. loadin", 2)
+    skip("LuaJIT intentional. loadin", 2)
 else
     f = loadin(_G, [[
 function baz (x)
