@@ -87,7 +87,7 @@ end
 v = false
 for i = 5, 7, 0 do
     v = true
-    break -- avoid infinite loop with LuaJIT
+    break -- avoid infinite loop with luajit
 end
 if arg[-1] == 'luajit' then
     print("not ok 28 - for 5, 7, 0 # TODO # LuaJIT intentional.")

@@ -58,7 +58,7 @@ like(f:read'*l', "^[^:]+: cannot open no_file.lua", "no file")
 f:close()
 
 if arg[-1] == 'luajit' then
-    skip("luajit: cannot load Lua bytecode", 1)
+    skip("LuaJIT intentional. cannot load Lua bytecode", 1)
 else
     os.execute(luac .. " -s -o hello.luac hello.lua")
 
