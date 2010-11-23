@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2010-11-22</td>
+            <td class="headerValue">2010-11-23</td>
             <td></td>
           </tr>
           <tr>
@@ -155,10 +155,10 @@
 <span class="lineNum">      89 </span><span class="lineCov">       5694 : }</span>
 <span class="lineNum">      90 </span>            : 
 <span class="lineNum">      91 </span>            : 
-<span class="lineNum">      92 </span><span class="lineCov">       1254 : void luaF_close (lua_State *L, StkId level) {</span>
+<span class="lineNum">      92 </span><span class="lineCov">       1257 : void luaF_close (lua_State *L, StkId level) {</span>
 <span class="lineNum">      93 </span>            :   UpVal *uv;
-<span class="lineNum">      94 </span><span class="lineCov">       1254 :   global_State *g = G(L);</span>
-<span class="lineNum">      95 </span><span class="lineCov">       6625 :   while (L-&gt;openupval != NULL &amp;&amp; (uv = gco2uv(L-&gt;openupval))-&gt;v &gt;= level) {</span>
+<span class="lineNum">      94 </span><span class="lineCov">       1257 :   global_State *g = G(L);</span>
+<span class="lineNum">      95 </span><span class="lineCov">       6628 :   while (L-&gt;openupval != NULL &amp;&amp; (uv = gco2uv(L-&gt;openupval))-&gt;v &gt;= level) {</span>
 <span class="lineNum">      96 </span><span class="lineCov">       5371 :     GCObject *o = obj2gco(uv);</span>
 <span class="lineNum">      97 </span>            :     lua_assert(!isblack(o) &amp;&amp; uv-&gt;v != &amp;uv-&gt;u.value);
 <span class="lineNum">      98 </span><span class="lineCov">       5371 :     L-&gt;openupval = uv-&gt;next;  /* remove from `open' list */</span>
@@ -173,43 +173,43 @@
 <span class="lineNum">     107 </span><span class="lineCov">       5371 :       luaC_checkupvalcolor(g, uv);</span>
 <span class="lineNum">     108 </span>            :     }
 <span class="lineNum">     109 </span>            :   }
-<span class="lineNum">     110 </span><span class="lineCov">       1254 : }</span>
+<span class="lineNum">     110 </span><span class="lineCov">       1257 : }</span>
 <span class="lineNum">     111 </span>            : 
 <span class="lineNum">     112 </span>            : 
-<span class="lineNum">     113 </span><span class="lineCov">       2793 : Proto *luaF_newproto (lua_State *L) {</span>
-<span class="lineNum">     114 </span><span class="lineCov">       2793 :   Proto *f = &amp;luaC_newobj(L, LUA_TPROTO, sizeof(Proto), NULL, 0)-&gt;p;</span>
-<span class="lineNum">     115 </span><span class="lineCov">       2793 :   f-&gt;k = NULL;</span>
-<span class="lineNum">     116 </span><span class="lineCov">       2793 :   f-&gt;sizek = 0;</span>
-<span class="lineNum">     117 </span><span class="lineCov">       2793 :   f-&gt;p = NULL;</span>
-<span class="lineNum">     118 </span><span class="lineCov">       2793 :   f-&gt;sizep = 0;</span>
-<span class="lineNum">     119 </span><span class="lineCov">       2793 :   f-&gt;code = NULL;</span>
-<span class="lineNum">     120 </span><span class="lineCov">       2793 :   f-&gt;cache = NULL;</span>
-<span class="lineNum">     121 </span><span class="lineCov">       2793 :   f-&gt;sizecode = 0;</span>
-<span class="lineNum">     122 </span><span class="lineCov">       2793 :   f-&gt;lineinfo = NULL;</span>
-<span class="lineNum">     123 </span><span class="lineCov">       2793 :   f-&gt;sizelineinfo = 0;</span>
-<span class="lineNum">     124 </span><span class="lineCov">       2793 :   f-&gt;upvalues = NULL;</span>
-<span class="lineNum">     125 </span><span class="lineCov">       2793 :   f-&gt;sizeupvalues = 0;</span>
-<span class="lineNum">     126 </span><span class="lineCov">       2793 :   f-&gt;numparams = 0;</span>
-<span class="lineNum">     127 </span><span class="lineCov">       2793 :   f-&gt;is_vararg = 0;</span>
-<span class="lineNum">     128 </span><span class="lineCov">       2793 :   f-&gt;maxstacksize = 0;</span>
-<span class="lineNum">     129 </span><span class="lineCov">       2793 :   f-&gt;locvars = NULL;</span>
-<span class="lineNum">     130 </span><span class="lineCov">       2793 :   f-&gt;sizelocvars = 0;</span>
-<span class="lineNum">     131 </span><span class="lineCov">       2793 :   f-&gt;linedefined = 0;</span>
-<span class="lineNum">     132 </span><span class="lineCov">       2793 :   f-&gt;lastlinedefined = 0;</span>
-<span class="lineNum">     133 </span><span class="lineCov">       2793 :   f-&gt;source = NULL;</span>
-<span class="lineNum">     134 </span><span class="lineCov">       2793 :   return f;</span>
+<span class="lineNum">     113 </span><span class="lineCov">       2792 : Proto *luaF_newproto (lua_State *L) {</span>
+<span class="lineNum">     114 </span><span class="lineCov">       2792 :   Proto *f = &amp;luaC_newobj(L, LUA_TPROTO, sizeof(Proto), NULL, 0)-&gt;p;</span>
+<span class="lineNum">     115 </span><span class="lineCov">       2792 :   f-&gt;k = NULL;</span>
+<span class="lineNum">     116 </span><span class="lineCov">       2792 :   f-&gt;sizek = 0;</span>
+<span class="lineNum">     117 </span><span class="lineCov">       2792 :   f-&gt;p = NULL;</span>
+<span class="lineNum">     118 </span><span class="lineCov">       2792 :   f-&gt;sizep = 0;</span>
+<span class="lineNum">     119 </span><span class="lineCov">       2792 :   f-&gt;code = NULL;</span>
+<span class="lineNum">     120 </span><span class="lineCov">       2792 :   f-&gt;cache = NULL;</span>
+<span class="lineNum">     121 </span><span class="lineCov">       2792 :   f-&gt;sizecode = 0;</span>
+<span class="lineNum">     122 </span><span class="lineCov">       2792 :   f-&gt;lineinfo = NULL;</span>
+<span class="lineNum">     123 </span><span class="lineCov">       2792 :   f-&gt;sizelineinfo = 0;</span>
+<span class="lineNum">     124 </span><span class="lineCov">       2792 :   f-&gt;upvalues = NULL;</span>
+<span class="lineNum">     125 </span><span class="lineCov">       2792 :   f-&gt;sizeupvalues = 0;</span>
+<span class="lineNum">     126 </span><span class="lineCov">       2792 :   f-&gt;numparams = 0;</span>
+<span class="lineNum">     127 </span><span class="lineCov">       2792 :   f-&gt;is_vararg = 0;</span>
+<span class="lineNum">     128 </span><span class="lineCov">       2792 :   f-&gt;maxstacksize = 0;</span>
+<span class="lineNum">     129 </span><span class="lineCov">       2792 :   f-&gt;locvars = NULL;</span>
+<span class="lineNum">     130 </span><span class="lineCov">       2792 :   f-&gt;sizelocvars = 0;</span>
+<span class="lineNum">     131 </span><span class="lineCov">       2792 :   f-&gt;linedefined = 0;</span>
+<span class="lineNum">     132 </span><span class="lineCov">       2792 :   f-&gt;lastlinedefined = 0;</span>
+<span class="lineNum">     133 </span><span class="lineCov">       2792 :   f-&gt;source = NULL;</span>
+<span class="lineNum">     134 </span><span class="lineCov">       2792 :   return f;</span>
 <span class="lineNum">     135 </span>            : }
 <span class="lineNum">     136 </span>            : 
 <span class="lineNum">     137 </span>            : 
-<span class="lineNum">     138 </span><span class="lineCov">       2793 : void luaF_freeproto (lua_State *L, Proto *f) {</span>
-<span class="lineNum">     139 </span><span class="lineCov">       2793 :   luaM_freearray(L, f-&gt;code, f-&gt;sizecode);</span>
-<span class="lineNum">     140 </span><span class="lineCov">       2793 :   luaM_freearray(L, f-&gt;p, f-&gt;sizep);</span>
-<span class="lineNum">     141 </span><span class="lineCov">       2793 :   luaM_freearray(L, f-&gt;k, f-&gt;sizek);</span>
-<span class="lineNum">     142 </span><span class="lineCov">       2793 :   luaM_freearray(L, f-&gt;lineinfo, f-&gt;sizelineinfo);</span>
-<span class="lineNum">     143 </span><span class="lineCov">       2793 :   luaM_freearray(L, f-&gt;locvars, f-&gt;sizelocvars);</span>
-<span class="lineNum">     144 </span><span class="lineCov">       2793 :   luaM_freearray(L, f-&gt;upvalues, f-&gt;sizeupvalues);</span>
-<span class="lineNum">     145 </span><span class="lineCov">       2793 :   luaM_free(L, f);</span>
-<span class="lineNum">     146 </span><span class="lineCov">       2793 : }</span>
+<span class="lineNum">     138 </span><span class="lineCov">       2792 : void luaF_freeproto (lua_State *L, Proto *f) {</span>
+<span class="lineNum">     139 </span><span class="lineCov">       2792 :   luaM_freearray(L, f-&gt;code, f-&gt;sizecode);</span>
+<span class="lineNum">     140 </span><span class="lineCov">       2792 :   luaM_freearray(L, f-&gt;p, f-&gt;sizep);</span>
+<span class="lineNum">     141 </span><span class="lineCov">       2792 :   luaM_freearray(L, f-&gt;k, f-&gt;sizek);</span>
+<span class="lineNum">     142 </span><span class="lineCov">       2792 :   luaM_freearray(L, f-&gt;lineinfo, f-&gt;sizelineinfo);</span>
+<span class="lineNum">     143 </span><span class="lineCov">       2792 :   luaM_freearray(L, f-&gt;locvars, f-&gt;sizelocvars);</span>
+<span class="lineNum">     144 </span><span class="lineCov">       2792 :   luaM_freearray(L, f-&gt;upvalues, f-&gt;sizeupvalues);</span>
+<span class="lineNum">     145 </span><span class="lineCov">       2792 :   luaM_free(L, f);</span>
+<span class="lineNum">     146 </span><span class="lineCov">       2792 : }</span>
 <span class="lineNum">     147 </span>            : 
 <span class="lineNum">     148 </span>            : 
 <span class="lineNum">     149 </span><span class="lineCov">       4242 : void luaF_freeclosure (lua_State *L, Closure *c) {</span>

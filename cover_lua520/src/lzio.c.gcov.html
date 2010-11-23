@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2010-11-22</td>
+            <td class="headerValue">2010-11-23</td>
             <td></td>
           </tr>
           <tr>
@@ -137,12 +137,12 @@
 <span class="lineNum">      71 </span>            : }
 <span class="lineNum">      72 </span>            : 
 <span class="lineNum">      73 </span>            : /* ------------------------------------------------------------------------ */
-<span class="lineNum">      74 </span><span class="lineCov">       7504 : char *luaZ_openspace (lua_State *L, Mbuffer *buff, size_t n) {</span>
-<span class="lineNum">      75 </span><span class="lineCov">       7504 :   if (n &gt; buff-&gt;buffsize) {</span>
-<span class="lineNum">      76 </span><span class="lineCov">        292 :     if (n &lt; LUA_MINBUFFER) n = LUA_MINBUFFER;</span>
-<span class="lineNum">      77 </span><span class="lineCov">        292 :     luaZ_resizebuffer(L, buff, n);</span>
+<span class="lineNum">      74 </span><span class="lineCov">       7507 : char *luaZ_openspace (lua_State *L, Mbuffer *buff, size_t n) {</span>
+<span class="lineNum">      75 </span><span class="lineCov">       7507 :   if (n &gt; buff-&gt;buffsize) {</span>
+<span class="lineNum">      76 </span><span class="lineCov">        290 :     if (n &lt; LUA_MINBUFFER) n = LUA_MINBUFFER;</span>
+<span class="lineNum">      77 </span><span class="lineCov">        290 :     luaZ_resizebuffer(L, buff, n);</span>
 <span class="lineNum">      78 </span>            :   }
-<span class="lineNum">      79 </span><span class="lineCov">       7504 :   return buff-&gt;buffer;</span>
+<span class="lineNum">      79 </span><span class="lineCov">       7507 :   return buff-&gt;buffer;</span>
 <span class="lineNum">      80 </span>            : }
 <span class="lineNum">      81 </span>            : 
 <span class="lineNum">      82 </span>            : 
