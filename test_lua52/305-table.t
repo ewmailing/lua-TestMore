@@ -31,7 +31,7 @@ See "Programming in Lua", section 19 "The Table Library".
 
 require 'Test.More'
 
-plan(49)
+plan(47)
 
 t = {'a','b','c','d','e'}
 is(table.concat(t), 'abcde', "function concat")
@@ -53,8 +53,12 @@ error_like(function () table.concat(t, ',') end,
            "^[^:]+:%d+: invalid value %(boolean%) at index 3 in table for 'concat'",
            "function concat (non-string)")
 
-is(table.getn{10,2,4}, 3, "function getn")
-is(table.getn{10,2,nil}, 2)
+if arg[-1] == 'luajit' then
+    todo("LuaJIT intentional. getn", 1)
+end
+error_like(function () table.getn() end,
+           "^[^:]+:%d+: deprecated function",
+           "function getn")
 
 a = {10, 20, 30}
 table.insert(a, 1, 15)
@@ -77,25 +81,19 @@ error_like(function () table.insert(t, 2, 'g', 'h')  end,
            "^[^:]+:%d+: wrong number of arguments to 'insert'",
            "function insert (too many arg)")
 
-t = {a=10, b=100}
-output = {}
-table.foreach(t, function (k, v) output[k] = v end)
-eq_array(output, t, "function foreach (hash)")
+if arg[-1] == 'luajit' then
+    todo("LuaJIT intentional. foreach", 1)
+end
+error_like(function () table.foreach() end,
+           "^[^:]+:%d+: deprecated function",
+           "function foreach")
 
-t = {'a','b','c'}
-output = {}
-table.foreach(t, function (k, v)
-    table.insert(output, k)
-    table.insert(output, v)
-end)
-eq_array(output, {1, 'a', 2, 'b', 3, 'c'}, "function foreach (array)")
-
-output = {}
-table.foreachi(t, function (i, v)
-    table.insert(output, i)
-    table.insert(output, v)
-end)
-eq_array(output, {1, 'a', 2, 'b', 3, 'c'}, "function foreachi")
+if arg[-1] == 'luajit' then
+    todo("LuaJIT intentional. foreachi", 1)
+end
+error_like(function () table.foreachi() end,
+           "^[^:]+:%d+: deprecated function",
+           "function foreachi")
 
 if (platform and platform.compat)
 or (arg[-1] == 'luajit') then

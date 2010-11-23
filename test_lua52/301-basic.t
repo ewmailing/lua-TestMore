@@ -33,9 +33,6 @@ plan(145)
 
 if arg[-1] == 'luajit' then
     like(_VERSION, '^Lua 5%.1', "variable _VERSION")
-    local function err () error "getfenv/setfenv deprecated" end
-    getfenv = err
-    setfenv = err
 else
     like(_VERSION, '^Lua 5%.2', "variable _VERSION")
 end
@@ -120,6 +117,9 @@ error_like(function () dofile('foo.lua') end,
            "function dofile (syntax error)")
 os.remove('foo.lua') -- clean up
 
+if arg[-1] == 'luajit' then
+    todo("LuaJIT intentional. getfenv", 1)
+end
 error_like(function () getfenv() end,
            "^[^:]+:%d+: getfenv/setfenv deprecated",
            "function getfenv (deprecated)")
@@ -308,6 +308,9 @@ error_like(function () select(0,'a','b','c') end,
            "^[^:]+:%d+: bad argument #1 to 'select' %(index out of range%)",
            "function select (out of range)")
 
+if arg[-1] == 'luajit' then
+    todo("LuaJIT intentional. setfenv", 1)
+end
 error_like(function () setfenv() end,
            "^[^:]+:%d+: getfenv/setfenv deprecated",
            "function setfenv (deprecated)")
@@ -377,7 +380,7 @@ if arg[-1] == 'luajit' then
     error_like(function () xpcall(assert, nil) end,
                "bad argument #2 to 'xpcall' %(function expected, got nil%)",
                "function xpcall")
-    diag("LuaJIT intentional.")
+    diag("LuaJIT intentional. xpcall")
 else
     is(xpcall(assert, nil), false, "function xpcall")
 end
