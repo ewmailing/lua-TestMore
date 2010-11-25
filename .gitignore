@@ -1,9 +1,8 @@
 
-MANIFEST
-*.tar
-*.tar.gz
-*.bak
-*.out
-README.html
+/MANIFEST
+/README.html
+/*.tar
+/*.bak
 
-cover_lua514
+*.tar.gz
+*.out

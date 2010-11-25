@@ -38,5 +38,5 @@ build = {
         ['Test.Builder.Tester.File'] = 'src/Test/Builder/Tester/File.lua',
         ['Test.More']                = 'src/Test/More.lua',
     },
-    copy_directories = { 'doc', 'test', 'test_lua51' },
+    copy_directories = { 'doc', 'test', 'test_lua51', 'test_lua52' },
 }
