@@ -2,7 +2,7 @@
 --
 -- lua-TestMore : <http://fperrad.github.com/lua-TestMore/>
 --
--- Copyright (C) 2009, Perrad Francois
+-- Copyright (C) 2009-2010, Perrad Francois
 --
 -- This code is licensed under the terms of the MIT/X11 license,
 -- like Lua itself.
@@ -29,7 +29,7 @@ See "Programming in Lua", section 13 "Metatables and Metamethods".
 
 require 'Test.More'
 
-plan(88)
+plan(89)
 
 t = {}
 is(getmetatable(t), nil, "metatable")
@@ -275,6 +275,30 @@ is(c1('a'), true)
 is(a, "Cplx.__call (2,0), a")
 is(c1('a', 'b', 'c'), true)
 is(a, "Cplx.__call (2,0), a, b, c")
+
+--[[ delegate ]]
+
+local t = {
+    _VALUES = {
+        a = 1,
+        b = 'text',
+        c = true,
+    }
+}
+local mt = {
+    __pairs = function (op)
+        return next, op._VALUES
+    end
+}
+setmetatable(t, mt)
+
+r = {}
+for k in pairs(t) do
+    r[#r+1] = k
+end
+table.sort(r)
+is( table.concat(r, ','), 'a,b,c', "__pairs" )
+
 
 --[[ Window ]]
 
