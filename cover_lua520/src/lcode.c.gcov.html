@@ -95,7 +95,7 @@
 <span class="lineNum">      29 </span>            : 
 <span class="lineNum">      30 </span>            : 
 <span class="lineNum">      31 </span>            : static int isnumeral(expdesc *e) {
-<span class="lineNum">      32 </span><span class="lineCov">       3415 :   return (e-&gt;k == VKNUM &amp;&amp; e-&gt;t == NO_JUMP &amp;&amp; e-&gt;f == NO_JUMP);</span>
+<span class="lineNum">      32 </span><span class="lineCov">       3416 :   return (e-&gt;k == VKNUM &amp;&amp; e-&gt;t == NO_JUMP &amp;&amp; e-&gt;f == NO_JUMP);</span>
 <span class="lineNum">      33 </span>            : }
 <span class="lineNum">      34 </span>            : 
 <span class="lineNum">      35 </span>            : 
@@ -117,19 +117,19 @@
 <span class="lineNum">      51 </span>            : }
 <span class="lineNum">      52 </span>            : 
 <span class="lineNum">      53 </span>            : 
-<span class="lineNum">      54 </span><span class="lineCov">       4972 : int luaK_jump (FuncState *fs) {</span>
-<span class="lineNum">      55 </span><span class="lineCov">       4972 :   int jpc = fs-&gt;jpc;  /* save list of jumps to here */</span>
+<span class="lineNum">      54 </span><span class="lineCov">       4973 : int luaK_jump (FuncState *fs) {</span>
+<span class="lineNum">      55 </span><span class="lineCov">       4973 :   int jpc = fs-&gt;jpc;  /* save list of jumps to here */</span>
 <span class="lineNum">      56 </span>            :   int j;
-<span class="lineNum">      57 </span><span class="lineCov">       4972 :   fs-&gt;jpc = NO_JUMP;</span>
-<span class="lineNum">      58 </span><span class="lineCov">       4972 :   j = luaK_codeAsBx(fs, OP_JMP, 0, NO_JUMP);</span>
-<span class="lineNum">      59 </span><span class="lineCov">       4972 :   luaK_concat(fs, &amp;j, jpc);  /* keep them on hold */</span>
-<span class="lineNum">      60 </span><span class="lineCov">       4972 :   return j;</span>
+<span class="lineNum">      57 </span><span class="lineCov">       4973 :   fs-&gt;jpc = NO_JUMP;</span>
+<span class="lineNum">      58 </span><span class="lineCov">       4973 :   j = luaK_codeAsBx(fs, OP_JMP, 0, NO_JUMP);</span>
+<span class="lineNum">      59 </span><span class="lineCov">       4973 :   luaK_concat(fs, &amp;j, jpc);  /* keep them on hold */</span>
+<span class="lineNum">      60 </span><span class="lineCov">       4973 :   return j;</span>
 <span class="lineNum">      61 </span>            : }
 <span class="lineNum">      62 </span>            : 
 <span class="lineNum">      63 </span>            : 
-<span class="lineNum">      64 </span><span class="lineCov">       4864 : void luaK_ret (FuncState *fs, int first, int nret) {</span>
-<span class="lineNum">      65 </span><span class="lineCov">       4864 :   luaK_codeABC(fs, OP_RETURN, first, nret+1, 0);</span>
-<span class="lineNum">      66 </span><span class="lineCov">       4864 : }</span>
+<span class="lineNum">      64 </span><span class="lineCov">       4866 : void luaK_ret (FuncState *fs, int first, int nret) {</span>
+<span class="lineNum">      65 </span><span class="lineCov">       4866 :   luaK_codeABC(fs, OP_RETURN, first, nret+1, 0);</span>
+<span class="lineNum">      66 </span><span class="lineCov">       4866 : }</span>
 <span class="lineNum">      67 </span>            : 
 <span class="lineNum">      68 </span>            : 
 <span class="lineNum">      69 </span><span class="lineCov">       3911 : static int condjump (FuncState *fs, OpCode op, int A, int B, int C) {</span>
@@ -138,14 +138,14 @@
 <span class="lineNum">      72 </span>            : }
 <span class="lineNum">      73 </span>            : 
 <span class="lineNum">      74 </span>            : 
-<span class="lineNum">      75 </span><span class="lineCov">       6042 : static void fixjump (FuncState *fs, int pc, int dest) {</span>
-<span class="lineNum">      76 </span><span class="lineCov">       6042 :   Instruction *jmp = &amp;fs-&gt;f-&gt;code[pc];</span>
-<span class="lineNum">      77 </span><span class="lineCov">       6042 :   int offset = dest-(pc+1);</span>
+<span class="lineNum">      75 </span><span class="lineCov">       6044 : static void fixjump (FuncState *fs, int pc, int dest) {</span>
+<span class="lineNum">      76 </span><span class="lineCov">       6044 :   Instruction *jmp = &amp;fs-&gt;f-&gt;code[pc];</span>
+<span class="lineNum">      77 </span><span class="lineCov">       6044 :   int offset = dest-(pc+1);</span>
 <span class="lineNum">      78 </span>            :   lua_assert(dest != NO_JUMP);
-<span class="lineNum">      79 </span><span class="lineCov">       6042 :   if (abs(offset) &gt; MAXARG_sBx)</span>
+<span class="lineNum">      79 </span><span class="lineCov">       6044 :   if (abs(offset) &gt; MAXARG_sBx)</span>
 <span class="lineNum">      80 </span><span class="lineNoCov">          0 :     luaX_syntaxerror(fs-&gt;ls, &quot;control structure too long&quot;);</span>
-<span class="lineNum">      81 </span><span class="lineCov">       6042 :   SETARG_sBx(*jmp, offset);</span>
-<span class="lineNum">      82 </span><span class="lineCov">       6042 : }</span>
+<span class="lineNum">      81 </span><span class="lineCov">       6044 :   SETARG_sBx(*jmp, offset);</span>
+<span class="lineNum">      82 </span><span class="lineCov">       6044 : }</span>
 <span class="lineNum">      83 </span>            : 
 <span class="lineNum">      84 </span>            : 
 <span class="lineNum">      85 </span>            : /*
@@ -153,26 +153,26 @@
 <span class="lineNum">      87 </span>            : ** optimizations with consecutive instructions not in the same basic block).
 <span class="lineNum">      88 </span>            : */
 <span class="lineNum">      89 </span><span class="lineCov">         20 : int luaK_getlabel (FuncState *fs) {</span>
-<span class="lineNum">      90 </span><span class="lineCov">      13876 :   fs-&gt;lasttarget = fs-&gt;pc;</span>
+<span class="lineNum">      90 </span><span class="lineCov">      13880 :   fs-&gt;lasttarget = fs-&gt;pc;</span>
 <span class="lineNum">      91 </span><span class="lineCov">         20 :   return fs-&gt;pc;</span>
 <span class="lineNum">      92 </span>            : }
 <span class="lineNum">      93 </span>            : 
 <span class="lineNum">      94 </span>            : 
 <span class="lineNum">      95 </span>            : static int getjump (FuncState *fs, int pc) {
-<span class="lineNum">      96 </span><span class="lineCov">       6555 :   int offset = GETARG_sBx(fs-&gt;f-&gt;code[pc]);</span>
-<span class="lineNum">      97 </span><span class="lineCov">       6555 :   if (offset == NO_JUMP)  /* point to itself represents end of list */</span>
-<span class="lineNum">      98 </span><span class="lineCov">       5718 :     return NO_JUMP;  /* end of list */</span>
+<span class="lineNum">      96 </span><span class="lineCov">       6557 :   int offset = GETARG_sBx(fs-&gt;f-&gt;code[pc]);</span>
+<span class="lineNum">      97 </span><span class="lineCov">       6557 :   if (offset == NO_JUMP)  /* point to itself represents end of list */</span>
+<span class="lineNum">      98 </span><span class="lineCov">       5720 :     return NO_JUMP;  /* end of list */</span>
 <span class="lineNum">      99 </span>            :   else
 <span class="lineNum">     100 </span><span class="lineCov">        837 :     return (pc+1)+offset;  /* turn offset into absolute position */</span>
 <span class="lineNum">     101 </span>            : }
 <span class="lineNum">     102 </span>            : 
 <span class="lineNum">     103 </span>            : 
 <span class="lineNum">     104 </span>            : static Instruction *getjumpcontrol (FuncState *fs, int pc) {
-<span class="lineNum">     105 </span><span class="lineCov">       7638 :   Instruction *pi = &amp;fs-&gt;f-&gt;code[pc];</span>
-<span class="lineNum">     106 </span><span class="lineCov">       7638 :   if (pc &gt;= 1 &amp;&amp; testTMode(GET_OPCODE(*(pi-1))))</span>
+<span class="lineNum">     105 </span><span class="lineCov">       7640 :   Instruction *pi = &amp;fs-&gt;f-&gt;code[pc];</span>
+<span class="lineNum">     106 </span><span class="lineCov">       7640 :   if (pc &gt;= 1 &amp;&amp; testTMode(GET_OPCODE(*(pi-1))))</span>
 <span class="lineNum">     107 </span><span class="lineCov">       6222 :     return pi-1;</span>
 <span class="lineNum">     108 </span>            :   else
-<span class="lineNum">     109 </span><span class="lineCov">       1416 :     return pi;</span>
+<span class="lineNum">     109 </span><span class="lineCov">       1418 :     return pi;</span>
 <span class="lineNum">     110 </span>            : }
 <span class="lineNum">     111 </span>            : 
 <span class="lineNum">     112 </span>            : 
@@ -190,9 +190,9 @@
 <span class="lineNum">     124 </span>            : 
 <span class="lineNum">     125 </span>            : 
 <span class="lineNum">     126 </span>            : static int patchtestreg (FuncState *fs, int node, int reg) {
-<span class="lineNum">     127 </span><span class="lineCov">       5324 :   Instruction *i = getjumpcontrol(fs, node);</span>
-<span class="lineNum">     128 </span><span class="lineCov">       5324 :   if (GET_OPCODE(*i) != OP_TESTSET)</span>
-<span class="lineNum">     129 </span><span class="lineCov">       4116 :     return 0;  /* cannot patch other instructions */</span>
+<span class="lineNum">     127 </span><span class="lineCov">       5326 :   Instruction *i = getjumpcontrol(fs, node);</span>
+<span class="lineNum">     128 </span><span class="lineCov">       5326 :   if (GET_OPCODE(*i) != OP_TESTSET)</span>
+<span class="lineNum">     129 </span><span class="lineCov">       4118 :     return 0;  /* cannot patch other instructions */</span>
 <span class="lineNum">     130 </span><span class="lineCov">       1208 :   if (reg != NO_REG &amp;&amp; reg != GETARG_B(*i))</span>
 <span class="lineNum">     131 </span><span class="lineCov">         70 :     SETARG_A(*i, reg);</span>
 <span class="lineNum">     132 </span>            :   else  /* no register to put value or register already has the value */
@@ -208,84 +208,84 @@
 <span class="lineNum">     142 </span><span class="lineCov">       1740 : }</span>
 <span class="lineNum">     143 </span>            : 
 <span class="lineNum">     144 </span>            : 
-<span class="lineNum">     145 </span><span class="lineCov">      74864 : static void patchlistaux (FuncState *fs, int list, int vtarget, int reg,</span>
+<span class="lineNum">     145 </span><span class="lineCov">      74900 : static void patchlistaux (FuncState *fs, int list, int vtarget, int reg,</span>
 <span class="lineNum">     146 </span>            :                           int dtarget) {
-<span class="lineNum">     147 </span><span class="lineCov">      80188 :   while (list != NO_JUMP) {</span>
-<span class="lineNum">     148 </span><span class="lineCov">       5324 :     int next = getjump(fs, list);</span>
-<span class="lineNum">     149 </span><span class="lineCov">       5324 :     if (patchtestreg(fs, list, reg))</span>
+<span class="lineNum">     147 </span><span class="lineCov">      80226 :   while (list != NO_JUMP) {</span>
+<span class="lineNum">     148 </span><span class="lineCov">       5326 :     int next = getjump(fs, list);</span>
+<span class="lineNum">     149 </span><span class="lineCov">       5326 :     if (patchtestreg(fs, list, reg))</span>
 <span class="lineNum">     150 </span><span class="lineCov">       1208 :       fixjump(fs, list, vtarget);</span>
 <span class="lineNum">     151 </span>            :     else
-<span class="lineNum">     152 </span><span class="lineCov">       4116 :       fixjump(fs, list, dtarget);  /* jump to default target */</span>
-<span class="lineNum">     153 </span><span class="lineCov">       5324 :     list = next;</span>
+<span class="lineNum">     152 </span><span class="lineCov">       4118 :       fixjump(fs, list, dtarget);  /* jump to default target */</span>
+<span class="lineNum">     153 </span><span class="lineCov">       5326 :     list = next;</span>
 <span class="lineNum">     154 </span>            :   }
-<span class="lineNum">     155 </span><span class="lineCov">      74864 : }</span>
+<span class="lineNum">     155 </span><span class="lineCov">      74900 : }</span>
 <span class="lineNum">     156 </span>            : 
 <span class="lineNum">     157 </span>            : 
 <span class="lineNum">     158 </span>            : static void dischargejpc (FuncState *fs) {
-<span class="lineNum">     159 </span><span class="lineCov">      72872 :   patchlistaux(fs, fs-&gt;jpc, fs-&gt;pc, NO_REG, fs-&gt;pc);</span>
-<span class="lineNum">     160 </span><span class="lineCov">      72872 :   fs-&gt;jpc = NO_JUMP;</span>
+<span class="lineNum">     159 </span><span class="lineCov">      72907 :   patchlistaux(fs, fs-&gt;jpc, fs-&gt;pc, NO_REG, fs-&gt;pc);</span>
+<span class="lineNum">     160 </span><span class="lineCov">      72907 :   fs-&gt;jpc = NO_JUMP;</span>
 <span class="lineNum">     161 </span>            : }
 <span class="lineNum">     162 </span>            : 
 <span class="lineNum">     163 </span>            : 
-<span class="lineNum">     164 </span><span class="lineCov">        282 : void luaK_patchlist (FuncState *fs, int list, int target) {</span>
-<span class="lineNum">     165 </span><span class="lineCov">        282 :   if (target == fs-&gt;pc)</span>
+<span class="lineNum">     164 </span><span class="lineCov">        283 : void luaK_patchlist (FuncState *fs, int list, int target) {</span>
+<span class="lineNum">     165 </span><span class="lineCov">        283 :   if (target == fs-&gt;pc)</span>
 <span class="lineNum">     166 </span><span class="lineNoCov">          0 :     luaK_patchtohere(fs, list);</span>
 <span class="lineNum">     167 </span>            :   else {
 <span class="lineNum">     168 </span>            :     lua_assert(target &lt; fs-&gt;pc);
-<span class="lineNum">     169 </span><span class="lineCov">        282 :     patchlistaux(fs, list, target, NO_REG, target);</span>
+<span class="lineNum">     169 </span><span class="lineCov">        283 :     patchlistaux(fs, list, target, NO_REG, target);</span>
 <span class="lineNum">     170 </span>            :   }
-<span class="lineNum">     171 </span><span class="lineCov">        282 : }</span>
+<span class="lineNum">     171 </span><span class="lineCov">        283 : }</span>
 <span class="lineNum">     172 </span>            : 
 <span class="lineNum">     173 </span>            : 
-<span class="lineNum">     174 </span><span class="lineCov">      12011 : void luaK_patchtohere (FuncState *fs, int list) {</span>
+<span class="lineNum">     174 </span><span class="lineCov">      12015 : void luaK_patchtohere (FuncState *fs, int list) {</span>
 <span class="lineNum">     175 </span>            :   luaK_getlabel(fs);
-<span class="lineNum">     176 </span><span class="lineCov">      12011 :   luaK_concat(fs, &amp;fs-&gt;jpc, list);</span>
-<span class="lineNum">     177 </span><span class="lineCov">      12011 : }</span>
+<span class="lineNum">     176 </span><span class="lineCov">      12015 :   luaK_concat(fs, &amp;fs-&gt;jpc, list);</span>
+<span class="lineNum">     177 </span><span class="lineCov">      12015 : }</span>
 <span class="lineNum">     178 </span>            : 
 <span class="lineNum">     179 </span>            : 
-<span class="lineNum">     180 </span><span class="lineCov">      24336 : void luaK_concat (FuncState *fs, int *l1, int l2) {</span>
-<span class="lineNum">     181 </span><span class="lineCov">      24336 :   if (l2 == NO_JUMP) return;</span>
-<span class="lineNum">     182 </span><span class="lineCov">      11190 :   else if (*l1 == NO_JUMP)</span>
-<span class="lineNum">     183 </span><span class="lineCov">      10472 :     *l1 = l2;</span>
+<span class="lineNum">     180 </span><span class="lineCov">      24341 : void luaK_concat (FuncState *fs, int *l1, int l2) {</span>
+<span class="lineNum">     181 </span><span class="lineCov">      24341 :   if (l2 == NO_JUMP) return;</span>
+<span class="lineNum">     182 </span><span class="lineCov">      11191 :   else if (*l1 == NO_JUMP)</span>
+<span class="lineNum">     183 </span><span class="lineCov">      10473 :     *l1 = l2;</span>
 <span class="lineNum">     184 </span>            :   else {
 <span class="lineNum">     185 </span><span class="lineCov">        718 :     int list = *l1;</span>
 <span class="lineNum">     186 </span>            :     int next;
 <span class="lineNum">     187 </span><span class="lineCov">       1555 :     while ((next = getjump(fs, list)) != NO_JUMP)  /* find last element */</span>
 <span class="lineNum">     188 </span><span class="lineCov">        119 :       list = next;</span>
-<span class="lineNum">     189 </span><span class="lineCov">      24336 :     fixjump(fs, list, l2);</span>
+<span class="lineNum">     189 </span><span class="lineCov">      24341 :     fixjump(fs, list, l2);</span>
 <span class="lineNum">     190 </span>            :   }
 <span class="lineNum">     191 </span>            : }
 <span class="lineNum">     192 </span>            : 
 <span class="lineNum">     193 </span>            : 
-<span class="lineNum">     194 </span><span class="lineCov">      72872 : static int luaK_code (FuncState *fs, Instruction i) {</span>
-<span class="lineNum">     195 </span><span class="lineCov">      72872 :   Proto *f = fs-&gt;f;</span>
+<span class="lineNum">     194 </span><span class="lineCov">      72907 : static int luaK_code (FuncState *fs, Instruction i) {</span>
+<span class="lineNum">     195 </span><span class="lineCov">      72907 :   Proto *f = fs-&gt;f;</span>
 <span class="lineNum">     196 </span>            :   dischargejpc(fs);  /* `pc' will change */
 <span class="lineNum">     197 </span>            :   /* put new instruction in code array */
-<span class="lineNum">     198 </span><span class="lineCov">      72872 :   luaM_growvector(fs-&gt;L, f-&gt;code, fs-&gt;pc, f-&gt;sizecode, Instruction,</span>
+<span class="lineNum">     198 </span><span class="lineCov">      72907 :   luaM_growvector(fs-&gt;L, f-&gt;code, fs-&gt;pc, f-&gt;sizecode, Instruction,</span>
 <span class="lineNum">     199 </span>            :                   MAX_INT, &quot;opcodes&quot;);
-<span class="lineNum">     200 </span><span class="lineCov">      72872 :   f-&gt;code[fs-&gt;pc] = i;</span>
+<span class="lineNum">     200 </span><span class="lineCov">      72907 :   f-&gt;code[fs-&gt;pc] = i;</span>
 <span class="lineNum">     201 </span>            :   /* save corresponding line information */
-<span class="lineNum">     202 </span><span class="lineCov">      72872 :   luaM_growvector(fs-&gt;L, f-&gt;lineinfo, fs-&gt;pc, f-&gt;sizelineinfo, int,</span>
+<span class="lineNum">     202 </span><span class="lineCov">      72907 :   luaM_growvector(fs-&gt;L, f-&gt;lineinfo, fs-&gt;pc, f-&gt;sizelineinfo, int,</span>
 <span class="lineNum">     203 </span>            :                   MAX_INT, &quot;opcodes&quot;);
-<span class="lineNum">     204 </span><span class="lineCov">      72872 :   f-&gt;lineinfo[fs-&gt;pc] = fs-&gt;ls-&gt;lastline;</span>
-<span class="lineNum">     205 </span><span class="lineCov">      72872 :   return fs-&gt;pc++;</span>
+<span class="lineNum">     204 </span><span class="lineCov">      72907 :   f-&gt;lineinfo[fs-&gt;pc] = fs-&gt;ls-&gt;lastline;</span>
+<span class="lineNum">     205 </span><span class="lineCov">      72907 :   return fs-&gt;pc++;</span>
 <span class="lineNum">     206 </span>            : }
 <span class="lineNum">     207 </span>            : 
 <span class="lineNum">     208 </span>            : 
-<span class="lineNum">     209 </span><span class="lineCov">      56629 : int luaK_codeABC (FuncState *fs, OpCode o, int a, int b, int c) {</span>
+<span class="lineNum">     209 </span><span class="lineCov">      56656 : int luaK_codeABC (FuncState *fs, OpCode o, int a, int b, int c) {</span>
 <span class="lineNum">     210 </span>            :   lua_assert(getOpMode(o) == iABC);
 <span class="lineNum">     211 </span>            :   lua_assert(getBMode(o) != OpArgN || b == 0);
 <span class="lineNum">     212 </span>            :   lua_assert(getCMode(o) != OpArgN || c == 0);
 <span class="lineNum">     213 </span>            :   lua_assert(a &lt;= MAXARG_A &amp;&amp; b &lt;= MAXARG_B &amp;&amp; c &lt;= MAXARG_C);
-<span class="lineNum">     214 </span><span class="lineCov">      56629 :   return luaK_code(fs, CREATE_ABC(o, a, b, c));</span>
+<span class="lineNum">     214 </span><span class="lineCov">      56656 :   return luaK_code(fs, CREATE_ABC(o, a, b, c));</span>
 <span class="lineNum">     215 </span>            : }
 <span class="lineNum">     216 </span>            : 
 <span class="lineNum">     217 </span>            : 
-<span class="lineNum">     218 </span><span class="lineCov">      16243 : int luaK_codeABx (FuncState *fs, OpCode o, int a, unsigned int bc) {</span>
+<span class="lineNum">     218 </span><span class="lineCov">      16251 : int luaK_codeABx (FuncState *fs, OpCode o, int a, unsigned int bc) {</span>
 <span class="lineNum">     219 </span>            :   lua_assert(getOpMode(o) == iABx || getOpMode(o) == iAsBx);
 <span class="lineNum">     220 </span>            :   lua_assert(getCMode(o) == OpArgN);
 <span class="lineNum">     221 </span>            :   lua_assert(a &lt;= MAXARG_A &amp;&amp; bc &lt;= MAXARG_Bx);
-<span class="lineNum">     222 </span><span class="lineCov">      16243 :   return luaK_code(fs, CREATE_ABx(o, a, bc));</span>
+<span class="lineNum">     222 </span><span class="lineCov">      16251 :   return luaK_code(fs, CREATE_ABx(o, a, bc));</span>
 <span class="lineNum">     223 </span>            : }
 <span class="lineNum">     224 </span>            : 
 <span class="lineNum">     225 </span>            : 
@@ -295,77 +295,77 @@
 <span class="lineNum">     229 </span>            : }
 <span class="lineNum">     230 </span>            : 
 <span class="lineNum">     231 </span>            : 
-<span class="lineNum">     232 </span><span class="lineCov">       8468 : int luaK_codeABxX (FuncState *fs, OpCode o, int reg, int k) {</span>
-<span class="lineNum">     233 </span><span class="lineCov">       8468 :   if (k &lt; MAXARG_Bx)</span>
-<span class="lineNum">     234 </span><span class="lineCov">       8468 :     return luaK_codeABx(fs, o, reg, k + 1);</span>
+<span class="lineNum">     232 </span><span class="lineCov">       8473 : int luaK_codeABxX (FuncState *fs, OpCode o, int reg, int k) {</span>
+<span class="lineNum">     233 </span><span class="lineCov">       8473 :   if (k &lt; MAXARG_Bx)</span>
+<span class="lineNum">     234 </span><span class="lineCov">       8473 :     return luaK_codeABx(fs, o, reg, k + 1);</span>
 <span class="lineNum">     235 </span>            :   else {
 <span class="lineNum">     236 </span><span class="lineNoCov">          0 :     int p = luaK_codeABx(fs, o, reg, 0);</span>
 <span class="lineNum">     237 </span>            :     codeextraarg(fs, k);
-<span class="lineNum">     238 </span><span class="lineCov">       8468 :     return p;</span>
+<span class="lineNum">     238 </span><span class="lineCov">       8473 :     return p;</span>
 <span class="lineNum">     239 </span>            :   }
 <span class="lineNum">     240 </span>            : }
 <span class="lineNum">     241 </span>            : 
 <span class="lineNum">     242 </span>            : 
-<span class="lineNum">     243 </span><span class="lineCov">      46526 : void luaK_checkstack (FuncState *fs, int n) {</span>
-<span class="lineNum">     244 </span><span class="lineCov">      46526 :   int newstack = fs-&gt;freereg + n;</span>
-<span class="lineNum">     245 </span><span class="lineCov">      46526 :   if (newstack &gt; fs-&gt;f-&gt;maxstacksize) {</span>
-<span class="lineNum">     246 </span><span class="lineCov">      11183 :     if (newstack &gt;= MAXSTACK)</span>
+<span class="lineNum">     243 </span><span class="lineCov">      46553 : void luaK_checkstack (FuncState *fs, int n) {</span>
+<span class="lineNum">     244 </span><span class="lineCov">      46553 :   int newstack = fs-&gt;freereg + n;</span>
+<span class="lineNum">     245 </span><span class="lineCov">      46553 :   if (newstack &gt; fs-&gt;f-&gt;maxstacksize) {</span>
+<span class="lineNum">     246 </span><span class="lineCov">      11185 :     if (newstack &gt;= MAXSTACK)</span>
 <span class="lineNum">     247 </span><span class="lineNoCov">          0 :       luaX_syntaxerror(fs-&gt;ls, &quot;function or expression too complex&quot;);</span>
-<span class="lineNum">     248 </span><span class="lineCov">      11183 :     fs-&gt;f-&gt;maxstacksize = cast_byte(newstack);</span>
+<span class="lineNum">     248 </span><span class="lineCov">      11185 :     fs-&gt;f-&gt;maxstacksize = cast_byte(newstack);</span>
 <span class="lineNum">     249 </span>            :   }
-<span class="lineNum">     250 </span><span class="lineCov">      46526 : }</span>
+<span class="lineNum">     250 </span><span class="lineCov">      46553 : }</span>
 <span class="lineNum">     251 </span>            : 
 <span class="lineNum">     252 </span>            : 
-<span class="lineNum">     253 </span><span class="lineCov">      46355 : void luaK_reserveregs (FuncState *fs, int n) {</span>
-<span class="lineNum">     254 </span><span class="lineCov">      46355 :   luaK_checkstack(fs, n);</span>
-<span class="lineNum">     255 </span><span class="lineCov">      46355 :   fs-&gt;freereg += n;</span>
-<span class="lineNum">     256 </span><span class="lineCov">      46355 : }</span>
+<span class="lineNum">     253 </span><span class="lineCov">      46381 : void luaK_reserveregs (FuncState *fs, int n) {</span>
+<span class="lineNum">     254 </span><span class="lineCov">      46381 :   luaK_checkstack(fs, n);</span>
+<span class="lineNum">     255 </span><span class="lineCov">      46381 :   fs-&gt;freereg += n;</span>
+<span class="lineNum">     256 </span><span class="lineCov">      46381 : }</span>
 <span class="lineNum">     257 </span>            : 
 <span class="lineNum">     258 </span>            : 
 <span class="lineNum">     259 </span>            : static void freereg (FuncState *fs, int reg) {
-<span class="lineNum">     260 </span><span class="lineCov">      38738 :   if (!ISK(reg) &amp;&amp; reg &gt;= fs-&gt;nactvar) {</span>
-<span class="lineNum">     261 </span><span class="lineCov">      20839 :     fs-&gt;freereg--;</span>
+<span class="lineNum">     260 </span><span class="lineCov">      38755 :   if (!ISK(reg) &amp;&amp; reg &gt;= fs-&gt;nactvar) {</span>
+<span class="lineNum">     261 </span><span class="lineCov">      20845 :     fs-&gt;freereg--;</span>
 <span class="lineNum">     262 </span>            :     lua_assert(reg == fs-&gt;freereg);
 <span class="lineNum">     263 </span>            :   }
 <span class="lineNum">     264 </span>            : }
 <span class="lineNum">     265 </span>            : 
 <span class="lineNum">     266 </span>            : 
 <span class="lineNum">     267 </span>            : static void freeexp (FuncState *fs, expdesc *e) {
-<span class="lineNum">     268 </span><span class="lineCov">      63035 :   if (e-&gt;k == VNONRELOC)</span>
-<span class="lineNum">     269 </span><span class="lineCov">      28435 :     freereg(fs, e-&gt;u.info);</span>
+<span class="lineNum">     268 </span><span class="lineCov">      63062 :   if (e-&gt;k == VNONRELOC)</span>
+<span class="lineNum">     269 </span><span class="lineCov">      28444 :     freereg(fs, e-&gt;u.info);</span>
 <span class="lineNum">     270 </span>            : }
 <span class="lineNum">     271 </span>            : 
 <span class="lineNum">     272 </span>            : 
-<span class="lineNum">     273 </span><span class="lineCov">      26184 : static int addk (FuncState *fs, TValue *key, TValue *v) {</span>
-<span class="lineNum">     274 </span><span class="lineCov">      26184 :   lua_State *L = fs-&gt;L;</span>
-<span class="lineNum">     275 </span><span class="lineCov">      26184 :   TValue *idx = luaH_set(L, fs-&gt;h, key);</span>
-<span class="lineNum">     276 </span><span class="lineCov">      26184 :   Proto *f = fs-&gt;f;</span>
+<span class="lineNum">     273 </span><span class="lineCov">      26201 : static int addk (FuncState *fs, TValue *key, TValue *v) {</span>
+<span class="lineNum">     274 </span><span class="lineCov">      26201 :   lua_State *L = fs-&gt;L;</span>
+<span class="lineNum">     275 </span><span class="lineCov">      26201 :   TValue *idx = luaH_set(L, fs-&gt;h, key);</span>
+<span class="lineNum">     276 </span><span class="lineCov">      26201 :   Proto *f = fs-&gt;f;</span>
 <span class="lineNum">     277 </span>            :   int k, oldsize;
-<span class="lineNum">     278 </span><span class="lineCov">      26184 :   if (ttisnumber(idx)) {</span>
-<span class="lineNum">     279 </span><span class="lineCov">       9388 :     lua_Number n = nvalue(idx);</span>
-<span class="lineNum">     280 </span><span class="lineCov">       9388 :     lua_number2int(k, n);</span>
-<span class="lineNum">     281 </span><span class="lineCov">       9388 :     if (luaO_rawequalObj(&amp;f-&gt;k[k], v))</span>
-<span class="lineNum">     282 </span><span class="lineCov">       9388 :       return k;</span>
+<span class="lineNum">     278 </span><span class="lineCov">      26201 :   if (ttisnumber(idx)) {</span>
+<span class="lineNum">     279 </span><span class="lineCov">       9400 :     lua_Number n = nvalue(idx);</span>
+<span class="lineNum">     280 </span><span class="lineCov">       9400 :     lua_number2int(k, n);</span>
+<span class="lineNum">     281 </span><span class="lineCov">       9400 :     if (luaO_rawequalObj(&amp;f-&gt;k[k], v))</span>
+<span class="lineNum">     282 </span><span class="lineCov">       9400 :       return k;</span>
 <span class="lineNum">     283 </span>            :     /* else may be a collision (e.g., between 0.0 and &quot;\0\0\0\0\0\0\0\0&quot;);
 <span class="lineNum">     284 </span>            :        go through and create a new entry for this value */
 <span class="lineNum">     285 </span>            :   }
 <span class="lineNum">     286 </span>            :   /* constant not found; create a new entry */
-<span class="lineNum">     287 </span><span class="lineCov">      16796 :   oldsize = f-&gt;sizek;</span>
-<span class="lineNum">     288 </span><span class="lineCov">      16796 :   k = fs-&gt;nk;</span>
-<span class="lineNum">     289 </span><span class="lineCov">      16796 :   setnvalue(idx, cast_num(k));</span>
-<span class="lineNum">     290 </span><span class="lineCov">      16796 :   luaM_growvector(L, f-&gt;k, k, f-&gt;sizek, TValue, MAXARG_Ax, &quot;constants&quot;);</span>
-<span class="lineNum">     291 </span><span class="lineCov">      42380 :   while (oldsize &lt; f-&gt;sizek) setnilvalue(&amp;f-&gt;k[oldsize++]);</span>
-<span class="lineNum">     292 </span><span class="lineCov">      16796 :   setobj(L, &amp;f-&gt;k[k], v);</span>
-<span class="lineNum">     293 </span><span class="lineCov">      16796 :   fs-&gt;nk++;</span>
-<span class="lineNum">     294 </span><span class="lineCov">      16796 :   luaC_barrier(L, f, v);</span>
-<span class="lineNum">     295 </span><span class="lineCov">      26184 :   return k;</span>
+<span class="lineNum">     287 </span><span class="lineCov">      16801 :   oldsize = f-&gt;sizek;</span>
+<span class="lineNum">     288 </span><span class="lineCov">      16801 :   k = fs-&gt;nk;</span>
+<span class="lineNum">     289 </span><span class="lineCov">      16801 :   setnvalue(idx, cast_num(k));</span>
+<span class="lineNum">     290 </span><span class="lineCov">      16801 :   luaM_growvector(L, f-&gt;k, k, f-&gt;sizek, TValue, MAXARG_Ax, &quot;constants&quot;);</span>
+<span class="lineNum">     291 </span><span class="lineCov">      42389 :   while (oldsize &lt; f-&gt;sizek) setnilvalue(&amp;f-&gt;k[oldsize++]);</span>
+<span class="lineNum">     292 </span><span class="lineCov">      16801 :   setobj(L, &amp;f-&gt;k[k], v);</span>
+<span class="lineNum">     293 </span><span class="lineCov">      16801 :   fs-&gt;nk++;</span>
+<span class="lineNum">     294 </span><span class="lineCov">      16801 :   luaC_barrier(L, f, v);</span>
+<span class="lineNum">     295 </span><span class="lineCov">      26201 :   return k;</span>
 <span class="lineNum">     296 </span>            : }
 <span class="lineNum">     297 </span>            : 
 <span class="lineNum">     298 </span>            : 
-<span class="lineNum">     299 </span><span class="lineCov">      22994 : int luaK_stringK (FuncState *fs, TString *s) {</span>
+<span class="lineNum">     299 </span><span class="lineCov">      23011 : int luaK_stringK (FuncState *fs, TString *s) {</span>
 <span class="lineNum">     300 </span>            :   TValue o;
-<span class="lineNum">     301 </span><span class="lineCov">      22994 :   setsvalue(fs-&gt;L, &amp;o, s);</span>
-<span class="lineNum">     302 </span><span class="lineCov">      22994 :   return addk(fs, &amp;o, &amp;o);</span>
+<span class="lineNum">     301 </span><span class="lineCov">      23011 :   setsvalue(fs-&gt;L, &amp;o, s);</span>
+<span class="lineNum">     302 </span><span class="lineCov">      23011 :   return addk(fs, &amp;o, &amp;o);</span>
 <span class="lineNum">     303 </span>            : }
 <span class="lineNum">     304 </span>            : 
 <span class="lineNum">     305 </span>            : 
@@ -403,35 +403,35 @@
 <span class="lineNum">     337 </span>            : }
 <span class="lineNum">     338 </span>            : 
 <span class="lineNum">     339 </span>            : 
-<span class="lineNum">     340 </span><span class="lineCov">      10561 : void luaK_setreturns (FuncState *fs, expdesc *e, int nresults) {</span>
-<span class="lineNum">     341 </span><span class="lineCov">      10561 :   if (e-&gt;k == VCALL) {  /* expression is an open function call? */</span>
-<span class="lineNum">     342 </span><span class="lineCov">       1536 :     SETARG_C(getcode(fs, e), nresults+1);</span>
+<span class="lineNum">     340 </span><span class="lineCov">      10567 : void luaK_setreturns (FuncState *fs, expdesc *e, int nresults) {</span>
+<span class="lineNum">     341 </span><span class="lineCov">      10567 :   if (e-&gt;k == VCALL) {  /* expression is an open function call? */</span>
+<span class="lineNum">     342 </span><span class="lineCov">       1538 :     SETARG_C(getcode(fs, e), nresults+1);</span>
 <span class="lineNum">     343 </span>            :   }
-<span class="lineNum">     344 </span><span class="lineCov">       9025 :   else if (e-&gt;k == VVARARG) {</span>
+<span class="lineNum">     344 </span><span class="lineCov">       9029 :   else if (e-&gt;k == VVARARG) {</span>
 <span class="lineNum">     345 </span><span class="lineCov">        186 :     SETARG_B(getcode(fs, e), nresults+1);</span>
 <span class="lineNum">     346 </span><span class="lineCov">        186 :     SETARG_A(getcode(fs, e), fs-&gt;freereg);</span>
 <span class="lineNum">     347 </span><span class="lineCov">        186 :     luaK_reserveregs(fs, 1);</span>
 <span class="lineNum">     348 </span>            :   }
-<span class="lineNum">     349 </span><span class="lineCov">      10561 : }</span>
+<span class="lineNum">     349 </span><span class="lineCov">      10567 : }</span>
 <span class="lineNum">     350 </span>            : 
 <span class="lineNum">     351 </span>            : 
-<span class="lineNum">     352 </span><span class="lineCov">       6133 : void luaK_setoneret (FuncState *fs, expdesc *e) {</span>
-<span class="lineNum">     353 </span><span class="lineCov">       6133 :   if (e-&gt;k == VCALL) {  /* expression is an open function call? */</span>
+<span class="lineNum">     352 </span><span class="lineCov">       6135 : void luaK_setoneret (FuncState *fs, expdesc *e) {</span>
+<span class="lineNum">     353 </span><span class="lineCov">       6135 :   if (e-&gt;k == VCALL) {  /* expression is an open function call? */</span>
 <span class="lineNum">     354 </span><span class="lineCov">       3009 :     e-&gt;k = VNONRELOC;</span>
 <span class="lineNum">     355 </span><span class="lineCov">       3009 :     e-&gt;u.info = GETARG_A(getcode(fs, e));</span>
 <span class="lineNum">     356 </span>            :   }
-<span class="lineNum">     357 </span><span class="lineCov">       3124 :   else if (e-&gt;k == VVARARG) {</span>
+<span class="lineNum">     357 </span><span class="lineCov">       3126 :   else if (e-&gt;k == VVARARG) {</span>
 <span class="lineNum">     358 </span><span class="lineCov">         35 :     SETARG_B(getcode(fs, e), 2);</span>
 <span class="lineNum">     359 </span><span class="lineCov">         35 :     e-&gt;k = VRELOCABLE;  /* can relocate its simple result */</span>
 <span class="lineNum">     360 </span>            :   }
-<span class="lineNum">     361 </span><span class="lineCov">       6133 : }</span>
+<span class="lineNum">     361 </span><span class="lineCov">       6135 : }</span>
 <span class="lineNum">     362 </span>            : 
 <span class="lineNum">     363 </span>            : 
-<span class="lineNum">     364 </span><span class="lineCov">     143289 : void luaK_dischargevars (FuncState *fs, expdesc *e) {</span>
-<span class="lineNum">     365 </span><span class="lineCov">     143289 :   switch (e-&gt;k) {</span>
+<span class="lineNum">     364 </span><span class="lineCov">     143359 : void luaK_dischargevars (FuncState *fs, expdesc *e) {</span>
+<span class="lineNum">     365 </span><span class="lineCov">     143359 :   switch (e-&gt;k) {</span>
 <span class="lineNum">     366 </span>            :     case VLOCAL: {
-<span class="lineNum">     367 </span><span class="lineCov">      17322 :       e-&gt;k = VNONRELOC;</span>
-<span class="lineNum">     368 </span><span class="lineCov">      17322 :       break;</span>
+<span class="lineNum">     367 </span><span class="lineCov">      17327 :       e-&gt;k = VNONRELOC;</span>
+<span class="lineNum">     368 </span><span class="lineCov">      17327 :       break;</span>
 <span class="lineNum">     369 </span>            :     }
 <span class="lineNum">     370 </span>            :     case VUPVAL: {
 <span class="lineNum">     371 </span><span class="lineCov">       5846 :       e-&gt;u.info = luaK_codeABC(fs, OP_GETUPVAL, 0, e-&gt;u.info, 0);</span>
@@ -439,15 +439,15 @@
 <span class="lineNum">     373 </span><span class="lineCov">       5846 :       break;</span>
 <span class="lineNum">     374 </span>            :     }
 <span class="lineNum">     375 </span>            :     case VINDEXED: {
-<span class="lineNum">     376 </span><span class="lineCov">       7586 :       OpCode op = OP_GETTABUP;  /* assume 't' is in an upvalue */</span>
-<span class="lineNum">     377 </span><span class="lineCov">       7586 :       freereg(fs, e-&gt;u.ind.idx);</span>
-<span class="lineNum">     378 </span><span class="lineCov">       7586 :       if (e-&gt;u.ind.vt == VLOCAL) {  /* 't' is in a register? */</span>
-<span class="lineNum">     379 </span><span class="lineCov">       2717 :         freereg(fs, e-&gt;u.ind.t);</span>
-<span class="lineNum">     380 </span><span class="lineCov">       2717 :         op = OP_GETTABLE;</span>
+<span class="lineNum">     376 </span><span class="lineCov">       7593 :       OpCode op = OP_GETTABUP;  /* assume 't' is in an upvalue */</span>
+<span class="lineNum">     377 </span><span class="lineCov">       7593 :       freereg(fs, e-&gt;u.ind.idx);</span>
+<span class="lineNum">     378 </span><span class="lineCov">       7593 :       if (e-&gt;u.ind.vt == VLOCAL) {  /* 't' is in a register? */</span>
+<span class="lineNum">     379 </span><span class="lineCov">       2718 :         freereg(fs, e-&gt;u.ind.t);</span>
+<span class="lineNum">     380 </span><span class="lineCov">       2718 :         op = OP_GETTABLE;</span>
 <span class="lineNum">     381 </span>            :       }
-<span class="lineNum">     382 </span><span class="lineCov">       7586 :       e-&gt;u.info = luaK_codeABC(fs, op, 0, e-&gt;u.ind.t, e-&gt;u.ind.idx);</span>
-<span class="lineNum">     383 </span><span class="lineCov">       7586 :       e-&gt;k = VRELOCABLE;</span>
-<span class="lineNum">     384 </span><span class="lineCov">       7586 :       break;</span>
+<span class="lineNum">     382 </span><span class="lineCov">       7593 :       e-&gt;u.info = luaK_codeABC(fs, op, 0, e-&gt;u.ind.t, e-&gt;u.ind.idx);</span>
+<span class="lineNum">     383 </span><span class="lineCov">       7593 :       e-&gt;k = VRELOCABLE;</span>
+<span class="lineNum">     384 </span><span class="lineCov">       7593 :       break;</span>
 <span class="lineNum">     385 </span>            :     }
 <span class="lineNum">     386 </span>            :     case VVARARG:
 <span class="lineNum">     387 </span>            :     case VCALL: {
@@ -456,7 +456,7 @@
 <span class="lineNum">     390 </span>            :     }
 <span class="lineNum">     391 </span>            :     default: break;  /* there is one value available (somewhere) */
 <span class="lineNum">     392 </span>            :   }
-<span class="lineNum">     393 </span><span class="lineCov">     143289 : }</span>
+<span class="lineNum">     393 </span><span class="lineCov">     143359 : }</span>
 <span class="lineNum">     394 </span>            : 
 <span class="lineNum">     395 </span>            : 
 <span class="lineNum">     396 </span>            : static int code_label (FuncState *fs, int A, int b, int jump) {
@@ -465,9 +465,9 @@
 <span class="lineNum">     399 </span>            : }
 <span class="lineNum">     400 </span>            : 
 <span class="lineNum">     401 </span>            : 
-<span class="lineNum">     402 </span><span class="lineCov">      40703 : static void discharge2reg (FuncState *fs, expdesc *e, int reg) {</span>
-<span class="lineNum">     403 </span><span class="lineCov">      40703 :   luaK_dischargevars(fs, e);</span>
-<span class="lineNum">     404 </span><span class="lineCov">      40703 :   switch (e-&gt;k) {</span>
+<span class="lineNum">     402 </span><span class="lineCov">      40726 : static void discharge2reg (FuncState *fs, expdesc *e, int reg) {</span>
+<span class="lineNum">     403 </span><span class="lineCov">      40726 :   luaK_dischargevars(fs, e);</span>
+<span class="lineNum">     404 </span><span class="lineCov">      40726 :   switch (e-&gt;k) {</span>
 <span class="lineNum">     405 </span>            :     case VNIL: {
 <span class="lineNum">     406 </span><span class="lineCov">        225 :       luaK_nil(fs, reg, 1);</span>
 <span class="lineNum">     407 </span><span class="lineCov">        225 :       break;</span>
@@ -477,21 +477,21 @@
 <span class="lineNum">     411 </span><span class="lineCov">       1244 :       break;</span>
 <span class="lineNum">     412 </span>            :     }
 <span class="lineNum">     413 </span>            :     case VK: {
-<span class="lineNum">     414 </span><span class="lineCov">       7085 :       luaK_codek(fs, reg, e-&gt;u.info);</span>
-<span class="lineNum">     415 </span><span class="lineCov">       7085 :       break;</span>
+<span class="lineNum">     414 </span><span class="lineCov">       7090 :       luaK_codek(fs, reg, e-&gt;u.info);</span>
+<span class="lineNum">     415 </span><span class="lineCov">       7090 :       break;</span>
 <span class="lineNum">     416 </span>            :     }
 <span class="lineNum">     417 </span>            :     case VKNUM: {
 <span class="lineNum">     418 </span><span class="lineCov">       1303 :       luaK_codek(fs, reg, luaK_numberK(fs, e-&gt;u.nval));</span>
 <span class="lineNum">     419 </span><span class="lineCov">       1303 :       break;</span>
 <span class="lineNum">     420 </span>            :     }
 <span class="lineNum">     421 </span>            :     case VRELOCABLE: {
-<span class="lineNum">     422 </span><span class="lineCov">      19512 :       Instruction *pc = &amp;getcode(fs, e);</span>
-<span class="lineNum">     423 </span><span class="lineCov">      19512 :       SETARG_A(*pc, reg);</span>
-<span class="lineNum">     424 </span><span class="lineCov">      19512 :       break;</span>
+<span class="lineNum">     422 </span><span class="lineCov">      19524 :       Instruction *pc = &amp;getcode(fs, e);</span>
+<span class="lineNum">     423 </span><span class="lineCov">      19524 :       SETARG_A(*pc, reg);</span>
+<span class="lineNum">     424 </span><span class="lineCov">      19524 :       break;</span>
 <span class="lineNum">     425 </span>            :     }
 <span class="lineNum">     426 </span>            :     case VNONRELOC: {
-<span class="lineNum">     427 </span><span class="lineCov">      10842 :       if (reg != e-&gt;u.info)</span>
-<span class="lineNum">     428 </span><span class="lineCov">       8696 :         luaK_codeABC(fs, OP_MOVE, reg, e-&gt;u.info, 0);</span>
+<span class="lineNum">     427 </span><span class="lineCov">      10848 :       if (reg != e-&gt;u.info)</span>
+<span class="lineNum">     428 </span><span class="lineCov">       8700 :         luaK_codeABC(fs, OP_MOVE, reg, e-&gt;u.info, 0);</span>
 <span class="lineNum">     429 </span>            :       break;
 <span class="lineNum">     430 </span>            :     }
 <span class="lineNum">     431 </span>            :     default: {
@@ -499,8 +499,8 @@
 <span class="lineNum">     433 </span>            :       return;  /* nothing to do... */
 <span class="lineNum">     434 </span>            :     }
 <span class="lineNum">     435 </span>            :   }
-<span class="lineNum">     436 </span><span class="lineCov">      40211 :   e-&gt;u.info = reg;</span>
-<span class="lineNum">     437 </span><span class="lineCov">      40703 :   e-&gt;k = VNONRELOC;</span>
+<span class="lineNum">     436 </span><span class="lineCov">      40234 :   e-&gt;u.info = reg;</span>
+<span class="lineNum">     437 </span><span class="lineCov">      40726 :   e-&gt;k = VNONRELOC;</span>
 <span class="lineNum">     438 </span>            : }
 <span class="lineNum">     439 </span>            : 
 <span class="lineNum">     440 </span>            : 
@@ -512,11 +512,11 @@
 <span class="lineNum">     446 </span><span class="lineCov">       2067 : }</span>
 <span class="lineNum">     447 </span>            : 
 <span class="lineNum">     448 </span>            : 
-<span class="lineNum">     449 </span><span class="lineCov">      40249 : static void exp2reg (FuncState *fs, expdesc *e, int reg) {</span>
-<span class="lineNum">     450 </span><span class="lineCov">      40249 :   discharge2reg(fs, e, reg);</span>
-<span class="lineNum">     451 </span><span class="lineCov">      40249 :   if (e-&gt;k == VJMP)</span>
+<span class="lineNum">     449 </span><span class="lineCov">      40272 : static void exp2reg (FuncState *fs, expdesc *e, int reg) {</span>
+<span class="lineNum">     450 </span><span class="lineCov">      40272 :   discharge2reg(fs, e, reg);</span>
+<span class="lineNum">     451 </span><span class="lineCov">      40272 :   if (e-&gt;k == VJMP)</span>
 <span class="lineNum">     452 </span><span class="lineCov">        492 :     luaK_concat(fs, &amp;e-&gt;t, e-&gt;u.info);  /* put this jump in `t' list */</span>
-<span class="lineNum">     453 </span><span class="lineCov">      40249 :   if (hasjumps(e)) {</span>
+<span class="lineNum">     453 </span><span class="lineCov">      40272 :   if (hasjumps(e)) {</span>
 <span class="lineNum">     454 </span>            :     int final;  /* position after whole expression */
 <span class="lineNum">     455 </span><span class="lineCov">        855 :     int p_f = NO_JUMP;  /* position of an eventual LOAD false */</span>
 <span class="lineNum">     456 </span><span class="lineCov">        855 :     int p_t = NO_JUMP;  /* position of an eventual LOAD true */</span>
@@ -530,51 +530,51 @@
 <span class="lineNum">     464 </span><span class="lineCov">        855 :     patchlistaux(fs, e-&gt;f, final, reg, p_f);</span>
 <span class="lineNum">     465 </span><span class="lineCov">        855 :     patchlistaux(fs, e-&gt;t, final, reg, p_t);</span>
 <span class="lineNum">     466 </span>            :   }
-<span class="lineNum">     467 </span><span class="lineCov">      40249 :   e-&gt;f = e-&gt;t = NO_JUMP;</span>
-<span class="lineNum">     468 </span><span class="lineCov">      40249 :   e-&gt;u.info = reg;</span>
-<span class="lineNum">     469 </span><span class="lineCov">      40249 :   e-&gt;k = VNONRELOC;</span>
-<span class="lineNum">     470 </span><span class="lineCov">      40249 : }</span>
+<span class="lineNum">     467 </span><span class="lineCov">      40272 :   e-&gt;f = e-&gt;t = NO_JUMP;</span>
+<span class="lineNum">     468 </span><span class="lineCov">      40272 :   e-&gt;u.info = reg;</span>
+<span class="lineNum">     469 </span><span class="lineCov">      40272 :   e-&gt;k = VNONRELOC;</span>
+<span class="lineNum">     470 </span><span class="lineCov">      40272 : }</span>
 <span class="lineNum">     471 </span>            : 
 <span class="lineNum">     472 </span>            : 
-<span class="lineNum">     473 </span><span class="lineCov">      38253 : void luaK_exp2nextreg (FuncState *fs, expdesc *e) {</span>
-<span class="lineNum">     474 </span><span class="lineCov">      38253 :   luaK_dischargevars(fs, e);</span>
+<span class="lineNum">     473 </span><span class="lineCov">      38276 : void luaK_exp2nextreg (FuncState *fs, expdesc *e) {</span>
+<span class="lineNum">     474 </span><span class="lineCov">      38276 :   luaK_dischargevars(fs, e);</span>
 <span class="lineNum">     475 </span>            :   freeexp(fs, e);
-<span class="lineNum">     476 </span><span class="lineCov">      38253 :   luaK_reserveregs(fs, 1);</span>
-<span class="lineNum">     477 </span><span class="lineCov">      38253 :   exp2reg(fs, e, fs-&gt;freereg - 1);</span>
-<span class="lineNum">     478 </span><span class="lineCov">      38253 : }</span>
+<span class="lineNum">     476 </span><span class="lineCov">      38276 :   luaK_reserveregs(fs, 1);</span>
+<span class="lineNum">     477 </span><span class="lineCov">      38276 :   exp2reg(fs, e, fs-&gt;freereg - 1);</span>
+<span class="lineNum">     478 </span><span class="lineCov">      38276 : }</span>
 <span class="lineNum">     479 </span>            : 
 <span class="lineNum">     480 </span>            : 
-<span class="lineNum">     481 </span><span class="lineCov">      23921 : int luaK_exp2anyreg (FuncState *fs, expdesc *e) {</span>
-<span class="lineNum">     482 </span><span class="lineCov">      23921 :   luaK_dischargevars(fs, e);</span>
-<span class="lineNum">     483 </span><span class="lineCov">      23921 :   if (e-&gt;k == VNONRELOC) {</span>
-<span class="lineNum">     484 </span><span class="lineCov">      15396 :     if (!hasjumps(e)) return e-&gt;u.info;  /* exp is already in a register */</span>
+<span class="lineNum">     481 </span><span class="lineCov">      23927 : int luaK_exp2anyreg (FuncState *fs, expdesc *e) {</span>
+<span class="lineNum">     482 </span><span class="lineCov">      23927 :   luaK_dischargevars(fs, e);</span>
+<span class="lineNum">     483 </span><span class="lineCov">      23927 :   if (e-&gt;k == VNONRELOC) {</span>
+<span class="lineNum">     484 </span><span class="lineCov">      15400 :     if (!hasjumps(e)) return e-&gt;u.info;  /* exp is already in a register */</span>
 <span class="lineNum">     485 </span><span class="lineCov">         70 :     if (e-&gt;u.info &gt;= fs-&gt;nactvar) {  /* reg. is not a local? */</span>
 <span class="lineNum">     486 </span><span class="lineCov">         69 :       exp2reg(fs, e, e-&gt;u.info);  /* put value on it */</span>
 <span class="lineNum">     487 </span><span class="lineCov">         69 :       return e-&gt;u.info;</span>
 <span class="lineNum">     488 </span>            :     }
 <span class="lineNum">     489 </span>            :   }
-<span class="lineNum">     490 </span><span class="lineCov">       8526 :   luaK_exp2nextreg(fs, e);  /* default */</span>
-<span class="lineNum">     491 </span><span class="lineCov">      23921 :   return e-&gt;u.info;</span>
+<span class="lineNum">     490 </span><span class="lineCov">       8528 :   luaK_exp2nextreg(fs, e);  /* default */</span>
+<span class="lineNum">     491 </span><span class="lineCov">      23927 :   return e-&gt;u.info;</span>
 <span class="lineNum">     492 </span>            : }
 <span class="lineNum">     493 </span>            : 
 <span class="lineNum">     494 </span>            : 
-<span class="lineNum">     495 </span><span class="lineCov">       5858 : void luaK_exp2anyregup (FuncState *fs, expdesc *e) {</span>
-<span class="lineNum">     496 </span><span class="lineCov">       5858 :   if (e-&gt;k != VUPVAL || hasjumps(e))</span>
-<span class="lineNum">     497 </span><span class="lineCov">       5674 :     luaK_exp2anyreg(fs, e);</span>
-<span class="lineNum">     498 </span><span class="lineCov">       5858 : }</span>
+<span class="lineNum">     495 </span><span class="lineCov">       5859 : void luaK_exp2anyregup (FuncState *fs, expdesc *e) {</span>
+<span class="lineNum">     496 </span><span class="lineCov">       5859 :   if (e-&gt;k != VUPVAL || hasjumps(e))</span>
+<span class="lineNum">     497 </span><span class="lineCov">       5675 :     luaK_exp2anyreg(fs, e);</span>
+<span class="lineNum">     498 </span><span class="lineCov">       5859 : }</span>
 <span class="lineNum">     499 </span>            : 
 <span class="lineNum">     500 </span>            : 
-<span class="lineNum">     501 </span><span class="lineCov">      35426 : void luaK_exp2val (FuncState *fs, expdesc *e) {</span>
-<span class="lineNum">     502 </span><span class="lineCov">      35426 :   if (hasjumps(e))</span>
+<span class="lineNum">     501 </span><span class="lineCov">      35444 : void luaK_exp2val (FuncState *fs, expdesc *e) {</span>
+<span class="lineNum">     502 </span><span class="lineCov">      35444 :   if (hasjumps(e))</span>
 <span class="lineNum">     503 </span><span class="lineCov">         35 :     luaK_exp2anyreg(fs, e);</span>
 <span class="lineNum">     504 </span>            :   else
-<span class="lineNum">     505 </span><span class="lineCov">      35391 :     luaK_dischargevars(fs, e);</span>
-<span class="lineNum">     506 </span><span class="lineCov">      35426 : }</span>
+<span class="lineNum">     505 </span><span class="lineCov">      35409 :     luaK_dischargevars(fs, e);</span>
+<span class="lineNum">     506 </span><span class="lineCov">      35444 : }</span>
 <span class="lineNum">     507 </span>            : 
 <span class="lineNum">     508 </span>            : 
-<span class="lineNum">     509 </span><span class="lineCov">      30532 : int luaK_exp2RK (FuncState *fs, expdesc *e) {</span>
-<span class="lineNum">     510 </span><span class="lineCov">      30532 :   luaK_exp2val(fs, e);</span>
-<span class="lineNum">     511 </span><span class="lineCov">      30532 :   switch (e-&gt;k) {</span>
+<span class="lineNum">     509 </span><span class="lineCov">      30549 : int luaK_exp2RK (FuncState *fs, expdesc *e) {</span>
+<span class="lineNum">     510 </span><span class="lineCov">      30549 :   luaK_exp2val(fs, e);</span>
+<span class="lineNum">     511 </span><span class="lineCov">      30549 :   switch (e-&gt;k) {</span>
 <span class="lineNum">     512 </span>            :     case VTRUE:
 <span class="lineNum">     513 </span>            :     case VFALSE:
 <span class="lineNum">     514 </span>            :     case VNIL: {
@@ -591,19 +591,19 @@
 <span class="lineNum">     525 </span>            :       /* go through */
 <span class="lineNum">     526 </span>            :     }
 <span class="lineNum">     527 </span>            :     case VK: {
-<span class="lineNum">     528 </span><span class="lineCov">      17105 :       if (e-&gt;u.info &lt;= MAXINDEXRK)  /* constant fits in argC? */</span>
-<span class="lineNum">     529 </span><span class="lineCov">      17103 :         return RKASK(e-&gt;u.info);</span>
+<span class="lineNum">     528 </span><span class="lineCov">      17117 :       if (e-&gt;u.info &lt;= MAXINDEXRK)  /* constant fits in argC? */</span>
+<span class="lineNum">     529 </span><span class="lineCov">      17115 :         return RKASK(e-&gt;u.info);</span>
 <span class="lineNum">     530 </span>            :       else break;
 <span class="lineNum">     531 </span>            :     }
 <span class="lineNum">     532 </span>            :     default: break;
 <span class="lineNum">     533 </span>            :   }
 <span class="lineNum">     534 </span>            :   /* not a constant in the right range: put it in a register */
-<span class="lineNum">     535 </span><span class="lineCov">      30532 :   return luaK_exp2anyreg(fs, e);</span>
+<span class="lineNum">     535 </span><span class="lineCov">      30549 :   return luaK_exp2anyreg(fs, e);</span>
 <span class="lineNum">     536 </span>            : }
 <span class="lineNum">     537 </span>            : 
 <span class="lineNum">     538 </span>            : 
-<span class="lineNum">     539 </span><span class="lineCov">       5773 : void luaK_storevar (FuncState *fs, expdesc *var, expdesc *ex) {</span>
-<span class="lineNum">     540 </span><span class="lineCov">       5773 :   switch (var-&gt;k) {</span>
+<span class="lineNum">     539 </span><span class="lineCov">       5775 : void luaK_storevar (FuncState *fs, expdesc *var, expdesc *ex) {</span>
+<span class="lineNum">     540 </span><span class="lineCov">       5775 :   switch (var-&gt;k) {</span>
 <span class="lineNum">     541 </span>            :     case VLOCAL: {
 <span class="lineNum">     542 </span>            :       freeexp(fs, ex);
 <span class="lineNum">     543 </span><span class="lineCov">       1927 :       exp2reg(fs, ex, var-&gt;u.info);</span>
@@ -615,9 +615,9 @@
 <span class="lineNum">     549 </span><span class="lineCov">        249 :       break;</span>
 <span class="lineNum">     550 </span>            :     }
 <span class="lineNum">     551 </span>            :     case VINDEXED: {
-<span class="lineNum">     552 </span><span class="lineCov">       3597 :       OpCode op = (var-&gt;u.ind.vt == VLOCAL) ? OP_SETTABLE : OP_SETTABUP;</span>
-<span class="lineNum">     553 </span><span class="lineCov">       3597 :       int e = luaK_exp2RK(fs, ex);</span>
-<span class="lineNum">     554 </span><span class="lineCov">       3597 :       luaK_codeABC(fs, op, var-&gt;u.ind.t, var-&gt;u.ind.idx, e);</span>
+<span class="lineNum">     552 </span><span class="lineCov">       3599 :       OpCode op = (var-&gt;u.ind.vt == VLOCAL) ? OP_SETTABLE : OP_SETTABUP;</span>
+<span class="lineNum">     553 </span><span class="lineCov">       3599 :       int e = luaK_exp2RK(fs, ex);</span>
+<span class="lineNum">     554 </span><span class="lineCov">       3599 :       luaK_codeABC(fs, op, var-&gt;u.ind.t, var-&gt;u.ind.idx, e);</span>
 <span class="lineNum">     555 </span>            :       break;
 <span class="lineNum">     556 </span>            :     }
 <span class="lineNum">     557 </span>            :     default: {
@@ -761,19 +761,19 @@
 <span class="lineNum">     695 </span><span class="lineCov">        870 : }</span>
 <span class="lineNum">     696 </span>            : 
 <span class="lineNum">     697 </span>            : 
-<span class="lineNum">     698 </span><span class="lineCov">      11195 : void luaK_indexed (FuncState *fs, expdesc *t, expdesc *k) {</span>
+<span class="lineNum">     698 </span><span class="lineCov">      11204 : void luaK_indexed (FuncState *fs, expdesc *t, expdesc *k) {</span>
 <span class="lineNum">     699 </span>            :   lua_assert(!hasjumps(t));
-<span class="lineNum">     700 </span><span class="lineCov">      11195 :   t-&gt;u.ind.t = t-&gt;u.info;</span>
-<span class="lineNum">     701 </span><span class="lineCov">      11195 :   t-&gt;u.ind.idx = luaK_exp2RK(fs, k);</span>
-<span class="lineNum">     702 </span><span class="lineCov">      11195 :   t-&gt;u.ind.vt = (t-&gt;k == VUPVAL) ? VUPVAL</span>
+<span class="lineNum">     700 </span><span class="lineCov">      11204 :   t-&gt;u.ind.t = t-&gt;u.info;</span>
+<span class="lineNum">     701 </span><span class="lineCov">      11204 :   t-&gt;u.ind.idx = luaK_exp2RK(fs, k);</span>
+<span class="lineNum">     702 </span><span class="lineCov">      11204 :   t-&gt;u.ind.vt = (t-&gt;k == VUPVAL) ? VUPVAL</span>
 <span class="lineNum">     703 </span>            :                                  : check_exp(vkisinreg(t-&gt;k), VLOCAL);
-<span class="lineNum">     704 </span><span class="lineCov">      11195 :   t-&gt;k = VINDEXED;</span>
-<span class="lineNum">     705 </span><span class="lineCov">      11195 : }</span>
+<span class="lineNum">     704 </span><span class="lineCov">      11204 :   t-&gt;k = VINDEXED;</span>
+<span class="lineNum">     705 </span><span class="lineCov">      11204 : }</span>
 <span class="lineNum">     706 </span>            : 
 <span class="lineNum">     707 </span>            : 
 <span class="lineNum">     708 </span>            : static int constfolding (OpCode op, expdesc *e1, expdesc *e2) {
 <span class="lineNum">     709 </span>            :   lua_Number r;
-<span class="lineNum">     710 </span><span class="lineCov">       2757 :   if (!isnumeral(e1) || !isnumeral(e2)) return 0;</span>
+<span class="lineNum">     710 </span><span class="lineCov">       2758 :   if (!isnumeral(e1) || !isnumeral(e2)) return 0;</span>
 <span class="lineNum">     711 </span><span class="lineCov">         14 :   if ((op == OP_DIV || op == OP_MOD) &amp;&amp; e2-&gt;u.nval == 0)</span>
 <span class="lineNum">     712 </span><span class="lineCov">          4 :     return 0;  /* do not attempt to divide by 0 */</span>
 <span class="lineNum">     713 </span><span class="lineCov">         10 :   r = luaO_arith(op - OP_ADD + LUA_OPADD, e1-&gt;u.nval, e2-&gt;u.nval);</span>
@@ -782,14 +782,14 @@
 <span class="lineNum">     716 </span>            : }
 <span class="lineNum">     717 </span>            : 
 <span class="lineNum">     718 </span>            : 
-<span class="lineNum">     719 </span><span class="lineCov">       2675 : static void codearith (FuncState *fs, OpCode op,</span>
+<span class="lineNum">     719 </span><span class="lineCov">       2676 : static void codearith (FuncState *fs, OpCode op,</span>
 <span class="lineNum">     720 </span>            :                        expdesc *e1, expdesc *e2, int line) {
-<span class="lineNum">     721 </span><span class="lineCov">       2675 :   if (constfolding(op, e1, e2))</span>
+<span class="lineNum">     721 </span><span class="lineCov">       2676 :   if (constfolding(op, e1, e2))</span>
 <span class="lineNum">     722 </span>            :     return;
 <span class="lineNum">     723 </span>            :   else {
-<span class="lineNum">     724 </span><span class="lineCov">       2665 :     int o2 = (op != OP_UNM &amp;&amp; op != OP_LEN) ? luaK_exp2RK(fs, e2) : 0;</span>
-<span class="lineNum">     725 </span><span class="lineCov">       2665 :     int o1 = luaK_exp2RK(fs, e1);</span>
-<span class="lineNum">     726 </span><span class="lineCov">       2665 :     if (o1 &gt; o2) {</span>
+<span class="lineNum">     724 </span><span class="lineCov">       2666 :     int o2 = (op != OP_UNM &amp;&amp; op != OP_LEN) ? luaK_exp2RK(fs, e2) : 0;</span>
+<span class="lineNum">     725 </span><span class="lineCov">       2666 :     int o1 = luaK_exp2RK(fs, e1);</span>
+<span class="lineNum">     726 </span><span class="lineCov">       2666 :     if (o1 &gt; o2) {</span>
 <span class="lineNum">     727 </span>            :       freeexp(fs, e1);
 <span class="lineNum">     728 </span>            :       freeexp(fs, e2);
 <span class="lineNum">     729 </span>            :     }
@@ -797,8 +797,8 @@
 <span class="lineNum">     731 </span>            :       freeexp(fs, e2);
 <span class="lineNum">     732 </span>            :       freeexp(fs, e1);
 <span class="lineNum">     733 </span>            :     }
-<span class="lineNum">     734 </span><span class="lineCov">       2665 :     e1-&gt;u.info = luaK_codeABC(fs, op, 0, o1, o2);</span>
-<span class="lineNum">     735 </span><span class="lineCov">       2665 :     e1-&gt;k = VRELOCABLE;</span>
+<span class="lineNum">     734 </span><span class="lineCov">       2666 :     e1-&gt;u.info = luaK_codeABC(fs, op, 0, o1, o2);</span>
+<span class="lineNum">     735 </span><span class="lineCov">       2666 :     e1-&gt;k = VRELOCABLE;</span>
 <span class="lineNum">     736 </span>            :     luaK_fixline(fs, line);
 <span class="lineNum">     737 </span>            :   }
 <span class="lineNum">     738 </span>            : }
@@ -844,8 +844,8 @@
 <span class="lineNum">     778 </span><span class="lineCov">       1334 : }</span>
 <span class="lineNum">     779 </span>            : 
 <span class="lineNum">     780 </span>            : 
-<span class="lineNum">     781 </span><span class="lineCov">       7223 : void luaK_infix (FuncState *fs, BinOpr op, expdesc *v) {</span>
-<span class="lineNum">     782 </span><span class="lineCov">       7223 :   switch (op) {</span>
+<span class="lineNum">     781 </span><span class="lineCov">       7224 : void luaK_infix (FuncState *fs, BinOpr op, expdesc *v) {</span>
+<span class="lineNum">     782 </span><span class="lineCov">       7224 :   switch (op) {</span>
 <span class="lineNum">     783 </span>            :     case OPR_AND: {
 <span class="lineNum">     784 </span><span class="lineCov">        268 :       luaK_goiftrue(fs, v);</span>
 <span class="lineNum">     785 </span><span class="lineCov">        268 :       break;</span>
@@ -855,8 +855,8 @@
 <span class="lineNum">     789 </span><span class="lineCov">        368 :       break;</span>
 <span class="lineNum">     790 </span>            :     }
 <span class="lineNum">     791 </span>            :     case OPR_CONCAT: {
-<span class="lineNum">     792 </span><span class="lineCov">       4165 :       luaK_exp2nextreg(fs, v);  /* operand must be on the `stack' */</span>
-<span class="lineNum">     793 </span><span class="lineCov">       4165 :       break;</span>
+<span class="lineNum">     792 </span><span class="lineCov">       4166 :       luaK_exp2nextreg(fs, v);  /* operand must be on the `stack' */</span>
+<span class="lineNum">     793 </span><span class="lineCov">       4166 :       break;</span>
 <span class="lineNum">     794 </span>            :     }
 <span class="lineNum">     795 </span>            :     case OPR_ADD: case OPR_SUB: case OPR_MUL: case OPR_DIV:
 <span class="lineNum">     796 </span>            :     case OPR_MOD: case OPR_POW: {
@@ -868,12 +868,12 @@
 <span class="lineNum">     802 </span>            :       break;
 <span class="lineNum">     803 </span>            :     }
 <span class="lineNum">     804 </span>            :   }
-<span class="lineNum">     805 </span><span class="lineCov">       7223 : }</span>
+<span class="lineNum">     805 </span><span class="lineCov">       7224 : }</span>
 <span class="lineNum">     806 </span>            : 
 <span class="lineNum">     807 </span>            : 
-<span class="lineNum">     808 </span><span class="lineCov">       7223 : void luaK_posfix (FuncState *fs, BinOpr op,</span>
+<span class="lineNum">     808 </span><span class="lineCov">       7224 : void luaK_posfix (FuncState *fs, BinOpr op,</span>
 <span class="lineNum">     809 </span>            :                   expdesc *e1, expdesc *e2, int line) {
-<span class="lineNum">     810 </span><span class="lineCov">       7223 :   switch (op) {</span>
+<span class="lineNum">     810 </span><span class="lineCov">       7224 :   switch (op) {</span>
 <span class="lineNum">     811 </span>            :     case OPR_AND: {
 <span class="lineNum">     812 </span>            :       lua_assert(e1-&gt;t == NO_JUMP);  /* list must be closed */
 <span class="lineNum">     813 </span><span class="lineCov">        268 :       luaK_dischargevars(fs, e2);</span>
@@ -889,16 +889,16 @@
 <span class="lineNum">     823 </span><span class="lineCov">        368 :       break;</span>
 <span class="lineNum">     824 </span>            :     }
 <span class="lineNum">     825 </span>            :     case OPR_CONCAT: {
-<span class="lineNum">     826 </span><span class="lineCov">       4165 :       luaK_exp2val(fs, e2);</span>
-<span class="lineNum">     827 </span><span class="lineCov">       6484 :       if (e2-&gt;k == VRELOCABLE &amp;&amp; GET_OPCODE(getcode(fs, e2)) == OP_CONCAT) {</span>
+<span class="lineNum">     826 </span><span class="lineCov">       4166 :       luaK_exp2val(fs, e2);</span>
+<span class="lineNum">     827 </span><span class="lineCov">       6485 :       if (e2-&gt;k == VRELOCABLE &amp;&amp; GET_OPCODE(getcode(fs, e2)) == OP_CONCAT) {</span>
 <span class="lineNum">     828 </span>            :         lua_assert(e1-&gt;u.info == GETARG_B(getcode(fs, e2))-1);
 <span class="lineNum">     829 </span>            :         freeexp(fs, e1);
 <span class="lineNum">     830 </span><span class="lineCov">       2319 :         SETARG_B(getcode(fs, e2), e1-&gt;u.info);</span>
 <span class="lineNum">     831 </span><span class="lineCov">       2319 :         e1-&gt;k = VRELOCABLE; e1-&gt;u.info = e2-&gt;u.info;</span>
 <span class="lineNum">     832 </span>            :       }
 <span class="lineNum">     833 </span>            :       else {
-<span class="lineNum">     834 </span><span class="lineCov">       1846 :         luaK_exp2nextreg(fs, e2);  /* operand must be on the 'stack' */</span>
-<span class="lineNum">     835 </span><span class="lineCov">       1846 :         codearith(fs, OP_CONCAT, e1, e2, line);</span>
+<span class="lineNum">     834 </span><span class="lineCov">       1847 :         luaK_exp2nextreg(fs, e2);  /* operand must be on the 'stack' */</span>
+<span class="lineNum">     835 </span><span class="lineCov">       1847 :         codearith(fs, OP_CONCAT, e1, e2, line);</span>
 <span class="lineNum">     836 </span>            :       }
 <span class="lineNum">     837 </span>            :       break;
 <span class="lineNum">     838 </span>            :     }
@@ -917,28 +917,28 @@
 <span class="lineNum">     851 </span>            :     }
 <span class="lineNum">     852 </span>            :     default: lua_assert(0);
 <span class="lineNum">     853 </span>            :   }
-<span class="lineNum">     854 </span><span class="lineCov">       7223 : }</span>
+<span class="lineNum">     854 </span><span class="lineCov">       7224 : }</span>
 <span class="lineNum">     855 </span>            : 
 <span class="lineNum">     856 </span>            : 
-<span class="lineNum">     857 </span><span class="lineCov">      12001 : void luaK_fixline (FuncState *fs, int line) {</span>
-<span class="lineNum">     858 </span><span class="lineCov">       2675 :   fs-&gt;f-&gt;lineinfo[fs-&gt;pc - 1] = line;</span>
-<span class="lineNum">     859 </span><span class="lineCov">      12001 : }</span>
+<span class="lineNum">     857 </span><span class="lineCov">      12007 : void luaK_fixline (FuncState *fs, int line) {</span>
+<span class="lineNum">     858 </span><span class="lineCov">       2676 :   fs-&gt;f-&gt;lineinfo[fs-&gt;pc - 1] = line;</span>
+<span class="lineNum">     859 </span><span class="lineCov">      12007 : }</span>
 <span class="lineNum">     860 </span>            : 
 <span class="lineNum">     861 </span>            : 
-<span class="lineNum">     862 </span><span class="lineCov">        373 : void luaK_setlist (FuncState *fs, int base, int nelems, int tostore) {</span>
-<span class="lineNum">     863 </span><span class="lineCov">        373 :   int c =  (nelems - 1)/LFIELDS_PER_FLUSH + 1;</span>
-<span class="lineNum">     864 </span><span class="lineCov">        373 :   int b = (tostore == LUA_MULTRET) ? 0 : tostore;</span>
+<span class="lineNum">     862 </span><span class="lineCov">        374 : void luaK_setlist (FuncState *fs, int base, int nelems, int tostore) {</span>
+<span class="lineNum">     863 </span><span class="lineCov">        374 :   int c =  (nelems - 1)/LFIELDS_PER_FLUSH + 1;</span>
+<span class="lineNum">     864 </span><span class="lineCov">        374 :   int b = (tostore == LUA_MULTRET) ? 0 : tostore;</span>
 <span class="lineNum">     865 </span>            :   lua_assert(tostore != 0);
-<span class="lineNum">     866 </span><span class="lineCov">        373 :   if (c &lt;= MAXARG_C)</span>
-<span class="lineNum">     867 </span><span class="lineCov">        373 :     luaK_codeABC(fs, OP_SETLIST, base, b, c);</span>
+<span class="lineNum">     866 </span><span class="lineCov">        374 :   if (c &lt;= MAXARG_C)</span>
+<span class="lineNum">     867 </span><span class="lineCov">        374 :     luaK_codeABC(fs, OP_SETLIST, base, b, c);</span>
 <span class="lineNum">     868 </span><span class="lineNoCov">          0 :   else if (c &lt;= MAXARG_Ax) {</span>
 <span class="lineNum">     869 </span><span class="lineNoCov">          0 :     luaK_codeABC(fs, OP_SETLIST, base, b, 0);</span>
 <span class="lineNum">     870 </span>            :     codeextraarg(fs, c);
 <span class="lineNum">     871 </span>            :   }
 <span class="lineNum">     872 </span>            :   else
 <span class="lineNum">     873 </span><span class="lineNoCov">          0 :     luaX_syntaxerror(fs-&gt;ls, &quot;constructor too long&quot;);</span>
-<span class="lineNum">     874 </span><span class="lineCov">        373 :   fs-&gt;freereg = base + 1;  /* free registers with list values */</span>
-<span class="lineNum">     875 </span><span class="lineCov">        373 : }</span>
+<span class="lineNum">     874 </span><span class="lineCov">        374 :   fs-&gt;freereg = base + 1;  /* free registers with list values */</span>
+<span class="lineNum">     875 </span><span class="lineCov">        374 : }</span>
 <span class="lineNum">     876 </span>            : 
 </pre>
       </td>
