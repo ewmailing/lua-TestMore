@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2010-11-23</td>
+            <td class="headerValue">2010-11-27</td>
             <td></td>
           </tr>
           <tr>
@@ -115,30 +115,30 @@
 <span class="lineNum">      49 </span>            : ** function to be used with macro &quot;fasttm&quot;: optimized for absence of
 <span class="lineNum">      50 </span>            : ** tag methods
 <span class="lineNum">      51 </span>            : */
-<span class="lineNum">      52 </span><span class="lineCov">       6455 : const TValue *luaT_gettm (Table *events, TMS event, TString *ename) {</span>
-<span class="lineNum">      53 </span><span class="lineCov">       6455 :   const TValue *tm = luaH_getstr(events, ename);</span>
+<span class="lineNum">      52 </span><span class="lineCov">       6459 : const TValue *luaT_gettm (Table *events, TMS event, TString *ename) {</span>
+<span class="lineNum">      53 </span><span class="lineCov">       6459 :   const TValue *tm = luaH_getstr(events, ename);</span>
 <span class="lineNum">      54 </span>            :   lua_assert(event &lt;= TM_EQ);
-<span class="lineNum">      55 </span><span class="lineCov">       6455 :   if (ttisnil(tm)) {  /* no tag method? */</span>
+<span class="lineNum">      55 </span><span class="lineCov">       6459 :   if (ttisnil(tm)) {  /* no tag method? */</span>
 <span class="lineNum">      56 </span><span class="lineCov">        113 :     events-&gt;flags |= cast_byte(1u&lt;&lt;event);  /* cache this fact */</span>
 <span class="lineNum">      57 </span><span class="lineCov">        113 :     return NULL;</span>
 <span class="lineNum">      58 </span>            :   }
-<span class="lineNum">      59 </span><span class="lineCov">       6455 :   else return tm;</span>
+<span class="lineNum">      59 </span><span class="lineCov">       6459 :   else return tm;</span>
 <span class="lineNum">      60 </span>            : }
 <span class="lineNum">      61 </span>            : 
 <span class="lineNum">      62 </span>            : 
-<span class="lineNum">      63 </span><span class="lineCov">      10068 : const TValue *luaT_gettmbyobj (lua_State *L, const TValue *o, TMS event) {</span>
+<span class="lineNum">      63 </span><span class="lineCov">      10070 : const TValue *luaT_gettmbyobj (lua_State *L, const TValue *o, TMS event) {</span>
 <span class="lineNum">      64 </span>            :   Table *mt;
-<span class="lineNum">      65 </span><span class="lineCov">      10068 :   switch (ttype(o)) {</span>
+<span class="lineNum">      65 </span><span class="lineCov">      10070 :   switch (ttype(o)) {</span>
 <span class="lineNum">      66 </span>            :     case LUA_TTABLE:
 <span class="lineNum">      67 </span><span class="lineCov">         69 :       mt = hvalue(o)-&gt;metatable;</span>
 <span class="lineNum">      68 </span><span class="lineCov">         69 :       break;</span>
 <span class="lineNum">      69 </span>            :     case LUA_TUSERDATA:
-<span class="lineNum">      70 </span><span class="lineCov">       1585 :       mt = uvalue(o)-&gt;metatable;</span>
-<span class="lineNum">      71 </span><span class="lineCov">       1585 :       break;</span>
+<span class="lineNum">      70 </span><span class="lineCov">       1586 :       mt = uvalue(o)-&gt;metatable;</span>
+<span class="lineNum">      71 </span><span class="lineCov">       1586 :       break;</span>
 <span class="lineNum">      72 </span>            :     default:
-<span class="lineNum">      73 </span><span class="lineCov">       8414 :       mt = G(L)-&gt;mt[ttypenv(o)];</span>
+<span class="lineNum">      73 </span><span class="lineCov">       8415 :       mt = G(L)-&gt;mt[ttypenv(o)];</span>
 <span class="lineNum">      74 </span>            :   }
-<span class="lineNum">      75 </span><span class="lineCov">      10068 :   return (mt ? luaH_getstr(mt, G(L)-&gt;tmname[event]) : luaO_nilobject);</span>
+<span class="lineNum">      75 </span><span class="lineCov">      10070 :   return (mt ? luaH_getstr(mt, G(L)-&gt;tmname[event]) : luaO_nilobject);</span>
 <span class="lineNum">      76 </span>            : }
 <span class="lineNum">      77 </span>            : 
 </pre>

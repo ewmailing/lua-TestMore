@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2010-11-23</td>
+            <td class="headerValue">2010-11-27</td>
             <td></td>
           </tr>
           <tr>
@@ -154,32 +154,32 @@
 <span class="lineNum">      88 </span>            : }
 <span class="lineNum">      89 </span>            : 
 <span class="lineNum">      90 </span>            : 
-<span class="lineNum">      91 </span><span class="lineCov">      80894 : static void addfield (lua_State *L, luaL_Buffer *b, int i) {</span>
-<span class="lineNum">      92 </span><span class="lineCov">      80894 :   lua_rawgeti(L, 1, i);</span>
-<span class="lineNum">      93 </span><span class="lineCov">      80894 :   if (!lua_isstring(L, -1))</span>
+<span class="lineNum">      91 </span><span class="lineCov">      80897 : static void addfield (lua_State *L, luaL_Buffer *b, int i) {</span>
+<span class="lineNum">      92 </span><span class="lineCov">      80897 :   lua_rawgeti(L, 1, i);</span>
+<span class="lineNum">      93 </span><span class="lineCov">      80897 :   if (!lua_isstring(L, -1))</span>
 <span class="lineNum">      94 </span><span class="lineCov">          2 :     luaL_error(L, &quot;invalid value (%s) at index %d in table for &quot;</span>
 <span class="lineNum">      95 </span>            :                   LUA_QL(&quot;concat&quot;), luaL_typename(L, -1), i);
-<span class="lineNum">      96 </span><span class="lineCov">      80892 :     luaL_addvalue(b);</span>
-<span class="lineNum">      97 </span><span class="lineCov">      80892 : }</span>
+<span class="lineNum">      96 </span><span class="lineCov">      80895 :     luaL_addvalue(b);</span>
+<span class="lineNum">      97 </span><span class="lineCov">      80895 : }</span>
 <span class="lineNum">      98 </span>            : 
 <span class="lineNum">      99 </span>            : 
-<span class="lineNum">     100 </span><span class="lineCov">      11976 : static int tconcat (lua_State *L) {</span>
+<span class="lineNum">     100 </span><span class="lineCov">      11977 : static int tconcat (lua_State *L) {</span>
 <span class="lineNum">     101 </span>            :   luaL_Buffer b;
 <span class="lineNum">     102 </span>            :   size_t lsep;
 <span class="lineNum">     103 </span>            :   int i, last;
-<span class="lineNum">     104 </span><span class="lineCov">      11976 :   const char *sep = luaL_optlstring(L, 2, &quot;&quot;, &amp;lsep);</span>
-<span class="lineNum">     105 </span><span class="lineCov">      11976 :   luaL_checktype(L, 1, LUA_TTABLE);</span>
-<span class="lineNum">     106 </span><span class="lineCov">      11976 :   i = luaL_optint(L, 3, 1);</span>
-<span class="lineNum">     107 </span><span class="lineCov">      11976 :   last = luaL_opt(L, luaL_checkint, 4, (int)lua_rawlen(L, 1));</span>
-<span class="lineNum">     108 </span><span class="lineCov">      11976 :   luaL_buffinit(L, &amp;b);</span>
-<span class="lineNum">     109 </span><span class="lineCov">      80896 :   for (; i &lt; last; i++) {</span>
-<span class="lineNum">     110 </span><span class="lineCov">      68922 :     addfield(L, &amp;b, i);</span>
-<span class="lineNum">     111 </span><span class="lineCov">      68920 :     luaL_addlstring(&amp;b, sep, lsep);</span>
+<span class="lineNum">     104 </span><span class="lineCov">      11977 :   const char *sep = luaL_optlstring(L, 2, &quot;&quot;, &amp;lsep);</span>
+<span class="lineNum">     105 </span><span class="lineCov">      11977 :   luaL_checktype(L, 1, LUA_TTABLE);</span>
+<span class="lineNum">     106 </span><span class="lineCov">      11977 :   i = luaL_optint(L, 3, 1);</span>
+<span class="lineNum">     107 </span><span class="lineCov">      11977 :   last = luaL_opt(L, luaL_checkint, 4, (int)lua_rawlen(L, 1));</span>
+<span class="lineNum">     108 </span><span class="lineCov">      11977 :   luaL_buffinit(L, &amp;b);</span>
+<span class="lineNum">     109 </span><span class="lineCov">      80899 :   for (; i &lt; last; i++) {</span>
+<span class="lineNum">     110 </span><span class="lineCov">      68924 :     addfield(L, &amp;b, i);</span>
+<span class="lineNum">     111 </span><span class="lineCov">      68922 :     luaL_addlstring(&amp;b, sep, lsep);</span>
 <span class="lineNum">     112 </span>            :   }
-<span class="lineNum">     113 </span><span class="lineCov">      11974 :   if (i == last)  /* add last value (if interval was not empty) */</span>
-<span class="lineNum">     114 </span><span class="lineCov">      11972 :     addfield(L, &amp;b, i);</span>
-<span class="lineNum">     115 </span><span class="lineCov">      11974 :   luaL_pushresult(&amp;b);</span>
-<span class="lineNum">     116 </span><span class="lineCov">      11974 :   return 1;</span>
+<span class="lineNum">     113 </span><span class="lineCov">      11975 :   if (i == last)  /* add last value (if interval was not empty) */</span>
+<span class="lineNum">     114 </span><span class="lineCov">      11973 :     addfield(L, &amp;b, i);</span>
+<span class="lineNum">     115 </span><span class="lineCov">      11975 :   luaL_pushresult(&amp;b);</span>
+<span class="lineNum">     116 </span><span class="lineCov">      11975 :   return 1;</span>
 <span class="lineNum">     117 </span>            : }
 <span class="lineNum">     118 </span>            : 
 <span class="lineNum">     119 </span>            : 
@@ -233,13 +233,13 @@
 <span class="lineNum">     167 </span>            : */
 <span class="lineNum">     168 </span>            : 
 <span class="lineNum">     169 </span>            : 
-<span class="lineNum">     170 </span><span class="lineCov">      43025 : static void set2 (lua_State *L, int i, int j) {</span>
-<span class="lineNum">     171 </span><span class="lineCov">      43025 :   lua_rawseti(L, 1, i);</span>
-<span class="lineNum">     172 </span><span class="lineCov">      43025 :   lua_rawseti(L, 1, j);</span>
-<span class="lineNum">     173 </span><span class="lineCov">      43025 : }</span>
+<span class="lineNum">     170 </span><span class="lineCov">      43026 : static void set2 (lua_State *L, int i, int j) {</span>
+<span class="lineNum">     171 </span><span class="lineCov">      43026 :   lua_rawseti(L, 1, i);</span>
+<span class="lineNum">     172 </span><span class="lineCov">      43026 :   lua_rawseti(L, 1, j);</span>
+<span class="lineNum">     173 </span><span class="lineCov">      43026 : }</span>
 <span class="lineNum">     174 </span>            : 
-<span class="lineNum">     175 </span><span class="lineCov">      91616 : static int sort_comp (lua_State *L, int a, int b) {</span>
-<span class="lineNum">     176 </span><span class="lineCov">      91616 :   if (!lua_isnil(L, 2)) {  /* function? */</span>
+<span class="lineNum">     175 </span><span class="lineCov">      91619 : static int sort_comp (lua_State *L, int a, int b) {</span>
+<span class="lineNum">     176 </span><span class="lineCov">      91619 :   if (!lua_isnil(L, 2)) {  /* function? */</span>
 <span class="lineNum">     177 </span>            :     int res;
 <span class="lineNum">     178 </span><span class="lineCov">          8 :     lua_pushvalue(L, 2);</span>
 <span class="lineNum">     179 </span><span class="lineCov">          8 :     lua_pushvalue(L, a-1);  /* -1 to compensate function */</span>
@@ -250,34 +250,34 @@
 <span class="lineNum">     184 </span><span class="lineCov">          8 :     return res;</span>
 <span class="lineNum">     185 </span>            :   }
 <span class="lineNum">     186 </span>            :   else  /* a &lt; b? */
-<span class="lineNum">     187 </span><span class="lineCov">      91616 :     return lua_compare(L, a, b, LUA_OPLT);</span>
+<span class="lineNum">     187 </span><span class="lineCov">      91619 :     return lua_compare(L, a, b, LUA_OPLT);</span>
 <span class="lineNum">     188 </span>            : }
 <span class="lineNum">     189 </span>            : 
-<span class="lineNum">     190 </span><span class="lineCov">      15853 : static void auxsort (lua_State *L, int l, int u) {</span>
-<span class="lineNum">     191 </span><span class="lineCov">      25789 :   while (l &lt; u) {  /* for tail recursion */</span>
+<span class="lineNum">     190 </span><span class="lineCov">      15854 : static void auxsort (lua_State *L, int l, int u) {</span>
+<span class="lineNum">     191 </span><span class="lineCov">      25790 :   while (l &lt; u) {  /* for tail recursion */</span>
 <span class="lineNum">     192 </span>            :     int i, j;
 <span class="lineNum">     193 </span>            :     /* sort elements a[l], a[(l+u)/2] and a[u] */
-<span class="lineNum">     194 </span><span class="lineCov">      20508 :     lua_rawgeti(L, 1, l);</span>
-<span class="lineNum">     195 </span><span class="lineCov">      20508 :     lua_rawgeti(L, 1, u);</span>
-<span class="lineNum">     196 </span><span class="lineCov">      20508 :     if (sort_comp(L, -1, -2))  /* a[u] &lt; a[l]? */</span>
+<span class="lineNum">     194 </span><span class="lineCov">      20509 :     lua_rawgeti(L, 1, l);</span>
+<span class="lineNum">     195 </span><span class="lineCov">      20509 :     lua_rawgeti(L, 1, u);</span>
+<span class="lineNum">     196 </span><span class="lineCov">      20509 :     if (sort_comp(L, -1, -2))  /* a[u] &lt; a[l]? */</span>
 <span class="lineNum">     197 </span><span class="lineCov">      10256 :       set2(L, l, u);  /* swap a[l] - a[u] */</span>
 <span class="lineNum">     198 </span>            :     else
-<span class="lineNum">     199 </span><span class="lineCov">      10252 :       lua_pop(L, 2);</span>
-<span class="lineNum">     200 </span><span class="lineCov">      20508 :     if (u-l == 1) break;  /* only 2 elements */</span>
-<span class="lineNum">     201 </span><span class="lineCov">      13906 :     i = (l+u)/2;</span>
-<span class="lineNum">     202 </span><span class="lineCov">      13906 :     lua_rawgeti(L, 1, i);</span>
-<span class="lineNum">     203 </span><span class="lineCov">      13906 :     lua_rawgeti(L, 1, l);</span>
-<span class="lineNum">     204 </span><span class="lineCov">      13906 :     if (sort_comp(L, -2, -1))  /* a[i]&lt;a[l]? */</span>
+<span class="lineNum">     199 </span><span class="lineCov">      10253 :       lua_pop(L, 2);</span>
+<span class="lineNum">     200 </span><span class="lineCov">      20509 :     if (u-l == 1) break;  /* only 2 elements */</span>
+<span class="lineNum">     201 </span><span class="lineCov">      13907 :     i = (l+u)/2;</span>
+<span class="lineNum">     202 </span><span class="lineCov">      13907 :     lua_rawgeti(L, 1, i);</span>
+<span class="lineNum">     203 </span><span class="lineCov">      13907 :     lua_rawgeti(L, 1, l);</span>
+<span class="lineNum">     204 </span><span class="lineCov">      13907 :     if (sort_comp(L, -2, -1))  /* a[i]&lt;a[l]? */</span>
 <span class="lineNum">     205 </span><span class="lineCov">       4635 :       set2(L, i, l);</span>
 <span class="lineNum">     206 </span>            :     else {
-<span class="lineNum">     207 </span><span class="lineCov">       9271 :       lua_pop(L, 1);  /* remove a[l] */</span>
-<span class="lineNum">     208 </span><span class="lineCov">       9271 :       lua_rawgeti(L, 1, u);</span>
-<span class="lineNum">     209 </span><span class="lineCov">       9271 :       if (sort_comp(L, -1, -2))  /* a[u]&lt;a[i]? */</span>
-<span class="lineNum">     210 </span><span class="lineCov">       4637 :         set2(L, i, u);</span>
+<span class="lineNum">     207 </span><span class="lineCov">       9272 :       lua_pop(L, 1);  /* remove a[l] */</span>
+<span class="lineNum">     208 </span><span class="lineCov">       9272 :       lua_rawgeti(L, 1, u);</span>
+<span class="lineNum">     209 </span><span class="lineCov">       9272 :       if (sort_comp(L, -1, -2))  /* a[u]&lt;a[i]? */</span>
+<span class="lineNum">     210 </span><span class="lineCov">       4638 :         set2(L, i, u);</span>
 <span class="lineNum">     211 </span>            :       else
 <span class="lineNum">     212 </span><span class="lineCov">       4634 :         lua_pop(L, 2);</span>
 <span class="lineNum">     213 </span>            :     }
-<span class="lineNum">     214 </span><span class="lineCov">      13906 :     if (u-l == 2) break;  /* only 3 elements */</span>
+<span class="lineNum">     214 </span><span class="lineCov">      13907 :     if (u-l == 2) break;  /* only 3 elements */</span>
 <span class="lineNum">     215 </span><span class="lineCov">       9937 :     lua_rawgeti(L, 1, i);  /* Pivot */</span>
 <span class="lineNum">     216 </span><span class="lineCov">       9937 :     lua_pushvalue(L, -1);</span>
 <span class="lineNum">     217 </span><span class="lineCov">       9937 :     lua_rawgeti(L, 1, u-1);</span>
@@ -314,16 +314,16 @@
 <span class="lineNum">     248 </span>            :     }
 <span class="lineNum">     249 </span><span class="lineCov">       9936 :     auxsort(L, j, i);  /* call recursively the smaller one */</span>
 <span class="lineNum">     250 </span>            :   }  /* repeat the routine for the larger one */
-<span class="lineNum">     251 </span><span class="lineCov">      15852 : }</span>
+<span class="lineNum">     251 </span><span class="lineCov">      15853 : }</span>
 <span class="lineNum">     252 </span>            : 
-<span class="lineNum">     253 </span><span class="lineCov">       5917 : static int sort (lua_State *L) {</span>
-<span class="lineNum">     254 </span><span class="lineCov">       5917 :   int n = aux_getn(L, 1);</span>
-<span class="lineNum">     255 </span><span class="lineCov">       5917 :   luaL_checkstack(L, 40, &quot;&quot;);  /* assume array is smaller than 2^40 */</span>
-<span class="lineNum">     256 </span><span class="lineCov">       5917 :   if (!lua_isnoneornil(L, 2))  /* is there a 2nd argument? */</span>
+<span class="lineNum">     253 </span><span class="lineCov">       5918 : static int sort (lua_State *L) {</span>
+<span class="lineNum">     254 </span><span class="lineCov">       5918 :   int n = aux_getn(L, 1);</span>
+<span class="lineNum">     255 </span><span class="lineCov">       5918 :   luaL_checkstack(L, 40, &quot;&quot;);  /* assume array is smaller than 2^40 */</span>
+<span class="lineNum">     256 </span><span class="lineCov">       5918 :   if (!lua_isnoneornil(L, 2))  /* is there a 2nd argument? */</span>
 <span class="lineNum">     257 </span><span class="lineCov">          2 :     luaL_checktype(L, 2, LUA_TFUNCTION);</span>
-<span class="lineNum">     258 </span><span class="lineCov">       5917 :   lua_settop(L, 2);  /* make sure there is two arguments */</span>
-<span class="lineNum">     259 </span><span class="lineCov">       5917 :   auxsort(L, 1, n);</span>
-<span class="lineNum">     260 </span><span class="lineCov">       5916 :   return 0;</span>
+<span class="lineNum">     258 </span><span class="lineCov">       5918 :   lua_settop(L, 2);  /* make sure there is two arguments */</span>
+<span class="lineNum">     259 </span><span class="lineCov">       5918 :   auxsort(L, 1, n);</span>
+<span class="lineNum">     260 </span><span class="lineCov">       5917 :   return 0;</span>
 <span class="lineNum">     261 </span>            : }
 <span class="lineNum">     262 </span>            : 
 <span class="lineNum">     263 </span>            : /* }====================================================== */

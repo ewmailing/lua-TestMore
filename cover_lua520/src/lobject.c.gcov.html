@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2010-11-23</td>
+            <td class="headerValue">2010-11-27</td>
             <td></td>
           </tr>
           <tr>
@@ -99,26 +99,26 @@
 <span class="lineNum">      33 </span>            : ** (eeeeexxx), where the real value is (1xxx) * 2^(eeeee - 1) if
 <span class="lineNum">      34 </span>            : ** eeeee != 0 and (xxx) otherwise.
 <span class="lineNum">      35 </span>            : */
-<span class="lineNum">      36 </span><span class="lineCov">       1704 : int luaO_int2fb (lu_int32 x) {</span>
-<span class="lineNum">      37 </span><span class="lineCov">       1704 :   int e = 0;  /* exponent */</span>
-<span class="lineNum">      38 </span><span class="lineCov">       1704 :   if (x &lt; 8) return x;</span>
+<span class="lineNum">      36 </span><span class="lineCov">       1712 : int luaO_int2fb (lu_int32 x) {</span>
+<span class="lineNum">      37 </span><span class="lineCov">       1712 :   int e = 0;  /* exponent */</span>
+<span class="lineNum">      38 </span><span class="lineCov">       1712 :   if (x &lt; 8) return x;</span>
 <span class="lineNum">      39 </span><span class="lineCov">          3 :   while (x &gt;= 0x10) {</span>
 <span class="lineNum">      40 </span><span class="lineNoCov">          0 :     x = (x+1) &gt;&gt; 1;</span>
 <span class="lineNum">      41 </span><span class="lineNoCov">          0 :     e++;</span>
 <span class="lineNum">      42 </span>            :   }
-<span class="lineNum">      43 </span><span class="lineCov">       1704 :   return ((e+1) &lt;&lt; 3) | (cast_int(x) - 8);</span>
+<span class="lineNum">      43 </span><span class="lineCov">       1712 :   return ((e+1) &lt;&lt; 3) | (cast_int(x) - 8);</span>
 <span class="lineNum">      44 </span>            : }
 <span class="lineNum">      45 </span>            : 
 <span class="lineNum">      46 </span>            : 
 <span class="lineNum">      47 </span>            : /* converts back */
-<span class="lineNum">      48 </span><span class="lineCov">        500 : int luaO_fb2int (int x) {</span>
-<span class="lineNum">      49 </span><span class="lineCov">        500 :   int e = (x &gt;&gt; 3) &amp; 0x1f;</span>
-<span class="lineNum">      50 </span><span class="lineCov">        500 :   if (e == 0) return x;</span>
-<span class="lineNum">      51 </span><span class="lineCov">        500 :   else return ((x &amp; 7) + 8) &lt;&lt; (e - 1);</span>
+<span class="lineNum">      48 </span><span class="lineCov">        506 : int luaO_fb2int (int x) {</span>
+<span class="lineNum">      49 </span><span class="lineCov">        506 :   int e = (x &gt;&gt; 3) &amp; 0x1f;</span>
+<span class="lineNum">      50 </span><span class="lineCov">        506 :   if (e == 0) return x;</span>
+<span class="lineNum">      51 </span><span class="lineCov">        506 :   else return ((x &amp; 7) + 8) &lt;&lt; (e - 1);</span>
 <span class="lineNum">      52 </span>            : }
 <span class="lineNum">      53 </span>            : 
 <span class="lineNum">      54 </span>            : 
-<span class="lineNum">      55 </span><span class="lineCov">      40680 : int luaO_ceillog2 (unsigned int x) {</span>
+<span class="lineNum">      55 </span><span class="lineCov">      40685 : int luaO_ceillog2 (unsigned int x) {</span>
 <span class="lineNum">      56 </span>            :   static const lu_byte log_2[256] = {
 <span class="lineNum">      57 </span>            :     0,1,2,2,3,3,3,3,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
 <span class="lineNum">      58 </span>            :     6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,
@@ -129,31 +129,31 @@
 <span class="lineNum">      63 </span>            :     8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,
 <span class="lineNum">      64 </span>            :     8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8
 <span class="lineNum">      65 </span>            :   };
-<span class="lineNum">      66 </span><span class="lineCov">      40680 :   int l = 0;</span>
-<span class="lineNum">      67 </span><span class="lineCov">      40680 :   x--;</span>
-<span class="lineNum">      68 </span><span class="lineCov">      40702 :   while (x &gt;= 256) { l += 8; x &gt;&gt;= 8; }</span>
-<span class="lineNum">      69 </span><span class="lineCov">      40680 :   return l + log_2[x];</span>
+<span class="lineNum">      66 </span><span class="lineCov">      40685 :   int l = 0;</span>
+<span class="lineNum">      67 </span><span class="lineCov">      40685 :   x--;</span>
+<span class="lineNum">      68 </span><span class="lineCov">      40707 :   while (x &gt;= 256) { l += 8; x &gt;&gt;= 8; }</span>
+<span class="lineNum">      69 </span><span class="lineCov">      40685 :   return l + log_2[x];</span>
 <span class="lineNum">      70 </span>            : }
 <span class="lineNum">      71 </span>            : 
 <span class="lineNum">      72 </span>            : 
-<span class="lineNum">      73 </span><span class="lineCov">      15824 : int luaO_rawequalObj (const TValue *t1, const TValue *t2) {</span>
-<span class="lineNum">      74 </span><span class="lineCov">      15824 :   if (ttype(t1) != ttype(t2)) return 0;</span>
-<span class="lineNum">      75 </span><span class="lineCov">      14327 :   else switch (ttype(t1)) {</span>
+<span class="lineNum">      73 </span><span class="lineCov">      15828 : int luaO_rawequalObj (const TValue *t1, const TValue *t2) {</span>
+<span class="lineNum">      74 </span><span class="lineCov">      15828 :   if (ttype(t1) != ttype(t2)) return 0;</span>
+<span class="lineNum">      75 </span><span class="lineCov">      14334 :   else switch (ttype(t1)) {</span>
 <span class="lineNum">      76 </span>            :     case LUA_TNIL:
 <span class="lineNum">      77 </span><span class="lineCov">         17 :       return 1;</span>
 <span class="lineNum">      78 </span>            :     case LUA_TNUMBER:
-<span class="lineNum">      79 </span><span class="lineCov">       1133 :       return luai_numeq(nvalue(t1), nvalue(t2));</span>
+<span class="lineNum">      79 </span><span class="lineCov">       1135 :       return luai_numeq(nvalue(t1), nvalue(t2));</span>
 <span class="lineNum">      80 </span>            :     case LUA_TBOOLEAN:
 <span class="lineNum">      81 </span><span class="lineCov">        494 :       return bvalue(t1) == bvalue(t2);  /* boolean true must be 1 !! */</span>
 <span class="lineNum">      82 </span>            :     case LUA_TLIGHTUSERDATA:
 <span class="lineNum">      83 </span><span class="lineCov">        436 :       return pvalue(t1) == pvalue(t2);</span>
 <span class="lineNum">      84 </span>            :     case LUA_TSTRING:
-<span class="lineNum">      85 </span><span class="lineCov">      10088 :       return rawtsvalue(t1) == rawtsvalue(t2);</span>
+<span class="lineNum">      85 </span><span class="lineCov">      10092 :       return rawtsvalue(t1) == rawtsvalue(t2);</span>
 <span class="lineNum">      86 </span>            :     case LUA_TLCF:
 <span class="lineNum">      87 </span><span class="lineCov">        301 :       return fvalue(t1) == fvalue(t2);</span>
 <span class="lineNum">      88 </span>            :     default:
 <span class="lineNum">      89 </span>            :       lua_assert(iscollectable(t1));
-<span class="lineNum">      90 </span><span class="lineCov">      15824 :       return gcvalue(t1) == gcvalue(t2);</span>
+<span class="lineNum">      90 </span><span class="lineCov">      15828 :       return gcvalue(t1) == gcvalue(t2);</span>
 <span class="lineNum">      91 </span>            :   }
 <span class="lineNum">      92 </span>            : }
 <span class="lineNum">      93 </span>            : 
@@ -173,18 +173,18 @@
 <span class="lineNum">     107 </span>            : 
 <span class="lineNum">     108 </span>            : 
 <span class="lineNum">     109 </span>            : static int checkend (const char *s, const char *endptr) {
-<span class="lineNum">     110 </span><span class="lineCov">       2524 :   if (endptr == s) return 0;  /* no characters converted */</span>
-<span class="lineNum">     111 </span><span class="lineCov">       2490 :   while (lisspace(cast(unsigned char, *endptr))) endptr++;</span>
-<span class="lineNum">     112 </span><span class="lineCov">       2486 :   return (*endptr == '\0');  /* OK if no trailing characters */</span>
+<span class="lineNum">     110 </span><span class="lineCov">       2526 :   if (endptr == s) return 0;  /* no characters converted */</span>
+<span class="lineNum">     111 </span><span class="lineCov">       2492 :   while (lisspace(cast(unsigned char, *endptr))) endptr++;</span>
+<span class="lineNum">     112 </span><span class="lineCov">       2488 :   return (*endptr == '\0');  /* OK if no trailing characters */</span>
 <span class="lineNum">     113 </span>            : }
 <span class="lineNum">     114 </span>            : 
 <span class="lineNum">     115 </span>            : 
-<span class="lineNum">     116 </span><span class="lineCov">       2504 : int luaO_str2d (const char *s, lua_Number *result) {</span>
+<span class="lineNum">     116 </span><span class="lineCov">       2506 : int luaO_str2d (const char *s, lua_Number *result) {</span>
 <span class="lineNum">     117 </span>            :   char *endptr;
-<span class="lineNum">     118 </span><span class="lineCov">       2504 :   *result = lua_str2number(s, &amp;endptr);</span>
-<span class="lineNum">     119 </span><span class="lineCov">       2504 :   if (checkend(s, endptr)) return 1;  /* conversion OK? */</span>
+<span class="lineNum">     118 </span><span class="lineCov">       2506 :   *result = lua_str2number(s, &amp;endptr);</span>
+<span class="lineNum">     119 </span><span class="lineCov">       2506 :   if (checkend(s, endptr)) return 1;  /* conversion OK? */</span>
 <span class="lineNum">     120 </span><span class="lineCov">         20 :   *result = cast_num(strtoul(s, &amp;endptr, 0)); /* try hexadecimal */</span>
-<span class="lineNum">     121 </span><span class="lineCov">       2504 :   return checkend(s, endptr);</span>
+<span class="lineNum">     121 </span><span class="lineCov">       2506 :   return checkend(s, endptr);</span>
 <span class="lineNum">     122 </span>            : }
 <span class="lineNum">     123 </span>            : 
 <span class="lineNum">     124 </span>            : 
