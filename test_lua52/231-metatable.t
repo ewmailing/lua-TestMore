@@ -29,7 +29,7 @@ See "Programming in Lua", section 13 "Metatables and Metamethods".
 
 require 'Test.More'
 
-plan(89)
+plan(90)
 
 t = {}
 is(getmetatable(t), nil, "metatable")
@@ -299,6 +299,21 @@ end
 table.sort(r)
 is( table.concat(r, ','), 'a,b,c', "__pairs" )
 
+local t = {
+    _VALUES = { 'a', 'b', 'c' }
+}
+local mt = {
+    __ipairs = function (op)
+        return ipairs(op._VALUES)
+    end
+}
+setmetatable(t, mt)
+
+r = ''
+for i, v in ipairs(t) do
+    r = r .. v
+end
+is( r, 'abc', "__ipairs" )
 
 --[[ Window ]]
 
