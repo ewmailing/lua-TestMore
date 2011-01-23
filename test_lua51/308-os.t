@@ -35,7 +35,7 @@ local prog = arg[-1]
 local lua_on_parrot = prog:find'parrot' or prog:find'pbc' or prog:find'pir'
 local lua = (platform and platform.lua) or prog
 
-plan(37)
+plan(38)
 
 clk = os.clock()
 type_ok(clk, 'number', "function clock")
@@ -90,7 +90,8 @@ is(r, true, "function remove")
 
 r, msg = os.remove('file.rm')
 is(r, nil, "function remove")
-like(msg, '^file.rm: No such file or directory')
+like(msg, '^file.rm:')
+like(msg, 'No such file or directory$')
 
 local f = io.open('file.old', 'w')
 f:write("file to rename")
