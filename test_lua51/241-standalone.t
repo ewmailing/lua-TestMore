@@ -28,8 +28,13 @@ L<http://www.lua.org/manual/5.1/manual.html#6>.
 require 'Test.More'
 
 local lua = (platform and platform.lua) or arg[-1]
+local luac = 'luac'
 
 plan(14)
+
+f = io.popen(luac .. " -v 2>&1")
+local has_luac = f:read'*l':match'^Lua'
+f:close()
 
 f = io.open('hello.lua', 'w')
 f:write([[
@@ -44,8 +49,11 @@ f:close()
 
 if arg[-1] == 'luajit' then
     skip("luajit: cannot load Lua bytecode", 1)
+elseif not has_luac then
+    skip("no luac", 1)
 else
-    os.execute "luac -o hello.luac hello.lua"
+    cmd = luac .. " -o hello.luac hello.lua"
+    os.execute(cmd)
 
     cmd = lua .. " hello.luac"
     f = io.popen(cmd)
