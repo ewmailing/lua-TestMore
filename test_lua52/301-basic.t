@@ -29,7 +29,7 @@ L<http://www.lua.org/manual/5.2/manual.html#6.1>.
 
 require 'Test.More'
 
-plan(145)
+plan(147)
 
 if arg[-1] == 'luajit' then
     like(_VERSION, '^Lua 5%.1', "variable _VERSION")
@@ -142,6 +142,24 @@ s, v = f(a, s)
 is(s, nil)
 is(v, nil)
 
+t = { [[
+function bar (x)
+    return x
+end
+]] }
+i = 0
+f, msg = load(function()
+    i = i + 1
+    return t[i]
+end)
+if msg then
+    diag(msg)
+end
+is(bar, nil, "function load(reader)")
+f()
+is(bar('ok'), 'ok')
+bar = nil
+
 if arg[-1] == 'luajit' then
     skip("LuaJIT. load (str)", 2)
 else
@@ -150,9 +168,10 @@ function bar (x)
     return x
 end
 ]])
-    is(bar, nil, "function load")
+    is(bar, nil, "function load(str)")
     f()
     is(bar('ok'), 'ok')
+    bar = nil
 end
 
 if arg[-1] == 'luajit' then
