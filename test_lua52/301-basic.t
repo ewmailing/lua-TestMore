@@ -29,7 +29,7 @@ L<http://www.lua.org/manual/5.2/manual.html#6.1>.
 
 require 'Test.More'
 
-plan(147)
+plan(153)
 
 if arg[-1] == 'luajit' then
     like(_VERSION, '^Lua 5%.1', "variable _VERSION")
@@ -148,20 +148,31 @@ function bar (x)
 end
 ]] }
 i = 0
-f, msg = load(function()
+function reader ()
     i = i + 1
     return t[i]
-end)
+end
+f, msg = load(reader)
 if msg then
     diag(msg)
 end
-is(bar, nil, "function load(reader)")
+type_ok(f, 'function', "function load(reader)")
+is(bar, nil)
 f()
 is(bar('ok'), 'ok')
 bar = nil
 
+t = { [[?syntax error?]] }
+i = 0
+f, msg = load(reader, "errorchunk")
+is(f, nil, "function load(syntax error)")
+like(msg, "^%[string \"errorchunk\"%]:%d+:")
+
+f = load(function () return nil end)
+type_ok(f, 'function', "when reader returns nothing")
+
 if arg[-1] == 'luajit' then
-    skip("LuaJIT. load (str)", 2)
+    skip("LuaJIT. load (str)", 4)
 else
     f = load([[
 function bar (x)
@@ -172,6 +183,10 @@ end
     f()
     is(bar('ok'), 'ok')
     bar = nil
+
+    f, msg = load([[?syntax error?]], "errorchunk")
+    is(f, nil, "function load(syntax error)")
+    like(msg, "^%[string \"errorchunk\"%]:%d+:")
 end
 
 if arg[-1] == 'luajit' then
