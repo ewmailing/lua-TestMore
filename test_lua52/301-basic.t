@@ -171,23 +171,19 @@ like(msg, "^%[string \"errorchunk\"%]:%d+:")
 f = load(function () return nil end)
 type_ok(f, 'function', "when reader returns nothing")
 
-if arg[-1] == 'luajit' then
-    skip("LuaJIT. load (str)", 4)
-else
-    f = load([[
+f = load([[
 function bar (x)
     return x
 end
 ]])
-    is(bar, nil, "function load(str)")
-    f()
-    is(bar('ok'), 'ok')
-    bar = nil
+is(bar, nil, "function load(str)")
+f()
+is(bar('ok'), 'ok')
+bar = nil
 
-    f, msg = load([[?syntax error?]], "errorchunk")
-    is(f, nil, "function load(syntax error)")
-    like(msg, "^%[string \"errorchunk\"%]:%d+:")
-end
+f, msg = load([[?syntax error?]], "errorchunk")
+is(f, nil, "function load(syntax error)")
+like(msg, "^%[string \"errorchunk\"%]:%d+:")
 
 if arg[-1] == 'luajit' then
     skip("LuaJIT intentional. loadin", 2)

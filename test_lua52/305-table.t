@@ -243,10 +243,6 @@ error_like(function ()
            "^[^:]+:%d+: invalid order function for sorting",
            "function sort (bad func)")
 
-if arg[-1] == 'luajit' then
-    diag("LuaJIT TODO. unpack")
-    table.unpack = unpack
-end
 eq_array({table.unpack({})}, {}, "function unpack")
 eq_array({table.unpack({'a'})}, {'a'})
 eq_array({table.unpack({'a','b','c'})}, {'a','b','c'})
