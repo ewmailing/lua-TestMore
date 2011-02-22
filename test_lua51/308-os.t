@@ -35,7 +35,7 @@ local prog = arg[-1]
 local lua_on_parrot = prog:find'parrot' or prog:find'pbc' or prog:find'pir'
 local lua = (platform and platform.lua) or prog
 
-plan(38)
+plan(39)
 
 clk = os.clock()
 type_ok(clk, 'number', "function clock")
@@ -103,7 +103,8 @@ os.remove('file.new') -- clean up
 
 r, msg = os.rename('file.old', 'file.new')
 is(r, nil, "function rename")
-like(msg, '^file.old: No such file or directory')
+like(msg, '^file.old: ')
+like(msg, ' No such file or directory$')
 
 is(os.setlocale('C', 'all'), 'C', "function setlocale")
 is(os.setlocale(), 'C')
