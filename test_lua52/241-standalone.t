@@ -2,7 +2,7 @@
 --
 -- lua-TestMore : <http://fperrad.github.com/lua-TestMore/>
 --
--- Copyright (C) 2009-2010, Perrad Francois
+-- Copyright (C) 2009-2011, Perrad Francois
 --
 -- This code is licensed under the terms of the MIT/X11 license,
 -- like Lua itself.
@@ -14,7 +14,7 @@
 
 =head2 Synopsis
 
-    % perl t/standalone.t
+    % prove 241-standalone.t
 
 =head2 Description
 
@@ -28,9 +28,8 @@ L<http://www.lua.org/manual/5.2/manual.html#7>.
 require 'Test.More'
 
 local lua = (platform and platform.lua) or arg[-1]
-local luac = 'luac'
 
-plan(25)
+plan(19)
 diag(lua)
 
 f = io.open('hello.lua', 'w')
@@ -60,7 +59,7 @@ f:close()
 if arg[-1] == 'luajit' then
     skip("LuaJIT intentional. cannot load Lua bytecode", 1)
 else
-    os.execute(luac .. " -s -o hello.luac hello.lua")
+    os.execute(lua .. "c -s -o hello.luac hello.lua")
 
     cmd = lua .. " hello.luac"
     f = io.popen(cmd)
@@ -93,7 +92,12 @@ f:close()
 
 cmd = lua .. [[ -e 2>&1]]
 f = io.popen(cmd)
-like(f:read'*l', "^[^:]+: '%-e' needs argument", "no file")
+if arg[-1] == 'luajit' then
+    skip("LuaJIT.", 1)
+else
+    like(f:read'*l', "^[^:]+: '%-e' needs argument", "no file")
+end
+like(f:read'*l', "^usage: ", "no file")
 f:close()
 
 cmd = lua .. [[ -v 2>&1]]
@@ -109,7 +113,12 @@ f:close()
 
 cmd = lua .. [[ -u 2>&1]]
 f = io.popen(cmd)
-like(f:read'*l', "^[^:]+: unrecognized option '%-u'", "unknown option")
+if arg[-1] == 'luajit' then
+    skip("LuaJIT.", 1)
+else
+    like(f:read'*l', "^[^:]+: unrecognized option '%-u'", "unknown option")
+end
+like(f:read'*l', "^usage: ", "no file")
 f:close()
 
 cmd = lua .. [[ -lTest.More -e "print(type(Test.More.ok))"]]
@@ -130,35 +139,6 @@ f:close()
 cmd = lua .. [[ -l no_lib hello.lua 2>&1]]
 f = io.popen(cmd)
 like(f:read'*l', "^[^:]+: module 'no_lib' not found:", "-l no lib")
-f:close()
-
---[[ luac ]]
-cmd = luac .. [[ -v 2>&1]]
-f = io.popen(cmd)
-like(f:read'*l', '^Lua', "-v")
-f:close()
-
-cmd = luac .. [[ -u 2>&1]]
-f = io.popen(cmd)
-like(f:read'*l', "^[^:]+: unrecognized option '%-u'", "unknown option")
-like(f:read'*l', "^usage:")
-f:close()
-
-cmd = luac .. [[ -p hello.lua 2>&1]]
-f = io.popen(cmd)
-is(f:read'*l', nil)
-f:close()
-
-cmd = luac .. [[ -p no_file.lua 2>&1]]
-f = io.popen(cmd)
-like(f:read'*l', "^[^:]+: cannot open no_file.lua", "no file")
-f:close()
-
-cmd = luac .. [[ -v -l -l hello.lua]]
-f = io.popen(cmd)
-like(f:read'*l', '^Lua', "-v")
-is(f:read'*l', '')
-like(f:read'*l', "^main")
 f:close()
 
 os.remove('hello.lua') -- clean up
