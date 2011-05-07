@@ -2,7 +2,7 @@
 --
 -- lua-TestMore : <http://fperrad.github.com/lua-TestMore/>
 --
--- Copyright (C) 2009-2010, Perrad Francois
+-- Copyright (C) 2009-2011, Perrad Francois
 --
 -- This code is licensed under the terms of the MIT/X11 license,
 -- like Lua itself.
@@ -190,7 +190,9 @@ for _, filename in ipairs(test_files) do
                 local pattern = result:sub(2, result:len() - 1)
                 error_like(compiled, pattern, desc)
             else
-                is(compiled(), result, desc)
+                local out
+                pcall(function () out = compiled() end)
+                is(out, result, desc)
             end
         end
         f:close()
