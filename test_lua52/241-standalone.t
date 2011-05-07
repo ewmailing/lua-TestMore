@@ -29,19 +29,11 @@ require 'Test.More'
 
 local lua = (platform and platform.lua) or arg[-1]
 
-plan(19)
+plan(21)
 diag(lua)
 
 f = io.open('hello.lua', 'w')
 f:write([[
-local a = 1
-b = a + 1
-pi = 3.14
-s = "all escaped \1\a\b\f\n\r\t\v\\\""
-local t = { "a", "b", "c", "d" }
-local f = table.concat
-local function f () while true do print(a) end end
-
 print 'Hello World'
 ]])
 f:close()
@@ -57,16 +49,23 @@ like(f:read'*l', "^[^:]+: cannot open no_file.lua", "no file")
 f:close()
 
 if arg[-1] == 'luajit' then
-    skip("LuaJIT intentional. cannot load Lua bytecode", 1)
+    skip("LuaJIT intentional. cannot load Lua bytecode", 3)
 else
     os.execute(lua .. "c -s -o hello.luac hello.lua")
-
     cmd = lua .. " hello.luac"
     f = io.popen(cmd)
     is(f:read'*l', 'Hello World', "bytecode")
     f:close()
 
+    os.execute(lua .. "c -s -o hello2.luac hello.lua hello.lua")
+    cmd = lua .. " hello2.luac"
+    f = io.popen(cmd)
+    is(f:read'*l', 'Hello World', "combine 1")
+    is(f:read'*l', 'Hello World', "combine 2")
+    f:close()
+
     os.remove('hello.luac') -- clean up
+    os.remove('hello2.luac') -- clean up
 end
 
 cmd = lua .. " < hello.lua"
