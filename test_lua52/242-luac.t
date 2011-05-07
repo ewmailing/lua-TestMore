@@ -34,7 +34,7 @@ end
 local lua = (platform and platform.lua) or arg[-1]
 local luac = lua .. 'c'
 
-plan(8)
+plan(10)
 diag(luac)
 
 f = io.open('hello.lua', 'w')
@@ -79,7 +79,14 @@ is(f:read'*l', '')
 like(f:read'*l', "^main")
 f:close()
 
+cmd = luac .. [[ -l luac.out]]
+f = io.popen(cmd)
+is(f:read'*l', '')
+like(f:read'*l', "^main")
+f:close()
+
 os.remove('hello.lua') -- clean up
+os.remove('luac.out') -- clean up
 
 -- Local Variables:
 --   mode: lua
