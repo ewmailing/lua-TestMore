@@ -142,16 +142,12 @@ is(s1, "file with text")
 is(s2, nil)
 f:close()
 
-if arg[-1] == 'luajit' then
-    skip("LuaJIT TODO. read *L.", 3)
-else
-    f = io.open('file.txt')
-    s1, s2 = f:read('*L', '*L')
-    is(s1:len(), 15, "method read *L")
-    is(s1, "file with text\n")
-    is(s2, nil)
-    f:close()
-end
+f = io.open('file.txt')
+s1, s2 = f:read('*L', '*L')
+is(s1:len(), 15, "method read *L")
+is(s1, "file with text\n")
+is(s2, nil)
+f:close()
 
 f = io.open('file.txt')
 n1, n2 = f:read('*n', '*n')

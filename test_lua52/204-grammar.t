@@ -31,10 +31,6 @@ plan(3)
 
 --[[ empty statement ]]
 f, msg = loadstring [[; a = 1]]
-if arg[-1] == 'luajit' then
-    todo("LuaJIT TODO. empty statement.", 1)
-    diag(msg)
-end
 type_ok(f, 'function', "empty statement")
 
 --[[ orphan break ]]

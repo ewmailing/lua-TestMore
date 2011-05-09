@@ -82,9 +82,6 @@ co = coroutine.create(function ()
 
 coroutine.resume(co)
 thr, ismain = coroutine.running(co)
-if arg[-1] == 'luajit' then
-    todo("LuaJIT. running", 2)
-end
 type_ok(thr, 'thread', "running")
 is(ismain, true, "running")
 is(coroutine.status(co), 'suspended', "basics")

@@ -60,14 +60,10 @@ local m = require 'Test.More'
 m.ok(true, "function require")
 is(m, package.loaded['Test.More'])
 
-if arg[-1] == 'luajit' then
-    skip("LuaJIT TODO. searchpath", 2)
-else
-    p = package.searchpath('Test.More', package.path)
-    type_ok(p, 'string', "searchpath")
-    p = package.searchpath('Test.More', 'bad path')
-    is(p, nil)
-end
+p = package.searchpath('Test.More', package.path)
+type_ok(p, 'string', "searchpath")
+p = package.searchpath('Test.More', 'bad path')
+is(p, nil)
 
 f = io.open('complex.lua', 'w')
 f:write [[
