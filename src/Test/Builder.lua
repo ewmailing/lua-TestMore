@@ -312,11 +312,11 @@ function m:set_todo_output (f, s)
 	self.todo_socket = s
 end
 
-function get_todo_output (self)
+function m:get_todo_output ()
     return self.todo_file, self.todo_socket
 end
 
-function reset_outputs (self)
+function m:reset_outputs ()
     self:set_output(testout, nil)
     self:set_failure_output(testerr, nil)
     self:set_todo_output(testout, nil)
