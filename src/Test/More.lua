@@ -17,6 +17,11 @@ local tb = require 'Test.Builder':new()
 _ENV = nil
 local m = {}
 
+-- Need access to Test.Builder object to setup things like files and sockets.
+function m.test_builder()
+	return tb
+end
+
 function m.plan (arg)
     tb:plan(arg)
 end
