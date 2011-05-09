@@ -1,6 +1,6 @@
 
 --
--- lua-TestMore : <http://testmore.luaforge.net/>
+-- lua-TestMore : <http://fperrad.github.com/lua-TestMore/>
 --
 
 local _G = _G
@@ -16,6 +16,11 @@ require 'Test.Builder'
 local tb = Test.Builder:new()
 
 module 'Test.More'
+
+-- Need access to Test.Builder object to setup things like files and sockets.
+function test_builder()
+	return tb
+end
 
 function plan (arg)
     tb:plan(arg)

@@ -1,7 +1,8 @@
-
 --
--- lua-TestMore : <http://testmore.luaforge.net/>
+-- lua-TestMore : <http://fperrad.github.com/lua-TestMore/>
 --
+-- LuaSocket is implicitly used, but require may not actually be necessary here.
+-- local socket = require 'socket' 
 
 local debug = require 'debug'
 local io = require 'io'
@@ -14,6 +15,7 @@ local setmetatable = setmetatable
 local tonumber = tonumber
 local tostring = tostring
 local type = type
+local assert = assert
 
 module 'Test.Builder'
 
@@ -21,16 +23,22 @@ local testout = io and io.stdout
 local testerr = io and (io.stderr or io.stdout)
 
 local function _print (self, ...)
-    local f = self:output()
-    if f then
-        f:write(..., "\n")
+    local f, s = self:get_output()
+    if s then
+		local message = tostring(table.concat({...}))
+		-- Using assert to trap socket disconnects/problems.
+		-- Our convention overrides assert in our app specific setup scripts
+		-- to do special custom error handling.
+		assert(s:send(message .."\n"))
+	elseif f then
+		f:write(..., "\n")
     else
         print(...)
     end
 end
 
-local function print_comment (f, ...)
-    if f then
+local function print_comment (f, s, ...)
+    if s or f then
         local arg = {...}
         for k, v in pairs(arg) do
             arg[k] = tostring(v)
@@ -39,7 +47,14 @@ local function print_comment (f, ...)
         msg = msg:gsub("\n", "\n# ")
         msg = msg:gsub("\n# \n", "\n#\n")
         msg = msg:gsub("\n# $", '')
-        f:write("# ", msg, "\n")
+		if s then
+			-- Using assert to trap socket disconnects/problems.
+			-- Our convention overrides assert in our app specific setup scripts
+			-- to do special custom error handling.
+			assert(s:send("# " .. msg .. "\n"))
+		elseif f then
+			f:write("# ", msg, "\n")
+		end
     else
         print("# ", ...)
     end
@@ -254,45 +269,56 @@ end
 
 local function diag_file (self)
     if in_todo(self) then
-        return self:todo_output()
+		local f, s =  self:get_failure_output()
+        return f,s
     else
-        return self:failure_output()
+		local f, s =  self:get_failure_output()
+        return f, s
     end
 end
 
 function diag (self, ...)
-    print_comment(diag_file(self), ...)
+	local f, s = diag_file(self)
+    print_comment(f, s, ...)
 end
 
 function note (self, ...)
-    print_comment(self:output(), ...)
+	local f, s = self:get_output()
+    print_comment(f, s, ...)
 end
 
-function output (self, f)
-    if f then
-        self.out_file = f
-    end
-    return self.out_file
+function set_output (self, f, s)
+	self.out_file = f
+	self.out_socket = s
 end
 
-function failure_output (self, f)
-    if f then
-        self.fail_file = f
-    end
-    return self.fail_file
+function get_output (self)
+    return self.out_file, self.out_socket
 end
 
-function todo_output (self, f)
-    if f then
-        self.todo_file = f
-    end
-    return self.todo_file
+function set_failure_output (self, f, s)
+	self.fail_file = f
+	self.fail_socket = s
+    return self.fail_file, self.fail_socket
+end
+
+function get_failure_output (self)
+    return self.fail_file, self.fail_socket
+end
+
+function set_todo_output (self, f, s)
+	self.todo_file = f
+	self.todo_socket = s
+end
+
+function get_todo_output (self)
+    return self.todo_file, self.todo_socket
 end
 
 function reset_outputs (self)
-    self:output(testout)
-    self:failure_output(testerr)
-    self:todo_output(testout)
+    self:set_output(testout, nil)
+    self:set_failure_output(testerr, nil)
+    self:set_todo_output(testout, nil)
 end
 
 --
@@ -301,3 +327,6 @@ end
 -- This library is licensed under the terms of the MIT/X11 license,
 -- like Lua itself.
 --
+
+
+
